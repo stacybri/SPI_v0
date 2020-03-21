@@ -13,6 +13,7 @@ library(wbstats)
 library(httr)
 library(jsonlite)
 library(leaflet)
+library(shinycssloaders)
 
 
 
@@ -62,32 +63,52 @@ countries <- geojsonio::geojson_read("WB_countries_Admin0_lowres.geojson",
 
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(
+ui <- navbarPage("Statistical Performance Index - Availability of Key Indicators", id="nav",
+                 
+                 tabPanel("Indicator map",
+                        div(class="outer",
+                 
+                 
+                          
+                                
+                              
+                              
+                              # If not using custom CSS, set height of leafletOutput to a number instead of percent
+                              withSpinner(leafletOutput("indicator_map"
+                                            , width = "100%", height = "600px")),
+                              
+                              # Shiny versions prior to 0.11 should use class = "modal" instead.
+                              absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
+                                            draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
+                                            width = 330, height = "auto",
+                                            
+                                            h2("Indicator Selection"),
+                                            
+                                            selectizeInput("indicator",
+                                                           "  Indicator:",
+                                                           choices=NULL)
+                                            
+                                            
+                              )
+                              
+                        )
+                 )
+                              
+                          
+                 )
+    
 
-    # Application title
-    titlePanel("Indicator Coverage Data"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            selectizeInput("indicator",
-                        "Indicator:",
-                        choices=NULL)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            leafletOutput("indicator_map",
-                          height=1200),
-        )
-    )
-)
+    
+    
+    
+    
 
 # Define server logic required to draw a histogram
-server <- function(input, output,session) {
+server <- function(input, output, session) {
     
     #update choices for indicators    
-    updateSelectizeInput(session, 'indicator', choices = indicatorsJSON$name, server = TRUE)
+    updateSelectizeInput(session, 'indicator', choices = indicatorsJSON$name, server = TRUE,
+                         selected = 'GNI per capita (current US$)')
     
     #get id tag for selected choice
     get_tag <- reactive({
@@ -127,16 +148,16 @@ server <- function(input, output,session) {
         
         
         #create pallete
-        bins <- c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
-        pal <- colorNumeric(
-            palette = "Blues",
-            domain = map_df@data$value)
+        pal <- colorBin("RdYlBu", map_df@data$value, 10, pretty = T)
+        
+        
         
         #create labels
         labels <- sprintf(
             "<strong>%s</strong><br/> <hr size=2>
-            <strong> %g%% </strong> %s",
-            map_df@data$NAME_EN, round(map_df@data$value, digits = 1), input$indicator
+            <strong>%s</strong><br/> <hr size=2>
+            <strong> %g </strong>",
+            map_df@data$NAME_EN, input$indicator, round(map_df@data$value, digits = 1)
             
         ) %>% 
             lapply(htmltools::HTML)
