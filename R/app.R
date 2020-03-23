@@ -16,6 +16,7 @@ library(leaflet)
 library(shinycssloaders)
 library(rgdal)
 library(geojsonio)
+library(DT)
 ############
 # set reference year
 ############
@@ -94,9 +95,9 @@ ui <- navbarPage("Statistical Performance Index - Availability of Key Indicators
                               withSpinner(leafletOutput("aki_map"
                                                         , width = "100%", height = "900px")),
                               
-                              
+                              withSpinner(DT::dataTableOutput("indicators_choices")),
                               # Shiny versions prior to 0.11 should use class = "modal" instead.
-                              absolutePanel(id = "aki_controls", class = "panel panel-default", fixed = TRUE,
+                              absolutePanel(id = "aki_controls", class = "panel panel-default", fixed = FALSE,
                                             draggable = FALSE, top = 60, left = "auto", right = 20, bottom = "auto",
                                             width = 330, height = "auto",
                                            
@@ -220,13 +221,42 @@ server <- function(input, output, session) {
         
         get_tag_aki_df<-wdisJSON %>%
             filter(name %in% input$aki) %>%
-            arrange(factor(name, levels = input$aki))
+            arrange(factor(name, levels = input$aki)) %>%
+            select(id, name, sourceNote, sourceOrganization)
         
         
         get_tag_aki_df[,'id']
         
     })
     
+    
+    ###########
+    # SPI AKI Datatable
+    ###########
+    
+    output$indicators_choices <- DT::renderDataTable({
+        
+        get_tag_aki_tab<-wdisJSON %>%
+            filter(name %in% input$aki) %>%
+            arrange(factor(name, levels = input$aki)) %>%
+            select(id, name, sourceNote, sourceOrganization)
+        
+        
+        
+        DT::datatable(get_tag_aki_tab, caption="Table of Chosen SPI AKI Indicator Metadata",
+                      rownames=FALSE,
+                      colnames = c("Indicator ID", "Indicator Name", "Source Note", "Source Organization"),
+                      class='cell-border stripe',
+                      escape = FALSE,
+                      extensions = c ('Buttons', 'FixedHeader'), options=list(
+                          dom = 'Bfrtip',
+                          buttons = c('copy', 'csv', 'excel'),
+                          pageLength = 60,
+                          scrollX = TRUE, 
+                          paging=FALSE,
+                          ordering=F)) 
+        
+    })
     ###########
     # Now pull data using IDs for WDI and calculate AKI
     ###########
