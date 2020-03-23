@@ -133,7 +133,7 @@ ui <- navbarPage("Statistical Performance Index - Availability of Key Indicators
                               
                           )
                  ),
-                 tabPanel("Indicator map",
+                 tabPanel("SDG Indicator map",
                         div(class="outer",
                  
                  
@@ -142,7 +142,7 @@ ui <- navbarPage("Statistical Performance Index - Availability of Key Indicators
                               
                               
                               # If not using custom CSS, set height of leafletOutput to a number instead of percent
-                              withSpinner(leafletOutput("indicator_map"
+                              withSpinner(leafletOutput("indicator_map_sdg"
                                             , width = "100%", height = "900px")),
                               
                               # Shiny versions prior to 0.11 should use class = "modal" instead.
@@ -161,6 +161,35 @@ ui <- navbarPage("Statistical Performance Index - Availability of Key Indicators
                               )
                               
                         )
+                 ),
+                 tabPanel("WDI Indicator map",
+                          div(class="outer",
+                              
+                              
+                              
+                              
+                              
+                              
+                              # If not using custom CSS, set height of leafletOutput to a number instead of percent
+                              withSpinner(leafletOutput("indicator_map_wdis"
+                                                        , width = "100%", height = "900px")),
+                              
+                              # Shiny versions prior to 0.11 should use class = "modal" instead.
+                              absolutePanel(id = "controls_wdis", class = "panel panel-default", fixed = TRUE,
+                                            draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
+                                            width = 330, height = "auto",
+                                            
+                                            h2("WDI Indicator Selection"),
+                                            h4("This tool allows us to see the geographic coverage of any specific indicator among the WDI indicators."),
+                                            selectizeInput("indicator_wdis",
+                                                           "  Indicator:",
+                                                           choices = wdisJSON$name,
+                                                           selected = 'Unemployment, total (% of total labor force) (national estimate)')
+                                            
+                                            
+                              )
+                              
+                          )
                  )
                  
                  
@@ -504,7 +533,7 @@ df_aki<- reactive({
     
     
     ######################
-    # Map of All Indicators
+    # Map of All SDG Indicators
     ######################
 
     #get id tag for selected choice
@@ -527,25 +556,29 @@ df_aki<- reactive({
     df_sdgs <- reactive({
        wb(country="countries_only", 
                   indicator=get_tag(),
-                  mrv=1) %>%
-        mutate(ISO_A3_EH=iso3c) 
+                   mrv=5) %>%
+            group_by(country) %>%
+            filter(!is.na(value)) %>%
+            arrange(desc(as.numeric(date))) %>%
+            summarise_all(~first(.)) %>% #group by country to create one observation per country containing whether or not data point existed
+            mutate(ISO_A3_EH=iso3c) 
     
     })
 
     
     
-    output$indicator_map <- renderLeaflet({
+    output$indicator_map_sdg <- renderLeaflet({
         
-        map_df<-countries
+        map_df_sdg<-countries
         
-        map_df@data <- map_df@data %>%
+        map_df_sdg@data <- map_df_sdg@data %>%
             left_join(df_sdgs()) 
         
         
         
         
         #create pallete
-        pal <- colorBin("RdYlBu", map_df@data$value, 10, pretty = T)
+        pal <- colorBin("RdYlBu", map_df_sdg@data$value, 10, pretty = T)
         
         
         
@@ -554,19 +587,95 @@ df_aki<- reactive({
             "<strong>%s</strong><br/> <hr size=2>
             <strong>%s</strong><br/> <hr size=2>
             <strong> %g </strong>",
-            map_df@data$NAME_EN, input$indicator, round(map_df@data$value, digits = 1)
+            map_df_sdg@data$NAME_EN, input$indicator, round(map_df_sdg@data$value, digits = 1)
             
         ) %>% 
             lapply(htmltools::HTML)
         
         
-        leaflet(map_df) %>%
+        leaflet(map_df_sdg) %>%
             addProviderTiles(providers$Esri.WorldStreetMap) %>%
             addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
                         fillColor = ~pal(value),
                         popup=labels) %>%
             addLegend(pal=pal, values=~value, opacity=0.7, title=input$indicator, position="bottomright")
     })
+    
+    
+    
+    
+    ######################
+    # Map of All WDI Indicators
+    ######################
+    
+    #get id tag for selected choice
+    get_tag_wdis <- reactive({
+        
+        get_tag_wdis_df<-wdisJSON %>%
+            filter(name==input$indicator_wdis)
+        
+        
+        get_tag_wdis_df[,'id']
+        
+    })
+    
+    ###########
+    # Now pull data using IDs for WDI
+    ###########
+    
+    
+    
+    df_wdis <- reactive({
+        wb(country="countries_only", 
+           indicator=get_tag_wdis(),
+           mrv=5) %>%
+           group_by(country) %>%
+           filter(!is.na(value)) %>%
+           arrange(desc(as.numeric(date))) %>%
+           summarise_all(~first(.)) %>% #group by country to create one observation per country containing whether or not data point existed
+           mutate(ISO_A3_EH=iso3c) 
+
+    })
+    
+    
+    
+    output$indicator_map_wdis <- renderLeaflet({
+        
+        map_df_wdi<-countries
+        
+        map_df_wdi@data <- map_df_wdi@data %>%
+            left_join(df_wdis()) 
+        
+        
+        
+        
+        #create pallete
+        pal <- colorBin("RdYlBu", map_df_wdi@data$value, 10, pretty = T)
+        
+        
+        
+        #create labels
+        labels_wdi <- sprintf(
+            "<strong>%s</strong><br/> <hr size=2>
+            <strong>%s</strong><br/> <hr size=2>
+            <strong> %g </strong>",
+            map_df_wdi@data$NAME_EN, input$indicator_wdis, round(map_df_wdi@data$value, digits = 1)
+            
+        ) %>% 
+            lapply(htmltools::HTML)
+        
+        
+        leaflet(map_df_wdi) %>%
+            addProviderTiles(providers$Esri.WorldStreetMap) %>%
+            addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
+                        fillColor = ~pal(value),
+                        popup=labels_wdi) %>%
+            addLegend(pal=pal, values=~value, opacity=0.7, title=input$get_tag_wdis, position="bottomright")
+    })
+    
+    
+    
+    
 }
 
 # Run the application 
