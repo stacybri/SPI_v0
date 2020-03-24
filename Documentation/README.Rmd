@@ -1,0 +1,291 @@
+---
+title: "Statistical Performance Index - Availability of Key Indicators"
+output: 
+  github_document: default
+  toc: True
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(wbstats)
+library(httr)
+library(jsonlite)
+library(leaflet)
+library(ggcorrplot)
+library(skimr)
+
+work_dir<-"C:/Users/wb469649/Documents/Github/SPI_AKI/Documentation"
+
+```
+
+# Overview
+
+DECIS has been tasked with coming up with a set of roughly 12 indicators for the Availability of Key Indicators (AKI) dimension of the Statistical Performance Index (SPI).  Based on feedback from the concept note of the SPI, the SPI team has requested the indicators for the AKI:  
+
+  1.	Cover topic areas (i.e. the SDGs) as well as possible (for instance, in the current set of indicators below there is no coverage of environmental SDGs).    Tier 1 SDG indicators are preferred  
+  2.	The indicators must be (as much as possible) produced by the country statistical systems, so as to measure statistical capacity.  Not modelled estimates.
+  3.	Included in the WDI.  
+
+
+I am continually updating a dashboard to help us with the indicator selection here:
+https://datanalytics.worldbank.org/content/435
+
+## Statistical Performance Index Overview
+
+The SPI framework is designed to capture different aspects of national statistical capacity by employing most relevant and representative variables that are publicly available. The SPI can be used to gauge statistical performance of individual countries over time or cross-country comparisons of performance at a point in time. 
+
+The SPI aims to provide an objective, justifiable/verifiable assessment of the statistical performance of countries over time by using publicly available information from international agencies and country websites that were produced by national statistical systems. The SPI framework helps countries and development partners identify the strengths and weaknesses of national statistical systems and areas of potential improvements. It could also provide actionable guidance for national statistical systems in areas that may require further and deeper assessment. 
+Key characteristics of the SPI are:  
+
+  - Uses only publicly accessible data  
+  - Transparent methodology  
+  - Easily replicable  
+  - Provides a long-time series to track progress in performance  
+  - Captures outcomes and supporting elements   
+  - Reflects the SDGs.   
+  - Facilitates at-a-glance comparisons on a global scale  
+  
+A recent paper by Cameron et al. (2019) provides the conceptual foundation for SPI in measuring the ability of NSS to produce high quality data to inform national and international policy decisions  
+
+
+## Availability of Key Indicators (AKI) Overview
+
+Transforming source data into statistical outputs (indicators) and releasing them on a timely basis shows that the statistical systems are utilizing their capacity in data production. Reporting relevant data to specialized international agencies on time and getting them published in their respective databases demonstrates that statistical systems meet required quality standards and timeliness. Therefore, this dimension evaluates national statistical systems by reviewing the availability of country data for the most recent year in international databases. By looking at the data availability in international databases, it also makes the assessment cost-effective.
+
+The selection of the indicators under the AKI dimension is based on the following principles:  
+
+  - It should provide some assessment of national statistical performance, i.e. the indicators should be produced by countries;  
+  - The availability of indicators should be verifiable, with established standards and methodologies in producing the statistics.  
+  - It should help address the development concerns of countries, especially with SDGs. Nine indicators included in this category overlap to large extent with the Tier 1 SDG list that are conceptually clear, established methodology and standards are available and data regularly produced by countries;  
+  
+  
+These selected indicators cover key socio-economic and SDG indicators that have well established standards and methodology in the area of poverty, health, education, and economic development. It is assumed that if national statistical systems have capacity in the first two dimensions they should be able to produce these selected indicators. 
+
+
+# Initial Set of Indicators
+
+The initial proposal for the AKI is below.  The way the AKI index is scored is that countries are given a value of '1' if the indicator is available for the country and '0' otherwise.  The total AKI score for the country is then the 
+
+```{r aki_orig, echo=FALSE, message=FALSE, warning=FALSE}
+
+aki_orig<-read_csv(file=paste(work_dir, "aki_indicator_original.csv", sep="/"))
+
+kable(aki_orig,
+      caption = "Initial Proposed Set of AKI indicators by SPI Team",
+      col.names = c('Indicator', 'Score 1 - Data is available once in three years, prior to reference year', 'Score 0'),
+      format='markdown') 
+
+
+
+```
+
+
+
+
+
+# Full Set of Indicators Recommended by WDI team
+
+Additionally, led by Hiroko, we have a list of SDG indicators here suggested by the WDI team based on the criteria above.
+Below are the recommendations by the WDI team.
+
+```{r aki_rec, echo=FALSE, message=FALSE, warning=FALSE}
+
+aki_rec<-read_csv(file=paste(work_dir, "aki_indicator_recommendations.csv", sep="/")) 
+  
+
+kable(aki_rec,
+      caption = "Proposed Set of AKI indicators by WDI Team",
+      format='markdown') 
+
+
+
+```
+
+# Analysis of Proposed Indicators
+
+
+```{r data_pulls, include=FALSE}
+#########
+# Figure out the Source ID for SDGs
+#########
+# Get all the source names from the World Bank API
+sourceRequest <- GET(url = "http://api.worldbank.org/v2/sources?per_page=500&format=json")
+sourceResponse <- content(sourceRequest, as = "text", encoding = "UTF-8")
+
+# Parse the JSON content and convert it to a data frame.
+sourceJSON <- fromJSON(sourceResponse, flatten = TRUE) %>%
+  data.frame()
+
+# Print the data frame and review the source names and ids
+cols <- c("id","name")
+sourceJSON[,cols]
+
+
+##########
+# Pull Tags for SDG Data
+##########
+
+# make request to World Bank API
+indicatorRequest <- GET(url = "http://api.worldbank.org/v2/indicator?per_page=500&format=json&source=46")
+indicatorResponse <- content(indicatorRequest, as = "text", encoding = "UTF-8")
+
+# Parse the JSON content and convert it to a data frame.
+indicatorsJSON <- fromJSON(indicatorResponse, flatten = TRUE) %>%
+  data.frame()
+
+# Print and review the indicator names and ids from the dataframe
+cols <- c("id","name")
+#indicatorsJSON[,cols] # to view all the indicator names, remove the # at the beginning of this line. Please note that there are over 500 indicators.
+
+
+##########
+# Pull Tags for WDI Data
+##########
+
+# make request to World Bank API
+wdiRequest <- GET(url = "http://api.worldbank.org/v2/indicator?per_page=20000&format=json&source=2")
+wdiResponse <- content(wdiRequest, as = "text", encoding = "UTF-8")
+
+# Parse the JSON content and convert it to a data frame.
+wdisJSON <- fromJSON(wdiResponse, flatten = TRUE) %>%
+  data.frame()
+
+# Print and review the indicator names and ids from the dataframe
+cols <- c("id","name")
+#indicatorsJSON[,cols] # to view all the indicator names, remove the # at the beginning of this line. Please note that there are over 500 indicators.
+
+
+#revised list
+
+
+aki<-c('Poverty headcount ratio at national poverty lines (% of population)',
+        'Prevalence of undernourishment (% of population)',
+        'Prevalence of stunting, height for age (% of children under 5)',
+        'Maternal mortality ratio (national estimate, per 100,000 live births)',
+        'Mortality rate, under-5 (per 1,000 live births)',
+       'Immunization, measles (% of children ages 12-23 months)',
+       'Lower secondary completion rate, total (% of relevant age group)',
+       'School enrollment, secondary (gross), gender parity index (GPI)',
+       'Primary completion rate, total (% of relevant age group)',
+       'People using at least basic drinking water services (% of population)',
+       'Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
+       'Access to electricity (% of population)',
+       'Renewable electricity output (% of total electricity output)',
+       'GDP per capita growth (annual %)',
+        'Manufacturing, value added (% of GDP)',
+       'Unemployment, total (% of total labor force) (national estimate)',
+       'Research and development expenditure (% of GDP)',
+       'Annualized average growth rate in per capita real survey mean consumption or income, total population (%)',
+       'Urban population growth (annual %)',
+        'Total fisheries production (metric tons)',
+       'Completeness of birth registration (%)',
+       'Debt service (PPG and IMF only, % of exports of goods, services and primary income)',
+       'Individuals using the Internet (% of population)'
+)
+
+
+get_tag_aki_df<-wdisJSON %>%
+  filter(name %in% aki) %>%
+  arrange(factor(name, levels = aki))
+
+
+aki_list<-get_tag_aki_df[,'id']
+
+reference_year=2018
+df_aki <-wb(country="countries_only", 
+            indicator=aki_list,
+            mrv=3,
+            return_wide = T) %>%
+        filter((reference_year-as.numeric(date))<=3) %>% #filter out years outside reference window of 3 years
+        mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
+        group_by(country) %>%
+        summarise_all((~(if(is.numeric(.)) max(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country containing whether or not data point existed
+        # Availability of Key Indicator Country Score=Weighted Score÷Maximum Category Score ×100
+        mutate(AKI=100*rowMeans(.[aki_list], na.rm=T)) %>%
+        mutate(ISO_A3=iso3c) 
+
+
+
+
+
+
+```
+
+
+## Summary Statistics of Recommended AKI Indicators
+
+- Below we show the summary statistics of the AKI indicators  
+- These indicators have been converted to '0' or '1' indicators based on whether or not the indicator is available within a 3 year window of 2018
+
+```{r sumstats, echo=FALSE}
+        #add function to produce weighted summary stats
+        my_skim<-    skim_with( numeric = sfl( mean = ~ mean(.,   na.rm=TRUE),
+                                               sd = ~ sqrt(var(.,   na.rm=TRUE)),
+                                               p25 = ~ (quantile(., probs=c(0.25),   na.rm=TRUE)),
+                                               p50 = ~ (quantile(., probs=c(0.5),  na.rm=TRUE)),
+                                               p75 = ~ (quantile(., probs=c(0.75),  na.rm=TRUE)),
+                                               complete = ~ sum(!is.na(.)))) 
+        sumstats <- df_aki %>%
+            select(aki_list) 
+        
+        #produce summary stats
+        sumstats_df<-my_skim(sumstats) %>%
+            yank("numeric") %>%
+            mutate(id=skim_variable) %>%
+            select(id, mean, sd, p0, p25, p50, p75, p100, complete,  hist) 
+        
+        #create labels df
+        get_tag_aki_labs<-wdisJSON %>%
+            filter(name %in% aki) %>%
+            arrange(factor(name, levels = aki)) %>%
+            select(id, name)
+        
+        
+        #add variable label
+        sumstats_df <- sumstats_df %>%
+            left_join(get_tag_aki_labs) %>%
+            select(id, name,  mean, sd, p0, p25, p50, p75, p100, complete, hist)
+        
+      kable(sumstats_df,
+      caption = "Summary Statistics Across Countries of Proposed Set of AKI indicators by WDI Team",
+      format='markdown',
+      digits=2) 
+        
+        
+```
+
+
+## Correlations of Recommended AKI Indicators
+
+```{r correlations, echo=FALSE, fig.height=16, fig.width=18}
+
+names(aki_list)=aki
+
+#calculate correlations between teacher practices
+df_corr_plot <-    round(cor(select(df_aki,aki_list), use="complete.obs"), 2)
+
+#plot the correlation in a nicely formatted table
+pcorr<- ggcorrplot(df_corr_plot,
+                   outline.color = "white",
+                   ggtheme = theme_bw(),
+                   colors = c("#F8696B", "#FFEB84", "#63BE7B"),
+                   legend.title = "Correlation",
+                   title = "Correlation Between AKI Indicators",
+                   lab=T) + 
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10)) +
+  scale_y_discrete(labels = function(x) str_wrap(x, width = 20)) +
+  theme_bw() +
+  theme(
+    text = element_text(size = 12),
+  )
+
+pcorr
+
+
+```
+
+
+# Final Set of Indicators After Analysis
