@@ -167,24 +167,21 @@ ui <- navbarPage("Statistical Performance Index - Availability of Key Indicators
                                             selectizeInput("aki_updated",
                                                            "AKI Indicator Choices",
                                                            choices=wdisJSON$name,
-                                                           selected=c('Poverty headcount ratio at national poverty lines (% of population)',
+                                                           selected=c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
                                                                       'Prevalence of undernourishment (% of population)',
-                                                                      'Immunization, measles (% of children ages 12-23 months)',
-                                                                      'School enrollment, secondary (gross), gender parity index (GPI)',
+                                                                      'Mortality rate, under-5 (per 1,000 live births)',
                                                                       'Primary completion rate, total (% of relevant age group)',
-                                                                      'People using at least basic drinking water services (% of population)',
+                                                                      'Female share of employment in senior and middle management (%) ',
+                                                                      'People using safely managed drinking water services (% of population)',
+                                                                      'Access to electricity (% of population)',
+                                                                      'GDP per capita growth (annual %)',
+                                                                      'Research and development expenditure (% of GDP)',
+                                                                      'Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
                                                                       'Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
                                                                       'Renewable electricity output (% of total electricity output)',
-                                                                      'GDP per capita growth (annual %)',
-                                                                      'Unemployment, total (% of total labor force) (national estimate)',
-                                                                      'Manufacturing, value added (% of GDP)',
-                                                                      'Research and development expenditure (% of GDP)',
-                                                                      'Total fisheries production (metric tons)',
-                                                                      'Completeness of birth registration (%)',
-                                                                      'Urban population growth (annual %)',
                                                                       'Debt service (PPG and IMF only, % of exports of goods, services and primary income)',
-                                                                      'Individuals using the Internet (% of population)'
-                                                                      
+                                                                      'Completeness of birth registration (%)',
+                                                                      'Manufacturing, value added (% of GDP)'
                                                            ),
                                                            multiple=TRUE
                                             ),
@@ -778,16 +775,28 @@ server <- function(input, output, session) {
     # Availability of Key Indicator Country Score equals Weighted Score divided by Maximum Category Score time 100
     
     df_aki_updated<- reactive({
-        wb(country="countries_only", #pull country data
+        
+        wb(country="countries_only", 
            indicator=get_tag_aki_updated(),
-           mrv=5,
+           startdate=reference_year-4,
+           enddate=reference_year,
            return_wide = T) %>%
-            filter((reference_year-as.numeric(date))<=3) %>% #filter out years outside reference window of 3 years
             mutate_at(.vars=get_tag_aki_updated(), ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
             group_by(country) %>%
-            summarise_all((~(if(is.numeric(.)) max(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country containing whether or not data point existed
+            summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE)/5 else first(.)))) %>% #group by country to create one observation per country containing whether or not data point existed
             mutate(AKI=100*rowMeans(.[get_tag_aki_updated()], na.rm=T)) %>%
             mutate(ISO_A3_EH=iso3c) 
+        
+        # wb(country="countries_only", #pull country data
+        #    indicator=get_tag_aki_updated(),
+        #    mrv=5,
+        #    return_wide = T) %>%
+        #     filter((reference_year-as.numeric(date))<=3) %>% #filter out years outside reference window of 3 years
+        #     mutate_at(.vars=get_tag_aki_updated(), ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
+        #     group_by(country) %>%
+        #     summarise_all((~(if(is.numeric(.)) max(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country containing whether or not data point existed
+        #     mutate(AKI=100*rowMeans(.[get_tag_aki_updated()], na.rm=T)) %>%
+        #     mutate(ISO_A3_EH=iso3c) 
         
     })
     
