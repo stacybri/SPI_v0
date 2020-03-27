@@ -210,6 +210,23 @@ Safely managed drinking water has less coverage than basic drinking water.  The 
 
 ### Gender Equity
 
+Top tier indicators are:  
+  - Maternal Mortality  (Vital statistics are foundational to a statistical system)
+  - Gender Violence  (This is something imporant for statistical systems to build)
+  
+Second Tier:  
+  - Age of Marriage  
+  - Sexual reproductive
+  - Time use of females
+  
+### Education  
+
+Top tier indicator would be 4.1.1.  Could be built using HLO.  JP recommended a 4 year window.  Something like 1 point for having within a 4 year window.  0.5 points for within an 8 year window, 0 otherwise
+
+Recommneded possibility of covering spectum of SDG 4 indicators and creating an index across all SDGs.  THis would include all Tier 1 and Tier 2 indicators in an index.
+  
+
+
 ## Updated Scoring Methodology
 
   - The scoring methodology was altered in this iteration.  
