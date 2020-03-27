@@ -77,7 +77,7 @@
 !/**/**/*.md
 
 # csv files
-
+!/Data/**/*.csv
 #Powerpoint files
 !/**/**/*.ppt
 !/**/**/*.pptx

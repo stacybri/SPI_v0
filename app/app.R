@@ -778,7 +778,7 @@ server <- function(input, output, session) {
         
         wb(country="countries_only", 
            indicator=get_tag_aki_updated(),
-           startdate=reference_year-4,
+           startdate=reference_year-9,
            enddate=reference_year,
            return_wide = T) %>%
             mutate_at(.vars=get_tag_aki_updated(), ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country

@@ -1,9 +1,8 @@
 ---
 title: "Statistical Performance Index - Availability of Key Indicators"
 output:
-  word_document: default
-  toc: yes
   html_document: default
+  toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -51,6 +50,10 @@ Key characteristics of the SPI are:
   
 A recent paper by Cameron et al. (2019) provides the conceptual foundation for SPI in measuring the ability of NSS to produce high quality data to inform national and international policy decisions  
 
+
+### General Notes
+
+We could consider adding a metric on whether administrative data or private sector data is utilized by the statistical system.  This is what a modern statistical system should be able to do.
 
 ## Availability of Key Indicators (AKI) Overview
 
@@ -159,21 +162,21 @@ After consultation with WDI team, we decided to compose the AKI from 15 indicato
 
 Choosing among the indicators we received from WDI experts on important indicators, below is the chosen list:  
 
-  1. No Poverty: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)  
-  2. Zero Hunger:  Prevalence of undernourishment (% of population)
-  3. Good Health and Well-Being: Mortality rate, under-5 (per 1,000 live births)	 
-  4. Quality Education:  Primary completion rate, total (% of relevant age group)
-  5. Gender Equity:  Female share of employment in senior and middle management (%)
-  6. Clean Water and Sanitation:  People using safely managed drinking water services (% of population)	
-  7. Affordable and Clean Energy:  Energy intensity level of primary energy (MJ/$2011 PPP GDP)
-  8. Decent Work and Economic Growth:  GDP per capita growth (annual %)	
-  9. Industry, Innovation, and Infrastructure:  Research and development expenditure (% of GDP)	
-  10. Reduced Inequalities:  Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)
-  11. Environment:  Level of water stress: freshwater withdrawal as a proportion of available freshwater resources
-  12. Environment:  Renewable electricity output (% of total electricity output)
-  13. National Accounts:  Debt service (PPG and IMF only, % of exports of goods, services and primary income)	
-  14. National Accounts:  Completeness of birth registration (%)
-  15. National Accounts:  Manufacturing, value added (% of GDP)
+  1. **No Poverty:** Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)  
+  2. **Zero Hunger:**  Prevalence of undernourishment (% of population)
+  3. **Good Health and Well-Being:** Mortality rate, under-5 (per 1,000 live births)	 
+  4. **Quality Education:**  Primary completion rate, total (% of relevant age group)
+  5. **Gender Equity:**  Female share of employment in senior and middle management (%)
+  6. **Clean Water and Sanitation:**  People using safely managed drinking water services (% of population)	
+  7. **Affordable and Clean Energy:**  Access to electricity (% of population)
+  8. **Decent Work and Economic Growth:**  GDP per capita growth (annual %)	
+  9. **Industry, Innovation, and Infrastructure:**  Research and development expenditure (% of GDP)	
+  10. **Reduced Inequalities:**  Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)
+  11. **Environment:**  Level of water stress: freshwater withdrawal as a proportion of available freshwater resources
+  12. **Environment:**  Renewable electricity output (% of total electricity output)
+  13. **National Accounts:**  Debt service (PPG and IMF only, % of exports of goods, services and primary income)	
+  14. **National Accounts:**  Completeness of birth registration (%)
+  15. **National Accounts:**  Manufacturing, value added (% of GDP)
 
 
 ## Notes  
@@ -195,15 +198,27 @@ Choosing among the indicators we received from WDI experts on important indicato
   - Manufacturing, value added (% of GDP) original AKI indicator chosen by SPI team. Another option was the GDP price deflator, but this indicator would be perfectly correlated with GDP per capita growth which is already included.
   
 
+### Affordable and Clean Energy
+
+Access to electricity is the easiest.  These are typically based on a household survey (DHS, MICS).  Could theoretically do a breakdown for census versus survey data.  Pretty much every government, every year collects this data, but the quality is low in many cases.  In cases of low quality, this data is not used.  
+
+Some surveys (DHS, MICS) only ask a binary question of whether or not electricity available.  Some others offer richer data on quality, reliability, etc.  We could consider factoring these into our index.
+
+### Clean Water and Sanitation Notes 
+
+Safely managed drinking water has less coverage than basic drinking water.  The hurdle for countries is measuring water quality (test for E coli, etc).  Infrastructrure tends to be more static than other indicators, so expanding the window for the frequency of data may be needed.  May consider indicator system where we have 0 points for no data, 0.5 points for all data except water quality (this is available in a pdf report by the Bank and Unicef), and 1 point for full indicator for safely managed water.
+
+### Gender Equity
+
 ## Updated Scoring Methodology
 
   - The scoring methodology was altered in this iteration.  
   - We have switched from scoring '1' if in a three year window of 2018 and '0'.  
   - The new scoring methodology includes frequency as a criteria to help distinguish between country statistical systems  
 
-The score for an individual indicator $j$ for a country $i$ is now the fraction of times in a five year window an indicator is available.
+The score for an individual indicator $j$ for a country $i$ is now the fraction of times in a ten year window an indicator is available.
 
-$$ AKI_i^j=\frac{\sum_{t}^{5}{A_{it}^j}}{5} $$
+$$ AKI_i^j=\frac{\sum_{t}^{5}{A_{it}^j}}{10} $$
 
 For instance, if the reference window is 2018 and say a country has GDP data available in 2013, 2015, and 2017, then the country will get 0.6 points on this indicator.  
 
@@ -237,7 +252,7 @@ aki_list<-get_tag_aki_df[,'id']
 reference_year=2018
 df_aki <-wb(country="countries_only", 
             indicator=aki_list,
-            startdate=reference_year-4,
+            startdate=reference_year-9,
             enddate=reference_year,
             return_wide = T) %>%
         mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
