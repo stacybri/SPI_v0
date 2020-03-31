@@ -166,7 +166,7 @@ Choosing among the indicators we received from WDI experts on important indicato
   2. **Zero Hunger:**  Prevalence of undernourishment (% of population)
   3. **Good Health and Well-Being:** Mortality rate, under-5 (per 1,000 live births)	 
   4. **Quality Education:**  Primary completion rate, total (% of relevant age group)
-  5. **Gender Equity:**  Female share of employment in senior and middle management (%)
+  5. **Gender Equity:**  Number of maternal deaths	
   6. **Clean Water and Sanitation:**  People using safely managed drinking water services (% of population)	
   7. **Affordable and Clean Energy:**  Access to electricity (% of population)
   8. **Decent Work and Economic Growth:**  GDP per capita growth (annual %)	
@@ -175,7 +175,7 @@ Choosing among the indicators we received from WDI experts on important indicato
   11. **Environment:**  Level of water stress: freshwater withdrawal as a proportion of available freshwater resources
   12. **Environment:**  Renewable electricity output (% of total electricity output)
   13. **National Accounts:**  Debt service (PPG and IMF only, % of exports of goods, services and primary income)	
-  14. **National Accounts:**  Completeness of birth registration (%)
+  14. **National Accounts:**  	Consumer price index (2010 = 100)
   15. **National Accounts:**  Manufacturing, value added (% of GDP)
 
 
@@ -194,7 +194,6 @@ Choosing among the indicators we received from WDI experts on important indicato
   - Level of water stress: freshwater withdrawal as a proportion of available freshwater resources was recommended by WDI experts.  
   - Renewable electricity output (% of total electricity output) was recommended by WDI experts  
   - Debt service (PPG and IMF only, % of exports of goods, services and primary income)	recommended by WDI experts  
-  - Completeness of birth registration (%) recommended by WDI experts  
   - Manufacturing, value added (% of GDP) original AKI indicator chosen by SPI team. Another option was the GDP price deflator, but this indicator would be perfectly correlated with GDP per capita growth which is already included.
   
 
@@ -225,6 +224,16 @@ Top tier indicator would be 4.1.1.  Could be built using HLO.  JP recommended a 
 
 Recommneded possibility of covering spectum of SDG 4 indicators and creating an index across all SDGs.  THis would include all Tier 1 and Tier 2 indicators in an index.
   
+### Economics Statistics
+
+Pull from Proposal: Macroeconomic Dashboard to measure progress towards SDG Goal 17/Target 17.13
+
+* External Sector  
+* Financial Sector  
+* Fiscal Sector  
+* Real Sector and Prices   
+* Commondity Prices (Export/Import)  
+
 
 
 ## Updated Scoring Methodology
@@ -233,9 +242,9 @@ Recommneded possibility of covering spectum of SDG 4 indicators and creating an 
   - We have switched from scoring '1' if in a three year window of 2018 and '0'.  
   - The new scoring methodology includes frequency as a criteria to help distinguish between country statistical systems  
 
-The score for an individual indicator $j$ for a country $i$ is now the fraction of times in a ten year window an indicator is available.
+The score for an individual indicator $j$ for a country $i$ is now the fraction of times in a five year window an indicator is available.
 
-$$ AKI_i^j=\frac{\sum_{t}^{5}{A_{it}^j}}{10} $$
+$$ AKI_i^j=\frac{\sum_{t}^{5}{A_{it}^j}}{5} $$
 
 For instance, if the reference window is 2018 and say a country has GDP data available in 2013, 2015, and 2017, then the country will get 0.6 points on this indicator.  
 
@@ -245,7 +254,7 @@ aki<-c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
         'Prevalence of undernourishment (% of population)',
         'Mortality rate, under-5 (per 1,000 live births)',
         'Primary completion rate, total (% of relevant age group)',
-        'Female share of employment in senior and middle management (%) ',
+        'Number of maternal deaths',
         'People using safely managed drinking water services (% of population)',
         'Access to electricity (% of population)',
        'GDP per capita growth (annual %)',
@@ -254,7 +263,7 @@ aki<-c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
        'Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
        'Renewable electricity output (% of total electricity output)',
        'Debt service (PPG and IMF only, % of exports of goods, services and primary income)',
-       'Completeness of birth registration (%)',
+       'Consumer price index (2010 = 100)',
        'Manufacturing, value added (% of GDP)'
 )
 
@@ -269,7 +278,7 @@ aki_list<-get_tag_aki_df[,'id']
 reference_year=2018
 df_aki <-wb(country="countries_only", 
             indicator=aki_list,
-            startdate=reference_year-9,
+            startdate=reference_year-4,
             enddate=reference_year,
             return_wide = T) %>%
         mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
