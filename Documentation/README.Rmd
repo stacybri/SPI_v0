@@ -16,6 +16,7 @@ library(jsonlite)
 library(leaflet)
 library(ggcorrplot)
 library(skimr)
+library(rsdmx)
 
 work_dir<-"C:/Users/wb469649/Documents/Github/SPI_AKI/Documentation"
 
@@ -142,8 +143,70 @@ cols <- c("id","name")
 #indicatorsJSON[,cols] # to view all the indicator names, remove the # at the beginning of this line. Please note that there are over 500 indicators.
 
 
+##########
+# Pull Tags for EdStats Data
+# Use different syntax than before
+##########
+
+# make request to UIS API
+EdStatsRequest <- GET(url = "http://api.worldbank.org/v2/indicator?per_page=20000&format=json&source=12")
+EdStatsResponse <- content(EdStatsRequest, as = "text", encoding = "UTF-8")
+
+# Parse the JSON content and convert it to a data frame.
+EdStatsJSON <- fromJSON(EdStatsResponse, flatten = TRUE) %>%
+  data.frame()
+
+# Print and review the indicator names and ids from the dataframe
+cols <- c("id","name")
+#indicatorsJSON[,cols] # to view all the indicator names, remove the # at the beginning of this line. Please note that there are over 500 indicators.
+
+##########
+# Pull for UIS UNESCO
+##########
 
 
+# need to input your API key here
+#uis_key <- rstudioapi::askForSecret("UIS_key")
+
+#now make request using API
+url = paste("https://api.uis.unesco.org/sdmx/data/SDG4/STU.PT.L1+L2._T._T+F+M._T.G2_3+GLAST.INST_T._Z.READING+MATH._Z._Z._T._T._T._Z._Z._T.?startPeriod=2010&endPeriod=2019&format=sdmx-compact-2.1&subscription-key=",rstudioapi::askForSecret("UIS_key"), sep="")
+uisRequest <- GET(url)
+
+#build database
+uis_df <- readSDMX(url, isURL=T) %>%
+  as.data.frame()
+
+# do some minor data cleaning to build official indicator name (i don't know why this isn't automatically in the API pulls!)
+uis_df <- uis_df %>%
+  mutate(
+    subj=case_when(
+      SUBJECT=="READING" ~ "Read",
+      SUBJECT=="MATH" ~ "Math",
+      TRUE ~ as.character(NA)
+    ),
+    grd_level=case_when(
+      GRADE=="G2_3" & EDU_LEVEL=="L1" ~ "G2t3",
+      GRADE=="GLAST" & EDU_LEVEL=="L1" ~ "Primary",
+      GRADE=="GLAST" & EDU_LEVEL=="L2" ~ "LowerSec",
+      TRUE ~ as.character(NA)
+    )
+  ) %>%
+  mutate(INDICATOR_ID=paste(subj, grd_level, sep=".")) %>%
+  mutate(INDICATOR_ID=case_when(
+    SEX=="_T" ~ INDICATOR_ID,
+    SEX=="F" ~ paste(INDICATOR_ID,"F", sep="."),
+    SEX=="M" ~ paste(INDICATOR_ID,"M", sep="."),
+    TRUE ~ as.character(NA)
+  ))
+
+
+#pull world bank country info to merge
+country_info <- wbcountries()
+
+uis_df<-uis_df %>%
+  mutate(iso2c=REF_AREA) %>%
+  left_join(country_info) %>%
+  select(colnames(country_info), TIME_PERIOD, OBS_VALUE)
 
 ```
 
