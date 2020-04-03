@@ -11,6 +11,7 @@ library(tidyverse)
 library(knitr)
 library(kableExtra)
 library(wbstats)
+cache_list<-wbcache()
 library(httr)
 library(jsonlite)
 library(leaflet)
@@ -149,6 +150,7 @@ cols <- c("id","name")
 ##########
 
 # make request to UIS API
+#https://api.worldbank.org/v2/country/all/indicator/SE.LPV.PRIM.BMP?per_page=500&footnote=y&mrnev=1
 EdStatsRequest <- GET(url = "http://api.worldbank.org/v2/indicator?per_page=20000&format=json&source=12")
 EdStatsResponse <- content(EdStatsRequest, as = "text", encoding = "UTF-8")
 
@@ -163,50 +165,68 @@ cols <- c("id","name")
 ##########
 # Pull for UIS UNESCO
 ##########
+# 
+# 
+# # need to input your API key here
+# #uis_key <- rstudioapi::askForSecret("UIS_key")
+# 
+# #now make request using API
+# url = paste("https://api.uis.unesco.org/sdmx/data/SDG4/STU.PT.L1+L2._T._T+F+M._T.G2_3+GLAST.INST_T._Z.READING+MATH._Z._Z._T._T._T._Z._Z._T.?startPeriod=2010&endPeriod=2019&format=sdmx-compact-2.1&locale=en&includeMetadata=true&subscription-key=",rstudioapi::askForSecret("UIS_key"), sep="")
+# uisRequest <- GET(url)
+# 
+# #build database
+# uis_df <- readSDMX(url, isURL=T) %>%
+#   as.data.frame()
+# 
+# # do some minor data cleaning to build official indicator name (i don't know why this isn't automatically in the API pulls!)
+# uis_df <- uis_df %>%
+#   mutate(
+#     subj=case_when(
+#       SUBJECT=="READING" ~ "Read",
+#       SUBJECT=="MATH" ~ "Math",
+#       TRUE ~ as.character(NA)
+#     ),
+#     grd_level=case_when(
+#       GRADE=="G2_3" & EDU_LEVEL=="L1" ~ "G2t3",
+#       GRADE=="GLAST" & EDU_LEVEL=="L1" ~ "Primary",
+#       GRADE=="GLAST" & EDU_LEVEL=="L2" ~ "LowerSec",
+#       TRUE ~ as.character(NA)
+#     )
+#   ) %>%
+#   mutate(INDICATOR_ID=paste(subj, grd_level, sep=".")) %>%
+#   mutate(INDICATOR_ID=case_when(
+#     SEX=="_T" ~ INDICATOR_ID,
+#     SEX=="F" ~ paste(INDICATOR_ID,"F", sep="."),
+#     SEX=="M" ~ paste(INDICATOR_ID,"M", sep="."),
+#     TRUE ~ as.character(NA)
+#   ))
+# 
+# 
+# #pull world bank country info to merge
+# country_info <- wbcountries()
+# 
+# uis_df<-uis_df %>%
+#   mutate(iso2c=REF_AREA) %>%
+#   left_join(country_info) %>%
+#   select(colnames(country_info), TIME_PERIOD, OBS_VALUE)
 
 
-# need to input your API key here
-#uis_key <- rstudioapi::askForSecret("UIS_key")
+###################
+# Pull WHO data on Maternal Mortality
+###################
 
 #now make request using API
-url = paste("https://api.uis.unesco.org/sdmx/data/SDG4/STU.PT.L1+L2._T._T+F+M._T.G2_3+GLAST.INST_T._Z.READING+MATH._Z._Z._T._T._T._Z._Z._T.?startPeriod=2010&endPeriod=2019&format=sdmx-compact-2.1&subscription-key=",rstudioapi::askForSecret("UIS_key"), sep="")
-uisRequest <- GET(url)
+whoRequest <- GET(url = "https://apps.who.int/gho/athena/api/GHO/MDG_0000000026.json?profile=simple")
+whoResponse <- content(whoRequest,  encoding = "UTF-8")
+
 
 #build database
-uis_df <- readSDMX(url, isURL=T) %>%
-  as.data.frame()
+who_df <- fromJSON(whoResponse, flatten = TRUE) %>%
+  data.frame()
 
-# do some minor data cleaning to build official indicator name (i don't know why this isn't automatically in the API pulls!)
-uis_df <- uis_df %>%
-  mutate(
-    subj=case_when(
-      SUBJECT=="READING" ~ "Read",
-      SUBJECT=="MATH" ~ "Math",
-      TRUE ~ as.character(NA)
-    ),
-    grd_level=case_when(
-      GRADE=="G2_3" & EDU_LEVEL=="L1" ~ "G2t3",
-      GRADE=="GLAST" & EDU_LEVEL=="L1" ~ "Primary",
-      GRADE=="GLAST" & EDU_LEVEL=="L2" ~ "LowerSec",
-      TRUE ~ as.character(NA)
-    )
-  ) %>%
-  mutate(INDICATOR_ID=paste(subj, grd_level, sep=".")) %>%
-  mutate(INDICATOR_ID=case_when(
-    SEX=="_T" ~ INDICATOR_ID,
-    SEX=="F" ~ paste(INDICATOR_ID,"F", sep="."),
-    SEX=="M" ~ paste(INDICATOR_ID,"M", sep="."),
-    TRUE ~ as.character(NA)
-  ))
+ 
 
 
-#pull world bank country info to merge
-country_info <- wbcountries()
-
-uis_df<-uis_df %>%
-  mutate(iso2c=REF_AREA) %>%
-  left_join(country_info) %>%
-  select(colnames(country_info), TIME_PERIOD, OBS_VALUE)
 
 ```
 
@@ -236,7 +256,7 @@ Choosing among the indicators we received from WDI experts on important indicato
   9. **Industry, Innovation, and Infrastructure:**  Research and development expenditure (% of GDP)	
   10. **Reduced Inequalities:**  Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)
   11. **Environment:**  Level of water stress: freshwater withdrawal as a proportion of available freshwater resources
-  12. **Environment:**  Renewable electricity output (% of total electricity output)
+  12. **Environment:**  Renewable energy consumption (% of total final energy consumption)	
   13. **National Accounts:**  Debt service (PPG and IMF only, % of exports of goods, services and primary income)	
   14. **National Accounts:**  	Consumer price index (2010 = 100)
   15. **National Accounts:**  Manufacturing, value added (% of GDP)
@@ -258,17 +278,29 @@ Choosing among the indicators we received from WDI experts on important indicato
   - Renewable electricity output (% of total electricity output) was recommended by WDI experts  
   - Debt service (PPG and IMF only, % of exports of goods, services and primary income)	recommended by WDI experts  
   - Manufacturing, value added (% of GDP) original AKI indicator chosen by SPI team. Another option was the GDP price deflator, but this indicator would be perfectly correlated with GDP per capita growth which is already included.
-  
 
-### Affordable and Clean Energy
+### Poverty
 
-Access to electricity is the easiest.  These are typically based on a household survey (DHS, MICS).  Could theoretically do a breakdown for census versus survey data.  Pretty much every government, every year collects this data, but the quality is low in many cases.  In cases of low quality, this data is not used.  
+Poverty headcount data includes some footnotes on Estimated from unit-record consumption data.
 
-Some surveys (DHS, MICS) only ask a binary question of whether or not electricity available.  Some others offer richer data on quality, reliability, etc.  We could consider factoring these into our index.
+### Hunger
 
-### Clean Water and Sanitation Notes 
+Undernourishment data contains no footnote data for observations
 
-Safely managed drinking water has less coverage than basic drinking water.  The hurdle for countries is measuring water quality (test for E coli, etc).  Infrastructrure tends to be more static than other indicators, so expanding the window for the frequency of data may be needed.  May consider indicator system where we have 0 points for no data, 0.5 points for all data except water quality (this is available in a pdf report by the Bank and Unicef), and 1 point for full indicator for safely managed water.
+### Good Health
+
+Mortality under 5 data includes some metadata on uncertainty.  For instance, "Uncertainty bound is 35.4 - 83.5".  This could be used for quality measures.
+
+### Education  
+
+Top tier indicator would be 4.1.1.  Could be built using HLO.  JP recommended a 4 year window.  Something like 1 point for having within a 4 year window.  0.5 points for within an 8 year window, 0 otherwise
+
+Recommneded possibility of covering spectum of SDG 4 indicators and creating an index across all SDGs.  THis would include all Tier 1 and Tier 2 indicators in an index.
+
+Metadata information includes type of assessment (LLECE, PIRLS, NLA, etc) which could be used for scoring.
+
+potential source on learning assessments (doesn't seem quite comprehensive, No HICs):
+http://uis.unesco.org/en/uis-learning-outcomes
 
 ### Gender Equity
 
@@ -281,12 +313,45 @@ Second Tier:
   - Sexual reproductive
   - Time use of females
   
-### Education  
 
-Top tier indicator would be 4.1.1.  Could be built using HLO.  JP recommended a 4 year window.  Something like 1 point for having within a 4 year window.  0.5 points for within an 8 year window, 0 otherwise
+Maternal mortality data also includes informatino on uncertainty in WDI metadaata.  For instance, "Uncertainty bound is 35.4 - 83.5".  This could be used for quality measures.
 
-Recommneded possibility of covering spectum of SDG 4 indicators and creating an index across all SDGs.  THis would include all Tier 1 and Tier 2 indicators in an index.
+potential source:
+https://www.who.int/reproductivehealth/publications/maternal-mortality-2000-2017/en/
+
+### Affordable and Clean Energy
+
+Access to electricity is the easiest.  These are typically based on a household survey (DHS, MICS).  Could theoretically do a breakdown for census versus survey data.  Pretty much every government, every year collects this data, but the quality is low in many cases.  In cases of low quality, this data is not used.  
+
+Some surveys (DHS, MICS) only ask a binary question of whether or not electricity available.  Some others offer richer data on quality, reliability, etc.  We could consider factoring these into our index.
+
+No footnote metadata.
+
+### Clean Water and Sanitation Notes 
+
+Safely managed drinking water has less coverage than basic drinking water.  The hurdle for countries is measuring water quality (test for E coli, etc).  Infrastructrure tends to be more static than other indicators, so expanding the window for the frequency of data may be needed.  May consider indicator system where we have 0 points for no data, 0.5 points for all data except water quality (this is available in a pdf report by the Bank and Unicef), and 1 point for full indicator for safely managed water.
+
+
+### Decent Work and Economic Growth:  
+
+GDP per capita growth (annual %)	has no footnote metadata.
+
+
+### Industry, Innovation, and Infrastructure:  
+
+Research and development expenditure (% of GDP)	
   
+  
+### Reduced Inequalities:
+
+Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%) has some metadata in the footnotes on whether or not the country value uses consumption data for measure.
+
+### Environment
+
+Level of water stress: freshwater withdrawal as a proportion of available freshwater resources recommended by WDI content experts.  This indicator has not specific metadata in the footnotes.
+
+Renewable energy consumption (% of total final energy consumption).  This indicator has not specific metadata in the footnotes.
+
 ### Economics Statistics
 
 Pull from Proposal: Macroeconomic Dashboard to measure progress towards SDG Goal 17/Target 17.13
@@ -297,7 +362,11 @@ Pull from Proposal: Macroeconomic Dashboard to measure progress towards SDG Goal
 * Real Sector and Prices   
 * Commondity Prices (Export/Import)  
 
+Debt service (PPG and IMF only, % of exports of goods, services and primary income).  This indicator has not specific metadata in the footnotes. 
 
+Consumer price index (2010 = 100).  This indicator has not specific metadata in the footnotes.
+
+Manufacturing, value added (% of GDP)
 
 ## Updated Scoring Methodology
 
@@ -316,39 +385,44 @@ For instance, if the reference window is 2018 and say a country has GDP data ava
 aki<-c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
         'Prevalence of undernourishment (% of population)',
         'Mortality rate, under-5 (per 1,000 live births)',
-        'Primary completion rate, total (% of relevant age group)',
+        'Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
         'Number of maternal deaths',
+        'Proportion of women subjected to physical and/or sexual violence in the last 12 months (% of women age 15-49)',
         'People using safely managed drinking water services (% of population)',
         'Access to electricity (% of population)',
        'GDP per capita growth (annual %)',
        'Research and development expenditure (% of GDP)',
        'Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
        'Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
-       'Renewable electricity output (% of total electricity output)',
+       'Renewable energy consumption (% of total final energy consumption)',
        'Debt service (PPG and IMF only, % of exports of goods, services and primary income)',
        'Consumer price index (2010 = 100)',
        'Manufacturing, value added (% of GDP)'
 )
 
 get_tag_aki_df<-wdisJSON %>%
+  bind_rows(EdStatsJSON) %>%
   filter((name %in% aki	)) %>%
+  group_by(id) %>%
+  summarise_all(~first(.)) %>%
   arrange(factor(name, levels = aki)) %>%
-  select(id, name,  sourceOrganization)
+  select(id, name,  sourceOrganization) 
+
 
 
 aki_list<-get_tag_aki_df[,'id']
 
-reference_year=2018
+reference_year=2018	
 df_aki <-wb(country="countries_only", 
-            indicator=aki_list,
-            startdate=reference_year-4,
-            enddate=reference_year,
-            return_wide = T) %>%
-        mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
+           indicator=aki_list$id,
+           startdate=reference_year-4,
+           enddate=reference_year,
+           return_wide = T) %>%
+        mutate_at(.vars=aki_list$id, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
         group_by(country) %>%
         summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE)/5 else first(.)))) %>% #group by country to create one observation per country containing whether or not data point existed
         # Availability of Key Indicator Country Score=Weighted Score÷Maximum Category Score ×100
-        mutate(AKI=100*rowMeans(.[aki_list], na.rm=T)) %>%
+        mutate(AKI=100*rowMeans(.[aki_list$id], na.rm=T)) %>%
         mutate(ISO_A3=iso3c) 
 
 ```
@@ -379,7 +453,7 @@ df_aki <-wb(country="countries_only",
                                                p75 = ~ (quantile(., probs=c(0.75),  na.rm=TRUE)),
                                                complete = ~ sum(!is.na(.)))) 
         sumstats <- df_aki %>%
-            select(aki_list) 
+            select(aki_list$id) 
         
         #produce summary stats
         sumstats_df<-my_skim(sumstats) %>%
@@ -389,6 +463,7 @@ df_aki <-wb(country="countries_only",
         
         #create labels df
         get_tag_aki_labs<-wdisJSON %>%
+            bind_rows(EdStatsJSON) %>%
             filter(name %in% aki) %>%
             arrange(factor(name, levels = aki)) %>%
             select(id, name)
@@ -411,10 +486,10 @@ df_aki <-wb(country="countries_only",
 
 ```{r correlations, echo=FALSE, fig.height=16, fig.width=18}
 
-names(aki_list)=aki
+names(aki_list$id)=aki
 
 #calculate correlations between teacher practices
-df_corr_plot <-    round(cor(select(df_aki,aki_list), use="complete.obs"), 2)
+df_corr_plot <-    round(cor(select(df_aki,aki_list$id), use="complete.obs"), 2)
 
 #plot the correlation in a nicely formatted table
 pcorr<- ggcorrplot(df_corr_plot,
