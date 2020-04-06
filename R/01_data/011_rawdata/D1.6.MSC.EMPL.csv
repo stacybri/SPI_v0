@@ -1,0 +1,571 @@
+﻿iso3c,country,date,EMPL
+AFG,Afghanistan,2016,na
+AFG,Afghanistan,2017,"NA"
+AFG,Afghanistan,2018,"NA"
+AGO,Angola,2016,na
+AGO,Angola,2017,"NA"
+AGO,Angola,2018,"NA"
+ALB,Albania,2016,ISCO 88
+ALB,Albania,2017,ISCO-88
+ALB,Albania,2018,ISCO-88
+ARE,United Arab Emirates,2016,na
+ARE,United Arab Emirates,2017,"NA"
+ARE,United Arab Emirates,2018,"NA"
+ARG,Argentina,2016,na
+ARG,Argentina,2017,"NA"
+ARG,Argentina,2018,"NA"
+ARM,Armenia,2016,ICSE-93
+ARM,Armenia,2017,ICSE-93
+ARM,Armenia,2018,ICSE-93
+ATG,Antigua and Barbuda,2016,na
+ATG,Antigua and Barbuda,2017,"NA"
+ATG,Antigua and Barbuda,2018,"NA"
+AUS,Australia,2016,ICSE-93
+AUS,Australia,2017,ICSE-93
+AUS,Australia,2018,ICSE-93
+AUT,Austria,2016,na
+AUT,Austria,2017,nace rev. 1
+AUT,Austria,2018,nace rev. 1
+AZE,Azerbaijan,2016,na
+AZE,Azerbaijan,2017,ICSE-93
+AZE,Azerbaijan,2018,ICSE-93
+BDI,Burundi,2016,na
+BDI,Burundi,2017,"NA"
+BDI,Burundi,2018,"NA"
+BEL,Belgium,2016,na
+BEL,Belgium,2017,ISCO
+BEL,Belgium,2018,ISCO
+BEN,Benin,2016,na
+BEN,Benin,2017,"NA"
+BEN,Benin,2018,"NA"
+BFA,Burkina Faso,2016,na
+BFA,Burkina Faso,2017,"NA"
+BFA,Burkina Faso,2018,"NA"
+BGD,Bangladesh,2016,na
+BGD,Bangladesh,2017,ISCO-88
+BGD,Bangladesh,2018,ISCO-88
+BGR,Bulgaria,2016,ICSE-93
+BGR,Bulgaria,2017,ICSE-93
+BGR,Bulgaria,2018,ICSE-93
+BHR,Bahrain,2016,ISOC 1988
+BHR,Bahrain,2017,ISCO-88
+BHR,Bahrain,2018,ISCO-88
+BHS,"Bahamas, The",2016,ISCO 88
+BHS,"Bahamas, The",2017,ISCO-88
+BHS,"Bahamas, The",2018,ISCO-88
+BIH,Bosnia and Herzegovina,2016,na
+BIH,Bosnia and Herzegovina,2017,ISCO-88
+BIH,Bosnia and Herzegovina,2018,ISCO-88
+BLR,Belarus,2016,na
+BLR,Belarus,2017,OKRB 005-2011
+BLR,Belarus,2018,OKRB 005-2011
+BLZ,Belize,2016,na
+BLZ,Belize,2017,"NA"
+BLZ,Belize,2018,"NA"
+BOL,Bolivia,2016,na
+BOL,Bolivia,2017,"NA"
+BOL,Bolivia,2018,"NA"
+BRA,Brazil,2016,na
+BRA,Brazil,2017,CBO Domiciliar
+BRA,Brazil,2018,CBO Domiciliar
+BRB,Barbados,2016,na
+BRB,Barbados,2017,CLFSS
+BRB,Barbados,2018,CLFSS
+BRN,Brunei Darussalam,2016,na
+BRN,Brunei Darussalam,2017,"NA"
+BRN,Brunei Darussalam,2018,"NA"
+BTN,Bhutan,2016,na
+BTN,Bhutan,2017,"NA"
+BTN,Bhutan,2018,"NA"
+BWA,Botswana,2016,ISCO-1988
+BWA,Botswana,2017,ISCO-88
+BWA,Botswana,2018,ISCO-88
+CAF,Central African Republic,2016,na
+CAF,Central African Republic,2017,ISCO-88
+CAF,Central African Republic,2018,ISCO-88
+CAN,Canada,2016,NAICS
+CAN,Canada,2017,NAICS
+CAN,Canada,2018,NAICS
+CHE,Switzerland,2016,na
+CHE,Switzerland,2017,"NA"
+CHE,Switzerland,2018,"NA"
+CHL,Chile,2016,na
+CHL,Chile,2017,"NA"
+CHL,Chile,2018,"NA"
+CHN,China,2016,na
+CHN,China,2017,"NA"
+CHN,China,2018,"NA"
+CIV,Côte d'Ivoire,2016,na
+CIV,Côte d'Ivoire,2017,"NA"
+CIV,Côte d'Ivoire,2018,"NA"
+CMR,Cameroon,2016,na
+CMR,Cameroon,2017,"NA"
+CMR,Cameroon,2018,"NA"
+COD,"Congo, Dem. Rep.",2016,na
+COD,"Congo, Dem. Rep.",2017,"NA"
+COD,"Congo, Dem. Rep.",2018,"NA"
+COG,"Congo, Rep.",2016,na
+COG,"Congo, Rep.",2017,"NA"
+COG,"Congo, Rep.",2018,"NA"
+COL,Colombia,2016,na
+COL,Colombia,2017,"NA"
+COL,Colombia,2018,"NA"
+COM,Comoros,2016,na
+COM,Comoros,2017,"NA"
+COM,Comoros,2018,"NA"
+CPV,Cabo Verde,2016,na
+CPV,Cabo Verde,2017,"NA"
+CPV,Cabo Verde,2018,"NA"
+CRI,Costa Rica,2016,ISCO 88
+CRI,Costa Rica,2017,ISCO-88
+CRI,Costa Rica,2018,ISCO-88
+CYP,Cyprus,2016,na
+CYP,Cyprus,2017,ISCO-08
+CYP,Cyprus,2018,ISCO-08
+CZE,Czech Republic,2016,NACE Rev2
+CZE,Czech Republic,2017,"NA"
+CZE,Czech Republic,2018,"NA"
+DEU,Germany,2016,NACE Rev2
+DEU,Germany,2017,ISCO-08
+DEU,Germany,2018,ISCO-08
+DJI,Djibouti,2016,na
+DJI,Djibouti,2017,"NA"
+DJI,Djibouti,2018,"NA"
+DMA,Dominica,2016,ISCO 88
+DMA,Dominica,2017,ISCO 88
+DMA,Dominica,2018,ISCO 88
+DNK,Denmark,2016,NACE Rev2/ ISCO 08
+DNK,Denmark,2017,ISCO 08
+DNK,Denmark,2018,ISCO 08
+DOM,Dominican Republic,2016,na
+DOM,Dominican Republic,2017,"NA"
+DOM,Dominican Republic,2018,"NA"
+DZA,Algeria,2016,na
+DZA,Algeria,2017,"NA"
+DZA,Algeria,2018,"NA"
+ECU,Ecuador,2016,na
+ECU,Ecuador,2017,ISCO
+ECU,Ecuador,2018,ISCO
+EGY,"Egypt, Arab Rep.",2016,na
+EGY,"Egypt, Arab Rep.",2017,ISCO-98
+EGY,"Egypt, Arab Rep.",2018,ISCO-98
+ERI,Eritrea,2016,0
+ERI,Eritrea,2017,0
+ERI,Eritrea,2018,0
+ESP,Spain,2016,CNO-2011/ ISCO-2008.COM  (linked to ICSE)
+ESP,Spain,2017,ISCO-08
+ESP,Spain,2018,ISCO-08
+EST,Estonia,2016,ICSE-93
+EST,Estonia,2017,ICSE-93
+EST,Estonia,2018,ICSE-93
+ETH,Ethiopia,2016,na
+ETH,Ethiopia,2017,"NA"
+ETH,Ethiopia,2018,"NA"
+FIN,Finland,2016,NACE Rev2/ ISCO 08
+FIN,Finland,2017,ISCO 08
+FIN,Finland,2018,ISCO 08
+FJI,Fiji,2016,na
+FJI,Fiji,2017,"NA"
+FJI,Fiji,2018,"NA"
+FRA,France,2016,NAF
+FRA,France,2017,NAF
+FRA,France,2018,NAF
+FSM,"Micronesia, Fed. Sts.",2016,na
+FSM,"Micronesia, Fed. Sts.",2017,"NA"
+FSM,"Micronesia, Fed. Sts.",2018,"NA"
+GAB,Gabon,2016,na
+GAB,Gabon,2017,"NA"
+GAB,Gabon,2018,"NA"
+GBR,United Kingdom,2016,na
+GBR,United Kingdom,2017,SOC-10
+GBR,United Kingdom,2018,SOC-10
+GEO,Georgia,2016,ICSE-93
+GEO,Georgia,2017,ICSE-93
+GEO,Georgia,2018,ICSE-93
+GHA,Ghana,2016,na
+GHA,Ghana,2017,"NA"
+GHA,Ghana,2018,"NA"
+GIN,Guinea,2016,na
+GIN,Guinea,2017,"NA"
+GIN,Guinea,2018,"NA"
+GMB,"Gambia, The",2016,na
+GMB,"Gambia, The",2017,"NA"
+GMB,"Gambia, The",2018,"NA"
+GNB,Guinea-Bissau,2016,na
+GNB,Guinea-Bissau,2017,"NA"
+GNB,Guinea-Bissau,2018,"NA"
+GNQ,Equatorial Guinea,2016,0
+GNQ,Equatorial Guinea,2017,"NA"
+GNQ,Equatorial Guinea,2018,"NA"
+GRC,Greece,2016,0
+GRC,Greece,2017,ISCO-08
+GRC,Greece,2018,ISCO-08
+GRD,Grenada,2016,na
+GRD,Grenada,2017,"NA"
+GRD,Grenada,2018,"NA"
+GTM,Guatemala,2016,na
+GTM,Guatemala,2017,"NA"
+GTM,Guatemala,2018,"NA"
+GUY,Guyana,2016,na
+GUY,Guyana,2017,"NA"
+GUY,Guyana,2018,"NA"
+HND,Honduras,2016,na
+HND,Honduras,2017,"NA"
+HND,Honduras,2018,"NA"
+HRV,Croatia,2016,ICSE-93
+HRV,Croatia,2017,ICSE-93
+HRV,Croatia,2018,ICSE-93
+HTI,Haiti,2016,na
+HTI,Haiti,2017,"NA"
+HTI,Haiti,2018,"NA"
+HUN,Hungary,2016,ICSE-93
+HUN,Hungary,2017,ICSE-93
+HUN,Hungary,2018,ICSE-93
+IDN,Indonesia,2016,na
+IDN,Indonesia,2017,ASCO
+IDN,Indonesia,2018,ASCO
+IND,India,2016,na
+IND,India,2017,NSS
+IND,India,2018,NSS
+IRL,Ireland,2016,na
+IRL,Ireland,2017,ISCO-88
+IRL,Ireland,2018,ISCO-88
+IRN,"Iran, Islamic Rep.",2016,na
+IRN,"Iran, Islamic Rep.",2017,"NA"
+IRN,"Iran, Islamic Rep.",2018,"NA"
+IRQ,Iraq,2016,na
+IRQ,Iraq,2017,ISCO-88
+IRQ,Iraq,2018,ISCO-88
+ISL,Iceland,2016,ICSE-93
+ISL,Iceland,2017,ICSE-93
+ISL,Iceland,2018,ICSE-93
+ISR,Israel,2016,na
+ISR,Israel,2017,ISCO-88
+ISR,Israel,2018,ISCO-88
+ITA,Italy,2016,NACE Rev2/ ISCO 08
+ITA,Italy,2017,ISCO-08
+ITA,Italy,2018,ISCO-08
+JAM,Jamaica,2016,na
+JAM,Jamaica,2017,ICLS-13/ISCO-08
+JAM,Jamaica,2018,ICLS-13/ISCO-08
+JOR,Jordan,2016,na
+JOR,Jordan,2017,ISCO-88
+JOR,Jordan,2018,ISCO-88
+JPN,Japan,2016,JSIC
+JPN,Japan,2017,OCPCJ
+JPN,Japan,2018,OCPCJ
+KAZ,Kazakhstan,2016,na
+KAZ,Kazakhstan,2017,"NA"
+KAZ,Kazakhstan,2018,"NA"
+KEN,Kenya,2016,na
+KEN,Kenya,2017,"NA"
+KEN,Kenya,2018,"NA"
+KGZ,Kyrgyz Republic,2016,ICSE-93
+KGZ,Kyrgyz Republic,2017,ICSE-93
+KGZ,Kyrgyz Republic,2018,ICSE-93
+KHM,Cambodia,2016,na
+KHM,Cambodia,2017,"NA"
+KHM,Cambodia,2018,"NA"
+KIR,Kiribati,2016,na
+KIR,Kiribati,2017,"NA"
+KIR,Kiribati,2018,"NA"
+KNA,St. Kitts and Nevis,2016,0
+KNA,St. Kitts and Nevis,2017,ISCO-88
+KNA,St. Kitts and Nevis,2018,ISCO-88
+KOR,"Korea, Rep.",2016,na
+KOR,"Korea, Rep.",2017,ISCO-08/NA
+KOR,"Korea, Rep.",2018,ISCO-08/NA
+KWT,Kuwait,2016,na
+KWT,Kuwait,2017,"NA"
+KWT,Kuwait,2018,"NA"
+LAO,Lao PDR,2016,na
+LAO,Lao PDR,2017,na
+LAO,Lao PDR,2018,na
+LBN,Lebanon,2016,na
+LBN,Lebanon,2017,ISCO-88
+LBN,Lebanon,2018,ISCO-88
+LBR,Liberia,2016,na
+LBR,Liberia,2017,"NA"
+LBR,Liberia,2018,"NA"
+LBY,Libya,2016,na
+LBY,Libya,2017,"NA"
+LBY,Libya,2018,"NA"
+LCA,St. Lucia,2016,na
+LCA,St. Lucia,2017,ISCO-88
+LCA,St. Lucia,2018,ISCO-88
+LKA,Sri Lanka,2016,na
+LKA,Sri Lanka,2017,ISCO-08
+LKA,Sri Lanka,2018,ISCO-08
+LSO,Lesotho,2016,na
+LSO,Lesotho,2017,ISCO-88
+LSO,Lesotho,2018,ISCO-88
+LTU,Lithuania,2016,ICSE-93
+LTU,Lithuania,2017,ICSE-93
+LTU,Lithuania,2018,ICSE-93
+LUX,Luxembourg,2016,na
+LUX,Luxembourg,2017,"NA"
+LUX,Luxembourg,2018,"NA"
+LVA,Latvia,2016,ICSE-93
+LVA,Latvia,2017,ICSE-93
+LVA,Latvia,2018,ICSE-93
+MAR,Morocco,2016,0
+MAR,Morocco,2017,ICSE-93
+MAR,Morocco,2018,ICSE-93
+MDA,Moldova,2016,ICSE-93
+MDA,Moldova,2017,ICSE-93
+MDA,Moldova,2018,ICSE-93
+MDG,Madagascar,2016,na
+MDG,Madagascar,2017,"NA"
+MDG,Madagascar,2018,"NA"
+MDV,Maldives,2016,na
+MDV,Maldives,2017,"NA"
+MDV,Maldives,2018,"NA"
+MEX,Mexico,2016,na
+MEX,Mexico,2017,NAICS
+MEX,Mexico,2018,NAICS
+MHL,Marshall Islands,2016,0
+MHL,Marshall Islands,2017,"NA"
+MHL,Marshall Islands,2018,"NA"
+MKD,"Macedonia, FYR",2016,na
+MKD,"Macedonia, FYR",2017,ISCO-08
+MKD,"Macedonia, FYR",2018,ISCO-08
+MLI,Mali,2016,na
+MLI,Mali,2017,"NA"
+MLI,Mali,2018,"NA"
+MLT,Malta,2016,na
+MLT,Malta,2017,ISCO-08
+MLT,Malta,2018,ISCO-08
+MMR,Myanmar,2016,na
+MMR,Myanmar,2017,"NA"
+MMR,Myanmar,2018,"NA"
+MNE,Montenegro,2016,na
+MNE,Montenegro,2017,ISCO-08
+MNE,Montenegro,2018,ISCO-08
+MNG,Mongolia,2016,na
+MNG,Mongolia,2017,ICSE-93
+MNG,Mongolia,2018,ICSE-93
+MOZ,Mozambique,2016,na
+MOZ,Mozambique,2017,"NA"
+MOZ,Mozambique,2018,"NA"
+MRT,Mauritania,2016,na
+MRT,Mauritania,2017,"NA"
+MRT,Mauritania,2018,"NA"
+MUS,Mauritius,2016,ICSE-93
+MUS,Mauritius,2017,ICSE-93
+MUS,Mauritius,2018,ICSE-93
+MWI,Malawi,2016,na
+MWI,Malawi,2017,"NA"
+MWI,Malawi,2018,"NA"
+MYS,Malaysia,2016,na
+MYS,Malaysia,2017,ISCO-08
+MYS,Malaysia,2018,ISCO-08
+NAM,Namibia,2016,na
+NAM,Namibia,2017,"NA"
+NAM,Namibia,2018,"NA"
+NER,Niger,2016,na
+NER,Niger,2017,"NA"
+NER,Niger,2018,"NA"
+NGA,Nigeria,2016,na
+NGA,Nigeria,2017,"NA"
+NGA,Nigeria,2018,"NA"
+NIC,Nicaragua,2016,0
+NIC,Nicaragua,2017,"NA"
+NIC,Nicaragua,2018,"NA"
+NLD,Netherlands,2016,NACE Rev2
+NLD,Netherlands,2017,"NA"
+NLD,Netherlands,2018,"NA"
+NOR,Norway,2016,na
+NOR,Norway,2017,na
+NOR,Norway,2018,na
+NPL,Nepal,2016,na
+NPL,Nepal,2017,"NA"
+NPL,Nepal,2018,"NA"
+NRU,Nauru,2016,0
+NRU,Nauru,2017,0
+NRU,Nauru,2018,0
+NZL,New Zealand,2016,na
+NZL,New Zealand,2017,"NA"
+NZL,New Zealand,2018,"NA"
+OMN,Oman,2016,na
+OMN,Oman,2017,"NA"
+OMN,Oman,2018,"NA"
+PAK,Pakistan,2016,na
+PAK,Pakistan,2017,ISCO-88
+PAK,Pakistan,2018,ISCO-88
+PAN,Panama,2016,na
+PAN,Panama,2017,"NA"
+PAN,Panama,2018,"NA"
+PER,Peru,2016,na
+PER,Peru,2017,"NA"
+PER,Peru,2018,"NA"
+PHL,Philippines,2016,na
+PHL,Philippines,2017,ISCO-08
+PHL,Philippines,2018,ISCO-08
+PLW,Palau,2016,0
+PLW,Palau,2017,"NA"
+PLW,Palau,2018,"NA"
+PNG,Papua New Guinea,2016,na
+PNG,Papua New Guinea,2017,"NA"
+PNG,Papua New Guinea,2018,"NA"
+POL,Poland,2016,na
+POL,Poland,2017,"NA"
+POL,Poland,2018,"NA"
+PRT,Portugal,2016,NACE Rev2
+PRT,Portugal,2017,ISCO-08
+PRT,Portugal,2018,ISCO-08
+PRY,Paraguay,2016,na
+PRY,Paraguay,2017,"NA"
+PRY,Paraguay,2018,"NA"
+PSE,West Bank and Gaza,2016,na
+PSE,West Bank and Gaza,2017,ISCO-08
+PSE,West Bank and Gaza,2018,ISCO-08
+QAT,Qatar,2016,na
+QAT,Qatar,2017,"NA"
+QAT,Qatar,2018,"NA"
+ROU,Romania,2016,ICSE-93
+ROU,Romania,2017,ICSE-93
+ROU,Romania,2018,ICSE-93
+RUS,Russian Federation,2016,na
+RUS,Russian Federation,2017,ISCO-08
+RUS,Russian Federation,2018,ISCO-08
+RWA,Rwanda,2016,na
+RWA,Rwanda,2017,"NA"
+RWA,Rwanda,2018,"NA"
+SAU,Saudi Arabia,2016,na
+SAU,Saudi Arabia,2017,"NA"
+SAU,Saudi Arabia,2018,"NA"
+SDN,Sudan,2016,na
+SDN,Sudan,2017,"NA"
+SDN,Sudan,2018,"NA"
+SEN,Senegal,2016,na
+SEN,Senegal,2017,"ISCO, ISIC, ISCED"
+SEN,Senegal,2018,"ISCO, ISIC, ISCED"
+SGP,Singapore,2016,na
+SGP,Singapore,2017,ISCO-08
+SGP,Singapore,2018,ISCO-08
+SLB,Solomon Islands,2016,na
+SLB,Solomon Islands,2017,"NA"
+SLB,Solomon Islands,2018,"NA"
+SLE,Sierra Leone,2016,na
+SLE,Sierra Leone,2017,"NA"
+SLE,Sierra Leone,2018,"NA"
+SLV,El Salvador,2016,na
+SLV,El Salvador,2017,"NA"
+SLV,El Salvador,2018,"NA"
+SMR,San Marino,2016,ICSE-93
+SMR,San Marino,2017,ICSE-93
+SMR,San Marino,2018,ICSE-93
+SOM,Somalia,2016,na
+SOM,Somalia,2017,na
+SOM,Somalia,2018,na
+SRB,Serbia,2016,na
+SRB,Serbia,2017,ICSE-93
+SRB,Serbia,2018,ICSE-93
+SSD,South Sudan,2016,na
+SSD,South Sudan,2017,na
+SSD,South Sudan,2018,na
+STP,São Tomé and Principe,2016,na
+STP,São Tomé and Principe,2017,"NA"
+STP,São Tomé and Principe,2018,"NA"
+SUR,Suriname,2016,na
+SUR,Suriname,2017,ISCO-88
+SUR,Suriname,2018,ISCO-88
+SVK,Slovak Republic,2016,na
+SVK,Slovak Republic,2017,ICSE-93
+SVK,Slovak Republic,2018,ICSE-93
+SVN,Slovenia,2016,na
+SVN,Slovenia,2017,ISCO-08
+SVN,Slovenia,2018,ISCO-08
+SWE,Sweden,2016,SE-SIC 07/ NACE Rev. 2  (linked to ICSE)
+SWE,Sweden,2017,ISCO-08
+SWE,Sweden,2018,ISCO-08
+SWZ,Eswatini,2016,na
+SWZ,Eswatini,2017,na
+SWZ,Eswatini,2018,na
+SYC,Seychelles,2016,na
+SYC,Seychelles,2017,"NA"
+SYC,Seychelles,2018,"NA"
+SYR,Syrian Arab Republic,2016,na
+SYR,Syrian Arab Republic,2017,"NA"
+SYR,Syrian Arab Republic,2018,"NA"
+TCD,Chad,2016,na
+TCD,Chad,2017,"NA"
+TCD,Chad,2018,"NA"
+TGO,Togo,2016,na
+TGO,Togo,2017,"NA"
+TGO,Togo,2018,"NA"
+THA,Thailand,2016,ICSE-93
+THA,Thailand,2017,ICSE-93
+THA,Thailand,2018,ICSE-93
+TJK,Tajikistan,2016,ICSE
+TJK,Tajikistan,2017,"NA"
+TJK,Tajikistan,2018,"NA"
+TKM,Turkmenistan,2016,na
+TKM,Turkmenistan,2017,na
+TKM,Turkmenistan,2018,na
+TLS,Timor-Leste,2016,na
+TLS,Timor-Leste,2017,"NA"
+TLS,Timor-Leste,2018,"NA"
+TON,Tonga,2016,na
+TON,Tonga,2017,"NA"
+TON,Tonga,2018,"NA"
+TTO,Trinidad and Tobago,2016,na
+TTO,Trinidad and Tobago,2017,"NA"
+TTO,Trinidad and Tobago,2018,"NA"
+TUN,Tunisia,2016,na
+TUN,Tunisia,2017,"NA"
+TUN,Tunisia,2018,"NA"
+TUR,Turkey,2016,ICSE-93
+TUR,Turkey,2017,ICSE-93
+TUR,Turkey,2018,ICSE-93
+TUV,Tuvalu,2016,0
+TUV,Tuvalu,2017,0
+TUV,Tuvalu,2018,0
+TZA,Tanzania,2016,ICSE-93
+TZA,Tanzania,2017,ICSE-93
+TZA,Tanzania,2018,ICSE-93
+UGA,Uganda,2016,ICSE-93
+UGA,Uganda,2017,ICSE-93
+UGA,Uganda,2018,ICSE-93
+UKR,Ukraine,2016,na
+UKR,Ukraine,2017,ICSE-93
+UKR,Ukraine,2018,ICSE-93
+URY,Uruguay,2016,na
+URY,Uruguay,2017,ISCO-08
+URY,Uruguay,2018,ISCO-08
+USA,United States,2016,NAICS
+USA,United States,2017,NAICS
+USA,United States,2018,NAICS
+UZB,Uzbekistan,2016,na
+UZB,Uzbekistan,2017,"NA"
+UZB,Uzbekistan,2018,"NA"
+VCT,St. Vincent and the Grenadines,2016,na
+VCT,St. Vincent and the Grenadines,2017,ISCO-88
+VCT,St. Vincent and the Grenadines,2018,ISCO-88
+VEN,"Venezuela, RB",2016,na
+VEN,"Venezuela, RB",2017,ISCO-88
+VEN,"Venezuela, RB",2018,ISCO-88
+VNM,Vietnam,2016,na
+VNM,Vietnam,2017,"NA"
+VNM,Vietnam,2018,"NA"
+VUT,Vanuatu,2016,na
+VUT,Vanuatu,2017,"NA"
+VUT,Vanuatu,2018,"NA"
+WSM,Samoa,2016,na
+WSM,Samoa,2017,"NA"
+WSM,Samoa,2018,"NA"
+XKX,Kosovo,2016,na
+XKX,Kosovo,2017,"NA"
+XKX,Kosovo,2018,"NA"
+YEM,"Yemen, Rep.",2016,na
+YEM,"Yemen, Rep.",2017,"NA"
+YEM,"Yemen, Rep.",2018,"NA"
+ZAF,South Africa,2016,na
+ZAF,South Africa,2017,SASCO
+ZAF,South Africa,2018,SASCO
+ZMB,Zambia,2016,yes
+ZMB,Zambia,2017,"NA"
+ZMB,Zambia,2018,"NA"
+ZWE,Zimbabwe,2016,na
+ZWE,Zimbabwe,2017,"NA"
+ZWE,Zimbabwe,2018,"NA"

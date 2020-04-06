@@ -76,8 +76,12 @@
 # Markdown
 !/**/**/*.md
 
+# xlsx files
+!/Data/**/*.xlsx
+
 # csv files
-!/Data/**/*.csv
+!/R/**/*rawdata/*.csv
+
 #Powerpoint files
 !/**/**/*.ppt
 !/**/**/*.pptx

@@ -1,0 +1,53 @@
+---
+title: "UN Stats Division - Country NSO Data"
+author: "Brian Stacy"
+date: "4/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load packages
+library(Rcrawler)
+library(rvest)
+library(tidyverse)
+library(readr)
+
+```
+
+# Introduction
+
+This code is designed to pull NSO country profile data from the [UN Statistical Division](https://unstats.un.org/unsd/dnss/cp/searchcp.aspx)
+
+```{r crawler}
+
+crawler_url <- "https://unstats.un.org/unsd/dnss/cp/searchcp.aspx"
+
+crawler<-LinkExtractor(crawler_url)
+
+```
+
+
+
+```{r data_scrape}
+
+#URL for REB
+url <- "https://unstats.un.org/unsd/dnss/docViewer.aspx?docID=578#start"
+
+#Names
+xpath <- '//*/body/form/center/div/table/tr/td/div[@class="catGroupPanel"]'
+
+#scrape the info
+webpage <- read_html(url)
+un_table <- html_nodes(webpage, xpath=xpath) 
+
+
+un_titles<- un_table %>%
+  html_text() %>%
+  as.data.frame()
+  
+
+
+```
+
