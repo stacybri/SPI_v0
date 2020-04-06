@@ -27,6 +27,19 @@ year <- 2018
 # Function to Read in SPI data
 #######
 
+# User inputs five parameters.  First is a numeric code for either Dimension 1, 2, 3, or 4.  Then is a secondary numeric code for sub-indicator i.e. sub-indicator 2.
+# Next the user enters the name of the sub-indicator (i.e. CRVS).  Then the year of the data (i.e. 2018), finally how many rows to skip in original excel (usually 0 or 1 skips)
+#####
+# Example
+#####
+
+# System of National Accounts in use
+#D1.1.MSC.SNAU_2016 <- spi_loader(1,1,'SNAU', 2016,1)
+#####
+# End Example
+#####
+
+
 spi_loader <- function(variable_num1, variable_num2,variable_name, year, skip) {
   read_excel(path=paste(excel_dir,"/D", variable_num1,". MSC/",year, " - D",paste(variable_num1,variable_num2,sep="."),".MSC.",variable_name," - REV.xlsx", sep=""),
              sheet=paste(year, "data", sep=" "),
@@ -111,14 +124,14 @@ D1.3.MSC.CNIN_2017 <- spi_loader(1,3,'CNIN', 2017,0) %>%
   mutate(CNIN=Classification.of.national.industry,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=2017) %>%
   select(iso3c, country,date, CNIN)
 
 D1.3.MSC.CNIN_2018 <- spi_loader(1,3,'CNIN', 2018,1) %>%
   mutate(CNIN=...2018...6,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=2018) %>%
   select(iso3c, country,date, CNIN)
 
 
@@ -172,14 +185,14 @@ D1.5.MSC.HOUS_2017 <- spi_loader(1,5,'HOUS', 2017,0) %>%
   mutate(HOUS=Classification.of.household.consumption,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=2017) %>%
   select(iso3c, country,date, HOUS)
 
 D1.5.MSC.HOUS_2018 <- spi_loader(1,5,'HOUS', 2018,0) %>%
   mutate(HOUS=Classification.of.household.consumption,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=2018) %>%
   select(iso3c, country,date, HOUS)
 
 
@@ -206,14 +219,14 @@ D1.6.MSC.EMPL_2017 <- spi_loader(1,6,'EMPL', 2017,0) %>%
   mutate(EMPL=Classification.of.status.of.employment,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=2017) %>%
   select(iso3c, country,date, EMPL)
 
 D1.6.MSC.EMPL_2018 <- spi_loader(1,6,'EMPL', 2018,0) %>%
   mutate(EMPL=Classification.of.status.of.employment,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=2018) %>%
   select(iso3c, country,date, EMPL)
 
 
@@ -239,14 +252,14 @@ D1.7.MSC.CGOV_2017 <- spi_loader(1,7,'CGOV', 2017,0) %>%
   mutate(CGOV=Central.government.accounting.status,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=2017) %>%
   select(iso3c, country,date, CGOV)
 
 D1.7.MSC.CGOV_2018 <- spi_loader(1,7,'CGOV', 2018,0) %>%
   mutate(CGOV=Central.government.accounting.status,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=2018) %>%
   select(iso3c, country,date, CGOV)
 
 
@@ -261,34 +274,233 @@ bind_rows(D1.7.MSC.CGOV_2016, D1.7.MSC.CGOV_2017, D1.7.MSC.CGOV_2018) %>%
 #########
 # Compilation of government finance statistics
 #########
-D1.8.MSC.FINA<-read_excel(path=paste(excel_dir,"/D1. MSC/",year, " - D1.8.MSC.FINA - REV.xlsx", sep=""),
-                      sheet=paste(year, "data", sep=" "),
-                      skip=1)
+
+
+D1.8.MSC.FINA_2016 <- spi_loader(1,8,'FINA', 2016,0) %>%
+  mutate(FINA=Compilation.of.government.finance.statistics,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, FINA)
+
+D1.8.MSC.FINA_2017 <- spi_loader(1,8,'FINA', 2017,0) %>%
+  mutate(FINA=Compilation.of.government.finance.statistics,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, FINA)
+
+D1.8.MSC.FINA_2018 <- spi_loader(1,8,'FINA', 2018,0) %>%
+  mutate(FINA=Compilation.of.government.finance.statistics,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, FINA)
+
+
+#save to csv
+bind_rows(D1.8.MSC.FINA_2016, D1.8.MSC.FINA_2017, D1.8.MSC.FINA_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D1.8.MSC.FINA.csv", sep="/" ))
+
+
+#########
 # Compilation of monetary and financial statistics
-D1.9.MSC.MONY<-read_excel(path=paste(excel_dir,"/D1. MSC/",year, " - D1.9.MSC.MONY - REV.xlsx", sep=""),
-                      sheet=paste(year, "data", sep=" "),
-                      skip=1)
+#########
+D1.9.MSC.MONY_2016 <- spi_loader(1,9,'MONY', 2016,1) %>%
+  mutate(MONY=compilation.of.monetary.and.financial.statistics,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, MONY)
+
+D1.9.MSC.MONY_2017 <- spi_loader(1,9,'MONY', 2017,1) %>%
+  mutate(MONY=compilation.of.monetary.and.financial.statistics,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, MONY)
+
+D1.9.MSC.MONY_2018 <- spi_loader(1,9,'MONY', 2018,1) %>%
+  mutate(MONY=compilation.of.monetary.and.financial.statistics,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, MONY)
+
+
+#save to csv
+bind_rows(D1.9.MSC.MONY_2016, D1.9.MSC.MONY_2017, D1.9.MSC.MONY_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D1.9.MSC.MONY.csv", sep="/" ))
+
+
 #########
 # SDDS/e-GDDS subscription
 #########
-D1.10.MSC.IDDS<-read_excel(path=paste(excel_dir,"/D1. MSC/",year, " - D1.10.MSC.IDDS - REV.xlsx", sep=""),
-                      sheet=paste(year, "data", sep=" "),
-                      skip=1)
+
+
+D1.10.MSC.IDDS_2016 <- spi_loader(1,10,'IDDS', 2016,1) %>%
+  mutate(IDDS=SDDS.subsciption,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, IDDS)
+
+D1.10.MSC.IDDS_2017 <- spi_loader(1,10,'IDDS', 2017,1) %>%
+  mutate(IDDS=SDDS.subsciption,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, IDDS)
+
+D1.10.MSC.IDDS_2018 <- spi_loader(1,10,'IDDS', 2018,1) %>%
+  mutate(IDDS=SDDS.subsciption,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, IDDS)
+
+
+#save to csv
+bind_rows(D1.10.MSC.IDDS_2016, D1.10.MSC.IDDS_2017, D1.10.MSC.IDDS_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D1.10.MSC.IDDS.csv", sep="/" ))
+
+
 #########
 # CRVS 
 #########
-D1.11.MSC.CRVS<-read_excel(path=paste(excel_dir,"/D1. MSC/",year, " - D1.11.MSC.CRVS - REV.xlsx", sep=""),
-                           sheet=paste(year, "data", sep=" "),
-                           skip=1)
+
+D1.11.MSC.CRVS_2016 <- spi_loader(1,11,'CRVS', 2016,1) %>%
+  mutate(CRVS=CRVS,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, CRVS)
+
+D1.11.MSC.CRVS_2017 <- spi_loader(1,11,'CRVS', 2017,1) %>%
+  mutate(CRVS=CRVS,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, CRVS)
+
+D1.11.MSC.CRVS_2018 <- spi_loader(1,11,'CRVS', 2018,1) %>%
+  mutate(CRVS=CRVS,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, CRVS)
+
+
+#save to csv
+bind_rows(D1.11.MSC.CRVS_2016, D1.11.MSC.CRVS_2017, D1.11.MSC.CRVS_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D1.11.MSC.CRVS.csv", sep="/" ))
+
 #########
 # Business process
 #########
-D1.12.MSC.GSBP<-read_excel(path=paste(excel_dir,"/D1. MSC/",year, " - D1.12.MSC.GSBP - REV.xlsx", sep=""),
-                           sheet=paste(year, "data", sep=" "),
-                           skip=1)
+
+D1.12.MSC.GSBP_2016 <- spi_loader(1,12,'GSBP', 2016,1) %>%
+  mutate(GSBP=Business.Process..GSBPM.,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, GSBP)
+
+D1.12.MSC.GSBP_2017 <- spi_loader(1,12,'GSBP', 2017,1) %>%
+  mutate(GSBP=Business.Process..GSBPM.,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, GSBP)
+
+D1.12.MSC.GSBP_2018 <- spi_loader(1,12,'GSBP', 2018,1) %>%
+  mutate(GSBP=Business.Process..GSBPM.,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, GSBP)
+
+
+#save to csv
+bind_rows(D1.12.MSC.GSBP_2016, D1.12.MSC.GSBP_2017, D1.12.MSC.GSBP_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D1.12.MSC.GSBP.csv", sep="/" ))
+
 ###############################
 # SPI Dimension 2: Censuses and Surveys (CS): 
 ###############################
+
+
+
+#########
+# Population & Housing census
+#########
+
+D2.1.CEN.POPU<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.1.CEN.POPU - REV.xlsx", sep=""),
+                          sheet="2016-2018 data",
+                          skip=1,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
+  mutate(..2018..Population...Housing.census=gsub("^,*|(?<=,),|,*$", "", ..2018..Population...Housing.census, perl=T)) #remove leading and trailing commas
+
+ 
+
+D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
+  mutate(POPU_2016=as.numeric(strsplit(..2018..Population...Housing.census, ",")[[1]])
+         ) %>%
+  pivot_longer(cols=contains(as.character(2016:2018)),
+               names_to='date',
+               names_prefix='POPU_',
+               values_to='POPU') %>%
+  mutate(date=as.numeric(date)) %>%
+  select(iso3c, country, POPU) 
+  arrange(iso3c, date) 
+
+
+
+write_excel_csv(D2.1.CEN.POPU,
+                path = paste(csv_dir, "D2.1.CEN.POPU", sep="/" ))
+
+
+
+#########
+# Agriculture census
+#########
+
+#########
+# Business/establishment census
+#########
+
+#########
+# Household Survey on income/consumption/expenditure/budget/Integrated Survey 
+#########
+
+#########
+# Agriculture survey
+#########
+
+#########
+# Labor Force Survey 
+#########
+
+#########
+# Health/Demographic survey
+#########
+
+#########
+# Business/establishment survey
+#########
 
 
 ###############################

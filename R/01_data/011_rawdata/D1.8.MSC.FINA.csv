@@ -1,0 +1,571 @@
+﻿iso3c,country,date,FINA
+AFG,Afghanistan,2016,2001
+AFG,Afghanistan,2017,2001
+AFG,Afghanistan,2018,2001
+AGO,Angola,2016,1986
+AGO,Angola,2017,1986
+AGO,Angola,2018,1986
+ALB,Albania,2016,2014
+ALB,Albania,2017,2014
+ALB,Albania,2018,2014
+ARE,United Arab Emirates,2016,2014
+ARE,United Arab Emirates,2017,2014
+ARE,United Arab Emirates,2018,2014
+ARG,Argentina,2016,1986
+ARG,Argentina,2017,1986
+ARG,Argentina,2018,1986
+ARM,Armenia,2016,2001
+ARM,Armenia,2017,2001
+ARM,Armenia,2018,2001
+ATG,Antigua and Barbuda,2016,"NA"
+ATG,Antigua and Barbuda,2017,"NA"
+ATG,Antigua and Barbuda,2018,"NA"
+AUS,Australia,2016,2001
+AUS,Australia,2017,2014
+AUS,Australia,2018,2014
+AUT,Austria,2016,ESA 2010
+AUT,Austria,2017,ESA 2010
+AUT,Austria,2018,ESA 2010
+AZE,Azerbaijan,2016,"NA"
+AZE,Azerbaijan,2017,"NA"
+AZE,Azerbaijan,2018,"NA"
+BDI,Burundi,2016,1986
+BDI,Burundi,2017,1986
+BDI,Burundi,2018,1986
+BEL,Belgium,2016,ESA 2010
+BEL,Belgium,2017,ESA 2010
+BEL,Belgium,2018,ESA 2010
+BEN,Benin,2016,2001
+BEN,Benin,2017,2001
+BEN,Benin,2018,2001
+BFA,Burkina Faso,2016,1986
+BFA,Burkina Faso,2017,1986
+BFA,Burkina Faso,2018,1986
+BGD,Bangladesh,2016,"NA"
+BGD,Bangladesh,2017,"NA"
+BGD,Bangladesh,2018,"NA"
+BGR,Bulgaria,2016,ESA 2010
+BGR,Bulgaria,2017,ESA 2010
+BGR,Bulgaria,2018,ESA 2010
+BHR,Bahrain,2016,2001
+BHR,Bahrain,2017,2001
+BHR,Bahrain,2018,2001
+BHS,"Bahamas, The",2016,2001
+BHS,"Bahamas, The",2017,2001
+BHS,"Bahamas, The",2018,2014
+BIH,Bosnia and Herzegovina,2016,2001
+BIH,Bosnia and Herzegovina,2017,2001
+BIH,Bosnia and Herzegovina,2018,2001
+BLR,Belarus,2016,2001
+BLR,Belarus,2017,2001
+BLR,Belarus,2018,2001
+BLZ,Belize,2016,1986
+BLZ,Belize,2017,1986
+BLZ,Belize,2018,1986
+BOL,Bolivia,2016,1986
+BOL,Bolivia,2017,1986
+BOL,Bolivia,2018,1986
+BRA,Brazil,2016,1986
+BRA,Brazil,2017,1986
+BRA,Brazil,2018,1986
+BRB,Barbados,2016,2001
+BRB,Barbados,2017,2001
+BRB,Barbados,2018,2001
+BRN,Brunei Darussalam,2016,1986
+BRN,Brunei Darussalam,2017,1986
+BRN,Brunei Darussalam,2018,1986
+BTN,Bhutan,2016,1986
+BTN,Bhutan,2017,1986
+BTN,Bhutan,2018,1986
+BWA,Botswana,2016,1986
+BWA,Botswana,2017,1986
+BWA,Botswana,2018,1986
+CAF,Central African Republic,2016,1986
+CAF,Central African Republic,2017,1986
+CAF,Central African Republic,2018,1986
+CAN,Canada,2016,2001
+CAN,Canada,2017,2001
+CAN,Canada,2018,2001
+CHE,Switzerland,2016,ESA 2010
+CHE,Switzerland,2017,ESA 2010
+CHE,Switzerland,2018,ESA 2010
+CHL,Chile,2016,2001
+CHL,Chile,2017,2001
+CHL,Chile,2018,2001
+CHN,China,2016,2001
+CHN,China,2017,2001
+CHN,China,2018,2001
+CIV,Côte d'Ivoire,2016,1986
+CIV,Côte d'Ivoire,2017,1986
+CIV,Côte d'Ivoire,2018,1986
+CMR,Cameroon,2016,1986
+CMR,Cameroon,2017,1986
+CMR,Cameroon,2018,1986
+COD,"Congo, Dem. Rep.",2016,1986
+COD,"Congo, Dem. Rep.",2017,1986
+COD,"Congo, Dem. Rep.",2018,1986
+COG,"Congo, Rep.",2016,1986
+COG,"Congo, Rep.",2017,1986
+COG,"Congo, Rep.",2018,1986
+COL,Colombia,2016,"NA"
+COL,Colombia,2017,"NA"
+COL,Colombia,2018,"NA"
+COM,Comoros,2016,1986
+COM,Comoros,2017,1986
+COM,Comoros,2018,1986
+CPV,Cabo Verde,2016,1986
+CPV,Cabo Verde,2017,1986
+CPV,Cabo Verde,2018,1986
+CRI,Costa Rica,2016,1986
+CRI,Costa Rica,2017,1986
+CRI,Costa Rica,2018,1986
+CYP,Cyprus,2016,ESA 2010
+CYP,Cyprus,2017,ESA 2010
+CYP,Cyprus,2018,ESA 2010
+CZE,Czech Republic,2016,ESA 2010
+CZE,Czech Republic,2017,ESA 2010
+CZE,Czech Republic,2018,ESA 2010
+DEU,Germany,2016,ESA 2010
+DEU,Germany,2017,ESA 2010
+DEU,Germany,2018,ESA 2010
+DJI,Djibouti,2016,2001
+DJI,Djibouti,2017,2001
+DJI,Djibouti,2018,2001
+DMA,Dominica,2016,1986
+DMA,Dominica,2017,1986
+DMA,Dominica,2018,1986
+DNK,Denmark,2016,ESA 2010
+DNK,Denmark,2017,ESA 2010
+DNK,Denmark,2018,ESA 2010
+DOM,Dominican Republic,2016,1986
+DOM,Dominican Republic,2017,1986
+DOM,Dominican Republic,2018,1986
+DZA,Algeria,2016,1986
+DZA,Algeria,2017,1986
+DZA,Algeria,2018,1986
+ECU,Ecuador,2016,2001
+ECU,Ecuador,2017,2001
+ECU,Ecuador,2018,2001
+EGY,"Egypt, Arab Rep.",2016,2001
+EGY,"Egypt, Arab Rep.",2017,2001
+EGY,"Egypt, Arab Rep.",2018,2001
+ERI,Eritrea,2016,"NA"
+ERI,Eritrea,2017,"NA"
+ERI,Eritrea,2018,"NA"
+ESP,Spain,2016,ESA 2010
+ESP,Spain,2017,ESA 2010
+ESP,Spain,2018,ESA 2010
+EST,Estonia,2016,other
+EST,Estonia,2017,other
+EST,Estonia,2018,other
+ETH,Ethiopia,2016,2001
+ETH,Ethiopia,2017,2001
+ETH,Ethiopia,2018,2001
+FIN,Finland,2016,ESA 2010
+FIN,Finland,2017,ESA 2010
+FIN,Finland,2018,ESA 2010
+FJI,Fiji,2016,"NA"
+FJI,Fiji,2017,"NA"
+FJI,Fiji,2018,"NA"
+FRA,France,2016,ESA 2010
+FRA,France,2017,ESA 2010
+FRA,France,2018,ESA 2010
+FSM,"Micronesia, Fed. Sts.",2016,"NA"
+FSM,"Micronesia, Fed. Sts.",2017,"NA"
+FSM,"Micronesia, Fed. Sts.",2018,"NA"
+GAB,Gabon,2016,1986
+GAB,Gabon,2017,1986
+GAB,Gabon,2018,1986
+GBR,United Kingdom,2016,ESA 2010
+GBR,United Kingdom,2017,ESA 2010
+GBR,United Kingdom,2018,ESA 2010
+GEO,Georgia,2016,2001
+GEO,Georgia,2017,2001
+GEO,Georgia,2018,2001
+GHA,Ghana,2016,1986
+GHA,Ghana,2017,1986
+GHA,Ghana,2018,1986
+GIN,Guinea,2016,"NA"
+GIN,Guinea,2017,"NA"
+GIN,Guinea,2018,"NA"
+GMB,"Gambia, The",2016,1986
+GMB,"Gambia, The",2017,1986
+GMB,"Gambia, The",2018,1986
+GNB,Guinea-Bissau,2016,other
+GNB,Guinea-Bissau,2017,other
+GNB,Guinea-Bissau,2018,other
+GNQ,Equatorial Guinea,2016,"NA"
+GNQ,Equatorial Guinea,2017,"NA"
+GNQ,Equatorial Guinea,2018,"NA"
+GRC,Greece,2016,ESA 2010
+GRC,Greece,2017,ESA 2010
+GRC,Greece,2018,ESA 2010
+GRD,Grenada,2016,1986
+GRD,Grenada,2017,1986
+GRD,Grenada,2018,1986
+GTM,Guatemala,2016,1986
+GTM,Guatemala,2017,1986
+GTM,Guatemala,2018,1986
+GUY,Guyana,2016,1986
+GUY,Guyana,2017,1986
+GUY,Guyana,2018,1986
+HND,Honduras,2016,1986
+HND,Honduras,2017,1986
+HND,Honduras,2018,1986
+HRV,Croatia,2016,2001
+HRV,Croatia,2017,2001
+HRV,Croatia,2018,2001
+HTI,Haiti,2016,1986
+HTI,Haiti,2017,1986
+HTI,Haiti,2018,1986
+HUN,Hungary,2016,ESA 2010
+HUN,Hungary,2017,ESA 2010
+HUN,Hungary,2018,ESA 2010
+IDN,Indonesia,2016,2014
+IDN,Indonesia,2017,2014
+IDN,Indonesia,2018,2014
+IND,India,2016,2014
+IND,India,2017,2014
+IND,India,2018,2014
+IRL,Ireland,2016,ESA 2010
+IRL,Ireland,2017,ESA 2010
+IRL,Ireland,2018,ESA 2010
+IRN,"Iran, Islamic Rep.",2016,1986
+IRN,"Iran, Islamic Rep.",2017,1986
+IRN,"Iran, Islamic Rep.",2018,1986
+IRQ,Iraq,2016,2001
+IRQ,Iraq,2017,2001
+IRQ,Iraq,2018,2001
+ISL,Iceland,2016,2001
+ISL,Iceland,2017,2001
+ISL,Iceland,2018,2001
+ISR,Israel,2016,2014
+ISR,Israel,2017,2014
+ISR,Israel,2018,2014
+ITA,Italy,2016,ESA 2010
+ITA,Italy,2017,ESA 2010
+ITA,Italy,2018,ESA 2010
+JAM,Jamaica,2016,1986
+JAM,Jamaica,2017,1986
+JAM,Jamaica,2018,1986
+JOR,Jordan,2016,2001
+JOR,Jordan,2017,2001
+JOR,Jordan,2018,2001
+JPN,Japan,2016,2001
+JPN,Japan,2017,2001
+JPN,Japan,2018,2001
+KAZ,Kazakhstan,2016,1986
+KAZ,Kazakhstan,2017,1986
+KAZ,Kazakhstan,2018,1986
+KEN,Kenya,2016,1986
+KEN,Kenya,2017,1986
+KEN,Kenya,2018,1986
+KGZ,Kyrgyz Republic,2016,2001
+KGZ,Kyrgyz Republic,2017,2001
+KGZ,Kyrgyz Republic,2018,2001
+KHM,Cambodia,2016,1986
+KHM,Cambodia,2017,1986
+KHM,Cambodia,2018,1986
+KIR,Kiribati,2016,1986
+KIR,Kiribati,2017,1986
+KIR,Kiribati,2018,1986
+KNA,St. Kitts and Nevis,2016,1986
+KNA,St. Kitts and Nevis,2017,1986
+KNA,St. Kitts and Nevis,2018,1986
+KOR,"Korea, Rep.",2016,2001
+KOR,"Korea, Rep.",2017,2001
+KOR,"Korea, Rep.",2018,2001
+KWT,Kuwait,2016,1986
+KWT,Kuwait,2017,1986
+KWT,Kuwait,2018,1986
+LAO,Lao PDR,2016,"NA"
+LAO,Lao PDR,2017,"NA"
+LAO,Lao PDR,2018,"NA"
+LBN,Lebanon,2016,2001
+LBN,Lebanon,2017,2001
+LBN,Lebanon,2018,2001
+LBR,Liberia,2016,2001
+LBR,Liberia,2017,2001
+LBR,Liberia,2018,2001
+LBY,Libya,2016,other
+LBY,Libya,2017,other
+LBY,Libya,2018,other
+LCA,St. Lucia,2016,1986
+LCA,St. Lucia,2017,1986
+LCA,St. Lucia,2018,1986
+LKA,Sri Lanka,2016,1986
+LKA,Sri Lanka,2017,1986
+LKA,Sri Lanka,2018,1986
+LSO,Lesotho,2016,2001
+LSO,Lesotho,2017,2001
+LSO,Lesotho,2018,2001
+LTU,Lithuania,2016,ESA 2010
+LTU,Lithuania,2017,ESA 2010
+LTU,Lithuania,2018,ESA 2010
+LUX,Luxembourg,2016,ESA 2010
+LUX,Luxembourg,2017,ESA 2010
+LUX,Luxembourg,2018,ESA 2010
+LVA,Latvia,2016,ESA 1995
+LVA,Latvia,2017,ESA 1995
+LVA,Latvia,2018,ESA 1995
+MAR,Morocco,2016,1986
+MAR,Morocco,2017,1986
+MAR,Morocco,2018,1986
+MDA,Moldova,2016,2001
+MDA,Moldova,2017,2001
+MDA,Moldova,2018,2001
+MDG,Madagascar,2016,2001
+MDG,Madagascar,2017,2001
+MDG,Madagascar,2018,2001
+MDV,Maldives,2016,"NA"
+MDV,Maldives,2017,"NA"
+MDV,Maldives,2018,"NA"
+MEX,Mexico,2016,1986
+MEX,Mexico,2017,1986
+MEX,Mexico,2018,1986
+MHL,Marshall Islands,2016,"NA"
+MHL,Marshall Islands,2017,"NA"
+MHL,Marshall Islands,2018,"NA"
+MKD,"Macedonia, FYR",2016,1986
+MKD,"Macedonia, FYR",2017,1986
+MKD,"Macedonia, FYR",2018,1986
+MLI,Mali,2016,1986
+MLI,Mali,2017,1986
+MLI,Mali,2018,1986
+MLT,Malta,2016,ESA 2010
+MLT,Malta,2017,ESA 2010
+MLT,Malta,2018,ESA 2010
+MMR,Myanmar,2016,2014
+MMR,Myanmar,2017,2014
+MMR,Myanmar,2018,2014
+MNE,Montenegro,2016,1986
+MNE,Montenegro,2017,1986
+MNE,Montenegro,2018,1986
+MNG,Mongolia,2016,1986
+MNG,Mongolia,2017,1986
+MNG,Mongolia,2018,1986
+MOZ,Mozambique,2016,1986
+MOZ,Mozambique,2017,1986
+MOZ,Mozambique,2018,1986
+MRT,Mauritania,2016,1986
+MRT,Mauritania,2017,1986
+MRT,Mauritania,2018,1986
+MUS,Mauritius,2016,2001
+MUS,Mauritius,2017,2001
+MUS,Mauritius,2018,2001
+MWI,Malawi,2016,1986
+MWI,Malawi,2017,1986
+MWI,Malawi,2018,1986
+MYS,Malaysia,2016,1986
+MYS,Malaysia,2017,1986
+MYS,Malaysia,2018,1986
+NAM,Namibia,2016,1986
+NAM,Namibia,2017,1986
+NAM,Namibia,2018,1986
+NER,Niger,2016,1986
+NER,Niger,2017,1986
+NER,Niger,2018,1986
+NGA,Nigeria,2016,1986
+NGA,Nigeria,2017,1986
+NGA,Nigeria,2018,1986
+NIC,Nicaragua,2016,1986
+NIC,Nicaragua,2017,1986
+NIC,Nicaragua,2018,1986
+NLD,Netherlands,2016,ESA 2010
+NLD,Netherlands,2017,ESA 2010
+NLD,Netherlands,2018,ESA 2010
+NOR,Norway,2016,2014
+NOR,Norway,2017,2014
+NOR,Norway,2018,2014
+NPL,Nepal,2016,other
+NPL,Nepal,2017,other
+NPL,Nepal,2018,other
+NRU,Nauru,2016,"NA"
+NRU,Nauru,2017,"NA"
+NRU,Nauru,2018,"NA"
+NZL,New Zealand,2016,"NA"
+NZL,New Zealand,2017,"NA"
+NZL,New Zealand,2018,"NA"
+OMN,Oman,2016,1986
+OMN,Oman,2017,1986
+OMN,Oman,2018,1986
+PAK,Pakistan,2016,1986
+PAK,Pakistan,2017,1986
+PAK,Pakistan,2018,1986
+PAN,Panama,2016,other
+PAN,Panama,2017,other
+PAN,Panama,2018,other
+PER,Peru,2016,1986
+PER,Peru,2017,1986
+PER,Peru,2018,1986
+PHL,Philippines,2016,1986
+PHL,Philippines,2017,1986
+PHL,Philippines,2018,1986
+PLW,Palau,2016,2001
+PLW,Palau,2017,2001
+PLW,Palau,2018,2001
+PNG,Papua New Guinea,2016,1986
+PNG,Papua New Guinea,2017,1986
+PNG,Papua New Guinea,2018,1986
+POL,Poland,2016,ESA 2010
+POL,Poland,2017,ESA 2010
+POL,Poland,2018,ESA 2010
+PRT,Portugal,2016,ESA 2010
+PRT,Portugal,2017,ESA 2010
+PRT,Portugal,2018,ESA 2010
+PRY,Paraguay,2016,1986
+PRY,Paraguay,2017,1986
+PRY,Paraguay,2018,1986
+PSE,West Bank and Gaza,2016,1986
+PSE,West Bank and Gaza,2017,1986
+PSE,West Bank and Gaza,2018,1986
+QAT,Qatar,2016,other
+QAT,Qatar,2017,other
+QAT,Qatar,2018,other
+ROU,Romania,2016,2001
+ROU,Romania,2017,2001
+ROU,Romania,2018,2001
+RUS,Russian Federation,2016,2014
+RUS,Russian Federation,2017,2014
+RUS,Russian Federation,2018,2014
+RWA,Rwanda,2016,1986
+RWA,Rwanda,2017,1986
+RWA,Rwanda,2018,1986
+SAU,Saudi Arabia,2016,1986
+SAU,Saudi Arabia,2017,1986
+SAU,Saudi Arabia,2018,1986
+SDN,Sudan,2016,1986
+SDN,Sudan,2017,1986
+SDN,Sudan,2018,1986
+SEN,Senegal,2016,2001
+SEN,Senegal,2017,2001
+SEN,Senegal,2018,2001
+SGP,Singapore,2016,2014
+SGP,Singapore,2017,2014
+SGP,Singapore,2018,2014
+SLB,Solomon Islands,2016,other
+SLB,Solomon Islands,2017,other
+SLB,Solomon Islands,2018,other
+SLE,Sierra Leone,2016,1986
+SLE,Sierra Leone,2017,1986
+SLE,Sierra Leone,2018,1986
+SLV,El Salvador,2016,1986
+SLV,El Salvador,2017,1986
+SLV,El Salvador,2018,1986
+SMR,San Marino,2016,2001
+SMR,San Marino,2017,2001
+SMR,San Marino,2018,2001
+SOM,Somalia,2016,"NA"
+SOM,Somalia,2017,"NA"
+SOM,Somalia,2018,"NA"
+SRB,Serbia,2016,1986
+SRB,Serbia,2017,1986
+SRB,Serbia,2018,1986
+SSD,South Sudan,2016,"NA"
+SSD,South Sudan,2017,"NA"
+SSD,South Sudan,2018,"NA"
+STP,São Tomé and Principe,2016,1986
+STP,São Tomé and Principe,2017,1986
+STP,São Tomé and Principe,2018,1986
+SUR,Suriname,2016,2001
+SUR,Suriname,2017,2001
+SUR,Suriname,2018,2001
+SVK,Slovak Republic,2016,2014
+SVK,Slovak Republic,2017,2014
+SVK,Slovak Republic,2018,2014
+SVN,Slovenia,2016,1986
+SVN,Slovenia,2017,1986
+SVN,Slovenia,2018,1986
+SWE,Sweden,2016,ESA 2010
+SWE,Sweden,2017,ESA 2010
+SWE,Sweden,2018,ESA 2010
+SWZ,Eswatini,2016,2001
+SWZ,Eswatini,2017,2001
+SWZ,Eswatini,2018,2001
+SYC,Seychelles,2016,2001
+SYC,Seychelles,2017,2001
+SYC,Seychelles,2018,2001
+SYR,Syrian Arab Republic,2016,1986
+SYR,Syrian Arab Republic,2017,1986
+SYR,Syrian Arab Republic,2018,1986
+TCD,Chad,2016,1986
+TCD,Chad,2017,1986
+TCD,Chad,2018,1986
+TGO,Togo,2016,1986
+TGO,Togo,2017,1986
+TGO,Togo,2018,1986
+THA,Thailand,2016,2014
+THA,Thailand,2017,2014
+THA,Thailand,2018,2014
+TJK,Tajikistan,2016,2001
+TJK,Tajikistan,2017,2001
+TJK,Tajikistan,2018,2001
+TKM,Turkmenistan,2016,"NA"
+TKM,Turkmenistan,2017,"NA"
+TKM,Turkmenistan,2018,"NA"
+TLS,Timor-Leste,2016,1986
+TLS,Timor-Leste,2017,1986
+TLS,Timor-Leste,2018,1986
+TON,Tonga,2016,1986
+TON,Tonga,2017,1986
+TON,Tonga,2018,1986
+TTO,Trinidad and Tobago,2016,1986
+TTO,Trinidad and Tobago,2017,1986
+TTO,Trinidad and Tobago,2018,1986
+TUN,Tunisia,2016,"NA"
+TUN,Tunisia,2017,"NA"
+TUN,Tunisia,2018,"NA"
+TUR,Turkey,2016,2014
+TUR,Turkey,2017,2014
+TUR,Turkey,2018,2014
+TUV,Tuvalu,2016,other
+TUV,Tuvalu,2017,other
+TUV,Tuvalu,2018,other
+TZA,Tanzania,2016,1986
+TZA,Tanzania,2017,1986
+TZA,Tanzania,2018,1986
+UGA,Uganda,2016,2001
+UGA,Uganda,2017,2001
+UGA,Uganda,2018,2001
+UKR,Ukraine,2016,1986
+UKR,Ukraine,2017,1986
+UKR,Ukraine,2018,1986
+URY,Uruguay,2016,1986
+URY,Uruguay,2017,1986
+URY,Uruguay,2018,1986
+USA,United States,2016,2001
+USA,United States,2017,2001
+USA,United States,2018,2001
+UZB,Uzbekistan,2016,2014
+UZB,Uzbekistan,2017,2014
+UZB,Uzbekistan,2018,2014
+VCT,St. Vincent and the Grenadines,2016,1986
+VCT,St. Vincent and the Grenadines,2017,1986
+VCT,St. Vincent and the Grenadines,2018,1986
+VEN,"Venezuela, RB",2016,1986
+VEN,"Venezuela, RB",2017,1986
+VEN,"Venezuela, RB",2018,1986
+VNM,Vietnam,2016,1986
+VNM,Vietnam,2017,1986
+VNM,Vietnam,2018,1986
+VUT,Vanuatu,2016,1986
+VUT,Vanuatu,2017,1986
+VUT,Vanuatu,2018,1986
+WSM,Samoa,2016,2001
+WSM,Samoa,2017,2001
+WSM,Samoa,2018,2001
+XKX,Kosovo,2016,2014
+XKX,Kosovo,2017,2014
+XKX,Kosovo,2018,2014
+YEM,"Yemen, Rep.",2016,1986
+YEM,"Yemen, Rep.",2017,1986
+YEM,"Yemen, Rep.",2018,1986
+ZAF,South Africa,2016,2001
+ZAF,South Africa,2017,2001
+ZAF,South Africa,2018,2001
+ZMB,Zambia,2016,"NA"
+ZMB,Zambia,2017,"NA"
+ZMB,Zambia,2018,"NA"
+ZWE,Zimbabwe,2016,2001
+ZWE,Zimbabwe,2017,2001
+ZWE,Zimbabwe,2018,2001
