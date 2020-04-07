@@ -452,22 +452,15 @@ D2.1.CEN.POPU<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 -
 
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
 D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
-  mutate(..2018..Population...Housing.census=gsub("^,*|(?<=,),|,*$", "", ..2018..Population...Housing.census, perl=T)) #remove leading and trailing commas
+  mutate(POPU.CENSUS=gsub("^,*|(?<=,),|,*$", "", ..2018..Population...Housing.census, perl=T)) %>%
+  mutate(POPU.CENSUS=gsub("^,*|(?<=,),|,*$", "", ..2018..Population...Housing.census, perl=T),
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2018) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, POPU.CENSUS) %>%
+  filter(!is.na(country))
 
  
-
-D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
-  mutate(POPU_2016=as.numeric(strsplit(..2018..Population...Housing.census, ",")[[1]])
-         ) %>%
-  pivot_longer(cols=contains(as.character(2016:2018)),
-               names_to='date',
-               names_prefix='POPU_',
-               values_to='POPU') %>%
-  mutate(date=as.numeric(date)) %>%
-  select(iso3c, country, POPU) 
-  arrange(iso3c, date) 
-
-
 
 write_excel_csv(D2.1.CEN.POPU,
                 path = paste(csv_dir, "D2.1.CEN.POPU", sep="/" ))
@@ -478,30 +471,166 @@ write_excel_csv(D2.1.CEN.POPU,
 # Agriculture census
 #########
 
+
+D2.2.CEN.AGRI<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.2.CEN.AGRI - REV.xlsx", sep=""),
+                          sheet="2016-2018 data",
+                          skip=1,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.2.CEN.AGRI <- D2.2.CEN.AGRI %>%
+  mutate(AGRI.CENSUS=gsub("^,*|(?<=,),|,*$", "", AGRI.CENSUS, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2018) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, AGRI.CENSUS) %>%
+  filter(!is.na(country))
+
+
+
+write_excel_csv(D2.2.CEN.AGRI,
+                path = paste(csv_dir, "D2.2.CEN.AGRI.csv", sep="/" ))
+
 #########
 # Business/establishment census
 #########
+
+D2.3.CEN.BIZZ<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.3.CEN.BIZZ - REV.xlsx", sep=""),
+                          sheet="2016 data",
+                          skip=1,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.3.CEN.BIZZ <- D2.3.CEN.BIZZ %>%
+  mutate(BIZZ.CENSUS=gsub("^,*|(?<=,),|,*$", "", BIZZ.CENSUS, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2018) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, BIZZ.CENSUS) %>%
+  filter(!is.na(country))
+
+
+
+write_excel_csv(D2.3.CEN.BIZZ,
+                path = paste(csv_dir, "D2.3.CEN.BIZZ.csv", sep="/" ))
+
 
 #########
 # Household Survey on income/consumption/expenditure/budget/Integrated Survey 
 #########
 
+D2.4.SVY.HOUS<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.4.SVY.HOUS - REV.xlsx", sep=""),
+                          sheet="2016-2018 data",
+                          skip=1,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.4.SVY.HOUS <- D2.4.SVY.HOUS %>%
+  mutate(HOUS.SURVEYS=gsub("^,*|(?<=,),|,*$", "", HOUS.SURVEYS, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2018) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, HOUS.SURVEYS)  %>%
+  filter(!is.na(country))
+
+
+
+write_excel_csv(D2.4.SVY.HOUS,
+                path = paste(csv_dir, "D2.4.SVY.HOUS.csv", sep="/" ))
+
 #########
 # Agriculture survey
 #########
+
+D2.5.SVY.AGRI<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.5.SVY.AGRI - REV.xlsx", sep=""),
+                          sheet="2016-2018 data",
+                          skip=1,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.5.SVY.AGRI <- D2.5.SVY.AGRI %>%
+  mutate(AGRI.SURVEYS=gsub("^,*|(?<=,),|,*$", "", AGRI.SURVEYS, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2018) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, AGRI.SURVEYS)  %>%
+  filter(!is.na(country))
+
+
+
+write_excel_csv(D2.5.SVY.AGRI,
+                path = paste(csv_dir, "D2.5.SVY.AGRI.csv", sep="/" ))
+
 
 #########
 # Labor Force Survey 
 #########
 
+D2.6.SVY.LABR<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.6.SVY.LABR - REV.xlsx", sep=""),
+                          sheet="2016-2018 data",
+                          skip=1,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.6.SVY.LABR <- D2.6.SVY.LABR %>%
+  mutate(LABR.SURVEYS=gsub("^,*|(?<=,),|,*$", "", LABR.SURVEYS, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2018) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, LABR.SURVEYS)  %>%
+  filter(!is.na(country))
+
+
+
+write_excel_csv(D2.6.SVY.LABR,
+                path = paste(csv_dir, "D2.6.SVY.LABR.csv", sep="/" ))
+
+
 #########
 # Health/Demographic survey
 #########
+
+D2.7.SVY.HLTH<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
+                          sheet="2016 data",
+                          skip=1,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>%
+  mutate(HLTH.SURVEYS=gsub("^,*|(?<=,),|,*$", "", HLTH.SURVEYS, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2018) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, HLTH.SURVEYS)  %>%
+  filter(!is.na(country))
+
+
+
+write_excel_csv(D2.7.SVY.HLTH,
+                path = paste(csv_dir, "D2.7.SVY.HLTH.csv", sep="/" ))
 
 #########
 # Business/establishment survey
 #########
 
+D2.8.SVY.BIZZ<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.8.SVY.BIZZ - REV.xlsx", sep=""),
+                          sheet="2016-2018 data",
+                          skip=1,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.8.SVY.BIZZ <- D2.8.SVY.BIZZ %>%
+  mutate(BIZZ.SURVEYS=gsub("^,*|(?<=,),|,*$", "", BIZZ.SURVEYS, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2018) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, BIZZ.SURVEYS)  %>%
+  filter(!is.na(country))
+
+
+
+write_excel_csv(D2.8.SVY.BIZZ,
+                path = paste(csv_dir, "D2.8.SVY.BIZZ.csv", sep="/" ))
 
 ###############################
 # SPI Dimension 3: Availability of Key Indicators (AKI):
