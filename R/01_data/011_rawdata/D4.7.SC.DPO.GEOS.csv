@@ -1,0 +1,571 @@
+﻿iso3c,country,date,GEOS
+AFG,Afghanistan,2016,NA
+AFG,Afghanistan,2017,NA
+AFG,Afghanistan,2018,0
+AGO,Angola,2016,NA
+AGO,Angola,2017,NA
+AGO,Angola,2018,0
+ALB,Albania,2016,1
+ALB,Albania,2017,1
+ALB,Albania,2018,1
+ARE,United Arab Emirates,2016,0
+ARE,United Arab Emirates,2017,NA
+ARE,United Arab Emirates,2018,0
+ARG,Argentina,2016,1
+ARG,Argentina,2017,1
+ARG,Argentina,2018,1
+ARM,Armenia,2016,NA
+ARM,Armenia,2017,NA
+ARM,Armenia,2018,1
+ATG,Antigua and Barbuda,2016,NA
+ATG,Antigua and Barbuda,2017,NA
+ATG,Antigua and Barbuda,2018,0
+AUS,Australia,2016,1
+AUS,Australia,2017,1
+AUS,Australia,2018,1
+AUT,Austria,2016,NA
+AUT,Austria,2017,NA
+AUT,Austria,2018,1
+AZE,Azerbaijan,2016,1
+AZE,Azerbaijan,2017,1
+AZE,Azerbaijan,2018,1
+BDI,Burundi,2016,NA
+BDI,Burundi,2017,NA
+BDI,Burundi,2018,0
+BEL,Belgium,2016,NA
+BEL,Belgium,2017,NA
+BEL,Belgium,2018,0
+BEN,Benin,2016,NA
+BEN,Benin,2017,NA
+BEN,Benin,2018,0
+BFA,Burkina Faso,2016,0
+BFA,Burkina Faso,2017,NA
+BFA,Burkina Faso,2018,0
+BGD,Bangladesh,2016,NA
+BGD,Bangladesh,2017,NA
+BGD,Bangladesh,2018,0
+BGR,Bulgaria,2016,NA
+BGR,Bulgaria,2017,NA
+BGR,Bulgaria,2018,1
+BHR,Bahrain,2016,NA
+BHR,Bahrain,2017,NA
+BHR,Bahrain,2018,0
+BHS,"Bahamas, The",2016,NA
+BHS,"Bahamas, The",2017,NA
+BHS,"Bahamas, The",2018,0
+BIH,Bosnia and Herzegovina,2016,NA
+BIH,Bosnia and Herzegovina,2017,NA
+BIH,Bosnia and Herzegovina,2018,0
+BLR,Belarus,2016,NA
+BLR,Belarus,2017,NA
+BLR,Belarus,2018,0
+BLZ,Belize,2016,1
+BLZ,Belize,2017,1
+BLZ,Belize,2018,1
+BOL,Bolivia,2016,1
+BOL,Bolivia,2017,1
+BOL,Bolivia,2018,1
+BRA,Brazil,2016,NA
+BRA,Brazil,2017,NA
+BRA,Brazil,2018,1
+BRB,Barbados,2016,NA
+BRB,Barbados,2017,NA
+BRB,Barbados,2018,0
+BRN,Brunei Darussalam,2016,NA
+BRN,Brunei Darussalam,2017,NA
+BRN,Brunei Darussalam,2018,0
+BTN,Bhutan,2016,NA
+BTN,Bhutan,2017,NA
+BTN,Bhutan,2018,0
+BWA,Botswana,2016,1
+BWA,Botswana,2017,1
+BWA,Botswana,2018,1
+CAF,Central African Republic,2016,0
+CAF,Central African Republic,2017,NA
+CAF,Central African Republic,2018,0
+CAN,Canada,2016,NA
+CAN,Canada,2017,NA
+CAN,Canada,2018,1
+CHE,Switzerland,2016,NA
+CHE,Switzerland,2017,NA
+CHE,Switzerland,2018,1
+CHL,Chile,2016,NA
+CHL,Chile,2017,NA
+CHL,Chile,2018,1
+CHN,China,2016,1
+CHN,China,2017,1
+CHN,China,2018,1
+CIV,Côte d'Ivoire,2016,NA
+CIV,Côte d'Ivoire,2017,NA
+CIV,Côte d'Ivoire,2018,0
+CMR,Cameroon,2016,NA
+CMR,Cameroon,2017,NA
+CMR,Cameroon,2018,0
+COD,"Congo, Dem. Rep.",2016,NA
+COD,"Congo, Dem. Rep.",2017,NA
+COD,"Congo, Dem. Rep.",2018,0
+COG,"Congo, Rep.",2016,NA
+COG,"Congo, Rep.",2017,NA
+COG,"Congo, Rep.",2018,0
+COL,Colombia,2016,1
+COL,Colombia,2017,1
+COL,Colombia,2018,1
+COM,Comoros,2016,NA
+COM,Comoros,2017,NA
+COM,Comoros,2018,0
+CPV,Cabo Verde,2016,1
+CPV,Cabo Verde,2017,1
+CPV,Cabo Verde,2018,1
+CRI,Costa Rica,2016,1
+CRI,Costa Rica,2017,1
+CRI,Costa Rica,2018,1
+CYP,Cyprus,2016,NA
+CYP,Cyprus,2017,NA
+CYP,Cyprus,2018,0
+CZE,Czech Republic,2016,NA
+CZE,Czech Republic,2017,NA
+CZE,Czech Republic,2018,1
+DEU,Germany,2016,NA
+DEU,Germany,2017,NA
+DEU,Germany,2018,1
+DJI,Djibouti,2016,NA
+DJI,Djibouti,2017,NA
+DJI,Djibouti,2018,0
+DMA,Dominica,2016,NA
+DMA,Dominica,2017,NA
+DMA,Dominica,2018,0
+DNK,Denmark,2016,NA
+DNK,Denmark,2017,NA
+DNK,Denmark,2018,0
+DOM,Dominican Republic,2016,NA
+DOM,Dominican Republic,2017,NA
+DOM,Dominican Republic,2018,1
+DZA,Algeria,2016,0
+DZA,Algeria,2017,NA
+DZA,Algeria,2018,0
+ECU,Ecuador,2016,NA
+ECU,Ecuador,2017,NA
+ECU,Ecuador,2018,1
+EGY,"Egypt, Arab Rep.",2016,NA
+EGY,"Egypt, Arab Rep.",2017,NA
+EGY,"Egypt, Arab Rep.",2018,1
+ERI,Eritrea,2016,NA
+ERI,Eritrea,2017,NA
+ERI,Eritrea,2018,0
+ESP,Spain,2016,NA
+ESP,Spain,2017,NA
+ESP,Spain,2018,0
+EST,Estonia,2016,1
+EST,Estonia,2017,1
+EST,Estonia,2018,1
+ETH,Ethiopia,2016,NA
+ETH,Ethiopia,2017,NA
+ETH,Ethiopia,2018,0
+FIN,Finland,2016,NA
+FIN,Finland,2017,NA
+FIN,Finland,2018,1
+FJI,Fiji,2016,NA
+FJI,Fiji,2017,NA
+FJI,Fiji,2018,1
+FRA,France,2016,NA
+FRA,France,2017,NA
+FRA,France,2018,1
+FSM,"Micronesia, Fed. Sts.",2016,NA
+FSM,"Micronesia, Fed. Sts.",2017,NA
+FSM,"Micronesia, Fed. Sts.",2018,1
+GAB,Gabon,2016,NA
+GAB,Gabon,2017,NA
+GAB,Gabon,2018,0
+GBR,United Kingdom,2016,1
+GBR,United Kingdom,2017,1
+GBR,United Kingdom,2018,1
+GEO,Georgia,2016,1
+GEO,Georgia,2017,1
+GEO,Georgia,2018,1
+GHA,Ghana,2016,NA
+GHA,Ghana,2017,NA
+GHA,Ghana,2018,1
+GIN,Guinea,2016,NA
+GIN,Guinea,2017,NA
+GIN,Guinea,2018,1
+GMB,"Gambia, The",2016,NA
+GMB,"Gambia, The",2017,NA
+GMB,"Gambia, The",2018,0
+GNB,Guinea-Bissau,2016,NA
+GNB,Guinea-Bissau,2017,NA
+GNB,Guinea-Bissau,2018,0
+GNQ,Equatorial Guinea,2016,NA
+GNQ,Equatorial Guinea,2017,NA
+GNQ,Equatorial Guinea,2018,0
+GRC,Greece,2016,NA
+GRC,Greece,2017,NA
+GRC,Greece,2018,1
+GRD,Grenada,2016,NA
+GRD,Grenada,2017,NA
+GRD,Grenada,2018,0
+GTM,Guatemala,2016,NA
+GTM,Guatemala,2017,NA
+GTM,Guatemala,2018,0
+GUY,Guyana,2016,NA
+GUY,Guyana,2017,NA
+GUY,Guyana,2018,0
+HND,Honduras,2016,NA
+HND,Honduras,2017,NA
+HND,Honduras,2018,0
+HRV,Croatia,2016,1
+HRV,Croatia,2017,1
+HRV,Croatia,2018,1
+HTI,Haiti,2016,NA
+HTI,Haiti,2017,NA
+HTI,Haiti,2018,0
+HUN,Hungary,2016,1
+HUN,Hungary,2017,1
+HUN,Hungary,2018,1
+IDN,Indonesia,2016,NA
+IDN,Indonesia,2017,NA
+IDN,Indonesia,2018,1
+IND,India,2016,NA
+IND,India,2017,NA
+IND,India,2018,1
+IRL,Ireland,2016,NA
+IRL,Ireland,2017,NA
+IRL,Ireland,2018,1
+IRN,"Iran, Islamic Rep.",2016,NA
+IRN,"Iran, Islamic Rep.",2017,NA
+IRN,"Iran, Islamic Rep.",2018,0
+IRQ,Iraq,2016,NA
+IRQ,Iraq,2017,NA
+IRQ,Iraq,2018,0
+ISL,Iceland,2016,NA
+ISL,Iceland,2017,NA
+ISL,Iceland,2018,0
+ISR,Israel,2016,NA
+ISR,Israel,2017,NA
+ISR,Israel,2018,0
+ITA,Italy,2016,NA
+ITA,Italy,2017,NA
+ITA,Italy,2018,1
+JAM,Jamaica,2016,1
+JAM,Jamaica,2017,1
+JAM,Jamaica,2018,1
+JOR,Jordan,2016,NA
+JOR,Jordan,2017,NA
+JOR,Jordan,2018,0
+JPN,Japan,2016,NA
+JPN,Japan,2017,NA
+JPN,Japan,2018,1
+KAZ,Kazakhstan,2016,NA
+KAZ,Kazakhstan,2017,NA
+KAZ,Kazakhstan,2018,0
+KEN,Kenya,2016,NA
+KEN,Kenya,2017,NA
+KEN,Kenya,2018,0
+KGZ,Kyrgyz Republic,2016,NA
+KGZ,Kyrgyz Republic,2017,NA
+KGZ,Kyrgyz Republic,2018,0
+KHM,Cambodia,2016,NA
+KHM,Cambodia,2017,NA
+KHM,Cambodia,2018,0
+KIR,Kiribati,2016,NA
+KIR,Kiribati,2017,NA
+KIR,Kiribati,2018,0
+KNA,St. Kitts and Nevis,2016,NA
+KNA,St. Kitts and Nevis,2017,NA
+KNA,St. Kitts and Nevis,2018,0
+KOR,"Korea, Rep.",2016,NA
+KOR,"Korea, Rep.",2017,NA
+KOR,"Korea, Rep.",2018,1
+KWT,Kuwait,2016,NA
+KWT,Kuwait,2017,NA
+KWT,Kuwait,2018,1
+LAO,Lao PDR,2016,NA
+LAO,Lao PDR,2017,NA
+LAO,Lao PDR,2018,1
+LBN,Lebanon,2016,NA
+LBN,Lebanon,2017,NA
+LBN,Lebanon,2018,0
+LBR,Liberia,2016,NA
+LBR,Liberia,2017,NA
+LBR,Liberia,2018,0
+LBY,Libya,2016,NA
+LBY,Libya,2017,NA
+LBY,Libya,2018,0
+LCA,St. Lucia,2016,NA
+LCA,St. Lucia,2017,NA
+LCA,St. Lucia,2018,0
+LKA,Sri Lanka,2016,1
+LKA,Sri Lanka,2017,1
+LKA,Sri Lanka,2018,1
+LSO,Lesotho,2016,NA
+LSO,Lesotho,2017,NA
+LSO,Lesotho,2018,1
+LTU,Lithuania,2016,NA
+LTU,Lithuania,2017,NA
+LTU,Lithuania,2018,1
+LUX,Luxembourg,2016,NA
+LUX,Luxembourg,2017,NA
+LUX,Luxembourg,2018,0
+LVA,Latvia,2016,1
+LVA,Latvia,2017,1
+LVA,Latvia,2018,1
+MAR,Morocco,2016,0
+MAR,Morocco,2017,NA
+MAR,Morocco,2018,0
+MDA,Moldova,2016,NA
+MDA,Moldova,2017,NA
+MDA,Moldova,2018,1
+MDG,Madagascar,2016,NA
+MDG,Madagascar,2017,NA
+MDG,Madagascar,2018,0
+MDV,Maldives,2016,NA
+MDV,Maldives,2017,NA
+MDV,Maldives,2018,0
+MEX,Mexico,2016,1
+MEX,Mexico,2017,1
+MEX,Mexico,2018,1
+MHL,Marshall Islands,2016,NA
+MHL,Marshall Islands,2017,NA
+MHL,Marshall Islands,2018,0
+MKD,"Macedonia, FYR",2016,NA
+MKD,"Macedonia, FYR",2017,NA
+MKD,"Macedonia, FYR",2018,0
+MLI,Mali,2016,NA
+MLI,Mali,2017,NA
+MLI,Mali,2018,0
+MLT,Malta,2016,1
+MLT,Malta,2017,1
+MLT,Malta,2018,1
+MMR,Myanmar,2016,NA
+MMR,Myanmar,2017,NA
+MMR,Myanmar,2018,0
+MNE,Montenegro,2016,NA
+MNE,Montenegro,2017,NA
+MNE,Montenegro,2018,0
+MNG,Mongolia,2016,NA
+MNG,Mongolia,2017,NA
+MNG,Mongolia,2018,0
+MOZ,Mozambique,2016,NA
+MOZ,Mozambique,2017,NA
+MOZ,Mozambique,2018,0
+MRT,Mauritania,2016,NA
+MRT,Mauritania,2017,NA
+MRT,Mauritania,2018,0
+MUS,Mauritius,2016,NA
+MUS,Mauritius,2017,NA
+MUS,Mauritius,2018,0
+MWI,Malawi,2016,NA
+MWI,Malawi,2017,NA
+MWI,Malawi,2018,0
+MYS,Malaysia,2016,NA
+MYS,Malaysia,2017,NA
+MYS,Malaysia,2018,1
+NAM,Namibia,2016,NA
+NAM,Namibia,2017,NA
+NAM,Namibia,2018,1
+NER,Niger,2016,NA
+NER,Niger,2017,NA
+NER,Niger,2018,1
+NGA,Nigeria,2016,NA
+NGA,Nigeria,2017,NA
+NGA,Nigeria,2018,0
+NIC,Nicaragua,2016,NA
+NIC,Nicaragua,2017,NA
+NIC,Nicaragua,2018,0
+NLD,Netherlands,2016,NA
+NLD,Netherlands,2017,NA
+NLD,Netherlands,2018,1
+NOR,Norway,2016,NA
+NOR,Norway,2017,NA
+NOR,Norway,2018,1
+NPL,Nepal,2016,0
+NPL,Nepal,2017,NA
+NPL,Nepal,2018,0
+NRU,Nauru,2016,NA
+NRU,Nauru,2017,NA
+NRU,Nauru,2018,0
+NZL,New Zealand,2016,1
+NZL,New Zealand,2017,1
+NZL,New Zealand,2018,1
+OMN,Oman,2016,1
+OMN,Oman,2017,1
+OMN,Oman,2018,1
+PAK,Pakistan,2016,NA
+PAK,Pakistan,2017,NA
+PAK,Pakistan,2018,0
+PAN,Panama,2016,NA
+PAN,Panama,2017,NA
+PAN,Panama,2018,0
+PER,Peru,2016,NA
+PER,Peru,2017,NA
+PER,Peru,2018,1
+PHL,Philippines,2016,NA
+PHL,Philippines,2017,NA
+PHL,Philippines,2018,0
+PLW,Palau,2016,NA
+PLW,Palau,2017,NA
+PLW,Palau,2018,0
+PNG,Papua New Guinea,2016,NA
+PNG,Papua New Guinea,2017,NA
+PNG,Papua New Guinea,2018,0
+POL,Poland,2016,1
+POL,Poland,2017,1
+POL,Poland,2018,1
+PRT,Portugal,2016,1
+PRT,Portugal,2017,1
+PRT,Portugal,2018,1
+PRY,Paraguay,2016,NA
+PRY,Paraguay,2017,NA
+PRY,Paraguay,2018,0
+PSE,West Bank and Gaza,2016,NA
+PSE,West Bank and Gaza,2017,NA
+PSE,West Bank and Gaza,2018,0
+QAT,Qatar,2016,NA
+QAT,Qatar,2017,NA
+QAT,Qatar,2018,1
+ROU,Romania,2016,0
+ROU,Romania,2017,NA
+ROU,Romania,2018,0
+RUS,Russian Federation,2016,NA
+RUS,Russian Federation,2017,NA
+RUS,Russian Federation,2018,0
+RWA,Rwanda,2016,NA
+RWA,Rwanda,2017,NA
+RWA,Rwanda,2018,1
+SAU,Saudi Arabia,2016,1
+SAU,Saudi Arabia,2017,1
+SAU,Saudi Arabia,2018,1
+SDN,Sudan,2016,NA
+SDN,Sudan,2017,NA
+SDN,Sudan,2018,0
+SEN,Senegal,2016,NA
+SEN,Senegal,2017,NA
+SEN,Senegal,2018,1
+SGP,Singapore,2016,NA
+SGP,Singapore,2017,1
+SGP,Singapore,2018,1
+SLB,Solomon Islands,2016,NA
+SLB,Solomon Islands,2017,NA
+SLB,Solomon Islands,2018,1
+SLE,Sierra Leone,2016,NA
+SLE,Sierra Leone,2017,NA
+SLE,Sierra Leone,2018,0
+SLV,El Salvador,2016,NA
+SLV,El Salvador,2017,NA
+SLV,El Salvador,2018,0
+SMR,San Marino,2016,NA
+SMR,San Marino,2017,NA
+SMR,San Marino,2018,0
+SOM,Somalia,2016,NA
+SOM,Somalia,2017,NA
+SOM,Somalia,2018,0
+SRB,Serbia,2016,NA
+SRB,Serbia,2017,NA
+SRB,Serbia,2018,0
+SSD,South Sudan,2016,NA
+SSD,South Sudan,2017,NA
+SSD,South Sudan,2018,0
+STP,São Tomé and Principe,2016,NA
+STP,São Tomé and Principe,2017,NA
+STP,São Tomé and Principe,2018,0
+SUR,Suriname,2016,NA
+SUR,Suriname,2017,NA
+SUR,Suriname,2018,0
+SVK,Slovak Republic,2016,NA
+SVK,Slovak Republic,2017,NA
+SVK,Slovak Republic,2018,0
+SVN,Slovenia,2016,1
+SVN,Slovenia,2017,1
+SVN,Slovenia,2018,1
+SWE,Sweden,2016,NA
+SWE,Sweden,2017,NA
+SWE,Sweden,2018,0
+SWZ,Eswatini,2016,NA
+SWZ,Eswatini,2017,NA
+SWZ,Eswatini,2018,0
+SYC,Seychelles,2016,NA
+SYC,Seychelles,2017,NA
+SYC,Seychelles,2018,0
+SYR,Syrian Arab Republic,2016,NA
+SYR,Syrian Arab Republic,2017,NA
+SYR,Syrian Arab Republic,2018,0
+TCD,Chad,2016,NA
+TCD,Chad,2017,NA
+TCD,Chad,2018,0
+TGO,Togo,2016,NA
+TGO,Togo,2017,NA
+TGO,Togo,2018,0
+THA,Thailand,2016,1
+THA,Thailand,2017,1
+THA,Thailand,2018,1
+TJK,Tajikistan,2016,NA
+TJK,Tajikistan,2017,NA
+TJK,Tajikistan,2018,0
+TKM,Turkmenistan,2016,NA
+TKM,Turkmenistan,2017,NA
+TKM,Turkmenistan,2018,0
+TLS,Timor-Leste,2016,NA
+TLS,Timor-Leste,2017,NA
+TLS,Timor-Leste,2018,1
+TON,Tonga,2016,NA
+TON,Tonga,2017,NA
+TON,Tonga,2018,1
+TTO,Trinidad and Tobago,2016,NA
+TTO,Trinidad and Tobago,2017,NA
+TTO,Trinidad and Tobago,2018,0
+TUN,Tunisia,2016,NA
+TUN,Tunisia,2017,NA
+TUN,Tunisia,2018,1
+TUR,Turkey,2016,NA
+TUR,Turkey,2017,NA
+TUR,Turkey,2018,0
+TUV,Tuvalu,2016,NA
+TUV,Tuvalu,2017,NA
+TUV,Tuvalu,2018,1
+TZA,Tanzania,2016,NA
+TZA,Tanzania,2017,NA
+TZA,Tanzania,2018,1
+UGA,Uganda,2016,NA
+UGA,Uganda,2017,NA
+UGA,Uganda,2018,1
+UKR,Ukraine,2016,NA
+UKR,Ukraine,2017,NA
+UKR,Ukraine,2018,0
+URY,Uruguay,2016,NA
+URY,Uruguay,2017,NA
+URY,Uruguay,2018,0
+USA,United States,2016,1
+USA,United States,2017,1
+USA,United States,2018,1
+UZB,Uzbekistan,2016,NA
+UZB,Uzbekistan,2017,NA
+UZB,Uzbekistan,2018,1
+VCT,St. Vincent and the Grenadines,2016,NA
+VCT,St. Vincent and the Grenadines,2017,NA
+VCT,St. Vincent and the Grenadines,2018,0
+VEN,"Venezuela, RB",2016,NA
+VEN,"Venezuela, RB",2017,NA
+VEN,"Venezuela, RB",2018,0
+VNM,Vietnam,2016,NA
+VNM,Vietnam,2017,NA
+VNM,Vietnam,2018,0
+VUT,Vanuatu,2016,1
+VUT,Vanuatu,2017,1
+VUT,Vanuatu,2018,1
+WSM,Samoa,2016,NA
+WSM,Samoa,2017,NA
+WSM,Samoa,2018,0
+XKX,Kosovo,2016,NA
+XKX,Kosovo,2017,NA
+XKX,Kosovo,2018,1
+YEM,"Yemen, Rep.",2016,NA
+YEM,"Yemen, Rep.",2017,NA
+YEM,"Yemen, Rep.",2018,0
+ZAF,South Africa,2016,1
+ZAF,South Africa,2017,1
+ZAF,South Africa,2018,1
+ZMB,Zambia,2016,0
+ZMB,Zambia,2017,NA
+ZMB,Zambia,2018,0
+ZWE,Zimbabwe,2016,NA
+ZWE,Zimbabwe,2017,NA
+ZWE,Zimbabwe,2018,0

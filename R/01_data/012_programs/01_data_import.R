@@ -53,7 +53,13 @@ spi_loader <- function(variable_num1, variable_num2,variable_name, year, skip) {
 ##################
 
 #########
-# System of National Accounts in use
+# 1.1 System of National Accounts in use
+
+# The national accounts data are compiled using the concepts, definitions, 
+# framework, and methodology of the System of National Account 2008 (SNA2008) 
+# or European System of National and Regional Accounts (ESA 2010).  The manual 
+# has evolved to meet the changing economic structure, to follow systematic accounting 
+# and ensure international compatibility. 
 #########
 D1.1.MSC.SNAU_2016 <- spi_loader(1,1,'SNAU', 2016,1) %>%
   mutate(SNAU=SNA.in.use..2016,
@@ -85,7 +91,11 @@ bind_rows(D1.1.MSC.SNAU_2016, D1.1.MSC.SNAU_2017, D1.1.MSC.SNAU_2018) %>%
 
 
 #########
-# National Accounts base year 
+# 1.2 National Accounts base year 
+
+#National accounts base year is the year used as the base period for constant price 
+# calculations in the country's national accounts.  It is recommended that the base year of 
+# constant price estimates be changed periodically to reflect changes in economic structure and relative prices. 
 #########
 D1.2.MSC.NABY<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, & 2018 - D1.2.MSC.NABY 20190828 5pm -REV.xlsx", sep=""),
                      sheet="2016-2018 data",
@@ -111,7 +121,16 @@ D1.2.MSC.NABY <- D1.2.MSC.NABY %>%
 write_excel_csv(D1.2.MSC.NABY,
                 path = paste(csv_dir, "D1.2.MSC.NABY.csv", sep="/" ))
 #########
-# Classification of national industry
+# 1.3 Classification of national industry
+
+# The industrial production data are compiled using the International Standard Industrial 
+# Classification of All Economic Activities (ISIC) Rev.4 and Statistical Classification of 
+# Economic Activities in the European Community (NACE) Rev.2.  ISIC Rev.4 is a standard classification 
+# of economic activities arranged so that entities can be classified per the activity they carry out 
+# using criteria such as input, output and use of the products produced, more emphasis has been given 
+# to the character of the production process in defining and delineating ISIC classes for international 
+# comparability.  The manual and classification have changed to cover the complete scope of industrial 
+# production, employment, and GDP and other statistical areas.
 #########
 D1.3.MSC.CNIN_2016 <- spi_loader(1,3,'CNIN', 2016,0) %>%
   mutate(CNIN=Classification.of.national.industry,
@@ -142,7 +161,13 @@ bind_rows(D1.3.MSC.CNIN_2016, D1.3.MSC.CNIN_2017, D1.3.MSC.CNIN_2018) %>%
     path = paste(csv_dir, "D1.3.MSC.CNIN.csv", sep="/" ))
 
 #########
-# CPI base year
+# 1.4 CPI base year
+
+#Consumer Price Index serves as indicators of inflation and reflects changes in the 
+# cost of acquiring a fixed basket of goods and services by the average consumer.  
+# Weights are usually derived from consumer expenditure surveys and the CPI base year 
+# refers to the year the weights were derived.  It is recommended that the base year be
+# changed periodically to reflect changes in expenditure structure.         
 #########
 
 D1.4.MSC.CPIBY<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, & 2018 - D1.4.MSC.CPIBY - REV.xlsx", sep=""),
@@ -171,7 +196,16 @@ write_excel_csv(D1.4.MSC.CPIBY,
 
 
 #########
-# Classification of household consumption
+# 1.5 Classification of household consumption
+
+# Classification of Individual Consumption According to Purpose (COICOP) 
+# is used in household budget surveys, consumer price indices and international 
+# comparisons of gross domestic product (GDP) and its component expenditures.  
+# Although COICOP is not strictly linked to any particular model of consumer 
+# behavior, the classification is designed to broadly reflect differences in 
+# income elasticities.  It is an integral part of the SNA1993 and more detailed 
+# subdivision of the classes provide comparability between countries and between 
+# statistics in these different areas.   
 #########
 
 D1.5.MSC.HOUS_2016 <- spi_loader(1,5,'HOUS', 2016,0) %>%
@@ -205,7 +239,15 @@ bind_rows(D1.5.MSC.HOUS_2016, D1.5.MSC.HOUS_2017, D1.5.MSC.HOUS_2018) %>%
 
 
 #########
-# Classification of status of employment 
+# 1.6 Classification of status of employment 
+
+#Classification of status of employment refers to employment data that are 
+# compiled using the current international standard International Classification 
+# of Status in Employment (ISCE-93).  It classifies jobs with respect to the type
+# of explicit or implicit contract of employment between the job holder and the 
+# economic unit in which he or she is employed.  Therefore, it aims to provide the
+# basis for production of internationally comparable statistics on the employment 
+# relationship, including the distinction between salaried employment and self-employment.   
 #########
 
 D1.6.MSC.EMPL_2016 <- spi_loader(1,6,'EMPL', 2016,0) %>%
@@ -238,7 +280,14 @@ bind_rows(D1.6.MSC.EMPL_2016, D1.6.MSC.EMPL_2017, D1.6.MSC.EMPL_2018) %>%
 
 
 #########
-# Central government accounting status
+# 1.7 Central government accounting status
+
+# Government finance accounting status refers to the accounting basis for 
+# reporting central government financial data.  For many countries' government 
+# finance data, have been consolidated into one set of accounts capturing all 
+# the central government's fiscal activities and following noncash recording basis.  
+# Budgetary central government accounts do not necessarily include all central government 
+# units, the picture they provide of central government activities is usually incomplete.  
 #########
 
 D1.7.MSC.CGOV_2016 <- spi_loader(1,7,'CGOV', 2016,0) %>%
@@ -272,7 +321,13 @@ bind_rows(D1.7.MSC.CGOV_2016, D1.7.MSC.CGOV_2017, D1.7.MSC.CGOV_2018) %>%
 
 
 #########
-# Compilation of government finance statistics
+# 1.8 Compilation of government finance statistics
+
+# (GFSM) in use for compiling the data.  It provides guidelines on the institutional 
+# structure of governments and the presentation of fiscal data in a format similar to 
+# business accounting with a balance sheet and income statement plus guidelines on the 
+# treatment of exchange rate and other valuation adjustments.  The latest manual GFSM2014 
+# is harmonized with the SNA2008. 
 #########
 
 
@@ -306,7 +361,13 @@ bind_rows(D1.8.MSC.FINA_2016, D1.8.MSC.FINA_2017, D1.8.MSC.FINA_2018) %>%
 
 
 #########
-# Compilation of monetary and financial statistics
+# 1.9 Compilation of monetary and financial statistics
+
+# Compilation of monetary and financial statistics refers to the Monetary and Financial Statistics Manual 
+# (MFSM) in use.  It covers concepts, definitions, classifications of financial instruments and sectors, and 
+# accounting rules, and provides a comprehensive analytic framework for monetary and financial planning and policy 
+# determination.  The Monetary and Finance Statistics: Compilation Guide (2008) provides detailed guidelines for 
+# the compilation of monetary and financial statistics in addition to MFSM. 
 #########
 D1.9.MSC.MONY_2016 <- spi_loader(1,9,'MONY', 2016,1) %>%
   mutate(MONY=compilation.of.monetary.and.financial.statistics,
@@ -338,7 +399,14 @@ bind_rows(D1.9.MSC.MONY_2016, D1.9.MSC.MONY_2017, D1.9.MSC.MONY_2018) %>%
 
 
 #########
-# SDDS/e-GDDS subscription
+# 1.10 SDDS/e-GDDS subscription
+
+#Data Dissemination Standard (SDDS) and electronic General Data Dissemination Standard (e-GDDS) were 
+#established by the International Monetary Fund (IMF) for member countries that have or that might seek 
+#access to international capital markets, to guide them in providing their economic and financial data to the public.
+#Although subscription is voluntary, the subscribing member needs to be committed to observing the standard and provide
+#information about its data and data dissemination practices (metadata).  The metadata are posted on the IMF's SDDS and 
+#e-GDDS websites.       
 #########
 
 
@@ -372,7 +440,14 @@ bind_rows(D1.10.MSC.IDDS_2016, D1.10.MSC.IDDS_2017, D1.10.MSC.IDDS_2018) %>%
 
 
 #########
-# CRVS 
+# 1.11 CRVS 
+
+# Civil registration and vital statistics record the occurrence and characteristics of 
+# vital events (births, deaths, marriage and divorce etc.) pertaining to the population and 
+# serve as a main source of vital statistics. This identifies countries that report at least 
+# 90 percent complete registries of vital (birth and death) statistics to the United Nations 
+# Statistics Division and are reported in its Population and Vital Statistics Reports. 
+# Countries with complete vital statistics registries may have more accurate and timely demographic indicators.      
 #########
 
 D1.11.MSC.CRVS_2016 <- spi_loader(1,11,'CRVS', 2016,1) %>%
@@ -404,7 +479,14 @@ bind_rows(D1.11.MSC.CRVS_2016, D1.11.MSC.CRVS_2017, D1.11.MSC.CRVS_2018) %>%
     path = paste(csv_dir, "D1.11.MSC.CRVS.csv", sep="/" ))
 
 #########
-# Business process
+# 1.12 Business process
+
+# The Generic Statistical Business Process Model (GSBPM) aims to describe 
+# statistics production in a general and process-oriented way.  It is used 
+# both within and between statistical offices as a common basis for work with 
+# statistics production in different ways, such as quality, efficiency, standardization, 
+# and process-orientation.  It is used for all types of surveys, and "business" is not 
+# related to "business statistics" but refers to the statistical office, simply expressed.  
 #########
 
 D1.12.MSC.GSBP_2016 <- spi_loader(1,12,'GSBP', 2016,1) %>%
@@ -442,7 +524,14 @@ bind_rows(D1.12.MSC.GSBP_2016, D1.12.MSC.GSBP_2017, D1.12.MSC.GSBP_2018) %>%
 
 
 #########
-# Population & Housing census
+# 2.1 Population & Housing census
+# Population censuses collect data on the size, distribution and composition of population and 
+# information on a broad range of social and economic characteristics of the population.  It also 
+# provides sampling frames for household and other surveys.  Housing censuses provide information 
+# on the supply of housing units, the structural characteristics and facilities, and health and the 
+# development of normal family living conditions.  Data obtained as part of the population census, 
+# including data on homeless persons, are often used in the presentation and analysis of the results 
+# of the housing census.  It is recommended that population and housing censuses be conducted at least every 10 years. 
 #########
 
 D2.1.CEN.POPU<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.1.CEN.POPU - REV.xlsx", sep=""),
@@ -463,12 +552,20 @@ D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
  
 
 write_excel_csv(D2.1.CEN.POPU,
-                path = paste(csv_dir, "D2.1.CEN.POPU", sep="/" ))
+                path = paste(csv_dir, "D2.1.CEN.POPU.csv", sep="/" ))
 
 
 
 #########
-# Agriculture census
+# 2.2 Agriculture census
+
+#Agriculture censuses collect information on agricultural activities, such as
+#size of holding, land tenure, land use, employment and production, and provide
+#basic structural data and sampling frames for agricultural surveys.  Censuses
+#of agriculture normally involves collecting key structural data by complete
+#enumeration of all agricultural holdings, in combination with more detailed
+#structural data using sampling methods.  It is recommended that agricultural
+#censuses be conducted at least every 10 years.
 #########
 
 
@@ -492,7 +589,13 @@ write_excel_csv(D2.2.CEN.AGRI,
                 path = paste(csv_dir, "D2.2.CEN.AGRI.csv", sep="/" ))
 
 #########
-# Business/establishment census
+# 2.3 Business/establishment census
+
+# Business/establishment censuses provide valuable information on all economic
+# activities, number of employed and size of establishments in the economy.
+# Business Register information is establishment-based and includes business
+# location, organization type (e.g. subsidiary or parent), industry
+# classification, and operating data (e.g., receipts and employment).
 #########
 
 D2.3.CEN.BIZZ<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.3.CEN.BIZZ - REV.xlsx", sep=""),
@@ -516,7 +619,13 @@ write_excel_csv(D2.3.CEN.BIZZ,
 
 
 #########
-# Household Survey on income/consumption/expenditure/budget/Integrated Survey 
+# 2.4 Household Survey on income/consumption/expenditure/budget/Integrated Survey 
+
+# These surveys collect data on household income (including income in kind),
+# consumption and expenditure.  They typically include income, expenditure, and
+# consumption surveys, household budget surveys, integrated surveys.  It is
+# recommended that surveys on income and expenditure be conducted at least every
+# 3 to 5 years.
 #########
 
 D2.4.SVY.HOUS<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.4.SVY.HOUS - REV.xlsx", sep=""),
@@ -539,7 +648,13 @@ write_excel_csv(D2.4.SVY.HOUS,
                 path = paste(csv_dir, "D2.4.SVY.HOUS.csv", sep="/" ))
 
 #########
-# Agriculture survey
+# 2.5 Agriculture survey
+
+# Agricultural surveys refer to surveys of agricultural holdings based on the
+# sampling frames established by the agricultural census.  These are surveys on
+# agricultural land, production, crops and livestock, aquaculture, labor and
+# cost, and time use.  Some issues, such as gender and food security, are of
+# interest to most agriculture surveys.
 #########
 
 D2.5.SVY.AGRI<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.5.SVY.AGRI - REV.xlsx", sep=""),
@@ -563,7 +678,15 @@ write_excel_csv(D2.5.SVY.AGRI,
 
 
 #########
-# Labor Force Survey 
+# 2.6 Labor Force Survey 
+
+# Labor force survey is a standard household-based survey of work-related
+# statistics at the national and sub-national employment or unemployment levels,
+# rates or trends.  The surveys also provide the characteristics of the employed
+# or unemployed, including labor force status by age or gender, breakdowns
+# between employees and the self-employed, public versus private sector
+# employment, multiple job-holding, hiring, job creation, and duration of
+# unemployment.
 #########
 
 D2.6.SVY.LABR<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.6.SVY.LABR - REV.xlsx", sep=""),
@@ -587,7 +710,12 @@ write_excel_csv(D2.6.SVY.LABR,
 
 
 #########
-# Health/Demographic survey
+# 2.7 Health/Demographic survey
+
+# Health surveys collect information on various aspects of health of
+# populations, such as health expenditure, access, utilization, and outcomes.
+# They typically include Demographic and Health Surveys.  It is recommended that
+# health surveys be conducted at least every 3 to 5 years.
 #########
 
 D2.7.SVY.HLTH<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
@@ -610,7 +738,15 @@ write_excel_csv(D2.7.SVY.HLTH,
                 path = paste(csv_dir, "D2.7.SVY.HLTH.csv", sep="/" ))
 
 #########
-# Business/establishment survey
+# 2.8 Business/establishment survey
+
+# The business/establishment survey provides information on employment, hours,
+# and earnings of employees from a sample of business establishments including
+# private and public, entities that are classified based on an establishment's
+# principal activity from the business or establishment census.  Establishment
+# surveys include surveys of businesses, farms, and institutions.  They may ask
+# for information about the establishment itself and/or employee characteristics
+# and demographics.
 #########
 
 D2.8.SVY.BIZZ<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.8.SVY.BIZZ - REV.xlsx", sep=""),
@@ -649,4 +785,277 @@ aki_7_df <- read_excel(path=paste(excel_dir,"JMP_2019_WLD (1).xlsx", sep="/"),
 # SPI Dimension 4: Dissemination Practices and Openness (DPO):
 ###############################
 
+
+#TWEAK SPI LOADER USED ABOVE FOR DIMENSION 4
+
+spi_loader_4 <- function(variable_num1, variable_num2,variable_name, year, skip) {
+  read_excel(path=paste(excel_dir,"/D", variable_num1,". DPO/",year, " - D",paste(variable_num1,variable_num2,sep="."),".SC.DPO.",variable_name,".BN - REV.xlsx", sep=""),
+             sheet=paste(year, "data", sep=" "),
+             skip=skip,
+             .name_repair = 'universal') 
+}
+
+
+
+#########
+# 4.1 NSO has an Advance Release Calendar and it is published 
+
+# This indicator refers to a dissemination practice for relevant statistical
+# data in accordance to the published advance release calendar.  Its presence
+# provides information on upcoming releases in advance and creates public
+# awareness; this will lead to more discipline and accountability from the
+# statistical office.
+#########
+
+
+
+D4.1.SC.DPO.CALD_2016 <- spi_loader_4(4,1,'CALD', 2016,2) %>%
+  mutate(CALD=...2016,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, CALD)
+
+D4.1.SC.DPO.CALD_2017 <- spi_loader_4(4,1,'CALD', 2018,2) %>%
+  mutate(CALD=...2017,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, CALD)
+
+D4.1.SC.DPO.CALD_2018 <- spi_loader_4(4,1,'CALD', 2018,2) %>%
+  mutate(CALD=...2018,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, CALD)
+
+#save to csv
+bind_rows(D4.1.SC.DPO.CALD_2016, D4.1.SC.DPO.CALD_2017, D4.1.SC.DPO.CALD_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D4.1.SC.DPO.CALD.csv", sep="/" ))
+
+
+#########
+#  4.2 NSO has a listing of surveys and microdata sets (or NADA)
+
+#NSO has a listing of surveys and microdata sets that can provide the necessary
+#data and reference for follow-up.  Upon well-defined request and procedure per
+#the national law and practice, users and practitioners can obtain the data
+#collected from the households and businesses when needed.
+#########
+
+
+D4.2.SC.DPO.NADA_2016 <- spi_loader_4(4,2,'NADA', 2016,2) %>%
+  mutate(NADA=...2016,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, NADA)
+
+D4.2.SC.DPO.NADA_2017 <- spi_loader_4(4,2,'NADA', 2017,2) %>%
+  mutate(NADA=...2017,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, NADA)
+
+D4.2.SC.DPO.NADA_2018 <- spi_loader_4(4,2,'NADA', 2018,2) %>%
+  mutate(NADA=...2018,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, NADA)
+
+#save to csv
+bind_rows(D4.2.SC.DPO.NADA_2016, D4.2.SC.DPO.NADA_2017, D4.2.SC.DPO.NADA_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D4.2.SC.DPO.NADA.csv", sep="/" ))
+
+
+#########
+# 4.3 NSO has a data portal
+
+# This indicator refers to a web-based or stand-alone platform or tools that is
+# maintained by the NSO and provides access to the indicators and related
+# metadata in systematic way.
+#########
+
+
+D4.3.SC.DPO.PORT_2016 <- spi_loader_4(4,3,'PORT', 2016,2) %>%
+  mutate(PORT=...2016,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, PORT)
+
+D4.3.SC.DPO.PORT_2017 <- spi_loader_4(4,3,'PORT', 2017,2) %>%
+  mutate(PORT=...2017,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, PORT)
+
+D4.3.SC.DPO.PORT_2018 <- spi_loader_4(4,3,'PORT', 2018,2) %>%
+  mutate(PORT=...2018,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, PORT)
+
+#save to csv
+bind_rows(D4.3.SC.DPO.PORT_2016, D4.3.SC.DPO.PORT_2017, D4.3.SC.DPO.PORT_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D4.3.SC.DPO.PORT.csv", sep="/" ))
+
+
+#########
+# 4.4 Timeseries indicators are available for download in reusable format for free
+
+# This indicator will promote usage among the users and bring accountability to
+# the NSO.  There are several different formats in which a user can access the
+# data, such as Excel, CSV, and API etc.
+#########
+
+D4.4.SC.DPO.TIME_2016 <- spi_loader_4(4,4,'TIME', 2016,2) %>%
+  mutate(TIME=...2016,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, TIME)
+
+D4.4.SC.DPO.TIME_2017 <- spi_loader_4(4,4,'TIME', 2017,2) %>%
+  mutate(TIME=...2017,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, TIME)
+
+D4.4.SC.DPO.TIME_2018 <- spi_loader_4(4,4,'TIME', 2018,2) %>%
+  mutate(TIME=...2018,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, TIME)
+
+#save to csv
+bind_rows(D4.4.SC.DPO.TIME_2016, D4.4.SC.DPO.TIME_2017, D4.4.SC.DPO.TIME_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D4.4.SC.DPO.TIME.csv", sep="/" ))
+
+
+#########
+# 4.5 Metadata is available providing definition, methodology, standards or classifications for existing data series
+
+# Statistical systems must be open and transparent about their methods and
+# procedures and provide access to adequate metadata - detailed descriptions of
+# the methods and procedures used to produce the data.
+#########
+
+D4.5.SC.DPO.META_2016 <- spi_loader_4(4,5,'META', 2016,2) %>%
+  mutate(META=...2016,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, META)
+
+D4.5.SC.DPO.META_2017 <- spi_loader_4(4,5,'META', 2017,2) %>%
+  mutate(META=...2017,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, META)
+
+D4.5.SC.DPO.META_2018 <- spi_loader_4(4,5,'META', 2018,2) %>%
+  mutate(META=...2018,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, META)
+
+#save to csv
+bind_rows(D4.5.SC.DPO.META_2016, D4.5.SC.DPO.META_2017, D4.5.SC.DPO.META_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D4.5.SC.DPO.META.csv", sep="/" ))
+
+
+
+#########
+# 4.6 NSO has conducted a user satisfaction survey
+
+# Through this indicator a NSO can improve its engagement and dissemination
+# practice by seeking regular feedback from users and then making necessary
+# adjustments.  It is also a good practice to continually monitor the changing
+# data landscape and user needs as well as evolving technologies.
+#########
+
+
+D4.6.SC.DPO.USER_2016 <- spi_loader_4(4,6,'USER', 2016,2) %>%
+  mutate(USER=...2016,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, USER)
+
+D4.6.SC.DPO.USER_2017 <- spi_loader_4(4,6,'USER', 2017,2) %>%
+  mutate(USER=...2017,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, USER)
+
+D4.6.SC.DPO.USER_2018 <- spi_loader_4(4,6,'USER', 2018,2) %>%
+  mutate(USER=...2018,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, USER)
+
+#save to csv
+bind_rows(D4.6.SC.DPO.USER_2016, D4.6.SC.DPO.USER_2017, D4.6.SC.DPO.USER_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D4.6.SC.DPO.USER.csv", sep="/" ))
+
+
+#########
+# 4.7 Geospatial data available on relevant agency website
+
+# Geospatial data available on relevant agency website refers to geo-referenced,
+# location-based disaggregated data from satellite.  Geospatial data are often
+# used in combination with administrative level national and sub-national units.
+#########
+
+
+D4.7.SC.DPO.GEOS_2016 <- spi_loader_4(4,7,'GEOS', 2016,2) %>%
+  mutate(GEOS=...2016,
+         iso3c=Code,
+         country=Country,
+         date=2016) %>%
+  select(iso3c, country,date, GEOS)
+
+D4.7.SC.DPO.GEOS_2017 <- spi_loader_4(4,7,'GEOS', 2017,2) %>%
+  mutate(GEOS=...2017,
+         iso3c=Code,
+         country=Country,
+         date=2017) %>%
+  select(iso3c, country,date, GEOS)
+
+D4.7.SC.DPO.GEOS_2018 <- spi_loader_4(4,7,'GEOS', 2018,2) %>%
+  mutate(GEOS=...2018,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, GEOS)
+
+#save to csv
+bind_rows(D4.7.SC.DPO.GEOS_2016, D4.7.SC.DPO.GEOS_2017, D4.7.SC.DPO.GEOS_2018) %>%
+  arrange(iso3c, date) %>%
+  write_excel_csv(
+    path = paste(csv_dir, "D4.7.SC.DPO.GEOS.csv", sep="/" ))
 
