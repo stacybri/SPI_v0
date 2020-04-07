@@ -81,6 +81,7 @@
 
 # csv files
 !/R/**/*rawdata/*.csv
+!/R/**/*outputs/*.csv
 
 #Powerpoint files
 !/**/**/*.ppt

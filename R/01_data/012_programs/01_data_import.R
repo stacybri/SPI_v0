@@ -15,8 +15,6 @@ excel_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/Data"
 # Directory for SPI csv files that are created
 csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
 
-# year of data collection
-year <- 2018
 
 ###############################
 # SPI Dimension 1: Methodology, Standards and Classifications (MSC): 
@@ -62,21 +60,21 @@ spi_loader <- function(variable_num1, variable_num2,variable_name, year, skip) {
 # and ensure international compatibility. 
 #########
 D1.1.MSC.SNAU_2016 <- spi_loader(1,1,'SNAU', 2016,1) %>%
-  mutate(SNAU=SNA.in.use..2016,
+  mutate(SNAU=Sna.in.use..08.16.2019,
          iso3c=Code,
          country=Country,
          date=2016) %>%
   select(iso3c, country,date, SNAU)
 
 D1.1.MSC.SNAU_2017 <- spi_loader(1,1,'SNAU', 2017,1) %>%
-  mutate(SNAU=SNA.in.use..2017,
+  mutate(SNAU=Sna.in.use,
          iso3c=Code,
          country=Country,
          date=2017) %>%
   select(iso3c, country,date, SNAU)
 
 D1.1.MSC.SNAU_2018 <- spi_loader(1,1,'SNAU', 2018,1) %>%
-  mutate(SNAU=SNA.in.use..2018,
+  mutate(SNAU=Sna.in.use,
          iso3c=Code,
          country=Country,
          date=2018) %>%
