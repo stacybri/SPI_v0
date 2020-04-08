@@ -604,6 +604,62 @@ development of normal family living conditions.  Data obtained as part of the po
 including data on homeless persons, are often used in the presentation and analysis of the results 
 of the housing census.  It is recommended that population and housing censuses be conducted at least every 10 years. 
 
+1 Point. Population census done within last 10 years	
+0.5 Points. Population census done within last 20 years	
+0 Points. Otherwise
+```{r popu}
+
+#read in csv file.
+D2.1.CEN.POPU_df <- read_csv(file = paste(csv_dir, "D2.1.CEN.POPU.csv", sep="/" )) %>%
+  group_by(iso3c) %>% 
+  nest() %>% # The next chunk of code will split our string with the years of the census (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
+  mutate(
+    temp_col = map(
+      data, 
+      ~ str_extract_all(.x$POPU.CENSUS, "\\d{4}") %>% 
+        flatten() %>% 
+        map_chr(~return(.x)) %>% 
+        as_tibble()
+    )
+  ) %>% 
+  unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
+  mutate(value=as.numeric(value)) %>%
+  group_by(iso3c, country, database_last_updated, POPU.CENSUS ) %>%   
+  summarise(last_census=max(value)) %>%
+  ungroup()
+
+
+
+# Now calculate our SPI score for this indicator
+for (i in 2016:2018) {
+ temp <- D2.1.CEN.POPU_df %>%
+  mutate(date=i) %>%
+  mutate(SPI.D2.1.POPU=case_when(
+    (date-last_census<=10) & (date-last_census>0) ~ 1, 
+    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    TRUE ~ 0 )
+  )  %>%
+  select(iso3c, country, date, POPU.CENSUS, SPI.D2.1.POPU  ) %>%
+  arrange(date, country)
+
+  
+  assign(paste("D2.1.CEN.POPU",i,sep="_"), temp)
+}
+
+
+D2.1.CEN.POPU<- bind_rows(D2.1.CEN.POPU_2016, D2.1.CEN.POPU_2017, D2.1.CEN.POPU_2018)
+
+D2.1.CEN.POPU_wide <- D2.1.CEN.POPU %>%
+  pivot_wider(names_from=date,
+              names_sep = "_",
+              values_from=c('POPU.CENSUS', 'SPI.D2.1.POPU')
+              )
+
+write_excel_csv(D2.1.CEN.POPU_wide,
+                path = paste(csv_output, "D2.1.CEN.POPU_indicator.csv", sep="/" ))
+```
+
+
 ### 2.2 Agriculture census
 
 Agriculture censuses collect information on agricultural activities, such as
@@ -614,6 +670,62 @@ enumeration of all agricultural holdings, in combination with more detailed
 structural data using sampling methods.  It is recommended that agricultural
 censuses be conducted at least every 10 years.
 
+1 Point.  census done within last 10 years	
+0.5 Points.  census done within last 20 years	
+0 Points. Otherwise
+
+```{r agri}
+
+#read in csv file.
+D2.2.CEN.AGRI_df <- read_csv(file = paste(csv_dir, "D2.2.CEN.AGRI.csv", sep="/" )) %>%
+  group_by(iso3c) %>% 
+  nest() %>% # The next chunk of code will split our string with the years of the census (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
+  mutate(
+    temp_col = map(
+      data, 
+      ~ str_extract_all(.x$AGRI.CENSUS, "\\d{4}") %>% 
+        flatten() %>% 
+        map_chr(~return(.x)) %>% 
+        as_tibble()
+    )
+  ) %>% 
+  unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
+  mutate(value=as.numeric(value)) %>%
+  group_by(iso3c, country, database_last_updated, AGRI.CENSUS ) %>%   
+  summarise(last_census=max(value)) %>%
+  ungroup()
+
+
+
+# Now calculate our SPI score for this indicator
+for (i in 2016:2018) {
+ temp <- D2.2.CEN.AGRI_df %>%
+  mutate(date=i) %>%
+  mutate(SPI.D2.2.AGRI=case_when(
+    (date-last_census<=10) & (date-last_census>0) ~ 1, 
+    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    TRUE ~ 0 )
+  )  %>%
+  select(iso3c, country, date, AGRI.CENSUS, SPI.D2.2.AGRI  ) %>%
+  arrange(date, country)
+
+  
+  assign(paste("D2.2.CEN.AGRI",i,sep="_"), temp)
+}
+
+
+D2.2.CEN.AGRI<- bind_rows(D2.2.CEN.AGRI_2016, D2.2.CEN.AGRI_2017, D2.2.CEN.AGRI_2018)
+
+D2.2.CEN.AGRI_wide <- D2.2.CEN.AGRI %>%
+  pivot_wider(names_from=date,
+              names_sep = "_",
+              values_from=c('AGRI.CENSUS', 'SPI.D2.2.AGRI')
+              )
+
+write_excel_csv(D2.2.CEN.AGRI_wide,
+                path = paste(csv_output, "D2.2.CEN.AGRI_indicator.csv", sep="/" ))
+```
+
 ### 2.3 Business/establishment census
 
 Business/establishment censuses provide valuable information on all economic
@@ -621,6 +733,64 @@ activities, number of employed and size of establishments in the economy.
 Business Register information is establishment-based and includes business
 location, organization type (e.g. subsidiary or parent), industry
 classification, and operating data (e.g., receipts and employment).
+
+1 Point.  census done within last 10 years	
+0.5 Points.  census done within last 20 years	
+0 Points. Otherwise
+
+
+```{r cen.bizz}
+
+#read in csv file.
+D2.3.CEN.BIZZ_df <- read_csv(file = paste(csv_dir, "D2.3.CEN.BIZZ.csv", sep="/" )) %>%
+  group_by(iso3c) %>% 
+  nest() %>% # The next chunk of code will split our string with the years of the census (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
+  mutate(
+    temp_col = map(
+      data, 
+      ~ str_extract_all(.x$BIZZ.CENSUS, "\\d{4}") %>% 
+        flatten() %>% 
+        map_chr(~return(.x)) %>% 
+        as_tibble()
+    )
+  ) %>% 
+  unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
+  mutate(value=as.numeric(value)) %>%
+  group_by(iso3c, country, database_last_updated, BIZZ.CENSUS ) %>%   
+  summarise(last_census=max(value)) %>%
+  ungroup()
+
+
+
+# Now calculate our SPI score for this indicator
+for (i in 2016:2018) {
+ temp <- D2.3.CEN.BIZZ_df %>%
+  mutate(date=i) %>%
+  mutate(SPI.D2.3.BIZZ=case_when(
+    (date-last_census<=10) & (date-last_census>0) ~ 1, 
+    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    TRUE ~ 0 )
+  )  %>%
+  select(iso3c, country, date, BIZZ.CENSUS, SPI.D2.3.BIZZ  ) %>%
+  arrange(date, country)
+
+  
+  assign(paste("D2.3.CEN.BIZZ",i,sep="_"), temp)
+}
+
+
+D2.3.CEN.BIZZ<- bind_rows(D2.3.CEN.BIZZ_2016, D2.3.CEN.BIZZ_2017, D2.3.CEN.BIZZ_2018)
+
+D2.3.CEN.BIZZ_wide <- D2.3.CEN.BIZZ %>%
+  pivot_wider(names_from=date,
+              names_sep = "_",
+              values_from=c('BIZZ.CENSUS', 'SPI.D2.3.BIZZ')
+              )
+
+write_excel_csv(D2.3.CEN.BIZZ_wide,
+                path = paste(csv_output, "D2.3.CEN.BIZZ_indicator.csv", sep="/" ))
+```
+
 
 ### 2.4 Household Survey on income/consumption/expenditure/budget/Integrated Survey 
 
@@ -630,6 +800,65 @@ consumption surveys, household budget surveys, integrated surveys.  It is
 recommended that surveys on income and expenditure be conducted at least every
 3 to 5 years.
 
+1 Point. 3 or more surveys done within past 10 years	
+0.6 Points. 2 surveys done within past 10 years; 	
+0.3 Points. 1 survey done within past 10 years; 	
+0 Points. None within past 10 years
+
+```{r svy.hous}
+
+#read in csv file.
+D2.4.SVY.HOUS_df <- read_csv(file = paste(csv_dir, "D2.4.SVY.HOUS.csv", sep="/" )) %>%
+  group_by(iso3c) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
+  nest() %>% 
+  mutate(
+    temp_col = map(
+      data, 
+      ~ str_extract_all(.x$HOUS.SURVEYS, "\\d{4}") %>% 
+        flatten() %>% 
+        map_chr(~return(.x)) %>% 
+        as_tibble()
+    )
+  ) %>%
+  unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
+  mutate(survey_date=as.numeric(value)) 
+
+
+# Now calculate our SPI score for this indicator
+for (i in 2016:2018) {
+ temp <- D2.4.SVY.HOUS_df %>%
+  mutate(date=i) %>%
+  mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
+  group_by(iso3c, country, date, HOUS.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
+  summarise(SPI.D2.4.HOUS=case_when(
+    sum(recency_indicator)>=3 ~ 1, 
+    sum(recency_indicator)==2 ~ 0.6, 
+    sum(recency_indicator)==1 ~ 0.3, 
+    TRUE ~ 0 )
+  )  %>%
+  select(iso3c, country, date, HOUS.SURVEYS, SPI.D2.4.HOUS  ) %>%
+  arrange(date, country)
+
+  
+  assign(paste("D2.4.SVY.HOUS",i,sep="_"), temp)
+}
+
+D2.4.SVY.HOUS<- bind_rows(D2.4.SVY.HOUS_2016, D2.4.SVY.HOUS_2017, D2.4.SVY.HOUS_2018)
+
+
+D2.4.SVY.HOUS_wide <- D2.4.SVY.HOUS %>%
+  pivot_wider(names_from=date,
+              names_sep = "_",
+              values_from=c('HOUS.SURVEYS', 'SPI.D2.4.HOUS')
+              )
+
+write_excel_csv(D2.4.SVY.HOUS_wide,
+                path = paste(csv_output, "D2.4.SVY.HOUS_indicator.csv", sep="/" ))
+```
+
+
+
+
 ### 2.5 Agriculture survey
 
 Agricultural surveys refer to surveys of agricultural holdings based on the
@@ -637,6 +866,64 @@ sampling frames established by the agricultural census.  These are surveys on
 agricultural land, production, crops and livestock, aquaculture, labor and
 cost, and time use.  Some issues, such as gender and food security, are of
 interest to most agriculture surveys.
+
+1 Point. 3 or more surveys done within past 10 years	
+0.6 Points. 2 surveys done within past 10 years; 	
+0.3 Points. 1 survey done within past 10 years; 	
+0 Points. None within past 10 years
+
+
+```{r svy.agri}
+
+#read in csv file.
+D2.5.SVY.AGRI_df <- read_csv(file = paste(csv_dir, "D2.5.SVY.AGRI.csv", sep="/" )) %>%
+  group_by(iso3c) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
+  nest() %>% 
+  mutate(
+    temp_col = map(
+      data, 
+      ~ str_extract_all(.x$AGRI.SURVEYS, "\\d{4}") %>% 
+        flatten() %>% 
+        map_chr(~return(.x)) %>% 
+        as_tibble()
+    )
+  ) %>%
+  unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
+  mutate(survey_date=as.numeric(value)) 
+
+
+# Now calculate our SPI score for this indicator
+for (i in 2016:2018) {
+ temp <- D2.5.SVY.AGRI_df %>%
+  mutate(date=i) %>%
+  mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
+  group_by(iso3c, country, date, AGRI.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
+  summarise(SPI.D2.5.AGRI=case_when(
+    sum(recency_indicator)>=3 ~ 1, 
+    sum(recency_indicator)==2 ~ 0.6, 
+    sum(recency_indicator)==1 ~ 0.3, 
+    TRUE ~ 0 )
+  )  %>%
+  select(iso3c, country, date, AGRI.SURVEYS, SPI.D2.5.AGRI  ) %>%
+  arrange(date, country)
+
+  
+  assign(paste("D2.5.SVY.AGRI",i,sep="_"), temp)
+}
+
+D2.5.SVY.AGRI<- bind_rows(D2.5.SVY.AGRI_2016, D2.5.SVY.AGRI_2017, D2.5.SVY.AGRI_2018)
+
+D2.5.SVY.AGRI_wide <- D2.5.SVY.AGRI %>%
+  pivot_wider(names_from=date,
+              names_sep = "_",
+              values_from=c('AGRI.SURVEYS', 'SPI.D2.5.AGRI')
+              )
+
+write_excel_csv(D2.5.SVY.AGRI_wide,
+                path = paste(csv_output, "D2.5.SVY.AGRI_indicator.csv", sep="/" ))
+```
+
+
 
 ### 2.6 Labor Force Survey 
 
@@ -648,12 +935,128 @@ between employees and the self-employed, public versus private sector
 employment, multiple job-holding, hiring, job creation, and duration of
 unemployment.
 
+1 Point. 3 or more surveys done within past 10 years	
+0.6 Points. 2 surveys done within past 10 years; 	
+0.3 Points. 1 survey done within past 10 years; 	
+0 Points. None within past 10 years
+
+
+
+```{r svy.labr}
+
+#read in csv file.
+D2.6.SVY.LABR_df <- read_csv(file = paste(csv_dir, "D2.6.SVY.LABR.csv", sep="/" )) %>%
+  group_by(iso3c) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
+  nest() %>% 
+  mutate(
+    temp_col = map(
+      data, 
+      ~ str_extract_all(.x$LABR.SURVEYS, "\\d{4}") %>% 
+        flatten() %>% 
+        map_chr(~return(.x)) %>% 
+        as_tibble()
+    )
+  ) %>%
+  unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
+  mutate(survey_date=as.numeric(value)) 
+
+# Now calculate our SPI score for this indicator
+for (i in 2016:2018) {
+ temp <- D2.6.SVY.LABR_df %>%
+  mutate(date=i) %>%
+  mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
+  group_by(iso3c, country, date, LABR.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
+  summarise(SPI.D2.6.LABR=case_when(
+    sum(recency_indicator)>=3 ~ 1, 
+    sum(recency_indicator)==2 ~ 0.6, 
+    sum(recency_indicator)==1 ~ 0.3, 
+    TRUE ~ 0 )
+  )  %>%
+  select(iso3c, country, date, LABR.SURVEYS, SPI.D2.6.LABR  ) %>%
+  arrange(date, country)
+
+  
+  assign(paste("D2.6.SVY.LABR",i,sep="_"), temp)
+}
+
+D2.6.SVY.LABR<- bind_rows(D2.6.SVY.LABR_2016, D2.6.SVY.LABR_2017, D2.6.SVY.LABR_2018)
+
+D2.6.SVY.LABR_wide <- D2.6.SVY.LABR %>%
+  pivot_wider(names_from=date,
+              names_sep = "_",
+              values_from=c('LABR.SURVEYS', 'SPI.D2.6.LABR')
+              )
+
+write_excel_csv(D2.6.SVY.LABR_wide,
+                path = paste(csv_output, "D2.6.SVY.LABR_indicator.csv", sep="/" ))
+```
+
+
+
+
 ### 2.7 Health/Demographic survey
 
 Health surveys collect information on various aspects of health of
 populations, such as health expenditure, access, utilization, and outcomes.
 They typically include Demographic and Health Surveys.  It is recommended that
 health surveys be conducted at least every 3 to 5 years.
+
+1 Point. 3 or more surveys done within past 10 years	
+0.6 Points. 2 surveys done within past 10 years; 	
+0.3 Points. 1 survey done within past 10 years; 	
+0 Points. None within past 10 years
+
+```{r svy.hlth}
+
+#read in csv file.
+D2.7.SVY.HLTH_df <- read_csv(file = paste(csv_dir, "D2.7.SVY.HLTH.csv", sep="/" )) %>%
+  group_by(iso3c) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
+  nest() %>% 
+  mutate(
+    temp_col = map(
+      data, 
+      ~ str_extract_all(.x$HLTH.SURVEYS, "\\d{4}") %>% 
+        flatten() %>% 
+        map_chr(~return(.x)) %>% 
+        as_tibble()
+    )
+  ) %>%
+  unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
+  mutate(survey_date=as.numeric(value)) 
+
+# Now calculate our SPI score for this indicator
+for (i in 2016:2018) {
+ temp <- D2.7.SVY.HLTH_df %>%
+  mutate(date=i) %>%
+  mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
+  group_by(iso3c, country, date, HLTH.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
+  summarise(SPI.D2.7.HLTH=case_when(
+    sum(recency_indicator)>=3 ~ 1, 
+    sum(recency_indicator)==2 ~ 0.6, 
+    sum(recency_indicator)==1 ~ 0.3, 
+    TRUE ~ 0 )
+  )  %>%
+  select(iso3c, country, date, HLTH.SURVEYS, SPI.D2.7.HLTH  ) %>%
+  arrange(date, country)
+
+  
+  assign(paste("D2.7.SVY.HLTH",i,sep="_"), temp)
+}
+
+
+D2.7.SVY.HLTH<- bind_rows(D2.7.SVY.HLTH_2016, D2.7.SVY.HLTH_2017, D2.7.SVY.HLTH_2018)
+
+D2.7.SVY.HLTH_wide <- D2.7.SVY.HLTH %>%
+  pivot_wider(names_from=date,
+              names_sep = "_",
+              values_from=c('HLTH.SURVEYS', 'SPI.D2.7.HLTH')
+              )
+
+write_excel_csv(D2.7.SVY.HLTH_wide,
+                path = paste(csv_output, "D2.7.SVY.HLTH_indicator.csv", sep="/" ))
+```
+
+
 
 ### 2.8 Business/establishment survey
 
@@ -664,6 +1067,143 @@ principal activity from the business or establishment census.  Establishment
 surveys include surveys of businesses, farms, and institutions.  They may ask
 for information about the establishment itself and/or employee characteristics
 and demographics.
+
+1 Point. 3 or more surveys done within past 10 years	
+0.6 Points. 2 surveys done within past 10 years; 	
+0.3 Points. 1 survey done within past 10 years; 	
+0 Points. None within past 10 years
+
+
+
+```{r svy.bizz}
+
+#read in csv file.
+D2.8.SVY.BIZZ_df <- read_csv(file = paste(csv_dir, "D2.8.SVY.BIZZ.csv", sep="/" )) %>%
+  group_by(iso3c) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
+  nest() %>% 
+  mutate(
+    temp_col = map(
+      data, 
+      ~ str_extract_all(.x$BIZZ.SURVEYS, "\\d{4}") %>% 
+        flatten() %>% 
+        map_chr(~return(.x)) %>% 
+        as_tibble()
+    )
+  ) %>%
+  unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
+  mutate(survey_date=as.numeric(value)) 
+
+# Now calculate our SPI score for this indicator
+
+for (i in 2016:2018) {
+ temp <- D2.8.SVY.BIZZ_df %>%
+  mutate(date=i) %>%
+  mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
+  group_by(iso3c, country, date, BIZZ.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
+  summarise(SPI.D2.8.BIZZ=case_when(
+    sum(recency_indicator)>=3 ~ 1, 
+    sum(recency_indicator)==2 ~ 0.6, 
+    sum(recency_indicator)==1 ~ 0.3, 
+    TRUE ~ 0 )
+  )  %>%
+  select(iso3c, country, date, BIZZ.SURVEYS, SPI.D2.8.BIZZ  ) %>%
+  arrange(date, country)
+
+  
+  assign(paste("D2.8.SVY.BIZZ",i,sep="_"), temp)
+}
+
+
+D2.8.SVY.BIZZ<- bind_rows(D2.8.SVY.BIZZ_2016, D2.8.SVY.BIZZ_2017, D2.8.SVY.BIZZ_2018)
+
+D2.8.SVY.BIZZ_wide <- D2.8.SVY.BIZZ %>%
+  pivot_wider(names_from=date,
+              names_sep = "_",
+              values_from=c('BIZZ.SURVEYS', 'SPI.D2.8.BIZZ')
+              )
+
+write_excel_csv(D2.8.SVY.BIZZ_wide,
+                path = paste(csv_output, "D2.8.SVY.BIZZ_indicator.csv", sep="/" ))
+```
+
+
+
+### CS Score
+
+CS Country  Score=Weighted Score÷Maximum Category Score×100
+
+```{r cs}
+# join datasets together based on country and date
+D2.CS <- D2.1.CEN.POPU %>%
+  left_join(D2.2.CEN.AGRI, by=c('iso3c', 'date')) %>%
+  left_join(D2.3.CEN.BIZZ, by=c('iso3c', 'date')) %>%
+  left_join(D2.4.SVY.HOUS, by=c('iso3c', 'date')) %>%
+  left_join(D2.5.SVY.AGRI, by=c('iso3c', 'date')) %>%
+  left_join(D2.6.SVY.LABR, by=c('iso3c', 'date')) %>%
+  left_join(D2.7.SVY.HLTH, by=c('iso3c', 'date')) %>%
+  left_join(D2.8.SVY.BIZZ, by=c('iso3c', 'date')) %>%
+  select(iso3c, country.x, date, starts_with("SPI.D2")) %>%
+  rename(country=country.x)
+
+#Now calculate MSC score which is the average across the 12 indicators
+D2.CS <- D2.CS %>%
+  mutate(SPI.D2.CS=100*rowMeans(.[grep(x=colnames(D2.CS), 
+                                              pattern="SPI.D2")], na.rm=TRUE)) %>%
+  arrange(date, iso3c) %>%
+  select(iso3c, country, date,SPI.D2.CS, starts_with("SPI.D2"))
+
+
+D2.CS_wide <- D2.CS %>%
+  select(iso3c, country, date,SPI.D2.CS) %>%
+  pivot_wider(names_from=date,
+              names_prefix = "SPI.D2.CS_",
+              values_from=c('SPI.D2.CS')
+              )
+
+write_excel_csv(D2.CS_wide,
+                path = paste(csv_output, "D2.CS_indicator.csv", sep="/" ))
+
+```
+
+Produce summary statistics of our indicators.
+
+```{r}
+
+msc_sumstats <- D2.CS %>%
+  group_by(date) %>%
+  select(SPI.D2.CS, starts_with("SPI.D2")) %>%
+  skim() %>%
+  select(c("skim_variable",
+           "date", "complete_rate", "numeric.mean",  "numeric.sd",    "numeric.p0",    "numeric.p25",   "numeric.p50",
+           "numeric.p75",   "numeric.p100",  "numeric.hist"))
+
+kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator Variables" , col.names = c("Indicator", "Date", "Completion Rate", "Mean",  "Std Dev","Min", "25th Percentile", "Median", "75th Percentile", "Max",  "Histogram"), digits = 2 ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.
+
+```{r msc_comparison}
+
+comparison_cs <- D2.CS_wide %>%
+  left_join(orig_data)
+
+#2016
+cor(comparison_cs$SPI.D2.CS_2016, comparison_cs$'C & S_2016',
+    use='complete.obs')
+
+#2017
+cor(comparison_cs$SPI.D2.CS_2017, comparison_cs$'C & S_2017',
+    use='complete.obs')
+
+#2018
+cor(comparison_cs$SPI.D2.CS_2018, comparison_cs$'C & S_2018',
+    use='complete.obs')
+
+
+```
 
 ## SPI Dimension 3: Availability of Key Indicators (AKI):
 
