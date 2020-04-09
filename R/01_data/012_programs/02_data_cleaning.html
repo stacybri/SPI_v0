@@ -11,7 +11,7 @@
 
 <meta name="author" content="Brian Stacy" />
 
-<meta name="date" content="2020-04-08" />
+<meta name="date" content="2020-04-09" />
 
 <title>SPI Data Documentation</title>
 
@@ -374,7 +374,7 @@ summary {
 
 <h1 class="title toc-ignore">SPI Data Documentation</h1>
 <h4 class="author">Brian Stacy</h4>
-<h4 class="date">2020-04-08</h4>
+<h4 class="date">2020-04-09</h4>
 
 </div>
 
@@ -407,6 +407,7 @@ summary {
 <li><a href="#labor-force-survey">2.6 Labor Force Survey</a></li>
 <li><a href="#healthdemographic-survey">2.7 Health/Demographic survey</a></li>
 <li><a href="#businessestablishment-survey">2.8 Business/establishment survey</a></li>
+<li><a href="#cs-score">CS Score</a></li>
 </ul></li>
 <li><a href="#spi-dimension-3-availability-of-key-indicators-aki">SPI Dimension 3: Availability of Key Indicators (AKI):</a></li>
 <li><a href="#spi-dimension-4-dissemination-practices-and-openness-dpo">SPI Dimension 4: Dissemination Practices and Openness (DPO):</a><ul>
@@ -417,7 +418,9 @@ summary {
 <li><a href="#metadata-is-available-providing-definition-methodology-standards-or-classifications-for-existing-data-series">4.5 Metadata is available providing definition, methodology, standards or classifications for existing data series</a></li>
 <li><a href="#nso-has-conducted-a-user-satisfaction-survey">4.6 NSO has conducted a user satisfaction survey</a></li>
 <li><a href="#geospatial-data-available-on-relevant-agency-website">4.7 Geospatial data available on relevant agency website</a></li>
+<li><a href="#dpo-score">DPO Score</a></li>
 </ul></li>
+<li><a href="#overall-score">Overall Score</a></li>
 </ul></li>
 </ul>
 </div>
@@ -2373,10 +2376,7 @@ D2.1.CEN.POPU_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.1.CEN.POPU.csv&qu
     )
   ) %&gt;% 
   unnest(keep_empty = TRUE) %&gt;% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(value=as.numeric(value)) %&gt;%
-  group_by(iso3c, country, database_last_updated, POPU.CENSUS ) %&gt;%   
-  summarise(last_census=max(value)) %&gt;%
-  ungroup()
+  mutate(census_date=as.numeric(value)) 
 
 
 
@@ -2384,11 +2384,16 @@ D2.1.CEN.POPU_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.1.CEN.POPU.csv&qu
 for (i in 2016:2018) {
  temp &lt;- D2.1.CEN.POPU_df %&gt;%
   mutate(date=i) %&gt;%
+  mutate(recency_indicator=((date&gt;census_date)) ) %&gt;% #restrict to censuses that do not occur after reference date
+  mutate(census_date=if_else(recency_indicator==TRUE, census_date, as.numeric(NA))) %&gt;%
+  group_by(iso3c, country, date, database_last_updated, POPU.CENSUS ) %&gt;%   
+  summarise(last_census=max(census_date, na.rm=T)) %&gt;%
   mutate(SPI.D2.1.POPU=case_when(
-    date-last_census&lt;=10 ~ 1, 
-    date-last_census&lt;=20 ~ 0.5, 
+    (date-last_census&lt;=10) &amp; (date-last_census&gt;0) ~ 1, 
+    (date-last_census&lt;=20) &amp; (date-last_census&gt;0) ~ 0.5, 
     TRUE ~ 0 )
   )  %&gt;%
+   ungroup() %&gt;%
   select(iso3c, country, date, POPU.CENSUS, SPI.D2.1.POPU  ) %&gt;%
   arrange(date, country)
 
@@ -2428,22 +2433,23 @@ D2.2.CEN.AGRI_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.2.CEN.AGRI.csv&qu
     )
   ) %&gt;% 
   unnest(keep_empty = TRUE) %&gt;% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(value=as.numeric(value)) %&gt;%
-  group_by(iso3c, country, database_last_updated, AGRI.CENSUS ) %&gt;%   
-  summarise(last_census=max(value)) %&gt;%
-  ungroup()
-
+  mutate(census_date=as.numeric(value)) 
 
 
 # Now calculate our SPI score for this indicator
 for (i in 2016:2018) {
  temp &lt;- D2.2.CEN.AGRI_df %&gt;%
   mutate(date=i) %&gt;%
+  mutate(recency_indicator=((date&gt;census_date)) ) %&gt;% #restrict to censuses that do not occur after reference date
+  mutate(census_date=if_else(recency_indicator==TRUE, census_date, as.numeric(NA))) %&gt;%
+  group_by(iso3c, country, date, database_last_updated, AGRI.CENSUS ) %&gt;%   
+  summarise(last_census=max(census_date, na.rm=T)) %&gt;%
   mutate(SPI.D2.2.AGRI=case_when(
-    date-last_census&lt;=10 ~ 1, 
-    date-last_census&lt;=20 ~ 0.5, 
+    (date-last_census&lt;=10) &amp; (date-last_census&gt;0) ~ 1, 
+    (date-last_census&lt;=20) &amp; (date-last_census&gt;0) ~ 0.5, 
     TRUE ~ 0 )
   )  %&gt;%
+   ungroup() %&gt;%
   select(iso3c, country, date, AGRI.CENSUS, SPI.D2.2.AGRI  ) %&gt;%
   arrange(date, country)
 
@@ -2483,10 +2489,7 @@ D2.3.CEN.BIZZ_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.3.CEN.BIZZ.csv&qu
     )
   ) %&gt;% 
   unnest(keep_empty = TRUE) %&gt;% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(value=as.numeric(value)) %&gt;%
-  group_by(iso3c, country, database_last_updated, BIZZ.CENSUS ) %&gt;%   
-  summarise(last_census=max(value)) %&gt;%
-  ungroup()
+  mutate(census_date=as.numeric(value)) 
 
 
 
@@ -2494,11 +2497,16 @@ D2.3.CEN.BIZZ_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.3.CEN.BIZZ.csv&qu
 for (i in 2016:2018) {
  temp &lt;- D2.3.CEN.BIZZ_df %&gt;%
   mutate(date=i) %&gt;%
+  mutate(recency_indicator=((date&gt;census_date)) ) %&gt;% #restrict to censuses that do not occur after reference date
+  mutate(census_date=if_else(recency_indicator==TRUE, census_date, as.numeric(NA))) %&gt;%
+  group_by(iso3c, country, date, database_last_updated, BIZZ.CENSUS ) %&gt;%   
+  summarise(last_census=max(census_date, na.rm=T)) %&gt;%
   mutate(SPI.D2.3.BIZZ=case_when(
-    date-last_census&lt;=10 ~ 1, 
-    date-last_census&lt;=20 ~ 0.5, 
+    (date-last_census&lt;=10) &amp; (date-last_census&gt;0) ~ 1, 
+    (date-last_census&lt;=20) &amp; (date-last_census&gt;0) ~ 0.5, 
     TRUE ~ 0 )
   )  %&gt;%
+   ungroup() %&gt;%
   select(iso3c, country, date, BIZZ.CENSUS, SPI.D2.3.BIZZ  ) %&gt;%
   arrange(date, country)
 
@@ -2546,12 +2554,12 @@ D2.4.SVY.HOUS_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.4.SVY.HOUS.csv&qu
 for (i in 2016:2018) {
  temp &lt;- D2.4.SVY.HOUS_df %&gt;%
   mutate(date=i) %&gt;%
-  mutate(recency_indicator=(date-survey_date&lt;=10))%&gt;% #restrict to surveys inside 10 year period
+  mutate(recency_indicator=((date-survey_date&lt;=10) &amp; (date-survey_date&gt;0)) ) %&gt;% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, HOUS.SURVEYS) %&gt;% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.4.HOUS=case_when(
-    n()&gt;=3 ~ 1, 
-    n()==2 ~ 0.6, 
-    n()==1 ~ 0.3, 
+    sum(recency_indicator)&gt;=3 ~ 1, 
+    sum(recency_indicator)==2 ~ 0.6, 
+    sum(recency_indicator)==1 ~ 0.3, 
     TRUE ~ 0 )
   )  %&gt;%
   select(iso3c, country, date, HOUS.SURVEYS, SPI.D2.4.HOUS  ) %&gt;%
@@ -2601,7 +2609,7 @@ D2.5.SVY.AGRI_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.5.SVY.AGRI.csv&qu
 for (i in 2016:2018) {
  temp &lt;- D2.5.SVY.AGRI_df %&gt;%
   mutate(date=i) %&gt;%
-  mutate(recency_indicator=(date-survey_date&lt;=10)) %&gt;% #restrict to surveys inside 10 year period
+  mutate(recency_indicator=((date-survey_date&lt;=10) &amp; (date-survey_date&gt;0)) ) %&gt;% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, AGRI.SURVEYS) %&gt;% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.5.AGRI=case_when(
     sum(recency_indicator)&gt;=3 ~ 1, 
@@ -2654,7 +2662,7 @@ D2.6.SVY.LABR_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.6.SVY.LABR.csv&qu
 for (i in 2016:2018) {
  temp &lt;- D2.6.SVY.LABR_df %&gt;%
   mutate(date=i) %&gt;%
-  mutate(recency_indicator=(date-survey_date&lt;=10)) %&gt;% #restrict to surveys inside 10 year period
+  mutate(recency_indicator=((date-survey_date&lt;=10) &amp; (date-survey_date&gt;0)) ) %&gt;% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, LABR.SURVEYS) %&gt;% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.6.LABR=case_when(
     sum(recency_indicator)&gt;=3 ~ 1, 
@@ -2707,7 +2715,7 @@ D2.7.SVY.HLTH_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.7.SVY.HLTH.csv&qu
 for (i in 2016:2018) {
  temp &lt;- D2.7.SVY.HLTH_df %&gt;%
   mutate(date=i) %&gt;%
-  mutate(recency_indicator=(date-survey_date&lt;=10)) %&gt;% #restrict to surveys inside 10 year period
+  mutate(recency_indicator=((date-survey_date&lt;=10) &amp; (date-survey_date&gt;0)) ) %&gt;% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, HLTH.SURVEYS) %&gt;% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.7.HLTH=case_when(
     sum(recency_indicator)&gt;=3 ~ 1, 
@@ -2762,7 +2770,7 @@ D2.8.SVY.BIZZ_df &lt;- read_csv(file = paste(csv_dir, &quot;D2.8.SVY.BIZZ.csv&qu
 for (i in 2016:2018) {
  temp &lt;- D2.8.SVY.BIZZ_df %&gt;%
   mutate(date=i) %&gt;%
-  mutate(recency_indicator=(date-survey_date&lt;=10)) %&gt;% #restrict to surveys inside 10 year period
+  mutate(recency_indicator=((date-survey_date&lt;=10) &amp; (date-survey_date&gt;0)) ) %&gt;% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, BIZZ.SURVEYS) %&gt;% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.8.BIZZ=case_when(
     sum(recency_indicator)&gt;=3 ~ 1, 
@@ -2773,7 +2781,7 @@ for (i in 2016:2018) {
   select(iso3c, country, date, BIZZ.SURVEYS, SPI.D2.8.BIZZ  ) %&gt;%
   arrange(date, country)
 
-  
+
   assign(paste(&quot;D2.8.SVY.BIZZ&quot;,i,sep=&quot;_&quot;), temp)
 }
 
@@ -2789,40 +2797,3757 @@ D2.8.SVY.BIZZ_wide &lt;- D2.8.SVY.BIZZ %&gt;%
 write_excel_csv(D2.8.SVY.BIZZ_wide,
                 path = paste(csv_output, &quot;D2.8.SVY.BIZZ_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
+<div id="cs-score" class="section level3">
+<h3>CS Score</h3>
+<p>CS Country Score=Weighted Score÷Maximum Category Score×100</p>
+<pre class="r"><code># join datasets together based on country and date
+D2.CS &lt;- D2.1.CEN.POPU %&gt;%
+  left_join(D2.2.CEN.AGRI, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D2.3.CEN.BIZZ, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D2.4.SVY.HOUS, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D2.5.SVY.AGRI, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D2.6.SVY.LABR, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D2.7.SVY.HLTH, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D2.8.SVY.BIZZ, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  select(iso3c, country.x, date, starts_with(&quot;SPI.D2&quot;)) %&gt;%
+  rename(country=country.x)
+
+#Now calculate MSC score which is the average across the 12 indicators
+D2.CS &lt;- D2.CS %&gt;%
+  mutate(SPI.D2.CS=100*rowMeans(.[grep(x=colnames(D2.CS), 
+                                              pattern=&quot;SPI.D2&quot;)], na.rm=TRUE)) %&gt;%
+  arrange(date, iso3c) %&gt;%
+  select(iso3c, country, date,SPI.D2.CS, starts_with(&quot;SPI.D2&quot;))
+
+
+D2.CS_wide &lt;- D2.CS %&gt;%
+  select(iso3c, country, date,SPI.D2.CS) %&gt;%
+  pivot_wider(names_from=date,
+              names_prefix = &quot;SPI.D2.CS_&quot;,
+              values_from=c(&#39;SPI.D2.CS&#39;)
+              )
+
+write_excel_csv(D2.CS_wide,
+                path = paste(csv_output, &quot;D2.CS_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
+<p>Produce summary statistics of our indicators.</p>
+<pre class="r"><code>msc_sumstats &lt;- D2.CS %&gt;%
+  group_by(date) %&gt;%
+  select(SPI.D2.CS, starts_with(&quot;SPI.D2&quot;)) %&gt;%
+  skim() %&gt;%
+  select(c(&quot;skim_variable&quot;,
+           &quot;date&quot;, &quot;complete_rate&quot;, &quot;numeric.mean&quot;,  &quot;numeric.sd&quot;,    &quot;numeric.p0&quot;,    &quot;numeric.p25&quot;,   &quot;numeric.p50&quot;,
+           &quot;numeric.p75&quot;,   &quot;numeric.p100&quot;,  &quot;numeric.hist&quot;))
+
+kable(msc_sumstats, caption=&quot;Summary Statistics of Census and Surveys Indicator Variables&quot; , col.names = c(&quot;Indicator&quot;, &quot;Date&quot;, &quot;Completion Rate&quot;, &quot;Mean&quot;,  &quot;Std Dev&quot;,&quot;Min&quot;, &quot;25th Percentile&quot;, &quot;Median&quot;, &quot;75th Percentile&quot;, &quot;Max&quot;,  &quot;Histogram&quot;), digits = 2 ) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+Summary Statistics of Census and Surveys Indicator Variables
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Indicator
+</th>
+<th style="text-align:right;">
+Date
+</th>
+<th style="text-align:right;">
+Completion Rate
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+Std Dev
+</th>
+<th style="text-align:right;">
+Min
+</th>
+<th style="text-align:right;">
+25th Percentile
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+75th Percentile
+</th>
+<th style="text-align:right;">
+Max
+</th>
+<th style="text-align:left;">
+Histogram
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SPI.D2.CS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+61.90
+</td>
+<td style="text-align:right;">
+23.94
+</td>
+<td style="text-align:right;">
+3.75
+</td>
+<td style="text-align:right;">
+43.75
+</td>
+<td style="text-align:right;">
+61.25
+</td>
+<td style="text-align:right;">
+77.50
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▁▆▇▇▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.CS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+61.07
+</td>
+<td style="text-align:right;">
+24.59
+</td>
+<td style="text-align:right;">
+3.75
+</td>
+<td style="text-align:right;">
+43.75
+</td>
+<td style="text-align:right;">
+57.50
+</td>
+<td style="text-align:right;">
+77.50
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▁▆▇▅▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.CS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+60.77
+</td>
+<td style="text-align:right;">
+24.61
+</td>
+<td style="text-align:right;">
+3.75
+</td>
+<td style="text-align:right;">
+41.25
+</td>
+<td style="text-align:right;">
+60.00
+</td>
+<td style="text-align:right;">
+76.88
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▁▆▇▆▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.1.POPU
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.1.POPU
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.1.POPU
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.2.AGRI
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.2.AGRI
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.2.AGRI
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.3.BIZZ
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.3.BIZZ
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.3.BIZZ
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.4.HOUS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▂▂▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.4.HOUS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▂▃▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.4.HOUS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▂▂▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.5.AGRI
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.5.AGRI
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.5.AGRI
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.6.LABR
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▅▂▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.6.LABR
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▅▂▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.6.LABR
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▅▂▂▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.7.HLTH
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▃▃▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.7.HLTH
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▅▅▃▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.7.HLTH
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▆▅▃▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.8.BIZZ
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▆▇▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.8.BIZZ
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▇▅▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D2.8.BIZZ
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.57
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▆▆▁▇
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now bring in data on indicators as they were originally computed by SPI team and produce correlations. Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.</p>
+<pre class="r"><code>comparison_cs &lt;- D2.CS_wide %&gt;%
+  left_join(orig_data)
+
+#2016
+cor(comparison_cs$SPI.D2.CS_2016, comparison_cs$&#39;C &amp; S_2016&#39;,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>#2017
+cor(comparison_cs$SPI.D2.CS_2017, comparison_cs$&#39;C &amp; S_2017&#39;,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 0.9983737</code></pre>
+<pre class="r"><code>#2018
+cor(comparison_cs$SPI.D2.CS_2018, comparison_cs$&#39;C &amp; S_2018&#39;,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 1</code></pre>
+</div>
 </div>
 <div id="spi-dimension-3-availability-of-key-indicators-aki" class="section level2">
 <h2>SPI Dimension 3: Availability of Key Indicators (AKI):</h2>
+<pre class="r"><code>##########
+# Pull Tags for WDI Data
+##########
+
+# make request to World Bank API
+wdiRequest &lt;- httr::GET(url = &quot;http://api.worldbank.org/v2/indicator?per_page=20000&amp;format=json&amp;source=2&quot;)
+wdiResponse &lt;- httr::content(wdiRequest, as = &quot;text&quot;, encoding = &quot;UTF-8&quot;)
+
+# Parse the JSON content and convert it to a data frame.
+wdisJSON &lt;- jsonlite::fromJSON(wdiResponse, flatten = TRUE) %&gt;%
+    data.frame()
+
+aki&lt;- c(&#39;Poverty headcount ratio at national poverty lines (% of population)&#39;,
+        &#39;Mortality rate, under-5 (per 1,000 live births)&#39;,
+        &#39;Immunization, measles (% of children ages 12-23 months)&#39;,
+        &#39;Primary completion rate, total (% of relevant age group)&#39;,
+        &#39;Literacy rate, adult total (% of people ages 15 and above)&#39;,
+        &#39;People using at least basic drinking water services (% of population)&#39;,
+        &#39;Unemployment, total (% of total labor force) (national estimate)&#39;,
+        &#39;Manufacturing, value added (% of GDP)&#39;,
+        &#39;Gross capital formation (% of GDP)&#39;,
+        &#39;Inflation, GDP deflator (annual %)&#39;,
+        &#39;Net trade in goods and services (BoP, current US$)&#39;,
+        &#39;Prevalence of undernourishment (% of population)&#39;  )
+
+get_tag_aki_df&lt;-wdisJSON %&gt;%
+  filter(name %in% aki) %&gt;%
+  arrange(factor(name, levels = aki))
+
+
+aki_list&lt;-get_tag_aki_df[,&#39;id&#39;]
+
+for (reference_year in 2016:2018) {
+  temp &lt;-wbstats::wb(country=&quot;countries_only&quot;, 
+              indicator=aki_list,
+              startdate=reference_year-3,
+              enddate=reference_year,
+              return_wide = T,
+              removeNA=FALSE) %&gt;%
+          filter(((reference_year-as.numeric(date))&lt;=3) &amp; (reference_year&gt;as.numeric(date))) %&gt;% #filter out years outside reference window of 3 years     
+          write_excel_csv(path = paste(csv_output, &quot;/D3.AKI_data_pull_&quot;,reference_year,&quot;.csv&quot;, sep=&quot;&quot; )) %&gt;%
+          mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %&gt;% #create 0,1 variable for whether data point exists for country
+          group_by(country) %&gt;%
+          summarise_all((~(if(is.numeric(.)) max(., na.rm = TRUE) else first(.)))) %&gt;% #group by country to create one observation per country                 containing whether or not data point existed
+          # Availability of Key Indicator Country Score=Weighted Score÷Maximum Category Score ×100
+          mutate(SPI.D3.AKI=100*rowSums(.[aki_list], na.rm=T)/length(aki_list)) %&gt;%
+      mutate(date=reference_year) %&gt;%
+      select(iso3c, country, date, SPI.D3.AKI, aki_list)
+
+
+  assign(paste(&quot;D3.AKI&quot;,reference_year,sep=&quot;_&quot;), temp)
+}
+
+D3.AKI &lt;- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018)
+
+D3.AKI_wide &lt;- D3.AKI %&gt;%
+  select(iso3c, country, date,SPI.D3.AKI) %&gt;%
+  pivot_wider(names_from=date,
+              names_prefix = &quot;SPI.D3.AKI_&quot;,
+              values_from=c(&#39;SPI.D3.AKI&#39;)
+              )
+
+write_excel_csv(D3.AKI_wide,
+                path = paste(csv_output, &quot;D3.AKI_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
+<p>Produce summary statistics of our indicators.</p>
+<pre class="r"><code>msc_sumstats &lt;- D3.AKI %&gt;%
+  group_by(date) %&gt;%
+  select(SPI.D3.AKI, aki_list) %&gt;%
+  skim() %&gt;%
+  select(c(&quot;skim_variable&quot;,
+           &quot;date&quot;, &quot;complete_rate&quot;, &quot;numeric.mean&quot;,  &quot;numeric.sd&quot;,    &quot;numeric.p0&quot;,    &quot;numeric.p25&quot;,   &quot;numeric.p50&quot;,
+           &quot;numeric.p75&quot;,   &quot;numeric.p100&quot;,  &quot;numeric.hist&quot;))
+
+kable(msc_sumstats, caption=&quot;Summary Statistics of Availability of Key Indicator Variables&quot; , col.names = c(&quot;Indicator&quot;, &quot;Date&quot;, &quot;Completion Rate&quot;, &quot;Mean&quot;,  &quot;Std Dev&quot;,&quot;Min&quot;, &quot;25th Percentile&quot;, &quot;Median&quot;, &quot;75th Percentile&quot;, &quot;Max&quot;,  &quot;Histogram&quot;), digits = 2 ) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+Summary Statistics of Availability of Key Indicator Variables
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Indicator
+</th>
+<th style="text-align:right;">
+Date
+</th>
+<th style="text-align:right;">
+Completion Rate
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+Std Dev
+</th>
+<th style="text-align:right;">
+Min
+</th>
+<th style="text-align:right;">
+25th Percentile
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+75th Percentile
+</th>
+<th style="text-align:right;">
+Max
+</th>
+<th style="text-align:left;">
+Histogram
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SPI.D3.AKI
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+76.57
+</td>
+<td style="text-align:right;">
+21.76
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+66.67
+</td>
+<td style="text-align:right;">
+83.33
+</td>
+<td style="text-align:right;">
+91.67
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▁▁▁▃▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D3.AKI
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+76.42
+</td>
+<td style="text-align:right;">
+21.89
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+66.67
+</td>
+<td style="text-align:right;">
+83.33
+</td>
+<td style="text-align:right;">
+91.67
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▁▁▁▃▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D3.AKI
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+75.15
+</td>
+<td style="text-align:right;">
+22.15
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+66.67
+</td>
+<td style="text-align:right;">
+83.33
+</td>
+<td style="text-align:right;">
+91.67
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▁▁▂▃▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SI.POV.NAHC
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▅
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SI.POV.NAHC
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▅
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SI.POV.NAHC
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▅
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.DYN.MORT
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.89
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.DYN.MORT
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.89
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.DYN.MORT
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.89
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.IMM.MEAS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.IMM.MEAS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.IMM.MEAS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SE.PRM.CMPT.ZS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SE.PRM.CMPT.ZS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SE.PRM.CMPT.ZS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SE.ADT.LITR.ZS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▅
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SE.ADT.LITR.ZS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▅
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SE.ADT.LITR.ZS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.H2O.BASW.ZS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.H2O.BASW.ZS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SH.H2O.BASW.ZS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SL.UEM.TOTL.NE.ZS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SL.UEM.TOTL.NE.ZS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SL.UEM.TOTL.NE.ZS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NV.IND.MANF.ZS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.88
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NV.IND.MANF.ZS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NV.IND.MANF.ZS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NE.GDI.TOTL.ZS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.81
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▂▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NE.GDI.TOTL.ZS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▂▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NE.GDI.TOTL.ZS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.79
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▂▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NY.GDP.DEFL.KD.ZG
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NY.GDP.DEFL.KD.ZG
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NY.GDP.DEFL.KD.ZG
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BN.GSR.GNFS.CD
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BN.GSR.GNFS.CD
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BN.GSR.GNFS.CD
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.86
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▁▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SN.ITK.DEFC.ZS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▂▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SN.ITK.DEFC.ZS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▂▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SN.ITK.DEFC.ZS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▂▁▁▁▇
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now bring in data on indicators as they were originally computed by SPI team and produce correlations. There appear to be some differences with original values computed by SPI team</p>
+<pre class="r"><code>comparison_aki &lt;- D3.AKI_wide %&gt;%
+  left_join(orig_data)
+
+#2016
+cor(comparison_aki$SPI.D3.AKI_2016, comparison_aki$AKI_2016,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 0.967888</code></pre>
+<pre class="r"><code>#2017
+cor(comparison_aki$SPI.D3.AKI_2017, comparison_aki$AKI_2017,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 0.9647913</code></pre>
+<pre class="r"><code>#2018
+cor(comparison_aki$SPI.D3.AKI_2018, comparison_aki$AKI_2018,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 0.9518704</code></pre>
 </div>
 <div id="spi-dimension-4-dissemination-practices-and-openness-dpo" class="section level2">
 <h2>SPI Dimension 4: Dissemination Practices and Openness (DPO):</h2>
 <div id="nso-has-an-advance-release-calendar-and-it-is-published" class="section level3">
 <h3>4.1 NSO has an Advance Release Calendar and it is published</h3>
 <p>This indicator refers to a dissemination practice for relevant statistical data in accordance to the published advance release calendar. Its presence provides information on upcoming releases in advance and creates public awareness; this will lead to more discipline and accountability from the statistical office.</p>
+<p>1 Point. Yes 0 Points. No</p>
+<pre class="r"><code>#read in csv file.
+D4.1.SC.DPO.CALD &lt;- read_csv(file = paste(csv_dir, &quot;D4.1.SC.DPO.CALD.csv&quot;, sep=&quot;/&quot; )) %&gt;%
+  mutate(SPI.D4.1.CALD=case_when(
+    CALD==1 ~ 1, 
+    CALD==0 ~ 0, 
+    TRUE ~ 0 
+  ))  %&gt;%
+  select(iso3c, country, date, CALD, SPI.D4.1.CALD  ) %&gt;%
+  arrange(date, country)
+
+D4.1.SC.DPO.CALD_wide &lt;- D4.1.SC.DPO.CALD %&gt;%
+  pivot_wider(names_from=date,
+              names_sep = &quot;_&quot;,
+              values_from=c(&#39;CALD&#39;, &#39;SPI.D4.1.CALD&#39;)
+              )
+
+write_excel_csv(D4.1.SC.DPO.CALD_wide,
+                path = paste(csv_output, &quot;D4.1.SC.DPO.CALD_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
 <div id="nso-has-a-listing-of-surveys-and-microdata-sets-or-nada" class="section level3">
 <h3>4.2 NSO has a listing of surveys and microdata sets (or NADA)</h3>
 <p>NSO has a listing of surveys and microdata sets that can provide the necessary data and reference for follow-up. Upon well-defined request and procedure per the national law and practice, users and practitioners can obtain the data collected from the households and businesses when needed.</p>
+<p>1 Point. Yes 0 Points. No</p>
+<pre class="r"><code>#read in csv file.
+D4.2.SC.DPO.NADA &lt;- read_csv(file = paste(csv_dir, &quot;D4.2.SC.DPO.NADA.csv&quot;, sep=&quot;/&quot; )) %&gt;%
+  mutate(SPI.D4.2.NADA=case_when(
+    NADA==1 ~ 1, 
+    NADA==0 ~ 0, 
+    TRUE ~ 0 
+  ))  %&gt;%
+  select(iso3c, country, date, NADA, SPI.D4.2.NADA  ) %&gt;%
+  arrange(date, country)
+
+D4.2.SC.DPO.NADA_wide &lt;- D4.2.SC.DPO.NADA %&gt;%
+  pivot_wider(names_from=date,
+              names_sep = &quot;_&quot;,
+              values_from=c(&#39;NADA&#39;, &#39;SPI.D4.2.NADA&#39;)
+              )
+
+write_excel_csv(D4.2.SC.DPO.NADA_wide,
+                path = paste(csv_output, &quot;D4.2.SC.DPO.NADA_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
 <div id="nso-has-a-data-portal" class="section level3">
 <h3>4.3 NSO has a data portal</h3>
 <p>This indicator refers to a web-based or stand-alone platform or tools that is maintained by the NSO and provides access to the indicators and related metadata in systematic way.</p>
+<p>1 Point. Yes 0 Points. No</p>
+<pre class="r"><code>#read in csv file.
+D4.3.SC.DPO.PORT &lt;- read_csv(file = paste(csv_dir, &quot;D4.3.SC.DPO.PORT.csv&quot;, sep=&quot;/&quot; )) %&gt;%
+  mutate(SPI.D4.3.PORT=case_when(
+    PORT==1 ~ 1, 
+    PORT==0 ~ 0, 
+    TRUE ~ 0 
+  ))  %&gt;%
+  select(iso3c, country, date, PORT, SPI.D4.3.PORT  ) %&gt;%
+  arrange(date, country)
+
+D4.3.SC.DPO.PORT_wide &lt;- D4.3.SC.DPO.PORT %&gt;%
+  pivot_wider(names_from=date,
+              names_sep = &quot;_&quot;,
+              values_from=c(&#39;PORT&#39;, &#39;SPI.D4.3.PORT&#39;)
+              )
+
+write_excel_csv(D4.3.SC.DPO.PORT_wide,
+                path = paste(csv_output, &quot;D4.3.SC.DPO.PORT_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
 <div id="timeseries-indicators-are-available-for-download-in-reusable-format-for-free" class="section level3">
 <h3>4.4 Timeseries indicators are available for download in reusable format for free</h3>
 <p>This indicator will promote usage among the users and bring accountability to the NSO. There are several different formats in which a user can access the data, such as Excel, CSV, and API etc.</p>
+<p>1 Point. Yes 0 Points. No</p>
+<pre class="r"><code>#read in csv file.
+D4.4.SC.DPO.TIME &lt;- read_csv(file = paste(csv_dir, &quot;D4.4.SC.DPO.TIME.csv&quot;, sep=&quot;/&quot; )) %&gt;%
+  mutate(SPI.D4.4.TIME=case_when(
+    TIME==1 ~ 1, 
+    TIME==0 ~ 0, 
+    TRUE ~ 0 
+  ))  %&gt;%
+  select(iso3c, country, date, TIME, SPI.D4.4.TIME  ) %&gt;%
+  arrange(date, country)
+
+D4.4.SC.DPO.TIME_wide &lt;- D4.4.SC.DPO.TIME %&gt;%
+  pivot_wider(names_from=date,
+              names_sep = &quot;_&quot;,
+              values_from=c(&#39;TIME&#39;, &#39;SPI.D4.4.TIME&#39;)
+              )
+
+write_excel_csv(D4.4.SC.DPO.TIME_wide,
+                path = paste(csv_output, &quot;D4.4.SC.DPO.TIME_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
 <div id="metadata-is-available-providing-definition-methodology-standards-or-classifications-for-existing-data-series" class="section level3">
 <h3>4.5 Metadata is available providing definition, methodology, standards or classifications for existing data series</h3>
 <p>Statistical systems must be open and transparent about their methods and procedures and provide access to adequate metadata - detailed descriptions of the methods and procedures used to produce the data.</p>
+<p>1 Point. Yes 0 Points. No</p>
+<pre class="r"><code>#read in csv file.
+D4.5.SC.DPO.META &lt;- read_csv(file = paste(csv_dir, &quot;D4.5.SC.DPO.META.csv&quot;, sep=&quot;/&quot; )) %&gt;%
+  mutate(SPI.D4.5.META=case_when(
+    META==1 ~ 1, 
+    META==0 ~ 0, 
+    TRUE ~ 0 
+  ))  %&gt;%
+  select(iso3c, country, date, META, SPI.D4.5.META  ) %&gt;%
+  arrange(date, country)
+
+D4.5.SC.DPO.META_wide &lt;- D4.5.SC.DPO.META %&gt;%
+  pivot_wider(names_from=date,
+              names_sep = &quot;_&quot;,
+              values_from=c(&#39;META&#39;, &#39;SPI.D4.5.META&#39;)
+              )
+
+write_excel_csv(D4.5.SC.DPO.META_wide,
+                path = paste(csv_output, &quot;D4.5.SC.DPO.META_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
 <div id="nso-has-conducted-a-user-satisfaction-survey" class="section level3">
 <h3>4.6 NSO has conducted a user satisfaction survey</h3>
 <p>Through this indicator a NSO can improve its engagement and dissemination practice by seeking regular feedback from users and then making necessary adjustments. It is also a good practice to continually monitor the changing data landscape and user needs as well as evolving technologies.</p>
+<p>1 Point. Yes 0 Points. No</p>
+<pre class="r"><code>#read in csv file.
+D4.6.SC.DPO.USER &lt;- read_csv(file = paste(csv_dir, &quot;D4.6.SC.DPO.USER.csv&quot;, sep=&quot;/&quot; )) %&gt;%
+  mutate(SPI.D4.6.USER=case_when(
+    USER==1 ~ 1, 
+    USER==0 ~ 0, 
+    TRUE ~ 0 
+  ))  %&gt;%
+  select(iso3c, country, date, USER, SPI.D4.6.USER  ) %&gt;%
+  arrange(date, country)
+
+D4.6.SC.DPO.USER_wide &lt;- D4.6.SC.DPO.USER %&gt;%
+  pivot_wider(names_from=date,
+              names_sep = &quot;_&quot;,
+              values_from=c(&#39;USER&#39;, &#39;SPI.D4.6.USER&#39;)
+              )
+
+write_excel_csv(D4.6.SC.DPO.USER_wide,
+                path = paste(csv_output, &quot;D4.6.SC.DPO.USER_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
 <div id="geospatial-data-available-on-relevant-agency-website" class="section level3">
 <h3>4.7 Geospatial data available on relevant agency website</h3>
 <p>Geospatial data available on relevant agency website refers to geo-referenced, location-based disaggregated data from satellite. Geospatial data are often used in combination with administrative level national and sub-national units.</p>
+<p>1 Point. Yes 0 Points. No</p>
+<pre class="r"><code>#read in csv file.
+D4.7.SC.DPO.GEOS &lt;- read_csv(file = paste(csv_dir, &quot;D4.7.SC.DPO.GEOS.csv&quot;, sep=&quot;/&quot; )) %&gt;%
+  mutate(SPI.D4.7.GEOS=case_when(
+    GEOS==1 ~ 1, 
+    GEOS==0 ~ 0, 
+    TRUE ~ 0 
+  ))  %&gt;%
+  select(iso3c, country, date, GEOS, SPI.D4.7.GEOS  ) %&gt;%
+  arrange(date, country)
+
+D4.7.SC.DPO.GEOS_wide &lt;- D4.7.SC.DPO.GEOS %&gt;%
+  pivot_wider(names_from=date,
+              names_sep = &quot;_&quot;,
+              values_from=c(&#39;GEOS&#39;, &#39;SPI.D4.7.GEOS&#39;)
+              )
+
+write_excel_csv(D4.7.SC.DPO.GEOS_wide,
+                path = paste(csv_output, &quot;D4.7.SC.DPO.GEOS_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
+<div id="dpo-score" class="section level3">
+<h3>DPO Score</h3>
+<p>DPO Country Score=Weighted Score÷Maximum Category Score×100</p>
+<pre class="r"><code># join datasets together based on country and date
+D4.DPO &lt;- D4.1.SC.DPO.CALD %&gt;%
+  left_join(D4.2.SC.DPO.NADA, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D4.3.SC.DPO.PORT, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D4.4.SC.DPO.TIME, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D4.5.SC.DPO.META, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D4.6.SC.DPO.USER, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  left_join(D4.7.SC.DPO.GEOS, by=c(&#39;iso3c&#39;, &#39;date&#39;)) %&gt;%
+  select(iso3c, country.x, date, starts_with(&quot;SPI.D4&quot;)) %&gt;%
+  rename(country=country.x)
+
+#Now calculate MSC score which is the average across the 12 indicators
+D4.DPO &lt;- D4.DPO %&gt;%
+  mutate(SPI.D4.DPO=100*rowMeans(.[grep(x=colnames(D4.DPO), 
+                                              pattern=&quot;SPI.D4&quot;)], na.rm=TRUE)) %&gt;%
+  arrange(date, iso3c) %&gt;%
+  select(iso3c, country, date,SPI.D4.DPO, starts_with(&quot;SPI.D4&quot;))
+
+
+D4.DPO_wide &lt;- D4.DPO %&gt;%
+  select(iso3c, country, date,SPI.D4.DPO) %&gt;%
+  pivot_wider(names_from=date,
+              names_prefix = &quot;SPI.D4.DPO_&quot;,
+              values_from=c(&#39;SPI.D4.DPO&#39;)
+              )
+
+write_excel_csv(D4.DPO_wide,
+                path = paste(csv_output, &quot;D4.DPO_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
+<p>Produce summary statistics of our indicators.</p>
+<pre class="r"><code>msc_sumstats &lt;- D4.DPO %&gt;%
+  group_by(date) %&gt;%
+  select(SPI.D4.DPO, starts_with(&quot;SPI.D4&quot;)) %&gt;%
+  skim() %&gt;%
+  select(c(&quot;skim_variable&quot;,
+           &quot;date&quot;, &quot;complete_rate&quot;, &quot;numeric.mean&quot;,  &quot;numeric.sd&quot;,    &quot;numeric.p0&quot;,    &quot;numeric.p25&quot;,   &quot;numeric.p50&quot;,
+           &quot;numeric.p75&quot;,   &quot;numeric.p100&quot;,  &quot;numeric.hist&quot;))
+
+kable(msc_sumstats, caption=&quot;Summary Statistics of Dissemination Practices and Openness (DPO) Indicator Variables&quot; , col.names = c(&quot;Indicator&quot;, &quot;Date&quot;, &quot;Completion Rate&quot;, &quot;Mean&quot;,  &quot;Std Dev&quot;,&quot;Min&quot;, &quot;25th Percentile&quot;, &quot;Median&quot;, &quot;75th Percentile&quot;, &quot;Max&quot;,  &quot;Histogram&quot;), digits = 2 ) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;))</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+Summary Statistics of Dissemination Practices and Openness (DPO) Indicator Variables
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Indicator
+</th>
+<th style="text-align:right;">
+Date
+</th>
+<th style="text-align:right;">
+Completion Rate
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+Std Dev
+</th>
+<th style="text-align:right;">
+Min
+</th>
+<th style="text-align:right;">
+25th Percentile
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+75th Percentile
+</th>
+<th style="text-align:right;">
+Max
+</th>
+<th style="text-align:left;">
+Histogram
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SPI.D4.DPO
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+41.95
+</td>
+<td style="text-align:right;">
+29.96
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+14.29
+</td>
+<td style="text-align:right;">
+42.86
+</td>
+<td style="text-align:right;">
+71.43
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▇▃▇▅▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.DPO
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+41.88
+</td>
+<td style="text-align:right;">
+30.19
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+14.29
+</td>
+<td style="text-align:right;">
+42.86
+</td>
+<td style="text-align:right;">
+71.43
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▇▃▇▅▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.DPO
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+61.43
+</td>
+<td style="text-align:right;">
+30.44
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+42.86
+</td>
+<td style="text-align:right;">
+71.43
+</td>
+<td style="text-align:right;">
+85.71
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+▃▂▆▃▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.1.CALD
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.1.CALD
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.1.CALD
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.2.NADA
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.2.NADA
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.2.NADA
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.83
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▂▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.3.PORT
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.3.PORT
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.3.PORT
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.65
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▅▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.4.TIME
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▆▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.4.TIME
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▆▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.4.TIME
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.84
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▂▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.5.META
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▅▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.5.META
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▅▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.5.META
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▃▁▁▁▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.6.USER
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▂
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.6.USER
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▂
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.6.USER
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▃
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.7.GEOS
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▂
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.7.GEOS
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▂
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D4.7.GEOS
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▇▁▁▁▆
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now bring in data on indicators as they were originally computed by SPI team and produce correlations. Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.</p>
+<pre class="r"><code>comparison_dpo &lt;- D4.DPO_wide %&gt;%
+  left_join(orig_data)
+
+#2016
+cor(comparison_dpo$SPI.D4.DPO_2016, comparison_dpo$DPO_2016,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 0.9973935</code></pre>
+<pre class="r"><code>#2017
+cor(comparison_dpo$SPI.D4.DPO_2017, comparison_dpo$DPO_2017,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>#2018
+cor(comparison_dpo$SPI.D4.DPO_2018, comparison_dpo$DPO_2018,
+    use=&#39;complete.obs&#39;)</code></pre>
+<pre><code>## [1] 0.9968497</code></pre>
+</div>
+</div>
+<div id="overall-score" class="section level2">
+<h2>Overall Score</h2>
+<p>Total SPI Score =(MSC+CS+DPO+AKI)/4</p>
+<pre class="r"><code>#bring all the databases together
+SPI&lt;-D1.MSC %&gt;%
+  left_join(D2.CS) %&gt;%
+  left_join(D3.AKI) %&gt;%
+  left_join(D4.DPO) 
+
+#Construct overall score
+SPI &lt;- SPI %&gt;%
+  mutate(SPI=(SPI.D1.MSC+SPI.D2.CS+SPI.D3.AKI+SPI.D4.DPO)/4)
+
+#create version of data in wide format
+SPI_wide &lt;- SPI %&gt;%
+  select(iso3c, country, date, SPI, SPI.D1.MSC, SPI.D2.CS, SPI.D3.AKI, SPI.D4.DPO) %&gt;%
+  pivot_wider(names_from=date,
+              names_sep = &quot;_&quot;,
+              values_from=c(&#39;SPI&#39;, &#39;SPI.D1.MSC&#39;, &#39;SPI.D2.CS&#39;, &#39;SPI.D3.AKI&#39;, &#39;SPI.D4.DPO&#39;)
+              )
+
+#label columns
+var.labels=c(iso3c=&#39;3 digit country code&#39;, 
+             country=&#39;Country Name&#39;, 
+             date=&#39;Date&#39;, 
+             SPI.D1.MSC=&#39;Dimension 1: Methodology, Standards &amp; Classifications (MSC)&#39;, 
+             SPI.D1.1.SNAU=&#39;System of National Accounts in use&#39;, 
+             SPI.D1.2.NABY=&#39;National Accounts base year &#39;, 
+             SPI.D1.3.CNIN=&#39;Classification of national industry&#39;, 
+             SPI.D1.4.CPIBY=&#39;CPI base year&#39;, 
+             SPI.D1.5.HOUS=&#39;Classification of household consumption&#39;, 
+             SPI.D1.6.EMPL=&#39;Classification of status of employment&#39;, 
+             SPI.D1.7.CGOV=&#39;Central government accounting status&#39;, 
+             SPI.D1.8.FINA=&#39;Compilation of government finance statistics&#39;, 
+             SPI.D1.9.MONY=&#39;Compilation of monetary and financial statistics&#39;, 
+             SPI.D1.10.IDDS=&#39;SDDS/e-GDDS subscription&#39;, 
+             SPI.D1.11.CRVS=&#39;CRVS&#39;, 
+             SPI.D1.12.GSBP=&#39;Business process&#39;, 
+             SPI.D2.CS=&#39;Dimension 2: Censuses and Surveys (CS)&#39;, 
+             SPI.D2.1.POPU=&#39;Population &amp; Housing census&#39;, 
+             SPI.D2.2.AGRI=&#39;Agriculture census&#39;, 
+             SPI.D2.3.BIZZ=&#39;Business/establishment census&#39;, 
+             SPI.D2.4.HOUS=&#39;Household Survey on income/consumption/expenditure/budget/Integrated Survey &#39;, 
+             SPI.D2.5.AGRI=&#39;Agriculture survey&#39;, 
+             SPI.D2.6.LABR=&#39;Labor Force Survey&#39;, 
+             SPI.D2.7.HLTH=&#39;Health/Demographic survey&#39;, 
+             SPI.D2.8.BIZZ=&#39;Business/establishment survey&#39;, 
+             SPI.D3.AKI=&#39;Dimension 3: Availability of Key Indicators (AKI)&#39;, 
+             SI.POV.NAHC=&#39;Poverty headcount ratio at national poverty lines/ availability of similar key indicators&#39;, 
+             SH.DYN.MORT=&#39;Mortality rate, under-5 (per 1,000 live births)&#39;, 
+             SH.IMM.MEAS=&#39;Child immunization (proportion of one-year-old children immunized against measles)&#39;, 
+             SE.PRM.CMPT.ZS=&#39;Primary completion rate, both sexes (%)&#39;, 
+             SE.ADT.LITR.ZS=&#39;Adult literacy rate, population 15+ years, both sexes (%)&#39;, 
+             SH.H2O.BASW.ZS=&#39;Proportion of population using at least basic drinking water services (%)&#39;, 
+             SL.UEM.TOTL.NE.ZS=&#39;Unemployment, total (% of total labor force) &#39;, 
+             NV.IND.MANF.ZS=&#39;Manufacturing value added as a proportion of GDP &#39;,
+             NE.GDI.TOTL.ZS=&#39;Gross capital formation (% of GDP)&#39;, 
+             NY.GDP.DEFL.KD.ZG=&#39;GDP implicit price deflator (annual % growth)&#39;, 
+             BN.GSR.GNFS.CD=&#39;Net trade in goods and services (BoP, current US$)&#39;, 
+             SN.ITK.DEFC.ZS=&#39;Prevalence of undernourishment (% of population)&#39;, 
+             SPI.D4.DPO=&#39;Dimension 4: Dissemination Practices &amp; Openness (DPO)&#39;, 
+             SPI.D4.1.CALD=&#39;NSO has an Advance Release Calendar and it is published &#39;, 
+             SPI.D4.2.NADA=&#39;NSO has a listing of surveys and microdata sets (or NADA)&#39;, 
+             SPI.D4.3.PORT=&#39;NSO has a data portal&#39;, 
+             SPI.D4.4.TIME=&#39;Timeseries indicators are available for download in reusable format for free&#39;, 
+             SPI.D4.5.META=&#39;Metadata is available providing definition, methodology, standards or classifications for existing data series&#39;, 
+             SPI.D4.6.USER=&#39;NSO has conducted a user satisfaction survey&#39;, 
+             SPI.D4.7.GEOS=&#39;Geospatial data available on relevant agency website&#39;, 
+             SPI=&#39;SPI Overall Score&#39;)
+
+
+#label data
+label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+
+
+#export data
+write_excel_csv(SPI,
+                path = paste(csv_output, &quot;SPI_scores_long.csv&quot;, sep=&quot;/&quot; ))
+
+#save to stata with compatible names
+SPI  %&gt;%
+  janitor::clean_names() %&gt;%
+  write_dta(path = paste(csv_output, &quot;SPI_scores.dta&quot;, sep=&quot;/&quot; ))
+
+
+write_excel_csv(SPI_wide,
+                path = paste(csv_output, &quot;SPI_scores_wide.csv&quot;, sep=&quot;/&quot; ))
+
+SPI_wide  %&gt;%
+  janitor::clean_names() %&gt;%
+  write_dta(path = paste(csv_output, &quot;SPI_scores_wide.dta&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
 </div>
 

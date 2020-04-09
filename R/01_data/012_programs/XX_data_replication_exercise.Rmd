@@ -1716,16 +1716,18 @@ write_excel_csv(SPI,
                 path = paste(csv_output, "SPI_scores_long.csv", sep="/" ))
 
 #save to stata with compatible names
-SPI  %>%
-  janitor::clean_names() %>%
-  write_dta(path = paste(csv_output, "SPI_scores.dta", sep="/" ))
+SPI_stata<-SPI %>%
+  rename_if()
+
+write_dta(SPI,
+                path = paste(csv_output, "SPI_scores_long.dta", sep="/" ),
+          .name_re)
 
 
 write_excel_csv(SPI_wide,
                 path = paste(csv_output, "SPI_scores_wide.csv", sep="/" ))
 
-SPI_wide  %>%
-  janitor::clean_names() %>%
-  write_dta(path = paste(csv_output, "SPI_scores_wide.dta", sep="/" ))
+write_dta(SPI_wide,
+                path = paste(csv_output, "SPI_scores_wide.dta", sep="/" ))
 ```
 

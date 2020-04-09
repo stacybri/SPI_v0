@@ -83,6 +83,9 @@
 !/R/**/*rawdata/*.csv
 !/R/**/*outputs/*.csv
 
+# stata files
+!/R/**/*outputs/*.dta
+
 #Powerpoint files
 !/**/**/*.ppt
 !/**/**/*.pptx
