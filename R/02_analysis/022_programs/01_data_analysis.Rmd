@@ -1,0 +1,113 @@
+---
+title: "Statistical Performance Indicators - Analysis"
+author: "Brian Stacy"
+date: "4/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(include=FALSE, warning = FALSE, message = FALSE)
+
+# Load Packages
+library(tidyverse)
+library(skimr)
+library(kableExtra)
+library(readxl)
+library(Hmisc)
+library(haven)
+library(gt)
+
+# Directory for SPI csv files that were previously created
+csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/013_outputs"
+
+```
+
+# Introduction
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r labels, include=FALSE}
+
+#import data
+SPI <- read_csv(file = paste(csv_dir, "SPI_scores_long.csv", sep="/" ))
+
+#label columns
+var.labels=c(iso3c='3 digit country code', 
+             country='Country Name', 
+             date='Date', 
+             SPI.D1.MSC='Dimension 1: Methodology, Standards & Classifications (MSC)', 
+             SPI.D1.1.SNAU='System of National Accounts in use', 
+             SPI.D1.2.NABY='National Accounts base year ', 
+             SPI.D1.3.CNIN='Classification of national industry', 
+             SPI.D1.4.CPIBY='CPI base year', 
+             SPI.D1.5.HOUS='Classification of household consumption', 
+             SPI.D1.6.EMPL='Classification of status of employment', 
+             SPI.D1.7.CGOV='Central government accounting status', 
+             SPI.D1.8.FINA='Compilation of government finance statistics', 
+             SPI.D1.9.MONY='Compilation of monetary and financial statistics', 
+             SPI.D1.10.IDDS='SDDS/e-GDDS subscription', 
+             SPI.D1.11.CRVS='CRVS', 
+             SPI.D1.12.GSBP='Business process', 
+             SPI.D2.CS='Dimension 2: Censuses and Surveys (CS)', 
+             SPI.D2.1.POPU='Population & Housing census', 
+             SPI.D2.2.AGRI='Agriculture census', 
+             SPI.D2.3.BIZZ='Business/establishment census', 
+             SPI.D2.4.HOUS='Household Survey on income/consumption/expenditure/budget/Integrated Survey ', 
+             SPI.D2.5.AGRI='Agriculture survey', 
+             SPI.D2.6.LABR='Labor Force Survey', 
+             SPI.D2.7.HLTH='Health/Demographic survey', 
+             SPI.D2.8.BIZZ='Business/establishment survey', 
+             SPI.D3.AKI='Dimension 3: Availability of Key Indicators (AKI)', 
+             SI.POV.NAHC='Poverty headcount ratio at national poverty lines/ availability of similar key indicators', 
+             SH.DYN.MORT='Mortality rate, under-5 (per 1,000 live births)', 
+             SH.IMM.MEAS='Child immunization (proportion of one-year-old children immunized against measles)', 
+             SE.PRM.CMPT.ZS='Primary completion rate, both sexes (%)', 
+             SE.ADT.LITR.ZS='Adult literacy rate, population 15+ years, both sexes (%)', 
+             SH.H2O.BASW.ZS='Proportion of population using at least basic drinking water services (%)', 
+             SL.UEM.TOTL.NE.ZS='Unemployment, total (% of total labor force) ', 
+             NV.IND.MANF.ZS='Manufacturing value added as a proportion of GDP ',
+             NE.GDI.TOTL.ZS='Gross capital formation (% of GDP)', 
+             NY.GDP.DEFL.KD.ZG='GDP implicit price deflator (annual % growth)', 
+             BN.GSR.GNFS.CD='Net trade in goods and services (BoP, current US$)', 
+             SN.ITK.DEFC.ZS='Prevalence of undernourishment (% of population)', 
+             SPI.D4.DPO='Dimension 4: Dissemination Practices & Openness (DPO)', 
+             SPI.D4.1.CALD='NSO has an Advance Release Calendar and it is published ', 
+             SPI.D4.2.NADA='NSO has a listing of surveys and microdata sets (or NADA)', 
+             SPI.D4.3.PORT='NSO has a data portal', 
+             SPI.D4.4.TIME='Timeseries indicators are available for download in reusable format for free', 
+             SPI.D4.5.META='Metadata is available providing definition, methodology, standards or classifications for existing data series', 
+             SPI.D4.6.USER='NSO has conducted a user satisfaction survey', 
+             SPI.D4.7.GEOS='Geospatial data available on relevant agency website', 
+             SPI='SPI Overall Score')
+
+#turn variable labels into data frame for joining later
+var.labels.df<-data.frame(var.labels) %>% 
+  rownames_to_column() %>%
+  rename(variable=rowname)
+
+
+
+```
+
+
+
+# Summary Statistics
+
+
+```{r sumstats, echo=FALSE}
+
+spi_sumstats <- SPI %>%
+  group_by(date) %>%
+  skim() %>%
+  yank('numeric') %>%
+  rename(variable=skim_variable) %>%
+  left_join(var.labels.df) %>% #add labels to variables
+  select(var.labels, date, mean, sd, min, max, hist)
+
+gt(spi_sumstats)
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
