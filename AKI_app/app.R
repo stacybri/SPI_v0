@@ -88,9 +88,9 @@ countries <- geojsonio::geojson_read("WB_countries_Admin0_lowres.geojson",
 
 
 # Define UI for application that draws a histogram
-ui <- navbarPage("Statistical Performance Index - Availability of Key Indicators", id="nav",
+ui <- navbarPage("Statistical Performance Index", id="nav",
                  
-                 tabPanel("Original SPI AKI Map & Summary Statistics",
+                 tabPanel("Original SPI Availability of Key Indicators (AKI) Map & Summary Statistics",
                           div(class="outer",
                               
                               # If not using custom CSS, set height of leafletOutput to a number instead of percent
@@ -142,7 +142,7 @@ ui <- navbarPage("Statistical Performance Index - Availability of Key Indicators
                               
                           )
                  ),
-                 tabPanel("Updated Indicators - SPI AKI map",
+                 tabPanel("Updated Indicators - SPI Availability of Key Indicators (AKI) map",
                           div(class="outer",
                               
                               # If not using custom CSS, set height of leafletOutput to a number instead of percent

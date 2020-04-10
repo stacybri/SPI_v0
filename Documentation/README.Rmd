@@ -291,6 +291,45 @@ Undernourishment data contains no footnote data for observations
 
 Mortality under 5 data includes some metadata on uncertainty.  For instance, "Uncertainty bound is 35.4 - 83.5".  This could be used for quality measures.
 
+The United Nations Inter-agency Group for Child Mortality Estimation (IGME) data was recently made available utilizing best practice open data standards via childmortality.org.  The Sustainable Development Goal indicators will follow shortly, and we will be adding other indicators to open data services throughout 2019.
+
+Where can UNICEF’s open data services be accessed? 
+Any SDMX-aware client can access the data services at: api.data.unicef.org/sdmx. UNICEF’s Data and Analytics Team is working to facilitate the data discovery process within these services.
+
+Currently, users can access the IGME data using the following data structure: api.data.unicef.org/sdmx/Rest/dataflow/UNICEF/CME_DF/1.0/?references=all .
+
+Access is also available for associated data sets using standard SDMX requests such as api.data.unicef.org/sdmx/Rest/data/UNICEF,CME_DF,1.0/.MRY0T4._T.269../?startPeriod=2017&endPeriod=2018.
+https://api.data.unicef.org/sdmx/Rest/dataflow/UNICEF/CME_DF/1.0/?references=all
+
+```{r mortality_data, eval=FALSE, include=FALSE}
+
+#call the api for mortality under 5 data from unicef
+library(xml2)
+#now make request using API
+
+unicef_url = "https://api.data.unicef.org/sdmx/Rest/dataflow/UNICEF/CME_DF/1.0/?references=all"
+
+unicef_url = "https://api.data.unicef.org/sdmx/Rest/data/UNICEF,CME_DF,1.0/.MRY0T4._T.269../?startPeriod=2017&endPeriod=2018"
+
+
+#build database
+unicef_df <- read_xml(unicef_url, as.html=T)
+
+#get names of all databases
+list <- unicef_df %>%   xml_find_all("/message:GenericData/message:DataSet") %>% xml_children %>% xml_children %>% xml_children %>%   xml_attr('value') %>% as.list()
+
+list2 <- unicef_df %>%   xml_find_all("/message:GenericData/message:DataSet") %>% xml_children %>% xml_children %>% xml_children %>%   xml_attr('id') %>% as.list()
+
+sc_df<-data.frame(name=list2, value=list)
+
+xml_name( xml_children( xml_find_first( unicef_df, "/message:Structure/message:Structures/structure:Codelists/structure:Codelist[7]/structure:Code[132]/" ) ) )
+
+
+TaxYr <- xml_text( xml_find_all( unicef_df, "/message:Structure/message:Structures/structure:Codelists/structure:Codelist[7]/structure:Code[132]/Name" ) )
+
+```
+
+
 ### Education  
 
 Top tier indicator would be 4.1.1.  Could be built using HLO.  JP recommended a 4 year window.  Something like 1 point for having within a 4 year window.  0.5 points for within an 8 year window, 0 otherwise

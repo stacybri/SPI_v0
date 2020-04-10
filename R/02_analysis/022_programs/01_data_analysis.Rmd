@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(include=FALSE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo=FALSE, warning = FALSE, message = FALSE)
 
 # Load Packages
 library(tidyverse)
@@ -104,9 +104,12 @@ spi_sumstats <- SPI %>%
   yank('numeric') %>%
   rename(variable=skim_variable) %>%
   left_join(var.labels.df) %>% #add labels to variables
-  select(var.labels, date, mean, sd, min, max, hist)
+  select(variable, var.labels, date, mean, sd, hist)
 
-gt(spi_sumstats)
+gt(spi_sumstats) %>%
+  tab_header(
+    title=md("**Statistical Performance Indicator Summary Statistics**")
+  )
 
 ```
 

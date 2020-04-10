@@ -567,33 +567,6 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
 ```
 
 
-Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.
-
-```{r msc_comparison}
-
-orig_data <- read_excel(path="C:/Users/wb469649/Documents/Github/SPI_AKI/Data/FinalCopy of SPI SCORE 2016-2018-DW.xlsx",
-                        sheet='Sheet1')
-
-
-comparison <- D1.MSC_wide %>%
-  left_join(orig_data)
-
-#2016
-cor(comparison$SPI.D1.MSC_2016, comparison$MSC_2016,
-    use='complete.obs')
-
-#2017
-cor(comparison$SPI.D1.MSC_2017, comparison$MSC_2017,
-    use='complete.obs')
-
-#2018
-cor(comparison$SPI.D1.MSC_2018, comparison$MSC_2018,
-    use='complete.obs')
-
-
-```
-
-
 ## SPI Dimension 2: Censuses and Surveys (CS): 
 
 ### 2.1 Population & Housing census
@@ -1190,29 +1163,25 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
 ```
 
 
-Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.
-
-```{r cs_comparison}
-
-comparison_cs <- D2.CS_wide %>%
-  left_join(orig_data)
-
-#2016
-cor(comparison_cs$SPI.D2.CS_2016, comparison_cs$'C & S_2016',
-    use='complete.obs')
-
-#2017
-cor(comparison_cs$SPI.D2.CS_2017, comparison_cs$'C & S_2017',
-    use='complete.obs')
-
-#2018
-cor(comparison_cs$SPI.D2.CS_2018, comparison_cs$'C & S_2018',
-    use='complete.obs')
-
-
-```
 
 ## SPI Dimension 3: Availability of Key Indicators (AKI):
+
+First we will pull data for indicators coming straight from WDI.  For some indicators, we will use alternative sources.
+
+Indicators coming from the WDI directly are:  
+
+- AKI 3.1: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)  
+- AKI 3.2: Prevalence of stunting, height for age (% of children under 5)  
+- AKI 3.9: Manufacturing, value added (% of GDP)  
+- AKI 3.10: Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)  
+- AKI 3.11: Level of water stress: freshwater withdrawal as a proportion of available freshwater resources  
+- AKI 3.12: Renewable energy consumption (% of total final energy consumption)  
+- AKI 3.13: Total greenhouse gas emissions (kt of CO2 equivalent)  
+- AKI 3.14: Terrestrial and marine protected areas (% of total territorial area)  
+- AKI 3.15: Households and NPISHs Final consumption expenditure (current LCU)  
+- AKI 3.16: GNI (current LCU)  
+- AKI 3.18: Debt service (PPG and IMF only, % of exports of goods, services and primary income) 
+
 
 ```{r data_pulls, echo=TRUE}
 
@@ -1228,18 +1197,17 @@ wdiResponse <- httr::content(wdiRequest, as = "text", encoding = "UTF-8")
 wdisJSON <- jsonlite::fromJSON(wdiResponse, flatten = TRUE) %>%
     data.frame()
 
-aki<- c('Poverty headcount ratio at national poverty lines (% of population)',
-        'Mortality rate, under-5 (per 1,000 live births)',
-        'Immunization, measles (% of children ages 12-23 months)',
-        'Primary completion rate, total (% of relevant age group)',
-        'Literacy rate, adult total (% of people ages 15 and above)',
-        'People using at least basic drinking water services (% of population)',
-        'Unemployment, total (% of total labor force) (national estimate)',
+aki<- c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
+        'Prevalence of stunting, height for age (% of children under 5)',
         'Manufacturing, value added (% of GDP)',
-        'Gross capital formation (% of GDP)',
-        'Inflation, GDP deflator (annual %)',
-        'Net trade in goods and services (BoP, current US$)',
-        'Prevalence of undernourishment (% of population)'  )
+        'Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
+        'Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
+        'Renewable energy consumption (% of total final energy consumption)',
+        'Total greenhouse gas emissions (kt of CO2 equivalent)',
+        'Terrestrial and marine protected areas (% of total territorial area)',
+        'Households and NPISHs Final consumption expenditure (current LCU)',
+        'GNI (current LCU)',
+        'Debt service (PPG and IMF only, % of exports of goods, services and primary income)'  )
 
 get_tag_aki_df<-wdisJSON %>%
   filter(name %in% aki) %>%
@@ -1302,28 +1270,6 @@ kable(msc_sumstats, caption="Summary Statistics of Availability of Key Indicator
 
 ```
 
-
-Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  There appear to be some differences with original values computed by SPI team
-
-```{r aki_comparison}
-
-comparison_aki <- D3.AKI_wide %>%
-  left_join(orig_data)
-
-#2016
-cor(comparison_aki$SPI.D3.AKI_2016, comparison_aki$AKI_2016,
-    use='complete.obs')
-
-#2017
-cor(comparison_aki$SPI.D3.AKI_2017, comparison_aki$AKI_2017,
-    use='complete.obs')
-
-#2018
-cor(comparison_aki$SPI.D3.AKI_2018, comparison_aki$AKI_2018,
-    use='complete.obs')
-
-
-```
 
 ## SPI Dimension 4: Dissemination Practices and Openness (DPO):
 
@@ -1647,14 +1593,14 @@ SPI<-D1.MSC %>%
 
 #Construct overall score
 SPI <- SPI %>%
-  mutate(SPI=(SPI.D1.MSC+SPI.D2.CS+SPI.D3.AKI+SPI.D4.DPO)/4)
+  mutate(SPI.OVRL.SCR=(SPI.D1.MSC+SPI.D2.CS+SPI.D3.AKI+SPI.D4.DPO)/4)
 
 #create version of data in wide format
 SPI_wide <- SPI %>%
-  select(iso3c, country, date, SPI, SPI.D1.MSC, SPI.D2.CS, SPI.D3.AKI, SPI.D4.DPO) %>%
+  select(iso3c, country, date, SPI.OVRL.SCR, SPI.D1.MSC, SPI.D2.CS, SPI.D3.AKI, SPI.D4.DPO) %>%
   pivot_wider(names_from=date,
               names_sep = "_",
-              values_from=c('SPI', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO')
+              values_from=c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO')
               )
 
 #label columns
@@ -1704,7 +1650,7 @@ var.labels=c(iso3c='3 digit country code',
              SPI.D4.5.META='Metadata is available providing definition, methodology, standards or classifications for existing data series', 
              SPI.D4.6.USER='NSO has conducted a user satisfaction survey', 
              SPI.D4.7.GEOS='Geospatial data available on relevant agency website', 
-             SPI='SPI Overall Score')
+             SPI.OVRL.SCR='SPI Overall Score')
 
 
 #label data
@@ -1727,5 +1673,18 @@ write_excel_csv(SPI_wide,
 SPI_wide  %>%
   janitor::clean_names() %>%
   write_dta(path = paste(csv_output, "SPI_scores_wide.dta", sep="/" ))
+```
+
+# Metadata
+
+```{r metadata}
+
+#turn variable labels into data frame for metadata
+metadata <- read_csv(file=paste(csv_dir, "SPI_metadata.csv", sep="/"))
+
+kable(metadata, caption="Metadata for Statistical Performance Index Indicators" ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  column_spec(1:5, width_max  = "20em")
+
 ```
 
