@@ -19,6 +19,8 @@ library(kableExtra)
 library(readxl)
 library(Hmisc)
 library(haven)
+library(lubridate)
+library(httr)
 
 # Directory for SPI csv files that were previously created
 csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
@@ -1220,15 +1222,27 @@ Scoring:
 ##########
 
 # make request to World Bank API
-wdiRequest <- httr::GET(url = "http://api.worldbank.org/v2/indicator?per_page=20000&format=json&source=2")
-wdiResponse <- httr::content(wdiRequest, as = "text", encoding = "UTF-8")
+wdiRequest <- GET(url = "http://api.worldbank.org/v2/indicator?per_page=20000&format=json&source=2")
+wdiResponse <- content(wdiRequest, as = "text", encoding = "UTF-8")
 
 # Parse the JSON content and convert it to a data frame.
 wdisJSON <- jsonlite::fromJSON(wdiResponse, flatten = TRUE) %>%
     data.frame()
 
+EdStatsRequest <- GET(url = "http://api.worldbank.org/v2/indicator?per_page=20000&format=json&source=12")
+EdStatsResponse <- content(EdStatsRequest, as = "text", encoding = "UTF-8")
+
+# Parse the JSON content and convert it to a data frame.
+EdStatsJSON <- jsonlite::fromJSON(EdStatsResponse, flatten = TRUE) %>%
+  data.frame()
+
 aki<- c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
         'Prevalence of stunting, height for age (% of children under 5)',
+        'Mortality rate, under-5 (per 1,000 live births)', 
+        'Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
+        'People using safely managed drinking water services (% of population)',
+        'Access to electricity (% of population)',
+        'Unemployment, total (% of total labor force)' ,
         'Manufacturing, value added (% of GDP)',
         'Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
         'Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
@@ -1240,25 +1254,31 @@ aki<- c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
         'Debt service (PPG and IMF only, % of exports of goods, services and primary income)'  )
 
 get_tag_aki_df<-wdisJSON %>%
-  filter(name %in% aki) %>%
-  arrange(factor(name, levels = aki))
+  bind_rows(EdStatsJSON) %>%
+  filter((name %in% aki	)) %>%
+  group_by(id) %>%
+  summarise_all(~first(.)) %>%
+  arrange(factor(name, levels = aki)) %>%
+  select(id, name,  sourceOrganization) 
 
+
+cache_list<-wbstats::wbcache()
 
 aki_list<-get_tag_aki_df[,'id']
 
 for (reference_year in 2016:2018) {
   temp <-wbstats::wb(country="countries_only", 
-              indicator=aki_list,
+              indicator=aki_list$id,
               startdate=reference_year-5,
               enddate=reference_year,
               return_wide = T,
               removeNA=FALSE) %>%
           filter(((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% #filter out years outside reference window of 3 years     
           write_excel_csv(path = paste(csv_output, "/D3.AKI_data_pull_",reference_year,".csv", sep="" )) %>%
-          mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
+          mutate_at(.vars=aki_list$id, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
           group_by(iso3c, country) %>%
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
-          mutate_at(.vars=aki_list, ~case_when(
+          mutate_at(.vars=aki_list$id, ~case_when(
             .>=3 ~ 1,
             .==2 ~ 0.6,
             .==1 ~ 0.3,
@@ -1266,8 +1286,9 @@ for (reference_year in 2016:2018) {
             TRUE ~ 0
           )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
           mutate(date=reference_year) %>%
-          select(iso3c, country, date, aki_list) %>%
-          rename_at(aki_list, ~(paste('D3.',.,sep=""))) #add 'D3.' as prefix before these indicators.
+          ungroup() %>%
+          mutate(SPI.D3.AKI=100*rowSums(.[aki_list$id], na.rm=T)/length(aki_list$id)) %>%
+      select(iso3c, country, date, SPI.D3.AKI, aki_list$id)
 
 
   assign(paste("D3.AKI",reference_year,sep="_"), temp)
@@ -1308,17 +1329,18 @@ Frequency (0.5 points total):
 D3.3.AKI.MORT <- read_csv(file=paste(csv_dir, 'D3.3_child_mort_RAW_v01.csv', sep="/")) %>%
   filter(INDICATOR=='Under-five mortality rate' & SEX=='Total') %>% #keep just observations for under 5 child mortality and for both sexes 
   filter(OBS_STATUS=='Included in IGME') %>% # Also keep only surveys that met IGME criteria for inclusion as a nationally representative statistic
-  mutate(date=SERIES_YEAR)
+  mutate(date=as.numeric(str_extract(TIME_PERIOD, "^.{4}")),
+         country=REF_AREA,
+         D3.CHLD.MORT=OBS_VALUE)
 
 #Now loop from 2016 and 2018, keeping just data inside last 5 years.
 for (reference_year in 2016:2018) {
   temp <-D3.3.AKI.MORT %>%
-          filter(((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% #filter out years outside reference window of 3 years     
-          write_excel_csv(path = paste(csv_output, "/D3.AKI.3.3_",reference_year,".csv", sep="" )) %>%
-          mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
-          group_by(iso3c, country) %>%
+          mutate(available=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% #filter out years outside reference window of 3 years     
+          mutate(D3.CHLD.MORT=if_else(available==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          group_by(country) %>%
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
-          mutate_at(.vars=aki_list, ~case_when(
+          mutate_at(.vars=c('D3.CHLD.MORT'), ~case_when(
             .>=3 ~ 1,
             .==2 ~ 0.6,
             .==1 ~ 0.3,
@@ -1326,11 +1348,10 @@ for (reference_year in 2016:2018) {
             TRUE ~ 0
           )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
           mutate(date=reference_year) %>%
-          select(iso3c, country, date, aki_list) %>%
-          rename_at(aki_list, ~(paste('D3.',.,sep=""))) #add 'D3.' as prefix before these indicators.
+          select( country, date, c('D3.CHLD.MORT')) 
 
 
-  assign(paste("D3.AKI",reference_year,sep="_"), temp)
+  assign(paste("D3.3.AKI",reference_year,sep="_"), temp)
 }
 
 ```
@@ -1361,7 +1382,7 @@ Produce summary statistics of our indicators.
 
 msc_sumstats <- D3.AKI %>%
   group_by(date) %>%
-  select(SPI.D3.AKI, aki_list) %>%
+  select(SPI.D3.AKI, aki_list$id) %>%
   skim() %>%
   select(c("skim_variable",
            "date", "complete_rate", "numeric.mean",  "numeric.sd",    "numeric.p0",    "numeric.p25",   "numeric.p50",
@@ -1658,27 +1679,6 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
 
 ```
 
-Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.
-
-```{r dpo_comparison}
-
-comparison_dpo <- D4.DPO_wide %>%
-  left_join(orig_data)
-
-#2016
-cor(comparison_dpo$SPI.D4.DPO_2016, comparison_dpo$DPO_2016,
-    use='complete.obs')
-
-#2017
-cor(comparison_dpo$SPI.D4.DPO_2017, comparison_dpo$DPO_2017,
-    use='complete.obs')
-
-#2018
-cor(comparison_dpo$SPI.D4.DPO_2018, comparison_dpo$DPO_2018,
-    use='complete.obs')
-
-
-```
 
 
 ## Overall Score
