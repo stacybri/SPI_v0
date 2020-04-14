@@ -1166,6 +1166,30 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
 
 ## SPI Dimension 3: Availability of Key Indicators (AKI):
 
+Below is the list of AKI indicators:
+
+- AKI 3.1: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)  
+- AKI 3.2: Prevalence of stunting, height for age (% of children under 5)  
+- AKI 3.3: Mortality rate, under-5 (per 1,000 live births)  
+- AKI 3.4: Proportion of children and young people in grades 2/3 achieving at least a minimum proficiency level in
+(i) reading and (ii) mathematics, by sex.  
+- AKI 3.5:  
+- AKI 3.6: People using safely managed drinking water services (% of population)  
+- AKI 3.7: Access to electricity (% of population)  
+- AKI 3.8: Unemployment, total (% of total labor force)  
+- AKI 3.9: Manufacturing, value added (% of GDP)  
+- AKI 3.10: Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)  
+- AKI 3.11: Level of water stress: freshwater withdrawal as a proportion of available freshwater resources  
+- AKI 3.12: Renewable energy consumption (% of total final energy consumption)  
+- AKI 3.13: Total greenhouse gas emissions (kt of CO2 equivalent)  
+- AKI 3.14: Terrestrial and marine protected areas (% of total territorial area)  
+- AKI 3.15: Households and NPISHs Final consumption expenditure (current LCU)  
+- AKI 3.16: GNI (current LCU)  
+- AKI 3.17: Quarterly GDP
+- AKI 3.18: Debt service (PPG and IMF only, % of exports of goods, services and primary income) 
+
+### AKI 3.1, 3.2, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14, 3.15, 3.16, 3.18
+
 First we will pull data for indicators coming straight from WDI.  For some indicators, we will use alternative sources.
 
 Indicators coming from the WDI directly are:  
@@ -1182,6 +1206,12 @@ Indicators coming from the WDI directly are:
 - AKI 3.16: GNI (current LCU)  
 - AKI 3.18: Debt service (PPG and IMF only, % of exports of goods, services and primary income) 
 
+Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
 
 ```{r data_pulls, echo=TRUE}
 
@@ -1219,24 +1249,97 @@ aki_list<-get_tag_aki_df[,'id']
 for (reference_year in 2016:2018) {
   temp <-wbstats::wb(country="countries_only", 
               indicator=aki_list,
-              startdate=reference_year-3,
+              startdate=reference_year-5,
               enddate=reference_year,
               return_wide = T,
               removeNA=FALSE) %>%
-          filter(((reference_year-as.numeric(date))<=3) & (reference_year>as.numeric(date))) %>% #filter out years outside reference window of 3 years     
+          filter(((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% #filter out years outside reference window of 3 years     
           write_excel_csv(path = paste(csv_output, "/D3.AKI_data_pull_",reference_year,".csv", sep="" )) %>%
           mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
-          group_by(country) %>%
-          summarise_all((~(if(is.numeric(.)) max(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
-          # Availability of Key Indicator Country Score=Weighted Score÷Maximum Category Score ×100
-          mutate(SPI.D3.AKI=100*rowSums(.[aki_list], na.rm=T)/length(aki_list)) %>%
-      mutate(date=reference_year) %>%
-      select(iso3c, country, date, SPI.D3.AKI, aki_list)
+          group_by(iso3c, country) %>%
+          summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
+          mutate_at(.vars=aki_list, ~case_when(
+            .>=3 ~ 1,
+            .==2 ~ 0.6,
+            .==1 ~ 0.3,
+            .==0 ~ 0, 
+            TRUE ~ 0
+          )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
+          mutate(date=reference_year) %>%
+          select(iso3c, country, date, aki_list) %>%
+          rename_at(aki_list, ~(paste('D3.',.,sep=""))) #add 'D3.' as prefix before these indicators.
 
 
   assign(paste("D3.AKI",reference_year,sep="_"), temp)
 }
 
+
+
+```
+
+
+### AKI 3.3: Mortality rate, under-5 (per 1,000 live births)  
+
+The data in WDI is modeled, based on HHS and Vital Registration.  We use the following as a source for raw data produced by national statistical offices that is used in this modeling.  
+
+https://childmortality.org/data 
+
+Data was pulled on April 13, 2020.
+
+Countries are ranked by source (admin data > survey > no data) and frequency.
+Score on this indicator has a max of 1 point with 0.5 points for source and 0.5 points for frequency.  Detailed scoring for source and frequency components are below.
+
+Source (0.5 points total):
+0.5 Point. Vital Registration data available within past 5 years	
+0.25 Points. Survey Data availabe, but no Vital Registration data within past 5 years; 	
+0 Points. None within past 5 years
+
+Frequency (0.5 points total):
+0.5 Point. 3 or more values available within past 5 years	
+0.333 Points. 2 values available within past 5 years; 	
+0.167 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
+
+
+```{r aki_3.3}
+
+#Read in data from UN Inter-agency Group for Child Mortality Estimation
+
+D3.3.AKI.MORT <- read_csv(file=paste(csv_dir, 'D3.3_child_mort_RAW_v01.csv', sep="/")) %>%
+  filter(INDICATOR=='Under-five mortality rate' & SEX=='Total') %>% #keep just observations for under 5 child mortality and for both sexes 
+  filter(OBS_STATUS=='Included in IGME') %>% # Also keep only surveys that met IGME criteria for inclusion as a nationally representative statistic
+  mutate(date=SERIES_YEAR)
+
+#Now loop from 2016 and 2018, keeping just data inside last 5 years.
+for (reference_year in 2016:2018) {
+  temp <-D3.3.AKI.MORT %>%
+          filter(((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% #filter out years outside reference window of 3 years     
+          write_excel_csv(path = paste(csv_output, "/D3.AKI.3.3_",reference_year,".csv", sep="" )) %>%
+          mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
+          group_by(iso3c, country) %>%
+          summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
+          mutate_at(.vars=aki_list, ~case_when(
+            .>=3 ~ 1,
+            .==2 ~ 0.6,
+            .==1 ~ 0.3,
+            .==0 ~ 0, 
+            TRUE ~ 0
+          )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
+          mutate(date=reference_year) %>%
+          select(iso3c, country, date, aki_list) %>%
+          rename_at(aki_list, ~(paste('D3.',.,sep=""))) #add 'D3.' as prefix before these indicators.
+
+
+  assign(paste("D3.AKI",reference_year,sep="_"), temp)
+}
+
+```
+
+
+
+```{r aki_combine_write}
+
+#now combine AKI databases and write to csv
 D3.AKI <- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018)
 
 D3.AKI_wide <- D3.AKI %>%
@@ -1250,7 +1353,6 @@ write_excel_csv(D3.AKI_wide,
                 path = paste(csv_output, "D3.AKI_indicator.csv", sep="/" ))
 
 ```
-
 
 
 Produce summary statistics of our indicators.
