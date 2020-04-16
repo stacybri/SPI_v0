@@ -69,18 +69,86 @@ SPI.D2.8.BIZZ,Business/establishment survey,"http://microdata.worldbank.org/inde
  - PovcalNet
  - International Household Survey Network Catalog (IHSN) 
  - IHSN Gender Data Navigator",a) 3 or more business/establishment surveys done within past 10 years
-SI.POV.NAHC,Poverty headcount ratio at national poverty lines/availability of similar key indicators,http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-SH.DYN.MORT,Prevalence of undernourishment,http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-SH.IMM.MEAS,Under-five mortality rate,http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-SE.PRM.CMPT.ZS,Child immunization (proportion of one-year-old children immunized against measles),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-SE.ADT.LITR.ZS,"Primary completion rate, both sexes (%)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-SH.H2O.BASW.ZS,"Adult literacy rate, population 15+ years, both sexes (%)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-SL.UEM.TOTL.NE.ZS,Proportion of population using at least basic drinking water services (%),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-NV.IND.MANF.ZS,"Unemployment, total (% of total labor force)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-NE.GDI.TOTL.ZS,Manufacturing value added as a proportion of GDP,http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-NY.GDP.DEFL.KD.ZG,Gross capital formation (% of GDP),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-BN.GSR.GNFS.CD,GDP implicit price deflator (annual % growth),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
-SN.ITK.DEFC.ZS,"Net trade in goods and services (BoP, current US$)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"a) Data is available once in three years, prior to reference year"
+SPI.D3.SI.POV.DDAY,Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.SH.STA.STNT.ZS,"Prevalence of stunting, height for age (% of children under 5)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.SE.LPV.PRIM.BMP,Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold,http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.SH.H2O.SMDW.ZS,People using safely managed drinking water services (% of population),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.EG.ELC.ACCS.ZS,Access to electricity (% of population),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.SL.UEM.TOTL.NE.ZS,"Unemployment, total (% of total labor force) (national estimate)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.NV.IND.MANF.ZS,"Manufacturing, value added (% of GDP)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.SI.SPR.PC40.ZG,"Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.ER.H2O.FWST.ZS,Level of water stress: freshwater withdrawal as a proportion of available freshwater resources,http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.EG.FEC.RNEW.ZS,Renewable energy consumption (% of total final energy consumption),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.EN.ATM.GHGT.KT.CE,Total greenhouse gas emissions (kt of CO2 equivalent),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.ER.PTD.TOTL.ZS,Terrestrial and marine protected areas (% of total territorial area),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.NE.CON.PRVT.CN,Households and NPISHs Final consumption expenditure (current LCU),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.NY.GNP.MKTP.CN,GNI (current LCU),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
+SPI.D3.DT.TDS.DPPF.XP.ZS,"Debt service (PPG and IMF only, % of exports of goods, services and primary income)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"1 Point. 3 or more surveys done within past 10 years        
+0.6 Points. 2 surveys done within past 10 years;         
+0.3 Points. 1 survey done within past 10 years;         
+0 Points. None within past 10 years
+"
 SPI.D4.1.CALD,NSO has an Advance Release Calendar and it is published,https://unstats.un.org/home/nso_sites/,NSO websites,Yes
 SPI.D4.2.NADA,NSO has a listing of surveys and microdata sets (or NADA),"https://unstats.un.org/home/nso_sites/ 
   

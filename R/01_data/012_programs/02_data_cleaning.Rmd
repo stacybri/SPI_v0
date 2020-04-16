@@ -1242,7 +1242,7 @@ aki<- c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
         'Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
         'People using safely managed drinking water services (% of population)',
         'Access to electricity (% of population)',
-        'Unemployment, total (% of total labor force)' ,
+        'Unemployment, total (% of total labor force) (national estimate)' ,
         'Manufacturing, value added (% of GDP)',
         'Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
         'Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
@@ -1288,7 +1288,9 @@ for (reference_year in 2016:2018) {
           mutate(date=reference_year) %>%
           ungroup() %>%
           mutate(SPI.D3.AKI=100*rowSums(.[aki_list$id], na.rm=T)/length(aki_list$id)) %>%
-      select(iso3c, country, date, SPI.D3.AKI, aki_list$id)
+          select(iso3c, country, date, SPI.D3.AKI, aki_list$id) %>%
+          rename_at(aki_list$id, ~(paste('SPI.D3.',.,sep=""))) #add 'D3.' as prefix before these indicators.
+
 
 
   assign(paste("D3.AKI",reference_year,sep="_"), temp)
@@ -1382,7 +1384,7 @@ Produce summary statistics of our indicators.
 
 msc_sumstats <- D3.AKI %>%
   group_by(date) %>%
-  select(SPI.D3.AKI, aki_list$id) %>%
+  select(SPI.D3.AKI, paste('SPI.D3.',aki_list$id, sep='')) %>%
   skim() %>%
   select(c("skim_variable",
            "date", "complete_rate", "numeric.mean",  "numeric.sd",    "numeric.p0",    "numeric.p25",   "numeric.p50",
@@ -1732,18 +1734,22 @@ var.labels=c(iso3c='3 digit country code',
              SPI.D2.7.HLTH='Health/Demographic survey', 
              SPI.D2.8.BIZZ='Business/establishment survey', 
              SPI.D3.AKI='Dimension 3: Availability of Key Indicators (AKI)', 
-             SI.POV.NAHC='Poverty headcount ratio at national poverty lines/ availability of similar key indicators', 
-             SH.DYN.MORT='Mortality rate, under-5 (per 1,000 live births)', 
-             SH.IMM.MEAS='Child immunization (proportion of one-year-old children immunized against measles)', 
-             SE.PRM.CMPT.ZS='Primary completion rate, both sexes (%)', 
-             SE.ADT.LITR.ZS='Adult literacy rate, population 15+ years, both sexes (%)', 
-             SH.H2O.BASW.ZS='Proportion of population using at least basic drinking water services (%)', 
-             SL.UEM.TOTL.NE.ZS='Unemployment, total (% of total labor force) ', 
-             NV.IND.MANF.ZS='Manufacturing value added as a proportion of GDP ',
-             NE.GDI.TOTL.ZS='Gross capital formation (% of GDP)', 
-             NY.GDP.DEFL.KD.ZG='GDP implicit price deflator (annual % growth)', 
-             BN.GSR.GNFS.CD='Net trade in goods and services (BoP, current US$)', 
-             SN.ITK.DEFC.ZS='Prevalence of undernourishment (% of population)', 
+             SPI.D3.SI.POV.DDAY='Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
+             SPI.D3.SH.STA.STNT.ZS='Prevalence of stunting, height for age (% of children under 5)',
+            SPI.D3.SH.DYN.MORT='Mortality rate, under-5 (per 1,000 live births)', 
+             SPI.D3.SE.LPV.PRIM.BMP='Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
+             SPI.D3.SH.H2O.SMDW.ZS='People using safely managed drinking water services (% of population)',
+             SPI.D3.EG.ELC.ACCS.ZS='Access to electricity (% of population)',
+             SPI.D3.SL.UEM.TOTL.NE.ZS='Unemployment, total (% of total labor force) (national estimate)' ,
+             SPI.D3.NV.IND.MANF.ZS='Manufacturing, value added (% of GDP)',
+             SPI.D3.SI.SPR.PC40.ZG='Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
+             SPI.D3.ER.H2O.FWST.ZS='Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
+             SPI.D3.EG.FEC.RNEW.ZS='Renewable energy consumption (% of total final energy consumption)',
+             SPI.D3.EN.ATM.GHGT.KT.CE='Total greenhouse gas emissions (kt of CO2 equivalent)',
+             SPI.D3.ER.PTD.TOTL.ZS='Terrestrial and marine protected areas (% of total territorial area)',
+             SPI.D3.NE.CON.PRVT.CN='Households and NPISHs Final consumption expenditure (current LCU)',
+             SPI.D3.NY.GNP.MKTP.CN='GNI (current LCU)',
+             SPI.D3.DT.TDS.DPPF.XP.ZS='Debt service (PPG and IMF only, % of exports of goods, services and primary income)', 
              SPI.D4.DPO='Dimension 4: Dissemination Practices & Openness (DPO)', 
              SPI.D4.1.CALD='NSO has an Advance Release Calendar and it is published ', 
              SPI.D4.2.NADA='NSO has a listing of surveys and microdata sets (or NADA)', 
@@ -1758,6 +1764,10 @@ var.labels=c(iso3c='3 digit country code',
 #label data
 label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
 
+#turn variable labels into data frame 
+var.labels.df<-data.frame(var.labels) %>% 
+  rownames_to_column() %>%
+  rename(variable=rowname)
 
 #export data
 write_excel_csv(SPI,
@@ -1787,6 +1797,14 @@ metadata <- read_csv(file=paste(csv_dir, "SPI_metadata.csv", sep="/"))
 kable(metadata, caption="Metadata for Statistical Performance Index Indicators" ) %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
   column_spec(1:5, width_max  = "20em")
+
+```
+
+
+```{r save_R_frame}
+
+save(SPI, SPI_wide, metadata,
+     file = paste(csv_output, "SPI.Rdata", sep="/" ))
 
 ```
 
