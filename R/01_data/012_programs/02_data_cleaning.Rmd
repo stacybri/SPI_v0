@@ -1238,7 +1238,7 @@ EdStatsJSON <- jsonlite::fromJSON(EdStatsResponse, flatten = TRUE) %>%
 
 aki<- c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
         'Prevalence of stunting, height for age (% of children under 5)',
-        'Mortality rate, under-5 (per 1,000 live births)', 
+        #'Mortality rate, under-5 (per 1,000 live births)', This was replaced using the following source https://childmortality.org/data 
         'Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
         'People using safely managed drinking water services (% of population)',
         'Access to electricity (% of population)',
@@ -1309,18 +1309,18 @@ https://childmortality.org/data
 
 Data was pulled on April 13, 2020.
 
-Countries are ranked by source (admin data > survey > no data) and frequency.
-Score on this indicator has a max of 1 point with 0.5 points for source and 0.5 points for frequency.  Detailed scoring for source and frequency components are below.
+Countries are ranked by source quality (admin data > survey > no data) and frequency.
+Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
 
-Source (0.5 points total):
+Quality (0.5 points total):
 0.5 Point. Vital Registration data available within past 5 years	
 0.25 Points. Survey Data availabe, but no Vital Registration data within past 5 years; 	
 0 Points. None within past 5 years
 
 Frequency (0.5 points total):
 0.5 Point. 3 or more values available within past 5 years	
-0.333 Points. 2 values available within past 5 years; 	
-0.167 Points. 1 values available within past 5 years; 	
+0.3 Points. 2 values available within past 5 years; 	
+0.15 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years
 
 
@@ -1338,32 +1338,109 @@ D3.3.AKI.MORT <- read_csv(file=paste(csv_dir, 'D3.3_child_mort_RAW_v01.csv', sep
 #Now loop from 2016 and 2018, keeping just data inside last 5 years.
 for (reference_year in 2016:2018) {
   temp <-D3.3.AKI.MORT %>%
-          mutate(available=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% #filter out years outside reference window of 3 years     
-          mutate(D3.CHLD.MORT=if_else(available==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% 
+          mutate(SPI.D3.CHLD.MORT.FREQ=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          mutate(SPI.D3.CHLD.MORT.QUAL=case_when(
+                   reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
+                   SERIES_METHOD=='Vital Registration' ~ 0.5,
+                   SERIES_METHOD!='Vital Registration' ~ 0.25,
+                   TRUE ~ as.numeric(NA)
+                 )) %>%
           group_by(country) %>%
-          summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
-          mutate_at(.vars=c('D3.CHLD.MORT'), ~case_when(
-            .>=3 ~ 1,
-            .==2 ~ 0.6,
-            .==1 ~ 0.3,
-            .==0 ~ 0, 
+          summarise(SPI.D3.CHLD.MORT.FREQ=sum(SPI.D3.CHLD.MORT.FREQ, na.rm=T),
+                    SPI.D3.CHLD.MORT.QUAL=max(SPI.D3.CHLD.MORT.QUAL, na.rm=T)) %>% 
+          mutate(SPI.D3.CHLD.MORT.FREQ=case_when(
+            SPI.D3.CHLD.MORT.FREQ>=3 ~ 0.5,
+            SPI.D3.CHLD.MORT.FREQ==2 ~ 0.3,
+            SPI.D3.CHLD.MORT.FREQ==1 ~ 0.15,
+            SPI.D3.CHLD.MORT.FREQ==0 ~ 0, 
             TRUE ~ 0
-          )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
+          )) %>%
+          mutate(SPI.D3.CHLD.MORT=SPI.D3.CHLD.MORT.FREQ+SPI.D3.CHLD.MORT.QUAL) %>% 
           mutate(date=reference_year) %>%
-          select( country, date, c('D3.CHLD.MORT')) 
+          select( country, date, starts_with('SPI.D3.CHLD.MORT')) 
 
 
   assign(paste("D3.3.AKI",reference_year,sep="_"), temp)
 }
 
+D3.3.AKI <- bind_rows(D3.3.AKI_2016, D3.3.AKI_2017, D3.3.AKI_2018)
+
+
 ```
 
 
+```{r country_label_fixes, include=FALSE}
+
+#make country labels comparable to WDI
+D3.3.AKI <- D3.3.AKI %>%
+  mutate(country=case_when(
+    country=="Bahamas" ~ "Bahamas, The",                  
+    country=="Bolivia (Plurinational State of)"   ~  "Bolivia"   ,                  
+    country=="Côte d'Ivoire"  ~  "Cote d'Ivoire"                ,
+    country=="Democratic Republic of the Congo"  ~ "Congo, Dem. Rep."  ,           
+    country=="Congo"  ~ "Congo, Rep."        ,           
+    country=="Curacao"  ~  "Curacao"       ,                
+    country=="Czechia"   ~  "Czech Republic"     ,        
+    country=="Egypt"  ~ "Egypt, Arab Rep."        ,      
+    country=="Micronesia (Federated States of)"  ~ "Micronesia, Fed. Sts."  ,       
+    country=="United Kingdom"   ~  "United Kingdom"    ,         
+    country=="Gambia"    ~  "Gambia, The"     ,           
+    country=="Iran (Islamic Republic of)"  ~ "Iran, Islamic Rep." ,           
+    country=="Kyrgyzstan"   ~  "Kyrgyz Republic"   ,          
+    country=="Republic of Korea"   ~ "Korea, Rep."   ,               
+    country=="Lao People's Democratic Republic"    ~  "Lao PDR" ,                    
+    country=="Saint Kitts and Nevis	"   ~ "St. Kitts and Nevis",
+    country=="Saint Lucia"   ~ "St. Lucia",
+    country=="Republic of Moldova"   ~  "Moldova"   ,                  
+    country=="Democratic People's Republic of Korea"  ~  "Korea, Dem. People’s Rep." ,  
+    country=="Slovakia"   ~  "Slovak Republic"             ,
+    country=="United Republic of Tanzania"   ~  "Tanzania" ,                    
+    country=="United States of America"  ~ "United States"  ,                
+    country=="Saint Vincent and the Grenadines" ~ "St. Vincent and the Grenadines" ,
+    country=="Venezuela (Bolivarian Republic of)"  ~  "Venezuela, RB"   ,              
+    country=="British Virgin Islands"  ~  "British Virgin Islands" ,       
+    country=="Viet Nam"  ~ "Vietnam"        ,              
+    country=="Yemen"  ~ "Yemen, Rep.",
+    country=="United Kingdom of Great Britain and Northern Ireland" ~ "United Kingdom",
+    TRUE ~ country
+  ))
+
+
+```
+
+
+### AKI 3.4. Quality Education
+
+```{r}
+EdStatsRequest_metadata <- GET(url = "https://api.worldbank.org/v2/country/all/indicator/SE.LPV.PRIM.BMP?footnote=y&per_page=30000&format=json")
+EdStatsResponse_metadata <- content(EdStatsRequest_metadata, as = "text", encoding = "UTF-8")
+
+# Parse the JSON content and convert it to a data frame.
+EdStatsJSON_metadata <- jsonlite::fromJSON(EdStatsResponse_metadata, flatten = TRUE) %>%
+  data.frame() %>%
+  filter(str_length(footnote)>0)
+```
+
+
+### AKI 3.5: People using safely managed drinking water services (% of population) 
+
+Safely managed drinking water has less coverage than basic drinking water.  The hurdle for countries is measuring water quality (test for E coli, etc).  Infrastructrure tends to be more static than other indicators, so expanding the window for the frequency of data may be needed.  May consider indicator system where we have 0 points for no data, 0.5 points for all data except water quality (this is available in a pdf report by the Bank and Unicef), and 1 point for full indicator for safely managed water.
+
+We considered using data from the Joint Monitoring Programme for Water Supply, Sanitation and Hygiene.  However, data was only updated up to 2017, which did not meet our needs.
+
+Rank by data availability for three components (Accessible on-premises, Available when needed, and Free from contamination)
+
+### Combine all sources into AKI database
 
 ```{r aki_combine_write}
 
 #now combine AKI databases and write to csv
-D3.AKI <- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018)
+D3.AKI <- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018) %>%
+  left_join(D3.3.AKI) %>%
+  mutate_at(vars(starts_with('SPI.D3.')), ~if_else(is.na(.),0,as.numeric(.)))
+
+
 
 D3.AKI_wide <- D3.AKI %>%
   select(iso3c, country, date,SPI.D3.AKI) %>%

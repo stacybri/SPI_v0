@@ -132,7 +132,9 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                            "Reference Year",
                                                            choices=c(2016:2018),
                                                            selected=2018
-                                            )
+                                            ),
+                                            selectizeInput("color_choices_overall", "Choose Indicator to Color Map", 
+                                                           choices=NULL) 
                               )
                               
                           )
@@ -160,7 +162,9 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                        "Reference Year",
                                                        choices=c(2016:2018),
                                                        selected=2018
-                                           )
+                                           ),
+                                           selectizeInput("color_choices_d1", "Choose Indicator to Color Map", 
+                                                          choices=NULL) 
                               )
 
                           )
@@ -189,7 +193,9 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                            "Reference Year",
                                                            choices=c(2016:2018),
                                                            selected=2018
-                                            )
+                                            ),
+                                            selectizeInput("color_choices_d2", "Choose Indicator to Color Map", 
+                                                           choices=NULL) 
                               )
 
 
@@ -218,7 +224,9 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                            "Reference Year",
                                                            choices=c(2016:2018),
                                                            selected=2018
-                                            )
+                                            ),
+                                            selectizeInput("color_choices_d3", "Choose Indicator to Color Map", 
+                                                           choices=NULL) 
                               )
 
                           )
@@ -246,7 +254,9 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                            "Reference Year",
                                                            choices=c(2016:2018),
                                                            selected=2018
-                                            )
+                                            ),
+                                            selectizeInput("color_choices_d4", "Choose Indicator to Color Map", 
+                                                           choices=NULL) 
                               )
 
                           )
@@ -401,6 +411,7 @@ server <- function(input, output, session) {
         
     })
     
+    updateSelectizeInput(session, 'color_choices_overall', choices = c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'), server = TRUE)
     
     
     output$spi_map_overall <- renderLeaflet({
@@ -415,7 +426,7 @@ server <- function(input, output, session) {
         
         
         #create pallete
-        pal <- colorBin("RdYlBu", spi_map_overall@data$SPI.OVRL.SCR, 10, pretty = T)
+        pal <- colorBin("RdYlBu", select(spi_map_overall@data, !!input$color_choices_overall)[,1], 10, pretty = T)
         
         
         
@@ -448,9 +459,9 @@ server <- function(input, output, session) {
         leaflet(spi_map_overall) %>%
             addProviderTiles(providers$Esri.WorldStreetMap) %>%
             addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
-                        fillColor = ~pal(SPI.OVRL.SCR),
+                        fillColor = ~pal(select(spi_map_overall@data, !!input$color_choices_overall)[,1]),
                         label=labels) %>%
-            addLegend(pal=pal, values=~SPI.OVRL.SCR, opacity=0.7, title='SPI value', position="bottomleft")        
+            addLegend(pal=pal, values=~select(spi_map_overall@data, !!input$color_choices_overall)[,1], opacity=0.7, title='SPI value', position="bottomleft")        
     })
     
     ####
@@ -614,6 +625,7 @@ server <- function(input, output, session) {
         
     })
     
+    updateSelectizeInput(session, 'color_choices_d1', choices = colnames(SPI[,grep("SPI.D1",colnames(SPI))]), server = TRUE)
     
     
     output$spi_map_d1 <- renderLeaflet({
@@ -628,7 +640,7 @@ server <- function(input, output, session) {
         
         
         #create pallete
-        pal <- colorBin("RdYlBu", spi_map_d1@data$SPI.D1.MSC, 10, pretty = T)
+        pal <- colorBin("RdYlBu", select(spi_map_d1@data, !!input$color_choices_d1)[,1], 10, pretty = T)
         
         
         
@@ -676,9 +688,9 @@ server <- function(input, output, session) {
         leaflet(spi_map_d1) %>%
             addProviderTiles(providers$Esri.WorldStreetMap) %>%
             addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
-                        fillColor = ~pal(SPI.D1.MSC),
+                        fillColor = ~pal(select(spi_map_d1@data, !!input$color_choices_d1)[,1]),
                         label=labels) %>%
-            addLegend(pal=pal, values=~SPI.D1.MSC, opacity=0.7, title='SPI value', position="bottomleft")        
+            addLegend(pal=pal, values=~select(spi_map_d1@data, !!input$color_choices_d1)[,1], opacity=0.7, title='SPI value', position="bottomleft")        
     })
     
     ####
@@ -841,6 +853,7 @@ server <- function(input, output, session) {
         
     })
     
+    updateSelectizeInput(session, 'color_choices_d2', choices = colnames(SPI[,grep("SPI.D2",colnames(SPI))]), server = TRUE)
     
     
     output$spi_map_d2 <- renderLeaflet({
@@ -855,7 +868,7 @@ server <- function(input, output, session) {
         
         
         #create pallete
-        pal <- colorBin("RdYlBu", spi_map_d2@data$SPI.D2.CS, 10, pretty = T)
+        pal <- colorBin("RdYlBu", select(spi_map_d2@data, !!input$color_choices_d2)[,1], 10, pretty = T)
         
         
         
@@ -896,9 +909,9 @@ server <- function(input, output, session) {
         leaflet(spi_map_d2) %>%
             addProviderTiles(providers$Esri.WorldStreetMap) %>%
             addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
-                        fillColor = ~pal(SPI.D2.CS),
+                        fillColor = ~pal(select(spi_map_d2@data, !!input$color_choices_d2)[,1]),
                         label=labels) %>%
-            addLegend(pal=pal, values=~SPI.D2.CS, opacity=0.7, title='SPI value', position="bottomleft")        
+            addLegend(pal=pal, values=~select(spi_map_d2@data, !!input$color_choices_d2)[,1], opacity=0.7, title='SPI value', position="bottomleft")        
     })
     
     ####
@@ -1060,6 +1073,7 @@ server <- function(input, output, session) {
         
     })
     
+    updateSelectizeInput(session, 'color_choices_d3', choices = colnames(SPI[,grep("SPI.D3",colnames(SPI))]), server = TRUE)
     
     
     output$spi_map_d3 <- renderLeaflet({
@@ -1074,7 +1088,7 @@ server <- function(input, output, session) {
         
         
         #create pallete
-        pal <- colorBin("RdYlBu", spi_map_d3@data$SPI.D3.AKI, 10, pretty = T)
+        pal <- colorBin("RdYlBu", select(spi_map_d3@data, !!input$color_choices_d3)[,1], 10, pretty = T)
         
         
         
@@ -1129,9 +1143,9 @@ server <- function(input, output, session) {
         leaflet(spi_map_d3) %>%
             addProviderTiles(providers$Esri.WorldStreetMap) %>%
             addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
-                        fillColor = ~pal(SPI.D3.AKI),
+                        fillColor = ~pal(select(spi_map_d3@data, !!input$color_choices_d3)[,1]),
                         label=labels) %>%
-            addLegend(pal=pal, values=~SPI.D3.AKI, opacity=0.7, title='SPI value', position="bottomleft")        
+            addLegend(pal=pal, values=~select(spi_map_d3@data, !!input$color_choices_d3)[,1], opacity=0.7, title='SPI value', position="bottomleft")        
     })
     
     ####
@@ -1288,6 +1302,7 @@ server <- function(input, output, session) {
     })
     
     
+    updateSelectizeInput(session, 'color_choices_d4', choices = colnames(SPI[,grep("SPI.D4",colnames(SPI))]), server = TRUE)
     
     output$spi_map_d4 <- renderLeaflet({
         
@@ -1301,7 +1316,7 @@ server <- function(input, output, session) {
         
         
         #create pallete
-        pal <- colorBin("RdYlBu", spi_map_d4@data$SPI.D4.DPO, 10, pretty = T)
+        pal <- colorBin("RdYlBu", select(spi_map_d4@data, !!input$color_choices_d4)[,1], 10, pretty = T)
         
         
         
@@ -1340,9 +1355,9 @@ server <- function(input, output, session) {
         leaflet(spi_map_d4) %>%
             addProviderTiles(providers$Esri.WorldStreetMap) %>%
             addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
-                        fillColor = ~pal(SPI.D4.DPO),
+                        fillColor = ~pal(select(spi_map_d4@data, !!input$color_choices_d4)[,1]),
                         label=labels) %>%
-            addLegend(pal=pal, values=~SPI.D4.DPO, opacity=0.7, title='SPI value', position="bottomleft")        
+            addLegend(pal=pal, values=~select(spi_map_d4@data, !!input$color_choices_d4)[,1], opacity=0.7, title='SPI value', position="bottomleft")        
     })
     
     ####
