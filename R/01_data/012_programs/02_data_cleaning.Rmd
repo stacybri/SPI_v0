@@ -21,6 +21,8 @@ library(Hmisc)
 library(haven)
 library(lubridate)
 library(httr)
+library(rsdmx)
+
 
 # Directory for SPI csv files that were previously created
 csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
@@ -1261,8 +1263,9 @@ get_tag_aki_df<-wdisJSON %>%
   arrange(factor(name, levels = aki)) %>%
   select(id, name,  sourceOrganization) 
 
-
+#get WDI metadata infor
 cache_list<-wbstats::wbcache()
+country_list <- wbstats::wbcountries()
 
 aki_list<-get_tag_aki_df[,'id']
 
@@ -1287,10 +1290,9 @@ for (reference_year in 2016:2018) {
           )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
           mutate(date=reference_year) %>%
           ungroup() %>%
-          mutate(SPI.D3.AKI=100*rowSums(.[aki_list$id], na.rm=T)/length(aki_list$id)) %>%
-          select(iso3c, country, date, SPI.D3.AKI, aki_list$id) %>%
-          rename_at(aki_list$id, ~(paste('SPI.D3.',.,sep=""))) #add 'D3.' as prefix before these indicators.
-
+          select(iso3c, country, date,  aki_list$id) %>%
+          rename_at(aki_list$id, ~(paste('SPI.D3.',.,sep=""))) %>% #add 'D3.' as prefix before these indicators.
+          left_join(country_list) #attach country metadata
 
 
   assign(paste("D3.AKI",reference_year,sep="_"), temp)
@@ -1299,6 +1301,97 @@ for (reference_year in 2016:2018) {
 
 
 ```
+
+### AKI 3.1: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)
+
+The data will be pulled from the WDI and combined with metadata from the Povcalnet
+
+Scoring is as follows:
+Quality (0.5 points total):
+0.5 Point. Comparable data lasting at least two years within past 5 years	
+0 Points. No comparable data within past 5 years
+
+Frequency (0.5 points total):
+0.5 Point. 3 or more values available within past 5 years	
+0.3 Points. 2 values available within past 5 years; 	
+0.15 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
+
+
+```{r 3.1}
+library(povcalnetR) 
+
+#the code below is based on public released code by povcalnet team:
+#https://github.com/worldbank/Global_Poverty_Blogs/blob/master/bg_povcalnet_comparability/R/comparability_breaks.R
+
+# some contants
+year_range <- 1990:2020
+metadata_path <- "https://development-data-hub-s3-public.s3.amazonaws.com/ddhfiles/506801/povcalnet_comparability.csv"
+
+# Load data ---------------------------------------------------------------
+
+metadata <- read_csv(metadata_path)
+cov_lkup <- c(3, 2, 1, 4)
+names(cov_lkup) <- c("N", "U", "R", "A")
+
+dat_lkup <- c(2,1)
+names(dat_lkup) <- c("income","consumption")
+
+
+pcn <- povcalnet()
+pcn$coveragetype <- cov_lkup[pcn$coveragetype]
+pcn$datatype <- dat_lkup[pcn$datatype]
+
+df <- pcn %>%
+  inner_join(metadata, by = c("countrycode", "year", "coveragetype", "datatype"))
+
+
+#Now loop from 2016 and 2018, keeping just data inside last 5 years.
+for (reference_year in 2016:2018) {
+  
+  temp1<-df %>%
+        filter(coveragetype==3) %>% #keep just nationally representative samples
+        mutate(frequency=((reference_year-as.numeric(year))<=5) & (reference_year>as.numeric(year))) %>% 
+        filter(frequency==TRUE) %>%
+        group_by(countrycode, comparability) %>% #for each country and comparability type, get number of comparable estimates
+        summarise(SPI.QUAL.D3.POV=n())  %>%
+        ungroup() %>%
+        group_by(countrycode) %>% #now get a total by country with the max number of comparable estimates
+        summarise(SPI.QUAL.D3.POV=max(SPI.QUAL.D3.POV, na.rm=T)) %>%
+        mutate(SPI.QUAL.D3.POV=if_else(SPI.QUAL.D3.POV>=2,0.5,0)) #only give point if there is at least two observations that are comparable
+  
+  
+  temp <-df %>%
+          filter(coveragetype==3) %>% #keep just nationally representative samples
+          mutate(frequency=((reference_year-as.numeric(year))<=5) & (reference_year>as.numeric(year))) %>% 
+          mutate(SPI.FREQ.D3.POV=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          group_by(countryname,countrycode) %>%
+          summarise(SPI.FREQ.D3.POV=sum(SPI.FREQ.D3.POV, na.rm=T)) %>% 
+          mutate(SPI.FREQ.D3.POV=case_when(
+            SPI.FREQ.D3.POV>=3 ~ 0.5,
+            SPI.FREQ.D3.POV==2 ~ 0.3,
+            SPI.FREQ.D3.POV==1 ~ 0.15,
+            SPI.FREQ.D3.POV==0 ~ 0, 
+            TRUE ~ 0
+          )) %>%
+          left_join(temp1) %>% #now bring in quality dimension
+          mutate(SPI.QUAL.D3.POV=if_else(!is.na(SPI.QUAL.D3.POV),SPI.QUAL.D3.POV,0)) %>% #recode some missing values as zero, who had no observations in 5 year window
+          mutate(SPI.D3.POV=SPI.FREQ.D3.POV+SPI.QUAL.D3.POV) %>% 
+          mutate(date=reference_year,
+                 country=countryname,
+                 iso3c=countrycode) %>%
+          select( country,iso3c, date, starts_with('SPI.D3.POV')) 
+
+
+  assign(paste("D3.1.AKI",reference_year,sep="_"), temp)
+}
+
+D3.1.AKI <- bind_rows(D3.1.AKI_2016, D3.1.AKI_2017, D3.1.AKI_2018)
+
+
+
+```
+
 
 
 ### AKI 3.3: Mortality rate, under-5 (per 1,000 live births)  
@@ -1339,26 +1432,26 @@ D3.3.AKI.MORT <- read_csv(file=paste(csv_dir, 'D3.3_child_mort_RAW_v01.csv', sep
 for (reference_year in 2016:2018) {
   temp <-D3.3.AKI.MORT %>%
           mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% 
-          mutate(SPI.D3.CHLD.MORT.FREQ=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
-          mutate(SPI.D3.CHLD.MORT.QUAL=case_when(
+          mutate(SPI.FREQ.D3.CHLD.MORT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          mutate(SPI.QUAL.D3.CHLD.MORT=case_when(
                    reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
                    SERIES_METHOD=='Vital Registration' ~ 0.5,
                    SERIES_METHOD!='Vital Registration' ~ 0.25,
                    TRUE ~ as.numeric(NA)
                  )) %>%
           group_by(country) %>%
-          summarise(SPI.D3.CHLD.MORT.FREQ=sum(SPI.D3.CHLD.MORT.FREQ, na.rm=T),
-                    SPI.D3.CHLD.MORT.QUAL=max(SPI.D3.CHLD.MORT.QUAL, na.rm=T)) %>% 
-          mutate(SPI.D3.CHLD.MORT.FREQ=case_when(
-            SPI.D3.CHLD.MORT.FREQ>=3 ~ 0.5,
-            SPI.D3.CHLD.MORT.FREQ==2 ~ 0.3,
-            SPI.D3.CHLD.MORT.FREQ==1 ~ 0.15,
-            SPI.D3.CHLD.MORT.FREQ==0 ~ 0, 
+          summarise(SPI.FREQ.D3.CHLD.MORT=sum(SPI.FREQ.D3.CHLD.MORT, na.rm=T),
+                    SPI.QUAL.D3.CHLD.MORT=max(SPI.QUAL.D3.CHLD.MORT, na.rm=T)) %>% 
+          mutate(SPI.FREQ.D3.CHLD.MORT=case_when(
+            SPI.FREQ.D3.CHLD.MORT>=3 ~ 0.5,
+            SPI.FREQ.D3.CHLD.MORT==2 ~ 0.3,
+            SPI.FREQ.D3.CHLD.MORT==1 ~ 0.15,
+            SPI.FREQ.D3.CHLD.MORT==0 ~ 0, 
             TRUE ~ 0
           )) %>%
-          mutate(SPI.D3.CHLD.MORT=SPI.D3.CHLD.MORT.FREQ+SPI.D3.CHLD.MORT.QUAL) %>% 
+          mutate(SPI.D3.CHLD.MORT=SPI.FREQ.D3.CHLD.MORT+SPI.QUAL.D3.CHLD.MORT) %>% 
           mutate(date=reference_year) %>%
-          select( country, date, starts_with('SPI.D3.CHLD.MORT')) 
+          select( country, date, starts_with('SPI.')) 
 
 
   assign(paste("D3.3.AKI",reference_year,sep="_"), temp)
@@ -1410,9 +1503,9 @@ D3.3.AKI <- D3.3.AKI %>%
 ```
 
 
-### AKI 3.4. Quality Education
 
-```{r}
+
+```{r AKI_3.3, eval=FALSE, include=FALSE}
 EdStatsRequest_metadata <- GET(url = "https://api.worldbank.org/v2/country/all/indicator/SE.LPV.PRIM.BMP?footnote=y&per_page=30000&format=json")
 EdStatsResponse_metadata <- content(EdStatsRequest_metadata, as = "text", encoding = "UTF-8")
 
@@ -1431,14 +1524,72 @@ We considered using data from the Joint Monitoring Programme for Water Supply, S
 
 Rank by data availability for three components (Accessible on-premises, Available when needed, and Free from contamination)
 
+
+
+### AKI 3.17 Quarterly GDP
+
+Quarterly GDP numbers were pulled from the IMF website.
+
+After GDP by expenditure, quarterly GDP is probably the most important development to be made in a system of National Accounts, before the development of full sectoral accounts. IMF IFS has quarterly GDP from various sources, including governments and international agencies at https://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B
+
+Scoring
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
+
+
+
+```{r AKI_3.17}
+
+#read in file from rawdata folder
+D3.17.QUART.GDP <- read_csv(file = paste(csv_dir, "D3.17.QUART.GDP.csv", sep="/" ))
+
+#clean data and produce indicator for each year
+#Now loop from 2016 and 2018, keeping just data inside last 5 years.
+for (reference_year in 2016:2018) {
+temp <-D3.17.QUART.GDP %>%
+  mutate(date=as.numeric(str_sub(TIME_PERIOD,1,4))) %>%
+  mutate(iso2c=REF_AREA) %>%
+  mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% 
+  mutate(SPI.D3.QUART.GDP=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+  group_by(iso2c, date) %>%
+  summarise(SPI.D3.QUART.GDP=max(SPI.D3.QUART.GDP, na.rm=T)) %>% 
+  group_by(iso2c) %>%
+  summarise(SPI.D3.QUART.GDP=sum(SPI.D3.QUART.GDP, na.rm=T)) %>% 
+  mutate(SPI.D3.QUART.GDP=case_when(
+    SPI.D3.QUART.GDP>=3 ~ 1,
+    SPI.D3.QUART.GDP==2 ~ 0.6,
+    SPI.D3.QUART.GDP==1 ~ 0.3,
+    SPI.D3.QUART.GDP==0 ~ 0, 
+    TRUE ~ 0
+  )) %>%
+  mutate(date=reference_year) %>%
+  select( iso2c, date, starts_with('SPI.D3.QUART.GDP')) 
+
+
+  assign(paste("D3.17.AKI",reference_year,sep="_"), temp)
+}
+
+D3.17.AKI <- bind_rows(D3.17.AKI_2016, D3.17.AKI_2017, D3.17.AKI_2018)  
+
+```
+
 ### Combine all sources into AKI database
 
 ```{r aki_combine_write}
 
 #now combine AKI databases and write to csv
 D3.AKI <- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018) %>%
+  left_join(D3.1.AKI) %>%
   left_join(D3.3.AKI) %>%
-  mutate_at(vars(starts_with('SPI.D3.')), ~if_else(is.na(.),0,as.numeric(.)))
+  left_join(D3.17.AKI) %>%
+  mutate_at(vars(starts_with('SPI.D3.')), ~if_else(is.na(.),0,as.numeric(.))) 
+
+#calculate overall AKI score  
+D3.AKI <- D3.AKI  %>%
+  mutate(SPI.D3.AKI=100*rowSums(.[grep('SPI.D3.', colnames(D3.AKI))], na.rm=T)/length(grep('SPI.D3.', colnames(D3.AKI)))) 
+
 
 
 
@@ -1459,15 +1610,15 @@ Produce summary statistics of our indicators.
 
 ```{r}
 
-msc_sumstats <- D3.AKI %>%
+aki_sumstats <- D3.AKI %>%
   group_by(date) %>%
-  select(SPI.D3.AKI, paste('SPI.D3.',aki_list$id, sep='')) %>%
+  select(starts_with('SPI.D3')) %>%
   skim() %>%
   select(c("skim_variable",
            "date", "complete_rate", "numeric.mean",  "numeric.sd",    "numeric.p0",    "numeric.p25",   "numeric.p50",
            "numeric.p75",   "numeric.p100",  "numeric.hist"))
 
-kable(msc_sumstats, caption="Summary Statistics of Availability of Key Indicator Variables" , col.names = c("Indicator", "Date", "Completion Rate", "Mean",  "Std Dev","Min", "25th Percentile", "Median", "75th Percentile", "Max",  "Histogram"), digits = 2 ) %>%
+kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator Variables" , col.names = c("Indicator", "Date", "Completion Rate", "Mean",  "Std Dev","Min", "25th Percentile", "Median", "75th Percentile", "Max",  "Histogram"), digits = 2 ) %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 
 ```

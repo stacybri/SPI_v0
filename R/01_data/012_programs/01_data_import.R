@@ -778,6 +778,62 @@ aki_7_df <- read_excel(path=paste(excel_dir,"JMP_2019_WLD (1).xlsx", sep="/"),
                        sheet="Water", 
                        skip=2)
 
+###############
+# Indicator 17: Quarterly GDP
+###############
+
+#written by Yasmina Hmamouchi
+
+
+
+
+#######################################
+#Define path and url sections
+########################################
+
+urlCompactData <- "http://dataservices.imf.org/REST/SDMX_XML.svc/CompactData/IFS/Q."
+urlDateRange <- "?startPeriod=2009Q1&endPeriod=2019Q4"
+indicator <- ".NGDP_XDC"
+
+#CountriesCodes
+AFtoKM <- "AF+AL+DZ+AO+AI+AG+AR+AM+AW+AU+AT+AZ+BS+BH+BD+BB+BY+BE+BZ+BJ+BM+BT+BO+BA+BW+BR+BN+BG+BF+BI+CV+KH+CM+CA+KY+CF+TD+CL+HK+MO+CN+CO+KM"
+KMtoGW <- "KM+CD+CG+CR+CI+HR+CU+CW+CY+CZ+DK+DJ+DM+DO+EC+EG+SV+GQ+ER+EE+SZ+ET+FO+FJ+FI+FR+PF+GA+GM+GE+DE+GH+GI+GR+GL+GD+GP+GU+GT+GG+GF+GN+GW"
+GYtoFM <- "GY+HT+HN+HU+IS+IN+ID+IR+IQ+IE+IM+IL+IT+JM+JP+JE+JO+KZ+KE+KI+KR+XK+KW+KG+LA+LV+LB+LS+LR+LY+LT+LU+MG+MW+MY+MV+ML+MT+MH+MQ+MR+MU+MX+FM"
+MDtoSG <- "MD+MN+ME+MS+MA+MZ+MM+NA+NR+NP+AN+NL+NC+NZ+NI+NE+NG+MK+NO+OM+PK+PW+PA+PG+PY+PE+PH+PL+PT+QA+RE+RO+RU+RW+PM+WS+SM+ST+SA+SN+RS+SC+SL+SG"
+SXtoZW <- "SX+SK+SI+SB+SO+ZA+SS+ES+LK+KN+LC+VC+SD+SR+SE+CH+SY+TW+TJ+TZ+TH+TL+TG+TO+TT+TN+TR+TM+TC+TV+UG+UA+AE+GB+US+UY+UZ+VU+VE+VN+PS+YE+ZM+ZW"
+
+
+########################################
+#Load countries data into 5 different files 
+########################################
+
+apiDataUrl <- paste(urlCompactData,AFtoKM,indicator,urlDateRange,sep="") 
+dataset <- readSDMX(apiDataUrl)
+GDPAFtoCN <- as.data.frame(dataset)
+
+apiDataUrl <- paste(urlCompactData,KMtoGW,indicator,urlDateRange,sep="") 
+dataset <- readSDMX(apiDataUrl)
+GDPKMtoGW <- as.data.frame(dataset)
+
+apiDataUrl <- paste(urlCompactData,GYtoFM,indicator,urlDateRange,sep="") 
+dataset <- readSDMX(apiDataUrl)
+GDPGYtoFM <- as.data.frame(dataset)
+
+apiDataUrl <- paste(urlCompactData,MDtoSG,indicator,urlDateRange,sep="") 
+dataset <- readSDMX(apiDataUrl)
+GDPMDtoSG <- as.data.frame(dataset)
+
+apiDataUrl <- paste(urlCompactData,SXtoZW,indicator,urlDateRange,sep="") 
+dataset <- readSDMX(apiDataUrl)
+GDPSXtoZW <- as.data.frame(dataset)
+
+
+#Merge Files to one
+D3.17.QUART.GDP <- bind_rows(GDPAFtoCN, GDPKMtoGW, GDPGYtoFM, GDPMDtoSG, GDPSXtoZW)
+write_excel_csv(D3.17.QUART.GDP,
+                path = paste(csv_dir, "D3.17.QUART.GDP.csv", sep="/" ))
+
+
 
 ###############################
 # SPI Dimension 4: Dissemination Practices and Openness (DPO):
