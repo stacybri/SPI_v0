@@ -771,12 +771,20 @@ write_excel_csv(D2.8.SVY.BIZZ,
 ###############################
 
 ###############
-# Indicator 7: Water Data
+# Indicator 6: Water Data
 ###############
 
-aki_7_df <- read_excel(path=paste(excel_dir,"JMP_2019_WLD (1).xlsx", sep="/"),
+aki_6_df <- read_excel(path=paste(excel_dir,"D3.AKI","JMP_2019_WLD (1).xlsx", sep="/"),
                        sheet="Water", 
                        skip=2)
+###############
+# Indicator 7: Electricity Data
+###############
+aki_7_df <- read_excel(path=paste(excel_dir,"D3.AKI","WB electrification database - Surveys + Access rates.xlsx", sep="/"),
+                       sheet="Collected Surveys")
+
+write_excel_csv(aki_7_df,
+                path = paste(csv_dir, "D3.7.ELEC.csv", sep="/" ))
 
 ###############
 # Indicator 17: Quarterly GDP

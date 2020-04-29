@@ -1243,7 +1243,7 @@ aki<- c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
         #'Mortality rate, under-5 (per 1,000 live births)', This was replaced using the following source https://childmortality.org/data 
         'Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
         'People using safely managed drinking water services (% of population)',
-        'Access to electricity (% of population)',
+        #'Access to electricity (% of population)',
         'Unemployment, total (% of total labor force) (national estimate)' ,
         'Manufacturing, value added (% of GDP)',
         'Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
@@ -1516,13 +1516,58 @@ EdStatsJSON_metadata <- jsonlite::fromJSON(EdStatsResponse_metadata, flatten = T
 ```
 
 
-### AKI 3.5: People using safely managed drinking water services (% of population) 
+### AKI 3.6: People using safely managed drinking water services (% of population) 
 
 Safely managed drinking water has less coverage than basic drinking water.  The hurdle for countries is measuring water quality (test for E coli, etc).  Infrastructrure tends to be more static than other indicators, so expanding the window for the frequency of data may be needed.  May consider indicator system where we have 0 points for no data, 0.5 points for all data except water quality (this is available in a pdf report by the Bank and Unicef), and 1 point for full indicator for safely managed water.
 
 We considered using data from the Joint Monitoring Programme for Water Supply, Sanitation and Hygiene.  However, data was only updated up to 2017, which did not meet our needs.
 
 Rank by data availability for three components (Accessible on-premises, Available when needed, and Free from contamination)
+
+
+
+### AKI 3.7: Access to electricity (% of population) 
+
+Access to Electricity (% of population) has 99% coverage in the WDI database making it less useful for distinguishing between countries.  In order to improve the usefulness of this indicator, we are making use of data compiled by World Bank colleagues on surveys containing electricity items.  According to the access to electricity metadata, around 42 countries have no data and an imputed value is assigned based on the regional average.  By going to survey source data, we address this issue of imputation, which gives a misleading picture of availability for our purposes.  Below is the metadata from the WDI for methods for the access to electricity indicator.
+
+>Data for access to electricity are collected among different sources: mostly data from nationally representative household surveys (including national censuses) were used. Survey sources include Demographic and Health Surveys (DHS) and Living Standards Measurement Surveys (LSMS), Multi-Indicator Cluster Surveys (MICS), the World Health Survey (WHS), other nationally developed and implemented surveys, and various government agencies (for example, ministries of energy and utilities). Given the low frequency and the regional distribution of some surveys, a number of countries have gaps in available data. To develop the historical evolution and starting point of electrification rates, a simple modeling approach was adopted to fill in the missing data points - around 1990, around 2000, and around 2010. Therefore, a country can have a continuum of zero to three data points. There are 42 countries with zero data point and the weighted regional average was used as an estimate for electrification in each of the data periods. 170 countries have between one and three data points and missing data are estimated by using a model with region, country, and time variables. The model keeps the original observation if data is available for any of the time periods. This modeling approach allowed the estimation of electrification rates for 212 countries over these three time periods (Indicated as "Estimate"). Notation "Assumption" refers to the assumption of universal access in countries classified as developed by the United Nations. Data begins from the year in which the first survey data is available for each country.
+
+Scoring
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
+
+```{r}
+#read in file from rawdata folder
+D3.7.ELEC <- read_csv(file = paste(csv_dir, "D3.7.ELEC.csv", sep="/" )) %>%
+  rename(country=Country,
+         iso3c="Country code",
+         date=Time)
+
+#Now loop from 2016 and 2018, keeping just data inside last 5 years.
+for (reference_year in 2016:2018) {
+  temp <-D3.7.ELEC %>%
+          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% 
+          mutate(SPI.D3.ELEC=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          group_by(country) %>%
+          summarise(SPI.D3.ELEC=sum(SPI.D3.ELEC, na.rm=T)) %>%
+          mutate(SPI.D3.ELEC=case_when(
+            SPI.D3.ELEC>=3 ~ 1,
+            SPI.D3.ELEC==2 ~ 0.6,
+            SPI.D3.ELEC==1 ~ 0.3,
+            SPI.D3.ELEC==0 ~ 0, 
+            TRUE ~ 0
+          )) %>%
+          mutate(date=reference_year) %>%
+          select( country, date, starts_with('SPI.')) 
+
+
+  assign(paste("D3.7.AKI",reference_year,sep="_"), temp)
+}
+
+D3.7.AKI <- bind_rows(D3.7.AKI_2016, D3.7.AKI_2017, D3.7.AKI_2018)
+```
 
 
 
@@ -1583,6 +1628,7 @@ D3.17.AKI <- bind_rows(D3.17.AKI_2016, D3.17.AKI_2017, D3.17.AKI_2018)
 D3.AKI <- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018) %>%
   left_join(D3.1.AKI) %>%
   left_join(D3.3.AKI) %>%
+  left_join(D3.7.AKI) %>%
   left_join(D3.17.AKI) %>%
   mutate_at(vars(starts_with('SPI.D3.')), ~if_else(is.na(.),0,as.numeric(.))) 
 
@@ -2001,18 +2047,18 @@ var.labels.df<-data.frame(var.labels) %>%
 write_excel_csv(SPI,
                 path = paste(csv_output, "SPI_scores_long.csv", sep="/" ))
 
-#save to stata with compatible names
-SPI  %>%
-  janitor::clean_names() %>%
-  write_dta(path = paste(csv_output, "SPI_scores.dta", sep="/" ))
+# #save to stata with compatible names
+# SPI  %>%
+#   janitor::clean_names() %>%
+#   write_dta(path = paste(csv_output, "SPI_scores.dta", sep="/" ))
 
 
 write_excel_csv(SPI_wide,
                 path = paste(csv_output, "SPI_scores_wide.csv", sep="/" ))
 
-SPI_wide  %>%
-  janitor::clean_names() %>%
-  write_dta(path = paste(csv_output, "SPI_scores_wide.dta", sep="/" ))
+# SPI_wide  %>%
+#   janitor::clean_names() %>%
+#   write_dta(path = paste(csv_output, "SPI_scores_wide.dta", sep="/" ))
 ```
 
 # Metadata
