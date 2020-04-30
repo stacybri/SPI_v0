@@ -219,6 +219,8 @@ cols <- c("id","name")
 whoRequest <- GET(url = "https://apps.who.int/gho/athena/api/GHO/MDG_0000000026.json?profile=simple")
 whoResponse <- content(whoRequest,  encoding = "UTF-8")
 
+who_df <- read_csv(file="https://apps.who.int/gho/athena/api/GHO/MDG_0000000026?format=csv")
+
 
 #build database
 who_df <- fromJSON(whoResponse, flatten = TRUE) %>%
@@ -310,7 +312,8 @@ library(xml2)
 unicef_url = "https://api.data.unicef.org/sdmx/Rest/dataflow/UNICEF/CME_DF/1.0/?references=all"
 
 unicef_url = "https://api.data.unicef.org/sdmx/Rest/data/UNICEF,CME_DF,1.0/.MRY0T4._T.269../?startPeriod=2017&endPeriod=2018"
-
+dataset <- readSDMX(unicef_url)
+MORT <- as.data.frame(dataset)
 
 #build database
 unicef_df <- read_xml(unicef_url, as.html=T)

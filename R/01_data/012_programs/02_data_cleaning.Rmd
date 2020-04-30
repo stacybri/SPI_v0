@@ -1177,7 +1177,7 @@ Below is the list of AKI indicators:
 - AKI 3.3: Mortality rate, under-5 (per 1,000 live births)  
 - AKI 3.4: Proportion of children and young people in grades 2/3 achieving at least a minimum proficiency level in
 (i) reading and (ii) mathematics, by sex.  
-- AKI 3.5:  
+- AKI 3.5: Maternal Mortality
 - AKI 3.6: People using safely managed drinking water services (% of population)  
 - AKI 3.7: Access to electricity (% of population)  
 - AKI 3.8: Unemployment, total (% of total labor force)  
@@ -1514,6 +1514,14 @@ EdStatsJSON_metadata <- jsonlite::fromJSON(EdStatsResponse_metadata, flatten = T
   data.frame() %>%
   filter(str_length(footnote)>0)
 ```
+
+
+### AKI 3.5 Maternal Mortality Ratio
+
+The data is sourced from the the Inter-Agency Group (200 countries) to improve time and country coverages. Tne national estimates with the source information are available at https://www.who.int/gho/maternal_health/countries/en/.  We use the country reported estimate (https://apps.who.int/gho/athena/api/GHO/MDG_0000000032?format=csv).  
+
+
+
 
 
 ### AKI 3.6: People using safely managed drinking water services (% of population) 

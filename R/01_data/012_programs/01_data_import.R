@@ -770,6 +770,28 @@ write_excel_csv(D2.8.SVY.BIZZ,
 # SPI Dimension 3: Availability of Key Indicators (AKI):
 ###############################
 
+##############
+# Indicator 5: Maternal Mortality
+##############
+# Pull WHO data on Maternal Mortality country
+
+#now make request using API
+aki_5_df <- read_csv(file="https://apps.who.int/gho/athena/api/GHO/MDG_0000000026?format=csv")
+write_excel_csv(aki_5_df,
+                path = paste(csv_dir, "D3.5.MMR.csv", sep="/" ))
+
+
+##############
+# Indicator 3: Child Mortality
+##############
+#call the api for mortality under 5 data from unicef
+#now make request using API
+
+unicef_url = "https://api.data.unicef.org/sdmx/Rest/data/UNICEF,CME_DF,1.0/.MRY0T4._T../?startPeriod=2000&endPeriod=2019"
+dataset <- readSDMX(unicef_url)
+MORT <- as.data.frame(dataset) %>%
+  filter(OBS_STATUS=="IN")
+
 ###############
 # Indicator 6: Water Data
 ###############
