@@ -11,6 +11,9 @@ ALB,Albania,2016,2014
 ALB,Albania,2017,2016
 ALB,Albania,2018,2016
 ALB,Albania,2019,2016
+ARE,United Arab Emirates,2016,2008
+ARE,United Arab Emirates,2017,2008
+ARE,United Arab Emirates,2018,2008
 ARG,Argentina,2016,2005
 ARG,Argentina,2017,2005
 ARG,Argentina,2018,2005
@@ -23,6 +26,12 @@ ATG,Antigua and Barbuda,2016,2001
 ATG,Antigua and Barbuda,2017,2001
 ATG,Antigua and Barbuda,2018,2001
 ATG,Antigua and Barbuda,2019,2001
+AUS,Australia,2016,annual chained
+AUS,Australia,2017,annual chained
+AUS,Australia,2018,annual chained
+AUT,Austria,2016,annual chained
+AUT,Austria,2017,annual chained
+AUT,Austria,2018,annual chained
 AZE,Azerbaijan,2016,annual chained
 AZE,Azerbaijan,2017,annual chained
 AZE,Azerbaijan,2018,annual chained
@@ -31,6 +40,9 @@ BDI,Burundi,2016,2008
 BDI,Burundi,2017,2014
 BDI,Burundi,2018,2014
 BDI,Burundi,2019,2014
+BEL,Belgium,2016,2014
+BEL,Belgium,2017,2014
+BEL,Belgium,2018,2014
 BEN,Benin,2016,2008
 BEN,Benin,2017,2008
 BEN,Benin,2018,2008
@@ -47,6 +59,12 @@ BGR,Bulgaria,2016,annual chained
 BGR,Bulgaria,2017,annual chained
 BGR,Bulgaria,2018,annual chained
 BGR,Bulgaria,2019,annual chained
+BHR,Bahrain,2016,2006
+BHR,Bahrain,2017,2006
+BHR,Bahrain,2018,2006
+BHS,"Bahamas, The",2016,2006
+BHS,"Bahamas, The",2017,2006
+BHS,"Bahamas, The",2018,2006
 BIH,Bosnia and Herzegovina,2016,2007
 BIH,Bosnia and Herzegovina,2017,2007
 BIH,Bosnia and Herzegovina,2018,2007
@@ -67,6 +85,12 @@ BRA,Brazil,2016,2009
 BRA,Brazil,2017,2009
 BRA,Brazil,2018,2009
 BRA,Brazil,2019,2009
+BRB,Barbados,2016,1999
+BRB,Barbados,2017,1999
+BRB,Barbados,2018,1999
+BRN,Brunei Darussalam,2016,2005
+BRN,Brunei Darussalam,2017,2005
+BRN,Brunei Darussalam,2018,2005
 BTN,Bhutan,2016,2003
 BTN,Bhutan,2017,2003
 BTN,Bhutan,2018,2003
@@ -79,6 +103,12 @@ CAF,Central African Republic,2016,1975
 CAF,Central African Republic,2017,1975
 CAF,Central African Republic,2018,1975
 CAF,Central African Republic,2019,1975
+CAN,Canada,2016,2015
+CAN,Canada,2017,2015
+CAN,Canada,2018,2015
+CHE,Switzerland,2016,annual chained
+CHE,Switzerland,2017,annual chained
+CHE,Switzerland,2018,annual chained
 CHL,Chile,2016,2007
 CHL,Chile,2017,2012
 CHL,Chile,2018,2012
@@ -119,6 +149,15 @@ CRI,Costa Rica,2016,2013
 CRI,Costa Rica,2017,2013
 CRI,Costa Rica,2018,2013
 CRI,Costa Rica,2019,2013
+CYP,Cyprus,2016,2010
+CYP,Cyprus,2017,2016
+CYP,Cyprus,2018,2016
+CZE,Czech Republic,2016,2012
+CZE,Czech Republic,2017,2016
+CZE,Czech Republic,2018,2016
+DEU,Germany,2016,2013
+DEU,Germany,2017,2010
+DEU,Germany,2018,2010
 DJI,Djibouti,2016,1999
 DJI,Djibouti,2017,1999
 DJI,Djibouti,2018,1999
@@ -127,6 +166,9 @@ DMA,Dominica,2016,2009
 DMA,Dominica,2017,2009
 DMA,Dominica,2018,2009
 DMA,Dominica,2019,2009
+DNK,Denmark,2016,annual chained
+DNK,Denmark,2017,annual chained
+DNK,Denmark,2018,annual chained
 DOM,Dominican Republic,2016,2007
 DOM,Dominican Republic,2017,2007
 DOM,Dominican Republic,2018,2007
@@ -147,14 +189,26 @@ ERI,Eritrea,2016,0
 ERI,Eritrea,2017,0
 ERI,Eritrea,2018,0
 ERI,Eritrea,2019,0
+ESP,Spain,2016,2014
+ESP,Spain,2017,2014
+ESP,Spain,2018,2014
+EST,Estonia,2016,annual chained
+EST,Estonia,2017,annual chained
+EST,Estonia,2018,annual chained
 ETH,Ethiopia,2016,2005
 ETH,Ethiopia,2017,2005
 ETH,Ethiopia,2018,2005
 ETH,Ethiopia,2019,2005
+FIN,Finland,2016,annual chained
+FIN,Finland,2017,annual chained
+FIN,Finland,2018,annual chained
 FJI,Fiji,2016,2009
 FJI,Fiji,2017,2009
 FJI,Fiji,2018,2009
 FJI,Fiji,2019,2003
+FRA,France,2016,annual chained
+FRA,France,2017,annual chained
+FRA,France,2018,annual chained
 FSM,"Micronesia, Fed. Sts.",2016,2005
 FSM,"Micronesia, Fed. Sts.",2017,2005
 FSM,"Micronesia, Fed. Sts.",2018,2005
@@ -163,6 +217,9 @@ GAB,Gabon,2016,2003
 GAB,Gabon,2017,2003
 GAB,Gabon,2018,2003
 GAB,Gabon,2019,2003
+GBR,United Kingdom,2016,annual chained
+GBR,United Kingdom,2017,annual chained
+GBR,United Kingdom,2018,annual chained
 GEO,Georgia,2016,2015
 GEO,Georgia,2017,2016
 GEO,Georgia,2018,2016
@@ -187,6 +244,9 @@ GNQ,Equatorial Guinea,2016,2006
 GNQ,Equatorial Guinea,2017,2006
 GNQ,Equatorial Guinea,2018,2006
 GNQ,Equatorial Guinea,2019,2006
+GRC,Greece,2016,2012
+GRC,Greece,2017,2012
+GRC,Greece,2018,2012
 GRD,Grenada,2016,2010
 GRD,Grenada,2017,2010
 GRD,Grenada,2018,2010
@@ -211,6 +271,9 @@ HTI,Haiti,2016,2004
 HTI,Haiti,2017,2004
 HTI,Haiti,2018,2004
 HTI,Haiti,2019,2004
+HUN,Hungary,2016,annual chained
+HUN,Hungary,2017,annual chained
+HUN,Hungary,2018,annual chained
 IDN,Indonesia,2016,2012
 IDN,Indonesia,2017,2012
 IDN,Indonesia,2018,2012
@@ -219,6 +282,9 @@ IND,India,2016,2012
 IND,India,2017,2012
 IND,India,2018,2012
 IND,India,2019,2012
+IRL,Ireland,2016,2010
+IRL,Ireland,2017,2010
+IRL,Ireland,2018,2010
 IRN,"Iran, Islamic Rep.",2016,2011
 IRN,"Iran, Islamic Rep.",2017,2011
 IRN,"Iran, Islamic Rep.",2018,2011
@@ -227,6 +293,15 @@ IRQ,Iraq,2016,2007
 IRQ,Iraq,2017,2007
 IRQ,Iraq,2018,2007
 IRQ,Iraq,2019,2012
+ISL,Iceland,2016,annual chained
+ISL,Iceland,2017,annual chained
+ISL,Iceland,2018,annual chained
+ISR,Israel,2016,2009
+ISR,Israel,2017,2009
+ISR,Israel,2018,2009
+ITA,Italy,2016,annual chained
+ITA,Italy,2017,annual chained
+ITA,Italy,2018,annual chained
 JAM,Jamaica,2016,2005
 JAM,Jamaica,2017,2005
 JAM,Jamaica,2018,2005
@@ -235,6 +310,9 @@ JOR,Jordan,2016,2007
 JOR,Jordan,2017,2007
 JOR,Jordan,2018,2007
 JOR,Jordan,2019,2007
+JPN,Japan,2016,2015
+JPN,Japan,2017,2015
+JPN,Japan,2018,2015
 KAZ,Kazakhstan,2016,annual chained
 KAZ,Kazakhstan,2017,annual chained
 KAZ,Kazakhstan,2018,annual chained
@@ -259,6 +337,12 @@ KNA,St. Kitts and Nevis,2016,1998
 KNA,St. Kitts and Nevis,2017,1998
 KNA,St. Kitts and Nevis,2018,1998
 KNA,St. Kitts and Nevis,2019,1998
+KOR,"Korea, Rep.",2016,2015
+KOR,"Korea, Rep.",2017,2017
+KOR,"Korea, Rep.",2018,2017
+KWT,Kuwait,2016,2000
+KWT,Kuwait,2017,2000
+KWT,Kuwait,2018,2000
 LAO,Lao PDR,2016,2013
 LAO,Lao PDR,2017,2013
 LAO,Lao PDR,2018,2013
@@ -287,6 +371,15 @@ LSO,Lesotho,2016,2003
 LSO,Lesotho,2017,2003
 LSO,Lesotho,2018,2003
 LSO,Lesotho,2019,2003
+LTU,Lithuania,2016,annual chained
+LTU,Lithuania,2017,annual chained
+LTU,Lithuania,2018,annual chained
+LUX,Luxembourg,2016,annual chained
+LUX,Luxembourg,2017,annual chained
+LUX,Luxembourg,2018,annual chained
+LVA,Latvia,2016,annual chained
+LVA,Latvia,2017,annual chained
+LVA,Latvia,2018,annual chained
 MAR,Morocco,2016,2007
 MAR,Morocco,2017,2007
 MAR,Morocco,2018,2007
@@ -319,6 +412,9 @@ MLI,Mali,2016,1996
 MLI,Mali,2017,1996
 MLI,Mali,2018,1996
 MLI,Mali,2019,1996
+MLT,Malta,2016,2009
+MLT,Malta,2017,2009
+MLT,Malta,2018,2009
 MMR,Myanmar,2016,2012
 MMR,Myanmar,2017,2012
 MMR,Myanmar,2018,2012
@@ -367,6 +463,12 @@ NIC,Nicaragua,2016,2007
 NIC,Nicaragua,2017,2007
 NIC,Nicaragua,2018,2007
 NIC,Nicaragua,2019,2007
+NLD,Netherlands,2016,annual chained
+NLD,Netherlands,2017,annual chained
+NLD,Netherlands,2018,annual chained
+NOR,Norway,2016,annual chained
+NOR,Norway,2017,annual chained
+NOR,Norway,2018,annual chained
 NPL,Nepal,2016,2006
 NPL,Nepal,2017,2006
 NPL,Nepal,2018,2006
@@ -375,6 +477,12 @@ NRU,Nauru,2016,0
 NRU,Nauru,2017,0
 NRU,Nauru,2018,0
 NRU,Nauru,2019,0
+NZL,New Zealand,2016,2006
+NZL,New Zealand,2017,annual chained
+NZL,New Zealand,2018,annual chained
+OMN,Oman,2016,2000
+OMN,Oman,2017,2000
+OMN,Oman,2018,2000
 PAK,Pakistan,2016,2008
 PAK,Pakistan,2017,2008
 PAK,Pakistan,2018,2008
@@ -403,6 +511,9 @@ POL,Poland,2016,annual chained
 POL,Poland,2017,annual chained
 POL,Poland,2018,annual chained
 POL,Poland,2019,annual chained
+PRT,Portugal,2016,annual chained
+PRT,Portugal,2017,annual chained
+PRT,Portugal,2018,annual chained
 PRY,Paraguay,2016,2006
 PRY,Paraguay,2017,2006
 PRY,Paraguay,2018,2006
@@ -411,6 +522,9 @@ PSE,West Bank and Gaza,2016,2010
 PSE,West Bank and Gaza,2017,2010
 PSE,West Bank and Gaza,2018,2010
 PSE,West Bank and Gaza,2019,2017
+QAT,Qatar,2016,2006
+QAT,Qatar,2017,2006
+QAT,Qatar,2018,2006
 ROU,Romania,2016,annual chained
 ROU,Romania,2017,annual chained
 ROU,Romania,2018,annual chained
@@ -423,6 +537,9 @@ RWA,Rwanda,2016,2011
 RWA,Rwanda,2017,2011
 RWA,Rwanda,2018,2011
 RWA,Rwanda,2019,2014
+SAU,Saudi Arabia,2016,1999
+SAU,Saudi Arabia,2017,1999
+SAU,Saudi Arabia,2018,1999
 SDN,Sudan,2016,2008
 SDN,Sudan,2017,2008
 SDN,Sudan,2018,2008
@@ -431,6 +548,9 @@ SEN,Senegal,2016,2008
 SEN,Senegal,2017,2008
 SEN,Senegal,2018,2008
 SEN,Senegal,2019,2008
+SGP,Singapore,2016,2013
+SGP,Singapore,2017,2013
+SGP,Singapore,2018,2013
 SLB,Solomon Islands,2016,2006
 SLB,Solomon Islands,2017,2006
 SLB,Solomon Islands,2018,2006
@@ -443,6 +563,9 @@ SLV,El Salvador,2016,2006
 SLV,El Salvador,2017,2006
 SLV,El Salvador,2018,2006
 SLV,El Salvador,2019,2006
+SMR,San Marino,2016,annual chained
+SMR,San Marino,2017,annual chained
+SMR,San Marino,2018,annual chained
 SOM,Somalia,2016,0
 SOM,Somalia,2017,0
 SOM,Somalia,2018,0
@@ -463,6 +586,15 @@ SUR,Suriname,2016,2008
 SUR,Suriname,2017,2008
 SUR,Suriname,2018,2008
 SUR,Suriname,2019,2008
+SVK,Slovak Republic,2016,annual chained
+SVK,Slovak Republic,2017,annual chained
+SVK,Slovak Republic,2018,annual chained
+SVN,Slovenia,2016,annual chained
+SVN,Slovenia,2017,annual chained
+SVN,Slovenia,2018,annual chained
+SWE,Sweden,2016,annual chained
+SWE,Sweden,2017,annual chained
+SWE,Sweden,2018,annual chained
 SWZ,Eswatini,2016,2001
 SWZ,Eswatini,2017,2001
 SWZ,Eswatini,2018,2001
@@ -535,6 +667,9 @@ URY,Uruguay,2016,2006
 URY,Uruguay,2017,2006
 URY,Uruguay,2018,2006
 URY,Uruguay,2019,2006
+USA,United States,2016,annual chained
+USA,United States,2017,annual chained
+USA,United States,2018,annual chained
 UZB,Uzbekistan,2016,0
 UZB,Uzbekistan,2017,2016
 UZB,Uzbekistan,2018,2016

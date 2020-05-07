@@ -121,7 +121,7 @@ D1.2.MSC.NABY <- D1.2.MSC.NABY %>%
   arrange(iso3c, date) 
 
 
-
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
 D1.2.MSC.NABY_2019<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, 2018 & 2019 - D1.2.MSC.NABY -REV.xlsx", sep=""),
                      sheet="2016-2019 data",
                      skip=1,
@@ -208,12 +208,32 @@ bind_rows(D1.3.MSC.CNIN_2016, D1.3.MSC.CNIN_2017, D1.3.MSC.CNIN_2018,D1.3.MSC.CN
 # changed periodically to reflect changes in expenditure structure.         
 #########
 
-D1.4.MSC.CPIBY<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, 2018 & 2019 - D1.4.MSC.CPIBY -REV.xlsx", sep=""),
-                          sheet="2016-2019 data",
+D1.4.MSC.CPIBY<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, & 2018 - D1.4.MSC.CPIBY - REV.xlsx", sep=""),
+                          sheet="2016-2018 data",
                           skip=1,
                           .name_repair = 'universal')
 
 D1.4.MSC.CPIBY <- D1.4.MSC.CPIBY %>%
+  mutate(CPIBY_2016=CPI.BY.OCT2016,
+         CPIBY_2017=CPI.BY.OCT2017,
+         CPIBY_2018=CPI.BY.OCT2018,
+         iso3c=Code,
+         country=Country) %>%
+  select(iso3c, country, CPIBY_2016, CPIBY_2017, CPIBY_2018) %>%
+  pivot_longer(cols=contains(as.character(2016:2018)),
+               names_to='date',
+               names_prefix='CPIBY_',
+               values_to='CPIBY') %>%
+  mutate(date=as.numeric(date)) %>%
+  arrange(iso3c, date) 
+
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
+D1.4.MSC.CPIBY_2019<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, 2018 & 2019 - D1.4.MSC.CPIBY -REV.xlsx", sep=""),
+                                sheet="2016-2019 data",
+                                skip=1,
+                                .name_repair = 'universal')
+
+D1.4.MSC.CPIBY_2019 <- D1.4.MSC.CPIBY_2019 %>%
   mutate(CPIBY_2016=CPI.BY.OCT2016,
          CPIBY_2017=CPI.BY.OCT2017,
          CPIBY_2018=CPI.BY.OCT2018,
@@ -226,8 +246,12 @@ D1.4.MSC.CPIBY <- D1.4.MSC.CPIBY %>%
                names_prefix='CPIBY_',
                values_to='CPIBY') %>%
   mutate(date=as.numeric(date)) %>%
+  filter(date==2019) %>%
   arrange(iso3c, date) 
 
+D1.4.MSC.CPIBY <- D1.4.MSC.CPIBY %>%
+  bind_rows(D1.4.MSC.CPIBY_2019) %>%
+  arrange(iso3c, date) 
 
 
 write_excel_csv(D1.4.MSC.CPIBY,
@@ -247,30 +271,23 @@ write_excel_csv(D1.4.MSC.CPIBY,
 # statistics in these different areas.   
 #########
 
-D1.5.MSC.HOUS_2016 <- spi_loader(1,5,'HOUS', 2016,0) %>%
-  mutate(HOUS=Classification.of.household.consumption,
-         iso3c=Code,
-         country=Country,
-         date=2016) %>%
-  select(iso3c, country,date, HOUS)
 
-D1.5.MSC.HOUS_2017 <- spi_loader(1,5,'HOUS', 2017,0) %>%
-  mutate(HOUS=Classification.of.household.consumption,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, HOUS)
+for (i in 2016:2019) {
+  temp <- spi_loader(1,5,'HOUS', i,0) %>%
+    mutate(HOUS=Classification.of.household.consumption,
+           iso3c=Code,
+           country=Country,
+           date=i) %>%
+    select(iso3c, country,date, HOUS)
+  
+  assign(paste("D1.5.MSC.HOUS",i,sep="_"), temp)
+  
+}
 
-D1.5.MSC.HOUS_2018 <- spi_loader(1,5,'HOUS', 2018,0) %>%
-  mutate(HOUS=Classification.of.household.consumption,
-         iso3c=Code,
-         country=Country,
-         date=2018) %>%
-  select(iso3c, country,date, HOUS)
 
 
 #save to csv
-bind_rows(D1.5.MSC.HOUS_2016, D1.5.MSC.HOUS_2017, D1.5.MSC.HOUS_2018) %>%
+bind_rows(D1.5.MSC.HOUS_2016, D1.5.MSC.HOUS_2017, D1.5.MSC.HOUS_2018, D1.5.MSC.HOUS_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.5.MSC.HOUS.csv", sep="/" ))
@@ -289,30 +306,24 @@ bind_rows(D1.5.MSC.HOUS_2016, D1.5.MSC.HOUS_2017, D1.5.MSC.HOUS_2018) %>%
 # relationship, including the distinction between salaried employment and self-employment.   
 #########
 
-D1.6.MSC.EMPL_2016 <- spi_loader(1,6,'EMPL', 2016,0) %>%
-  mutate(EMPL=Classification.of.status.of.employment,
-         iso3c=Code,
-         country=Country,
-         date=2016) %>%
-  select(iso3c, country,date, EMPL)
 
-D1.6.MSC.EMPL_2017 <- spi_loader(1,6,'EMPL', 2017,0) %>%
-  mutate(EMPL=Classification.of.status.of.employment,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, EMPL)
+for (i in 2016:2019) {
+  temp <- spi_loader(1,6,'EMPL', i,0) %>%
+    mutate(EMPL=Classification.of.status.of.employment,
+           iso3c=Code,
+           country=Country,
+           date=i) %>%
+    select(iso3c, country,date, EMPL)
+  
+  assign(paste("D1.6.MSC.EMPL",i,sep="_"), temp)
+  
+}
 
-D1.6.MSC.EMPL_2018 <- spi_loader(1,6,'EMPL', 2018,0) %>%
-  mutate(EMPL=Classification.of.status.of.employment,
-         iso3c=Code,
-         country=Country,
-         date=2018) %>%
-  select(iso3c, country,date, EMPL)
+
 
 
 #save to csv
-bind_rows(D1.6.MSC.EMPL_2016, D1.6.MSC.EMPL_2017, D1.6.MSC.EMPL_2018) %>%
+bind_rows(D1.6.MSC.EMPL_2016, D1.6.MSC.EMPL_2017, D1.6.MSC.EMPL_2018, D1.6.MSC.EMPL_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.6.MSC.EMPL.csv", sep="/" ))
@@ -329,30 +340,21 @@ bind_rows(D1.6.MSC.EMPL_2016, D1.6.MSC.EMPL_2017, D1.6.MSC.EMPL_2018) %>%
 # units, the picture they provide of central government activities is usually incomplete.  
 #########
 
-D1.7.MSC.CGOV_2016 <- spi_loader(1,7,'CGOV', 2016,0) %>%
-  mutate(CGOV=Central.government.accounting.status,
-         iso3c=Code,
-         country=Country,
-         date=2016) %>%
-  select(iso3c, country,date, CGOV)
-
-D1.7.MSC.CGOV_2017 <- spi_loader(1,7,'CGOV', 2017,0) %>%
-  mutate(CGOV=Central.government.accounting.status,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, CGOV)
-
-D1.7.MSC.CGOV_2018 <- spi_loader(1,7,'CGOV', 2018,0) %>%
-  mutate(CGOV=Central.government.accounting.status,
-         iso3c=Code,
-         country=Country,
-         date=2018) %>%
-  select(iso3c, country,date, CGOV)
+for (i in 2016:2019) {
+  temp <- spi_loader(1,7,'CGOV', i,0) %>%
+    mutate(CGOV=Central.government.accounting.status,
+           iso3c=Code,
+           country=Country,
+           date=i) %>%
+    select(iso3c, country,date, CGOV)
+  
+  assign(paste("D1.7.MSC.CGOV",i,sep="_"), temp)
+  
+}
 
 
 #save to csv
-bind_rows(D1.7.MSC.CGOV_2016, D1.7.MSC.CGOV_2017, D1.7.MSC.CGOV_2018) %>%
+bind_rows(D1.7.MSC.CGOV_2016, D1.7.MSC.CGOV_2017, D1.7.MSC.CGOV_2018, D1.7.MSC.CGOV_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.7.MSC.CGOV.csv", sep="/" ))
@@ -369,31 +371,22 @@ bind_rows(D1.7.MSC.CGOV_2016, D1.7.MSC.CGOV_2017, D1.7.MSC.CGOV_2018) %>%
 # is harmonized with the SNA2008. 
 #########
 
+for (i in 2016:2019) {
+  temp <- spi_loader(1,8,'FINA', i,0) %>%
+    mutate(FINA=Compilation.of.government.finance.statistics,
+           iso3c=Code,
+           country=Country,
+           date=i) %>%
+    select(iso3c, country,date, FINA)
+  
+  assign(paste("D1.8.MSC.FINA",i,sep="_"), temp)
+  
+}
 
-D1.8.MSC.FINA_2016 <- spi_loader(1,8,'FINA', 2016,0) %>%
-  mutate(FINA=Compilation.of.government.finance.statistics,
-         iso3c=Code,
-         country=Country,
-         date=2016) %>%
-  select(iso3c, country,date, FINA)
-
-D1.8.MSC.FINA_2017 <- spi_loader(1,8,'FINA', 2017,0) %>%
-  mutate(FINA=Compilation.of.government.finance.statistics,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, FINA)
-
-D1.8.MSC.FINA_2018 <- spi_loader(1,8,'FINA', 2018,0) %>%
-  mutate(FINA=Compilation.of.government.finance.statistics,
-         iso3c=Code,
-         country=Country,
-         date=2018) %>%
-  select(iso3c, country,date, FINA)
 
 
 #save to csv
-bind_rows(D1.8.MSC.FINA_2016, D1.8.MSC.FINA_2017, D1.8.MSC.FINA_2018) %>%
+bind_rows(D1.8.MSC.FINA_2016, D1.8.MSC.FINA_2017, D1.8.MSC.FINA_2018, D1.8.MSC.FINA_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.8.MSC.FINA.csv", sep="/" ))
@@ -408,30 +401,23 @@ bind_rows(D1.8.MSC.FINA_2016, D1.8.MSC.FINA_2017, D1.8.MSC.FINA_2018) %>%
 # determination.  The Monetary and Finance Statistics: Compilation Guide (2008) provides detailed guidelines for 
 # the compilation of monetary and financial statistics in addition to MFSM. 
 #########
-D1.9.MSC.MONY_2016 <- spi_loader(1,9,'MONY', 2016,1) %>%
-  mutate(MONY=compilation.of.monetary.and.financial.statistics,
-         iso3c=Code,
-         country=Country,
-         date=2016) %>%
-  select(iso3c, country,date, MONY)
 
-D1.9.MSC.MONY_2017 <- spi_loader(1,9,'MONY', 2017,1) %>%
-  mutate(MONY=compilation.of.monetary.and.financial.statistics,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, MONY)
+for (i in 2016:2019) {
+  temp <- spi_loader(1,9,'MONY', i,1) %>%
+    mutate(MONY=compilation.of.monetary.and.financial.statistics,
+           iso3c=Code,
+           country=Country,
+           date=i) %>%
+    select(iso3c, country,date, MONY)
+  
+  assign(paste("D1.9.MSC.MONY",i,sep="_"), temp)
+  
+}
 
-D1.9.MSC.MONY_2018 <- spi_loader(1,9,'MONY', 2018,1) %>%
-  mutate(MONY=compilation.of.monetary.and.financial.statistics,
-         iso3c=Code,
-         country=Country,
-         date=2018) %>%
-  select(iso3c, country,date, MONY)
 
 
 #save to csv
-bind_rows(D1.9.MSC.MONY_2016, D1.9.MSC.MONY_2017, D1.9.MSC.MONY_2018) %>%
+bind_rows(D1.9.MSC.MONY_2016, D1.9.MSC.MONY_2017, D1.9.MSC.MONY_2018, D1.9.MSC.MONY_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.9.MSC.MONY.csv", sep="/" ))
@@ -448,31 +434,22 @@ bind_rows(D1.9.MSC.MONY_2016, D1.9.MSC.MONY_2017, D1.9.MSC.MONY_2018) %>%
 #e-GDDS websites.       
 #########
 
+for (i in 2016:2019) {
+  temp <- spi_loader(1,10,'IDDS', i,1) %>%
+    mutate(IDDS=SDDS.subsciption,
+           iso3c=Code,
+           country=Country,
+           date=i) %>%
+    select(iso3c, country,date, IDDS)
+  
+  assign(paste("D1.10.MSC.IDDS",i,sep="_"), temp)
+  
+}
 
-D1.10.MSC.IDDS_2016 <- spi_loader(1,10,'IDDS', 2016,1) %>%
-  mutate(IDDS=SDDS.subsciption,
-         iso3c=Code,
-         country=Country,
-         date=2016) %>%
-  select(iso3c, country,date, IDDS)
-
-D1.10.MSC.IDDS_2017 <- spi_loader(1,10,'IDDS', 2017,1) %>%
-  mutate(IDDS=SDDS.subsciption,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, IDDS)
-
-D1.10.MSC.IDDS_2018 <- spi_loader(1,10,'IDDS', 2018,1) %>%
-  mutate(IDDS=SDDS.subsciption,
-         iso3c=Code,
-         country=Country,
-         date=2018) %>%
-  select(iso3c, country,date, IDDS)
 
 
 #save to csv
-bind_rows(D1.10.MSC.IDDS_2016, D1.10.MSC.IDDS_2017, D1.10.MSC.IDDS_2018) %>%
+bind_rows(D1.10.MSC.IDDS_2016, D1.10.MSC.IDDS_2017, D1.10.MSC.IDDS_2018, D1.10.MSC.IDDS_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.10.MSC.IDDS.csv", sep="/" ))
@@ -489,30 +466,21 @@ bind_rows(D1.10.MSC.IDDS_2016, D1.10.MSC.IDDS_2017, D1.10.MSC.IDDS_2018) %>%
 # Countries with complete vital statistics registries may have more accurate and timely demographic indicators.      
 #########
 
-D1.11.MSC.CRVS_2016 <- spi_loader(1,11,'CRVS', 2016,1) %>%
-  mutate(CRVS=CRVS,
-         iso3c=Code,
-         country=Country,
-         date=2016) %>%
-  select(iso3c, country,date, CRVS)
-
-D1.11.MSC.CRVS_2017 <- spi_loader(1,11,'CRVS', 2017,1) %>%
-  mutate(CRVS=CRVS,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, CRVS)
-
-D1.11.MSC.CRVS_2018 <- spi_loader(1,11,'CRVS', 2018,1) %>%
-  mutate(CRVS=CRVS,
-         iso3c=Code,
-         country=Country,
-         date=2018) %>%
-  select(iso3c, country,date, CRVS)
+for (i in 2016:2019) {
+  temp <- spi_loader(1,11,'CRVS', i,1) %>%
+    mutate(CRVS=CRVS,
+           iso3c=Code,
+           country=Country,
+           date=i) %>%
+    select(iso3c, country,date, CRVS)
+  
+  assign(paste("D1.11.MSC.CRVS",i,sep="_"), temp)
+  
+}
 
 
 #save to csv
-bind_rows(D1.11.MSC.CRVS_2016, D1.11.MSC.CRVS_2017, D1.11.MSC.CRVS_2018) %>%
+bind_rows(D1.11.MSC.CRVS_2016, D1.11.MSC.CRVS_2017, D1.11.MSC.CRVS_2018, D1.11.MSC.CRVS_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.11.MSC.CRVS.csv", sep="/" ))
@@ -528,30 +496,22 @@ bind_rows(D1.11.MSC.CRVS_2016, D1.11.MSC.CRVS_2017, D1.11.MSC.CRVS_2018) %>%
 # related to "business statistics" but refers to the statistical office, simply expressed.  
 #########
 
-D1.12.MSC.GSBP_2016 <- spi_loader(1,12,'GSBP', 2016,1) %>%
-  mutate(GSBP=Business.Process..GSBPM.,
-         iso3c=Code,
-         country=Country,
-         date=2016) %>%
-  select(iso3c, country,date, GSBP)
+for (i in 2016:2019) {
+  temp <- spi_loader(1,12,'GSBP', i,1) %>%
+    mutate(GSBP=Business.Process..GSBPM.,
+           iso3c=Code,
+           country=Country,
+           date=i) %>%
+    select(iso3c, country,date, GSBP)
+  
+  assign(paste("D1.12.MSC.GSBP",i,sep="_"), temp)
+  
+}
 
-D1.12.MSC.GSBP_2017 <- spi_loader(1,12,'GSBP', 2017,1) %>%
-  mutate(GSBP=Business.Process..GSBPM.,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, GSBP)
-
-D1.12.MSC.GSBP_2018 <- spi_loader(1,12,'GSBP', 2018,1) %>%
-  mutate(GSBP=Business.Process..GSBPM.,
-         iso3c=Code,
-         country=Country,
-         date=2018) %>%
-  select(iso3c, country,date, GSBP)
 
 
 #save to csv
-bind_rows(D1.12.MSC.GSBP_2016, D1.12.MSC.GSBP_2017, D1.12.MSC.GSBP_2018) %>%
+bind_rows(D1.12.MSC.GSBP_2016, D1.12.MSC.GSBP_2017, D1.12.MSC.GSBP_2018,D1.12.MSC.GSBP_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.12.MSC.GSBP.csv", sep="/" ))
@@ -560,7 +520,7 @@ bind_rows(D1.12.MSC.GSBP_2016, D1.12.MSC.GSBP_2017, D1.12.MSC.GSBP_2018) %>%
 # SPI Dimension 2: Censuses and Surveys (CS): 
 ###############################
 
-
+ 
 
 #########
 # 2.1 Population & Housing census
@@ -588,7 +548,28 @@ D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
   select(iso3c, country,database_last_updated, POPU.CENSUS) %>%
   filter(!is.na(country))
 
- 
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
+D2.1.CEN.POPU_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.1.CEN.POPU - REV.xlsx", sep=""),
+                          sheet="2019 Data Template",
+                          skip=2,
+                          .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.1.CEN.POPU_2019 <- D2.1.CEN.POPU_2019 %>%
+  mutate(POPU.CENSUS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T)) %>%
+  mutate(POPU.CENSUS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T),
+         iso3c=Code,
+         country=Country...3,
+         database_last_updated=2019) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, POPU.CENSUS) %>%
+  filter(!is.na(country))
+
+#bind 2019 data to 2018 and previous
+D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
+  bind_rows(D2.1.CEN.POPU_2019) %>%
+  group_by(iso3c, country) %>% #keep latest year for each country
+  filter(database_last_updated==max(database_last_updated)) %>%
+  ungroup()
 
 write_excel_csv(D2.1.CEN.POPU,
                 path = paste(csv_dir, "D2.1.CEN.POPU.csv", sep="/" ))
@@ -622,7 +603,27 @@ D2.2.CEN.AGRI <- D2.2.CEN.AGRI %>%
   select(iso3c, country,database_last_updated, AGRI.CENSUS) %>%
   filter(!is.na(country))
 
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
+D2.2.CEN.AGRI_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.2.CEN.AGRI2 - REV.xlsx", sep=""),
+                          sheet="2019 Data",
+                          skip=2,
+                          .name_repair = 'universal')
 
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.2.CEN.AGRI_2019 <- D2.2.CEN.AGRI_2019 %>%
+  mutate(AGRI.CENSUS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
+         iso3c=Code,
+         country=Country...3,
+         database_last_updated=2019) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, AGRI.CENSUS) %>%
+  filter(!is.na(country))
+
+#bind 2019 data to 2018 and previous
+D2.2.CEN.AGRI <- D2.2.CEN.AGRI %>%
+  bind_rows(D2.2.CEN.AGRI_2019) %>%
+  group_by(iso3c, country) %>% #keep latest year for each country
+  filter(database_last_updated==max(database_last_updated)) %>%
+  ungroup()
 
 write_excel_csv(D2.2.CEN.AGRI,
                 path = paste(csv_dir, "D2.2.CEN.AGRI.csv", sep="/" ))
@@ -651,6 +652,27 @@ D2.3.CEN.BIZZ <- D2.3.CEN.BIZZ %>%
   select(iso3c, country,database_last_updated, BIZZ.CENSUS) %>%
   filter(!is.na(country))
 
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
+D2.3.CEN.BIZZ_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.3.CEN.BIZZ - REV.xlsx", sep=""),
+                               sheet="2019 Data",
+                               skip=2,
+                               .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.3.CEN.BIZZ_2019 <- D2.3.CEN.BIZZ_2019 %>%
+  mutate(BIZZ.CENSUS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2019) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, BIZZ.CENSUS) %>%
+  filter(!is.na(country))
+
+#bind 2019 data to 2018 and previous
+D2.3.CEN.BIZZ <- D2.3.CEN.BIZZ %>%
+  bind_rows(D2.3.CEN.BIZZ_2019) %>%
+  group_by(iso3c, country) %>% #keep latest year for each country
+  filter(database_last_updated==max(database_last_updated)) %>%
+  ungroup()
 
 
 write_excel_csv(D2.3.CEN.BIZZ,
@@ -681,7 +703,28 @@ D2.4.SVY.HOUS <- D2.4.SVY.HOUS %>%
   select(iso3c, country,database_last_updated, HOUS.SURVEYS)  %>%
   filter(!is.na(country))
 
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
+D2.4.SVY.HOUS_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.4.SVY.HOUS - REV.xlsx", sep=""),
+                               sheet="2019 Data",
+                               skip=2,
+                               .name_repair = 'universal')
 
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.4.SVY.HOUS_2019 <- D2.4.SVY.HOUS_2019 %>%
+  mutate(HOUS.SURVEYS=gsub("^,*|(?<=,),|,*$", "", Houseshold.survey.on.income..consumption..expenditure..budget..Integrated.Survey, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2019) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, HOUS.SURVEYS)  %>%
+  filter(!is.na(country))
+
+#bind 2019 data to 2018 and previous
+D2.4.SVY.HOUS <- D2.4.SVY.HOUS %>%
+  bind_rows(D2.4.SVY.HOUS_2019) %>%
+  group_by(iso3c, country) %>% #keep latest year for each country
+  filter(database_last_updated==max(database_last_updated)) %>%
+  ungroup() %>%
+  arrange(iso3c, country)
 
 write_excel_csv(D2.4.SVY.HOUS,
                 path = paste(csv_dir, "D2.4.SVY.HOUS.csv", sep="/" ))
@@ -711,6 +754,27 @@ D2.5.SVY.AGRI <- D2.5.SVY.AGRI %>%
   filter(!is.na(country))
 
 
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
+D2.5.SVY.AGRI_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.5.SVY.AGRI - REV.xlsx", sep=""),
+                               sheet="2019 Data",
+                               skip=2,
+                               .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.5.SVY.AGRI_2019 <- D2.5.SVY.AGRI_2019 %>%
+  mutate(AGRI.SURVEYS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2019) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, AGRI.SURVEYS)  %>%
+  filter(!is.na(country))
+#bind 2019 data to 2018 and previous
+D2.5.SVY.AGRI <- D2.5.SVY.AGRI %>%
+  bind_rows(D2.5.SVY.AGRI_2019) %>%
+  group_by(iso3c, country) %>% #keep latest year for each country
+  filter(database_last_updated==max(database_last_updated)) %>%
+  ungroup() %>%
+  arrange(iso3c, country)
 
 write_excel_csv(D2.5.SVY.AGRI,
                 path = paste(csv_dir, "D2.5.SVY.AGRI.csv", sep="/" ))
@@ -742,6 +806,28 @@ D2.6.SVY.LABR <- D2.6.SVY.LABR %>%
   select(iso3c, country,database_last_updated, LABR.SURVEYS)  %>%
   filter(!is.na(country))
 
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
+D2.6.SVY.LABR_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.6.SVY.LABR - REV.xlsx", sep=""),
+                               sheet="2019 data",
+                               skip=2,
+                               .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.6.SVY.LABR_2019 <- D2.6.SVY.LABR_2019 %>%
+  mutate(LABR.SURVEYS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2019) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, LABR.SURVEYS)  %>%
+  filter(!is.na(country))
+
+#bind 2019 data to 2018 and previous
+D2.6.SVY.LABR <- D2.6.SVY.LABR %>%
+  bind_rows(D2.6.SVY.LABR_2019) %>%
+  group_by(iso3c, country) %>% #keep latest year for each country
+  filter(database_last_updated==max(database_last_updated)) %>%
+  ungroup() %>%
+  arrange(iso3c, country)
 
 
 write_excel_csv(D2.6.SVY.LABR,
@@ -771,6 +857,28 @@ D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>%
   select(iso3c, country,database_last_updated, HLTH.SURVEYS)  %>%
   filter(!is.na(country))
 
+#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
+D2.7.SVY.HLTH_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
+                               sheet="2019 Data",
+                               skip=2,
+                               .name_repair = 'universal')
+
+#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.7.SVY.HLTH_2019 <- D2.7.SVY.HLTH_2019 %>%
+  mutate(LABR.SURVEYS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
+         iso3c=Code,
+         country=Country,
+         database_last_updated=2019) %>% #remove leading and trailing commas
+  select(iso3c, country,database_last_updated, LABR.SURVEYS)  %>%
+  filter(!is.na(country))
+
+#bind 2019 data to 2018 and previous
+D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>%
+  bind_rows(D2.7.SVY.HLTH_2019) %>%
+  group_by(iso3c, country) %>% #keep latest year for each country
+  filter(database_last_updated==max(database_last_updated)) %>%
+  ungroup() %>%
+  arrange(iso3c, country)
 
 
 write_excel_csv(D2.7.SVY.HLTH,

@@ -2,24 +2,30 @@
 AFG,Afghanistan,2016,COICOP
 AFG,Afghanistan,2017,COICOP
 AFG,Afghanistan,2018,COICOP
+AFG,Afghanistan,2019,COICOP
 AGO,Angola,2016,COICOP
 AGO,Angola,2017,COICOP
 AGO,Angola,2018,COICOP
+AGO,Angola,2019,COICOP
 ALB,Albania,2016,COICOP
 ALB,Albania,2017,COICOP
 ALB,Albania,2018,COICOP
+ALB,Albania,2019,COICOP
 ARE,United Arab Emirates,2016,COICOP
 ARE,United Arab Emirates,2017,COICOP
 ARE,United Arab Emirates,2018,COICOP
 ARG,Argentina,2016,COICOP
 ARG,Argentina,2017,COICOP
 ARG,Argentina,2018,COICOP
+ARG,Argentina,2019,COICOP
 ARM,Armenia,2016,COICOP
 ARM,Armenia,2017,COICOP
 ARM,Armenia,2018,COICOP
+ARM,Armenia,2019,COICOP
 ATG,Antigua and Barbuda,2016,na
 ATG,Antigua and Barbuda,2017,"NA"
 ATG,Antigua and Barbuda,2018,"NA"
+ATG,Antigua and Barbuda,2019,"NA"
 AUS,Australia,2016,COICOP
 AUS,Australia,2017,COICOP
 AUS,Australia,2018,COICOP
@@ -29,24 +35,30 @@ AUT,Austria,2018,COICOP
 AZE,Azerbaijan,2016,COICOP
 AZE,Azerbaijan,2017,COICOP
 AZE,Azerbaijan,2018,COICOP
+AZE,Azerbaijan,2019,COICOP
 BDI,Burundi,2016,COICOP
 BDI,Burundi,2017,COICOP
 BDI,Burundi,2018,COICOP
+BDI,Burundi,2019,COICOP
 BEL,Belgium,2016,COICOP
 BEL,Belgium,2017,COICOP
 BEL,Belgium,2018,COICOP
 BEN,Benin,2016,na
 BEN,Benin,2017,"NA"
 BEN,Benin,2018,"NA"
+BEN,Benin,2019,"NA"
 BFA,Burkina Faso,2016,COICOP
 BFA,Burkina Faso,2017,COICOP
 BFA,Burkina Faso,2018,COICOP
+BFA,Burkina Faso,2019,COICOP
 BGD,Bangladesh,2016,na
 BGD,Bangladesh,2017,"NA"
 BGD,Bangladesh,2018,"NA"
+BGD,Bangladesh,2019,"NA"
 BGR,Bulgaria,2016,COICOP
 BGR,Bulgaria,2017,COICOP
 BGR,Bulgaria,2018,COICOP
+BGR,Bulgaria,2019,COICOP
 BHR,Bahrain,2016,COICOP
 BHR,Bahrain,2017,COICOP
 BHR,Bahrain,2018,COICOP
@@ -56,18 +68,23 @@ BHS,"Bahamas, The",2018,"NA"
 BIH,Bosnia and Herzegovina,2016,COICOP
 BIH,Bosnia and Herzegovina,2017,COICOP
 BIH,Bosnia and Herzegovina,2018,COICOP
+BIH,Bosnia and Herzegovina,2019,COICOP
 BLR,Belarus,2016,COICOP
 BLR,Belarus,2017,COICOP
 BLR,Belarus,2018,COICOP
+BLR,Belarus,2019,COICOP
 BLZ,Belize,2016,COICOP
 BLZ,Belize,2017,COICOP
 BLZ,Belize,2018,COICOP
+BLZ,Belize,2019,COICOP
 BOL,Bolivia,2016,na
 BOL,Bolivia,2017,"NA"
 BOL,Bolivia,2018,"NA"
+BOL,Bolivia,2019,"NA"
 BRA,Brazil,2016,COICOP
 BRA,Brazil,2017,COICOP
 BRA,Brazil,2018,COICOP
+BRA,Brazil,2019,COICOP
 BRB,Barbados,2016,na
 BRB,Barbados,2017,"NA"
 BRB,Barbados,2018,"NA"
@@ -77,12 +94,15 @@ BRN,Brunei Darussalam,2018,COICOP
 BTN,Bhutan,2016,na
 BTN,Bhutan,2017,"NA"
 BTN,Bhutan,2018,"NA"
+BTN,Bhutan,2019,"NA"
 BWA,Botswana,2016,COICOP
 BWA,Botswana,2017,COICOP
 BWA,Botswana,2018,COICOP
+BWA,Botswana,2019,COICOP
 CAF,Central African Republic,2016,na
 CAF,Central African Republic,2017,"NA"
 CAF,Central African Republic,2018,"NA"
+CAF,Central African Republic,2019,"NA"
 CAN,Canada,2016,COICOP
 CAN,Canada,2017,COICOP
 CAN,Canada,2018,COICOP
@@ -92,33 +112,43 @@ CHE,Switzerland,2018,COICOP
 CHL,Chile,2016,COICOP
 CHL,Chile,2017,COICOP
 CHL,Chile,2018,COICOP
+CHL,Chile,2019,COICOP
 CHN,China,2016,COICOP
 CHN,China,2017,COICOP
 CHN,China,2018,COICOP
+CHN,China,2019,COICOP
 CIV,Côte d'Ivoire,2016,na
 CIV,Côte d'Ivoire,2017,"NA"
 CIV,Côte d'Ivoire,2018,"NA"
+CIV,Côte d'Ivoire,2019,"NA"
 CMR,Cameroon,2016,COICOP
 CMR,Cameroon,2017,COICOP
 CMR,Cameroon,2018,COICOP
+CMR,Cameroon,2019,COICOP
 COD,"Congo, Dem. Rep.",2016,na
 COD,"Congo, Dem. Rep.",2017,"NA"
 COD,"Congo, Dem. Rep.",2018,"NA"
+COD,"Congo, Dem. Rep.",2019,"NA"
 COG,"Congo, Rep.",2016,COICOP
 COG,"Congo, Rep.",2017,COICOP
 COG,"Congo, Rep.",2018,COICOP
+COG,"Congo, Rep.",2019,COICOP
 COL,Colombia,2016,na
 COL,Colombia,2017,"NA"
 COL,Colombia,2018,"NA"
+COL,Colombia,2019,"NA"
 COM,Comoros,2016,COICOP
 COM,Comoros,2017,COICOP
 COM,Comoros,2018,COICOP
+COM,Comoros,2019,COICOP
 CPV,Cabo Verde,2016,na
 CPV,Cabo Verde,2017,"NA"
 CPV,Cabo Verde,2018,"NA"
+CPV,Cabo Verde,2019,"NA"
 CRI,Costa Rica,2016,COICOP
 CRI,Costa Rica,2017,COICOP
 CRI,Costa Rica,2018,COICOP
+CRI,Costa Rica,2019,COICOP
 CYP,Cyprus,2016,COICOP
 CYP,Cyprus,2017,COICOP
 CYP,Cyprus,2018,COICOP
@@ -131,27 +161,34 @@ DEU,Germany,2018,COICOP
 DJI,Djibouti,2016,na
 DJI,Djibouti,2017,"NA"
 DJI,Djibouti,2018,"NA"
+DJI,Djibouti,2019,"NA"
 DMA,Dominica,2016,COICOP
 DMA,Dominica,2017,COICOP
 DMA,Dominica,2018,COICOP
+DMA,Dominica,2019,COICOP
 DNK,Denmark,2016,COICOP
 DNK,Denmark,2017,COICOP
 DNK,Denmark,2018,COICOP
 DOM,Dominican Republic,2016,COICOP
 DOM,Dominican Republic,2017,COICOP
 DOM,Dominican Republic,2018,COICOP
+DOM,Dominican Republic,2019,COICOP
 DZA,Algeria,2016,COICOP
 DZA,Algeria,2017,COICOP
 DZA,Algeria,2018,COICOP
+DZA,Algeria,2019,COICOP
 ECU,Ecuador,2016,COICOP
 ECU,Ecuador,2017,COICOP
 ECU,Ecuador,2018,COICOP
+ECU,Ecuador,2019,COICOP
 EGY,"Egypt, Arab Rep.",2016,COICOP
 EGY,"Egypt, Arab Rep.",2017,COICOP
 EGY,"Egypt, Arab Rep.",2018,COICOP
+EGY,"Egypt, Arab Rep.",2019,COICOP
 ERI,Eritrea,2016,0
 ERI,Eritrea,2017,0
 ERI,Eritrea,2018,0
+ERI,Eritrea,2019,0
 ESP,Spain,2016,COICOP
 ESP,Spain,2017,COICOP
 ESP,Spain,2018,COICOP
@@ -161,81 +198,101 @@ EST,Estonia,2018,COICOP
 ETH,Ethiopia,2016,na
 ETH,Ethiopia,2017,"NA"
 ETH,Ethiopia,2018,"NA"
+ETH,Ethiopia,2019,"NA"
 FIN,Finland,2016,COICOP
 FIN,Finland,2017,COICOP
 FIN,Finland,2018,COICOP
 FJI,Fiji,2016,na
 FJI,Fiji,2017,COICOP
 FJI,Fiji,2018,COICOP
+FJI,Fiji,2019,COICOP
 FRA,France,2016,COICOP
 FRA,France,2017,COICOP
 FRA,France,2018,COICOP
 FSM,"Micronesia, Fed. Sts.",2016,COICOP
 FSM,"Micronesia, Fed. Sts.",2017,COICOP
 FSM,"Micronesia, Fed. Sts.",2018,COICOP
+FSM,"Micronesia, Fed. Sts.",2019,COICOP
 GAB,Gabon,2016,na
 GAB,Gabon,2017,"NA"
 GAB,Gabon,2018,"NA"
+GAB,Gabon,2019,"NA"
 GBR,United Kingdom,2016,na
 GBR,United Kingdom,2017,COICOP
 GBR,United Kingdom,2018,COICOP
 GEO,Georgia,2016,COICOP
 GEO,Georgia,2017,COICOP
 GEO,Georgia,2018,COICOP
+GEO,Georgia,2019,COICOP
 GHA,Ghana,2016,COICOP
 GHA,Ghana,2017,COICOP
 GHA,Ghana,2018,COICOP
+GHA,Ghana,2019,COICOP
 GIN,Guinea,2016,na
 GIN,Guinea,2017,"NA"
 GIN,Guinea,2018,"NA"
+GIN,Guinea,2019,"NA"
 GMB,"Gambia, The",2016,na
 GMB,"Gambia, The",2017,"NA"
 GMB,"Gambia, The",2018,"NA"
+GMB,"Gambia, The",2019,"NA"
 GNB,Guinea-Bissau,2016,na
 GNB,Guinea-Bissau,2017,"NA"
 GNB,Guinea-Bissau,2018,"NA"
+GNB,Guinea-Bissau,2019,"NA"
 GNQ,Equatorial Guinea,2016,0
 GNQ,Equatorial Guinea,2017,COICOP
 GNQ,Equatorial Guinea,2018,COICOP
+GNQ,Equatorial Guinea,2019,COICOP
 GRC,Greece,2016,COICOP
 GRC,Greece,2017,COICOP
 GRC,Greece,2018,COICOP
 GRD,Grenada,2016,na
 GRD,Grenada,2017,"NA"
 GRD,Grenada,2018,"NA"
+GRD,Grenada,2019,"NA"
 GTM,Guatemala,2016,na
 GTM,Guatemala,2017,"NA"
 GTM,Guatemala,2018,"NA"
+GTM,Guatemala,2019,"NA"
 GUY,Guyana,2016,na
 GUY,Guyana,2017,"NA"
 GUY,Guyana,2018,"NA"
+GUY,Guyana,2019,"NA"
 HND,Honduras,2016,COICOP
 HND,Honduras,2017,COICOP
 HND,Honduras,2018,COICOP
+HND,Honduras,2019,COICOP
 HRV,Croatia,2016,COICOP
 HRV,Croatia,2017,COICOP
 HRV,Croatia,2018,COICOP
+HRV,Croatia,2019,COICOP
 HTI,Haiti,2016,COICOP
 HTI,Haiti,2017,COICOP
 HTI,Haiti,2018,COICOP
+HTI,Haiti,2019,COICOP
 HUN,Hungary,2016,COICOP
 HUN,Hungary,2017,COICOP
 HUN,Hungary,2018,COICOP
 IDN,Indonesia,2016,na
 IDN,Indonesia,2017,"NA"
 IDN,Indonesia,2018,"NA"
+IDN,Indonesia,2019,"NA"
 IND,India,2016,COICOP
 IND,India,2017,COICOP
 IND,India,2018,COICOP
+IND,India,2019,COICOP
 IRL,Ireland,2016,COICOP
 IRL,Ireland,2017,COICOP
 IRL,Ireland,2018,COICOP
 IRN,"Iran, Islamic Rep.",2016,COICOP
 IRN,"Iran, Islamic Rep.",2017,COICOP
 IRN,"Iran, Islamic Rep.",2018,COICOP
+IRN,"Iran, Islamic Rep.",2019,COICOP
 IRQ,Iraq,2016,COICOP
 IRQ,Iraq,2017,COICOP
 IRQ,Iraq,2018,COICOP
+IRQ,Iraq,2019,COICOP
 ISL,Iceland,2016,COICOP
 ISL,Iceland,2017,COICOP
 ISL,Iceland,2018,COICOP
@@ -248,30 +305,38 @@ ITA,Italy,2018,COICOP
 JAM,Jamaica,2016,COICOP
 JAM,Jamaica,2017,COICOP
 JAM,Jamaica,2018,COICOP
+JAM,Jamaica,2019,COICOP
 JOR,Jordan,2016,na
 JOR,Jordan,2017,"NA"
 JOR,Jordan,2018,"NA"
+JOR,Jordan,2019,"NA"
 JPN,Japan,2016,COICOP
 JPN,Japan,2017,COICOP
 JPN,Japan,2018,COICOP
 KAZ,Kazakhstan,2016,COICOP
 KAZ,Kazakhstan,2017,COICOP
 KAZ,Kazakhstan,2018,COICOP
+KAZ,Kazakhstan,2019,COICOP
 KEN,Kenya,2016,na
 KEN,Kenya,2017,"NA"
 KEN,Kenya,2018,"NA"
+KEN,Kenya,2019,"NA"
 KGZ,Kyrgyz Republic,2016,COICOP
 KGZ,Kyrgyz Republic,2017,COICOP
 KGZ,Kyrgyz Republic,2018,COICOP
+KGZ,Kyrgyz Republic,2019,COICOP
 KHM,Cambodia,2016,COICOP
 KHM,Cambodia,2017,COICOP
 KHM,Cambodia,2018,COICOP
+KHM,Cambodia,2019,COICOP
 KIR,Kiribati,2016,na
 KIR,Kiribati,2017,"NA"
 KIR,Kiribati,2018,"NA"
+KIR,Kiribati,2019,"NA"
 KNA,St. Kitts and Nevis,2016,0
 KNA,St. Kitts and Nevis,2017,0
 KNA,St. Kitts and Nevis,2018,0
+KNA,St. Kitts and Nevis,2019,0
 KOR,"Korea, Rep.",2016,COICOP
 KOR,"Korea, Rep.",2017,COICOP
 KOR,"Korea, Rep.",2018,COICOP
@@ -281,24 +346,31 @@ KWT,Kuwait,2018,"NA"
 LAO,Lao PDR,2016,na
 LAO,Lao PDR,2017,0
 LAO,Lao PDR,2018,0
+LAO,Lao PDR,2019,0
 LBN,Lebanon,2016,na
 LBN,Lebanon,2017,"NA"
 LBN,Lebanon,2018,"NA"
+LBN,Lebanon,2019,"NA"
 LBR,Liberia,2016,COICOP
 LBR,Liberia,2017,COICOP
 LBR,Liberia,2018,COICOP
+LBR,Liberia,2019,COICOP
 LBY,Libya,2016,COICOP
 LBY,Libya,2017,COICOP
 LBY,Libya,2018,COICOP
+LBY,Libya,2019,COICOP
 LCA,St. Lucia,2016,na
 LCA,St. Lucia,2017,"NA"
 LCA,St. Lucia,2018,"NA"
+LCA,St. Lucia,2019,"NA"
 LKA,Sri Lanka,2016,COICOP
 LKA,Sri Lanka,2017,COICOP
 LKA,Sri Lanka,2018,COICOP
+LKA,Sri Lanka,2019,COICOP
 LSO,Lesotho,2016,COICOP
 LSO,Lesotho,2017,COICOP
 LSO,Lesotho,2018,COICOP
+LSO,Lesotho,2019,COICOP
 LTU,Lithuania,2016,COICOP
 LTU,Lithuania,2017,COICOP
 LTU,Lithuania,2018,COICOP
@@ -311,66 +383,86 @@ LVA,Latvia,2018,COICOP
 MAR,Morocco,2016,0
 MAR,Morocco,2017,COICOP
 MAR,Morocco,2018,COICOP
+MAR,Morocco,2019,COICOP
 MDA,Moldova,2016,COICOP
 MDA,Moldova,2017,COICOP
 MDA,Moldova,2018,COICOP
+MDA,Moldova,2019,COICOP
 MDG,Madagascar,2016,COICOP
 MDG,Madagascar,2017,COICOP
 MDG,Madagascar,2018,COICOP
+MDG,Madagascar,2019,COICOP
 MDV,Maldives,2016,COICOP
 MDV,Maldives,2017,COICOP
 MDV,Maldives,2018,COICOP
+MDV,Maldives,2019,COICOP
 MEX,Mexico,2016,na
 MEX,Mexico,2017,COICOP
 MEX,Mexico,2018,COICOP
+MEX,Mexico,2019,COICOP
 MHL,Marshall Islands,2016,0
 MHL,Marshall Islands,2017,0
 MHL,Marshall Islands,2018,0
+MHL,Marshall Islands,2019,0
 MKD,"Macedonia, FYR",2016,COICOP
 MKD,"Macedonia, FYR",2017,COICOP
 MKD,"Macedonia, FYR",2018,COICOP
+MKD,"Macedonia, FYR",2019,COICOP
 MLI,Mali,2016,COICOP
 MLI,Mali,2017,COICOP
 MLI,Mali,2018,COICOP
+MLI,Mali,2019,COICOP
 MLT,Malta,2016,COICOP
 MLT,Malta,2017,COICOP
 MLT,Malta,2018,COICOP
 MMR,Myanmar,2016,na
 MMR,Myanmar,2017,"NA"
 MMR,Myanmar,2018,"NA"
+MMR,Myanmar,2019,"NA"
 MNE,Montenegro,2016,COICOP
 MNE,Montenegro,2017,COICOP
 MNE,Montenegro,2018,COICOP
+MNE,Montenegro,2019,COICOP
 MNG,Mongolia,2016,COICOP
 MNG,Mongolia,2017,COICOP
 MNG,Mongolia,2018,COICOP
+MNG,Mongolia,2019,COICOP
 MOZ,Mozambique,2016,COICOP
 MOZ,Mozambique,2017,COICOP
 MOZ,Mozambique,2018,COICOP
+MOZ,Mozambique,2019,COICOP
 MRT,Mauritania,2016,COICOP
 MRT,Mauritania,2017,COICOP
 MRT,Mauritania,2018,COICOP
+MRT,Mauritania,2019,COICOP
 MUS,Mauritius,2016,COICOP
 MUS,Mauritius,2017,COICOP
 MUS,Mauritius,2018,COICOP
+MUS,Mauritius,2019,COICOP
 MWI,Malawi,2016,na
 MWI,Malawi,2017,"NA"
 MWI,Malawi,2018,"NA"
+MWI,Malawi,2019,"NA"
 MYS,Malaysia,2016,COICOP
 MYS,Malaysia,2017,COICOP
 MYS,Malaysia,2018,COICOP
+MYS,Malaysia,2019,COICOP
 NAM,Namibia,2016,na
 NAM,Namibia,2017,"NA"
 NAM,Namibia,2018,"NA"
+NAM,Namibia,2019,"NA"
 NER,Niger,2016,COICOP
 NER,Niger,2017,COICOP
 NER,Niger,2018,COICOP
+NER,Niger,2019,COICOP
 NGA,Nigeria,2016,na
 NGA,Nigeria,2017,"NA"
 NGA,Nigeria,2018,"NA"
+NGA,Nigeria,2019,"NA"
 NIC,Nicaragua,2016,0
 NIC,Nicaragua,2017,0
 NIC,Nicaragua,2018,0
+NIC,Nicaragua,2019,0
 NLD,Netherlands,2016,COICOP
 NLD,Netherlands,2017,COICOP
 NLD,Netherlands,2018,COICOP
@@ -380,9 +472,11 @@ NOR,Norway,2018,COICOP
 NPL,Nepal,2016,na
 NPL,Nepal,2017,"NA"
 NPL,Nepal,2018,"NA"
+NPL,Nepal,2019,"NA"
 NRU,Nauru,2016,0
 NRU,Nauru,2017,0
 NRU,Nauru,2018,0
+NRU,Nauru,2019,0
 NZL,New Zealand,2016,COICOP
 NZL,New Zealand,2017,COICOP
 NZL,New Zealand,2018,COICOP
@@ -392,84 +486,106 @@ OMN,Oman,2018,COICOP
 PAK,Pakistan,2016,na
 PAK,Pakistan,2017,"NA"
 PAK,Pakistan,2018,"NA"
+PAK,Pakistan,2019,"NA"
 PAN,Panama,2016,na
 PAN,Panama,2017,"NA"
 PAN,Panama,2018,"NA"
+PAN,Panama,2019,"NA"
 PER,Peru,2016,na
 PER,Peru,2017,"NA"
 PER,Peru,2018,"NA"
+PER,Peru,2019,"NA"
 PHL,Philippines,2016,COICOP
 PHL,Philippines,2017,COICOP
 PHL,Philippines,2018,COICOP
+PHL,Philippines,2019,COICOP
 PLW,Palau,2016,0
 PLW,Palau,2017,0
 PLW,Palau,2018,0
+PLW,Palau,2019,COICOP
 PNG,Papua New Guinea,2016,na
 PNG,Papua New Guinea,2017,"NA"
 PNG,Papua New Guinea,2018,"NA"
+PNG,Papua New Guinea,2019,"NA"
 POL,Poland,2016,COICOP
 POL,Poland,2017,COICOP
 POL,Poland,2018,COICOP
+POL,Poland,2019,COICOP
 PRT,Portugal,2016,COICOP
 PRT,Portugal,2017,COICOP
 PRT,Portugal,2018,COICOP
 PRY,Paraguay,2016,COICOP
 PRY,Paraguay,2017,COICOP
 PRY,Paraguay,2018,COICOP
+PRY,Paraguay,2019,COICOP
 PSE,West Bank and Gaza,2016,COICOP
 PSE,West Bank and Gaza,2017,COICOP
 PSE,West Bank and Gaza,2018,COICOP
+PSE,West Bank and Gaza,2019,COICOP
 QAT,Qatar,2016,na
 QAT,Qatar,2017,"NA"
 QAT,Qatar,2018,"NA"
 ROU,Romania,2016,na
 ROU,Romania,2017,"NA"
 ROU,Romania,2018,"NA"
+ROU,Romania,2019,"NA"
 RUS,Russian Federation,2016,COICOP
 RUS,Russian Federation,2017,COICOP
 RUS,Russian Federation,2018,COICOP
+RUS,Russian Federation,2019,COICOP
 RWA,Rwanda,2016,na
 RWA,Rwanda,2017,COICOP
 RWA,Rwanda,2018,COICOP
+RWA,Rwanda,2019,COICOP
 SAU,Saudi Arabia,2016,COICOP
 SAU,Saudi Arabia,2017,COICOP
 SAU,Saudi Arabia,2018,COICOP
 SDN,Sudan,2016,na
 SDN,Sudan,2017,"NA"
 SDN,Sudan,2018,"NA"
+SDN,Sudan,2019,"NA"
 SEN,Senegal,2016,COICOP
 SEN,Senegal,2017,COICOP
 SEN,Senegal,2018,COICOP
+SEN,Senegal,2019,COICOP
 SGP,Singapore,2016,COICOP
 SGP,Singapore,2017,COICOP
 SGP,Singapore,2018,COICOP
 SLB,Solomon Islands,2016,na
 SLB,Solomon Islands,2017,"NA"
 SLB,Solomon Islands,2018,"NA"
+SLB,Solomon Islands,2019,"NA"
 SLE,Sierra Leone,2016,na
 SLE,Sierra Leone,2017,"NA"
 SLE,Sierra Leone,2018,"NA"
+SLE,Sierra Leone,2019,"NA"
 SLV,El Salvador,2016,COICOP
 SLV,El Salvador,2017,COICOP
 SLV,El Salvador,2018,COICOP
+SLV,El Salvador,2019,COICOP
 SMR,San Marino,2016,0
 SMR,San Marino,2017,0
 SMR,San Marino,2018,0
 SOM,Somalia,2016,na
 SOM,Somalia,2017,0
 SOM,Somalia,2018,0
+SOM,Somalia,2019,0
 SRB,Serbia,2016,COICOP
 SRB,Serbia,2017,COICOP
 SRB,Serbia,2018,COICOP
+SRB,Serbia,2019,COICOP
 SSD,South Sudan,2016,na
 SSD,South Sudan,2017,0
 SSD,South Sudan,2018,0
+SSD,South Sudan,2019,0
 STP,São Tomé and Principe,2016,COICOP
 STP,São Tomé and Principe,2017,COICOP
 STP,São Tomé and Principe,2018,COICOP
+STP,São Tomé and Principe,2019,COICOP
 SUR,Suriname,2016,COICOP
 SUR,Suriname,2017,COICOP
 SUR,Suriname,2018,COICOP
+SUR,Suriname,2019,COICOP
 SVK,Slovak Republic,2016,COICOP
 SVK,Slovak Republic,2017,COICOP
 SVK,Slovak Republic,2018,COICOP
@@ -482,90 +598,119 @@ SWE,Sweden,2018,COICOP
 SWZ,Eswatini,2016,na
 SWZ,Eswatini,2017,0
 SWZ,Eswatini,2018,0
+SWZ,Eswatini,2019,0
 SYC,Seychelles,2016,COICOP
 SYC,Seychelles,2017,COICOP
 SYC,Seychelles,2018,COICOP
+SYC,Seychelles,2019,COICOP
 SYR,Syrian Arab Republic,2016,COICOP
 SYR,Syrian Arab Republic,2017,COICOP
 SYR,Syrian Arab Republic,2018,COICOP
+SYR,Syrian Arab Republic,2019,COICOP
 TCD,Chad,2016,na
 TCD,Chad,2017,"NA"
 TCD,Chad,2018,"NA"
+TCD,Chad,2019,"NA"
 TGO,Togo,2016,COICOP
 TGO,Togo,2017,COICOP
 TGO,Togo,2018,COICOP
+TGO,Togo,2019,COICOP
 THA,Thailand,2016,COICOP
 THA,Thailand,2017,COICOP
 THA,Thailand,2018,COICOP
+THA,Thailand,2019,COICOP
 TJK,Tajikistan,2016,COICOP
 TJK,Tajikistan,2017,COICOP
 TJK,Tajikistan,2018,COICOP
+TJK,Tajikistan,2019,COICOP
 TKM,Turkmenistan,2016,na
 TKM,Turkmenistan,2017,0
 TKM,Turkmenistan,2018,0
+TKM,Turkmenistan,2019,0
 TLS,Timor-Leste,2016,COICOP
 TLS,Timor-Leste,2017,COICOP
 TLS,Timor-Leste,2018,COICOP
+TLS,Timor-Leste,2019,COICOP
 TON,Tonga,2016,na
 TON,Tonga,2017,"NA"
 TON,Tonga,2018,"NA"
+TON,Tonga,2019,"NA"
 TTO,Trinidad and Tobago,2016,COICOP
 TTO,Trinidad and Tobago,2017,COICOP
 TTO,Trinidad and Tobago,2018,COICOP
+TTO,Trinidad and Tobago,2019,COICOP
 TUN,Tunisia,2016,na
 TUN,Tunisia,2017,"NA"
 TUN,Tunisia,2018,"NA"
+TUN,Tunisia,2019,"NA"
 TUR,Turkey,2016,COICOP
 TUR,Turkey,2017,COICOP
 TUR,Turkey,2018,COICOP
+TUR,Turkey,2019,COICOP
 TUV,Tuvalu,2016,0
 TUV,Tuvalu,2017,0
 TUV,Tuvalu,2018,0
+TUV,Tuvalu,2019,0
 TZA,Tanzania,2016,COICOP
 TZA,Tanzania,2017,COICOP
 TZA,Tanzania,2018,COICOP
+TZA,Tanzania,2019,COICOP
 UGA,Uganda,2016,COICOP
 UGA,Uganda,2017,COICOP
 UGA,Uganda,2018,COICOP
+UGA,Uganda,2019,COICOP
 UKR,Ukraine,2016,COICOP
 UKR,Ukraine,2017,COICOP
 UKR,Ukraine,2018,COICOP
+UKR,Ukraine,2019,COICOP
 URY,Uruguay,2016,na
 URY,Uruguay,2017,"NA"
 URY,Uruguay,2018,"NA"
+URY,Uruguay,2019,"NA"
 USA,United States,2016,na
 USA,United States,2017,"NA"
 USA,United States,2018,"NA"
 UZB,Uzbekistan,2016,na
 UZB,Uzbekistan,2017,COICOP
 UZB,Uzbekistan,2018,COICOP
+UZB,Uzbekistan,2019,COICOP
 VCT,St. Vincent and the Grenadines,2016,COICOP
 VCT,St. Vincent and the Grenadines,2017,COICOP
 VCT,St. Vincent and the Grenadines,2018,COICOP
+VCT,St. Vincent and the Grenadines,2019,COICOP
 VEN,"Venezuela, RB",2016,COICOP
 VEN,"Venezuela, RB",2017,COICOP
 VEN,"Venezuela, RB",2018,COICOP
+VEN,"Venezuela, RB",2019,COICOP
 VNM,Vietnam,2016,na
 VNM,Vietnam,2017,COICOP
 VNM,Vietnam,2018,COICOP
+VNM,Vietnam,2019,COICOP
 VUT,Vanuatu,2016,na
 VUT,Vanuatu,2017,"NA"
 VUT,Vanuatu,2018,"NA"
+VUT,Vanuatu,2019,"NA"
 WSM,Samoa,2016,COICOP
 WSM,Samoa,2017,COICOP
 WSM,Samoa,2018,COICOP
+WSM,Samoa,2019,COICOP
 XKX,Kosovo,2016,COICOP
 XKX,Kosovo,2017,COICOP
 XKX,Kosovo,2018,COICOP
+XKX,Kosovo,2019,COICOP
 YEM,"Yemen, Rep.",2016,COICOP
 YEM,"Yemen, Rep.",2017,COICOP
 YEM,"Yemen, Rep.",2018,COICOP
+YEM,"Yemen, Rep.",2019,COICOP
 ZAF,South Africa,2016,COICOP
 ZAF,South Africa,2017,COICOP
 ZAF,South Africa,2018,COICOP
+ZAF,South Africa,2019,COICOP
 ZMB,Zambia,2016,COICOP
 ZMB,Zambia,2017,COICOP
 ZMB,Zambia,2018,COICOP
+ZMB,Zambia,2019,COICOP
 ZWE,Zimbabwe,2016,COICOP
 ZWE,Zimbabwe,2017,COICOP
 ZWE,Zimbabwe,2018,COICOP
+ZWE,Zimbabwe,2019,COICOP
