@@ -80,6 +80,12 @@ D1.1.MSC.SNAU_2018 <- spi_loader(1,1,'SNAU', 2018,1) %>%
          date=2018) %>%
   select(iso3c, country,date, SNAU)
 
+D1.1.MSC.SNAU_2019 <- spi_loader(1,1,'SNAU', 2019,1) %>%
+  mutate(SNAU=Sna.in.use,
+         iso3c=Code,
+         country=Country,
+         date=2018) %>%
+  select(iso3c, country,date, SNAU)
 #save to csv
 bind_rows(D1.1.MSC.SNAU_2016, D1.1.MSC.SNAU_2017, D1.1.MSC.SNAU_2018) %>%
   arrange(iso3c, date) %>%
@@ -96,9 +102,9 @@ bind_rows(D1.1.MSC.SNAU_2016, D1.1.MSC.SNAU_2017, D1.1.MSC.SNAU_2018) %>%
 # constant price estimates be changed periodically to reflect changes in economic structure and relative prices. 
 #########
 D1.2.MSC.NABY<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, & 2018 - D1.2.MSC.NABY 20190828 5pm -REV.xlsx", sep=""),
-                     sheet="2016-2018 data",
-                     skip=1,
-                     .name_repair = 'universal')
+                          sheet="2016-2018 data",
+                          skip=1,
+                          .name_repair = 'universal')
 
 D1.2.MSC.NABY <- D1.2.MSC.NABY %>%
   mutate(NABY_2016=WDI.OCT2016...47,
@@ -113,8 +119,35 @@ D1.2.MSC.NABY <- D1.2.MSC.NABY %>%
                values_to='NABY') %>%
   mutate(date=as.numeric(date)) %>%
   arrange(iso3c, date) 
+
+
+
+D1.2.MSC.NABY_2019<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, 2018 & 2019 - D1.2.MSC.NABY -REV.xlsx", sep=""),
+                     sheet="2016-2019 data",
+                     skip=1,
+                     .name_repair = 'universal')
+
+D1.2.MSC.NABY_2019 <- D1.2.MSC.NABY_2019 %>%
+  mutate(NABY_2016=WDI.OCT2016...48,
+         NABY_2017=WDI.OCT2017,
+         NABY_2018=WDI.OCT2018,
+         NABY_2019=WDI.OCT2019,
+         iso3c=Code,
+         country=Country) %>%
+  select(iso3c, country, NABY_2016, NABY_2017, NABY_2018,NABY_2019) %>%
+  pivot_longer(cols=contains(as.character(2016:2019)),
+               names_to='date',
+               names_prefix='NABY_',
+               values_to='NABY') %>%
+  mutate(date=as.numeric(date)) %>%
+  filter(date==2019) %>%
+  arrange(iso3c, date) 
   
-  
+
+D1.2.MSC.NABY <- D1.2.MSC.NABY %>%
+  bind_rows(D1.2.MSC.NABY_2019) %>%
+  arrange(iso3c, date) 
+
 
 write_excel_csv(D1.2.MSC.NABY,
                 path = paste(csv_dir, "D1.2.MSC.NABY.csv", sep="/" ))
@@ -130,20 +163,21 @@ write_excel_csv(D1.2.MSC.NABY,
 # comparability.  The manual and classification have changed to cover the complete scope of industrial 
 # production, employment, and GDP and other statistical areas.
 #########
-D1.3.MSC.CNIN_2016 <- spi_loader(1,3,'CNIN', 2016,0) %>%
+
+
+for (i in 2016:2017) {
+temp <- spi_loader(1,3,'CNIN', i,0) %>%
   mutate(CNIN=Classification.of.national.industry,
          iso3c=Code,
          country=Country,
-         date=2016) %>%
+         date=i) %>%
   select(iso3c, country,date, CNIN)
+ 
+assign(paste("D1.3.MSC.CNIN",i,sep="_"), temp)
 
-D1.3.MSC.CNIN_2017 <- spi_loader(1,3,'CNIN', 2017,0) %>%
-  mutate(CNIN=Classification.of.national.industry,
-         iso3c=Code,
-         country=Country,
-         date=2017) %>%
-  select(iso3c, country,date, CNIN)
+}
 
+#do some customization for after 2017, where sheet slightly changes
 D1.3.MSC.CNIN_2018 <- spi_loader(1,3,'CNIN', 2018,1) %>%
   mutate(CNIN=...2018...6,
          iso3c=Code,
@@ -151,9 +185,15 @@ D1.3.MSC.CNIN_2018 <- spi_loader(1,3,'CNIN', 2018,1) %>%
          date=2018) %>%
   select(iso3c, country,date, CNIN)
 
+D1.3.MSC.CNIN_2019 <- spi_loader(1,3,'CNIN', 2019,1) %>%
+  mutate(CNIN=...2019...7,
+         iso3c=Code,
+         country=Country,
+         date=2019) %>%
+  select(iso3c, country,date, CNIN)
 
 #save to csv
-bind_rows(D1.3.MSC.CNIN_2016, D1.3.MSC.CNIN_2017, D1.3.MSC.CNIN_2018) %>%
+bind_rows(D1.3.MSC.CNIN_2016, D1.3.MSC.CNIN_2017, D1.3.MSC.CNIN_2018,D1.3.MSC.CNIN_2019) %>%
   arrange(iso3c, date) %>%
   write_excel_csv(
     path = paste(csv_dir, "D1.3.MSC.CNIN.csv", sep="/" ))
@@ -168,8 +208,8 @@ bind_rows(D1.3.MSC.CNIN_2016, D1.3.MSC.CNIN_2017, D1.3.MSC.CNIN_2018) %>%
 # changed periodically to reflect changes in expenditure structure.         
 #########
 
-D1.4.MSC.CPIBY<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, & 2018 - D1.4.MSC.CPIBY - REV.xlsx", sep=""),
-                          sheet="2016-2018 data",
+D1.4.MSC.CPIBY<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, 2018 & 2019 - D1.4.MSC.CPIBY -REV.xlsx", sep=""),
+                          sheet="2016-2019 data",
                           skip=1,
                           .name_repair = 'universal')
 
@@ -177,10 +217,11 @@ D1.4.MSC.CPIBY <- D1.4.MSC.CPIBY %>%
   mutate(CPIBY_2016=CPI.BY.OCT2016,
          CPIBY_2017=CPI.BY.OCT2017,
          CPIBY_2018=CPI.BY.OCT2018,
+         CPIBY_2019=CPI.BY.DEC.2019,
          iso3c=Code,
          country=Country) %>%
-  select(iso3c, country, CPIBY_2016, CPIBY_2017, CPIBY_2018) %>%
-  pivot_longer(cols=contains(as.character(2016:2018)),
+  select(iso3c, country, CPIBY_2016, CPIBY_2017, CPIBY_2018,CPIBY_2019) %>%
+  pivot_longer(cols=contains(as.character(2016:2019)),
                names_to='date',
                names_prefix='CPIBY_',
                values_to='CPIBY') %>%
@@ -771,6 +812,20 @@ write_excel_csv(D2.8.SVY.BIZZ,
 ###############################
 
 ##############
+# Indicator 2: Hunger
+##############
+#read in data from FAO (http://www.fao.org/faostat/en/#data/FS), then link to FAO country codes database
+aki_2_df <- read_csv(file=paste(excel_dir,"D3.AKI","FAOSTAT_data_5-1-2020.csv", sep="/"))
+aki_2_df_ccodes <- read_csv(file=paste(excel_dir,"D3.AKI","FAOSTAT_data_5-1-2020_country_codes.csv", sep="/")) %>%
+  mutate(Area=Country)
+
+aki_2_df <- aki_2_df %>%
+  left_join(aki_2_df_ccodes)
+
+
+write_excel_csv(aki_2_df,
+                path = paste(csv_dir, "D3.2.FIES.csv", sep="/" ))
+##############
 # Indicator 5: Maternal Mortality
 ##############
 # Pull WHO data on Maternal Mortality country
@@ -779,6 +834,7 @@ write_excel_csv(D2.8.SVY.BIZZ,
 aki_5_df <- read_csv(file="https://apps.who.int/gho/athena/api/GHO/MDG_0000000026?format=csv")
 write_excel_csv(aki_5_df,
                 path = paste(csv_dir, "D3.5.MMR.csv", sep="/" ))
+
 
 
 ##############

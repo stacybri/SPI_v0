@@ -329,16 +329,19 @@ server <- function(input, output, session) {
     # Availability of Key Indicator Country Score equals Weighted Score divided by Maximum Category Score time 100
     
     df_aki<- reactive({
-        wb(country="countries_only", #pull country data
-           indicator=get_tag_aki(),
-           mrv=5,
-           return_wide = T) %>%
-            filter((reference_year-as.numeric(date))<=3) %>% #filter out years outside reference window of 3 years
+        wb(country="countries_only", 
+                    indicator=aki_list,
+                    startdate=reference_year-3,
+                    enddate=reference_year,
+                    return_wide = T,
+                    removeNA=FALSE) %>%
+            filter(((reference_year-as.numeric(date))<=3) ) %>% #filter out years outside reference window of 3 years     
             mutate_at(.vars=get_tag_aki(), ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
             group_by(country) %>%
             summarise_all((~(if(is.numeric(.)) max(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country containing whether or not data point existed
             mutate(AKI=100*rowMeans(.[get_tag_aki()], na.rm=T)) %>%
-            mutate(ISO_A3_EH=iso3c) 
+            mutate(ISO_A3_EH=iso3c) %>%
+            mutate(date=reference_year)
         
     })
     
@@ -626,47 +629,84 @@ server <- function(input, output, session) {
     ###########
     
     output$summary_stats <- DT::renderDataTable({
-        
+
         
         #add function to produce weighted summary stats
-        my_skim<-    skim_with( numeric = sfl( mean = ~ mean(.,   na.rm=TRUE),
-                                               sd = ~ sqrt(var(.,   na.rm=TRUE)),
-                                               p25 = ~ (quantile(., probs=c(0.25),   na.rm=TRUE)),
-                                               p50 = ~ (quantile(., probs=c(0.5),  na.rm=TRUE)),
-                                               p75 = ~ (quantile(., probs=c(0.75),  na.rm=TRUE)),
-                                               complete = ~ sum(!is.na(.)))) 
-        sumstats <- df_aki() %>%
-            select(get_tag_aki()) 
+        #add in country population as last step
+        pop <-wbstats::wb(country="countries_only", 
+                          indicator='SP.POP.TOTL',
+                          startdate=2016,
+                          enddate=2018,
+                          return_wide = F,
+                          removeNA=FALSE) %>%
+            mutate(population=value,
+                   date=as.numeric(date)) %>%
+            select(country,iso3c, date, population)
         
-        #produce summary stats
-        sumstats_df<-my_skim(sumstats) %>%
-            yank("numeric") %>%
-            mutate(id=skim_variable) %>%
-            select(id, mean, sd, p0, p25, p50, p75, p100, complete,  hist) 
+        countries <- wbstats::wbcountries()
+        
+        df_overall <- df_aki() %>%
+            left_join(pop) %>%
+            left_join(countries) %>%
+            filter(income !="High income")
+        
+        #produce by region
+        sumstats<- df_overall %>%
+            group_by(region) %>%
+            filter(!is.na(region)) %>%
+            select(region, get_tag_aki(),AKI, population) %>%
+            summarise_at(c(get_tag_aki(),'AKI'),~100*round(wtd.mean(as.numeric(.),as.numeric(population), na.rm=T),2)) %>%
+            mutate(AKI=AKI/100)
+        
+        #produce global number
+        sumstats_gl<- df_overall %>%
+            mutate(region='Global') %>%
+            group_by(region) %>%
+            select(region, get_tag_aki(),AKI, population) %>%
+            summarise_at(c(get_tag_aki(),'AKI'),~100*round(wtd.mean(as.numeric(.),as.numeric(population), na.rm=T),2)) %>%
+            mutate(AKI=AKI/100)
+        
+        
+        #transpose data
+        sumstats_df_long <-sumstats_gl %>%
+            bind_rows(sumstats) 
+        
+        sumstats_df <- as.data.frame(t(sumstats_df_long %>% select(-region)))
+        colnames(sumstats_df) = sumstats_df_long$region 
+        
+        
+        sumstats_df <- sumstats_df %>%
+            rownames_to_column() %>%
+            rename(series=rowname)
+        
+        
+        
+        
         
         #create labels df
         get_tag_aki_labs<-wdisJSON %>%
             filter(name %in% input$aki) %>%
             arrange(factor(name, levels = input$aki)) %>%
-            select(id, name)
+            select(id, name) %>%
+            rename(series=id)
         
         
+
         #add variable label
         sumstats_df <- sumstats_df %>%
             left_join(get_tag_aki_labs) %>%
-            select(id, name,  mean, sd, p0, p25, p50, p75, p100, complete, hist)
+            rename(Series=series) %>%
+            select(Series,name, everything())
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
-                                            style = 'caption-side: bottom; text-align: left;',
-                                            htmltools::em("Indicator values are converted to 0 or 1 based on whether they are available in the three year time window."))    ,
-                      colnames=c("Indicator", "Label", "Mean", "Std Dev","Min", "25th Percentile", "Median", "75th Percentile", "Max", "# Complete Cases",  "Histogram"),
-                      extensions = 'Buttons', options=list(
-                          dom = 'Bfrtip',
-                          buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-                          pageLength = 60)) %>%
-            formatRound(columns = c('mean', 'sd', 'p0', 
-                                    'p25', 'p50', 'p75', 'p100'),
-                        digits=2)
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60)) 
+        
+        
         
         
     

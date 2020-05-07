@@ -1238,8 +1238,8 @@ EdStatsResponse <- content(EdStatsRequest, as = "text", encoding = "UTF-8")
 EdStatsJSON <- jsonlite::fromJSON(EdStatsResponse, flatten = TRUE) %>%
   data.frame()
 
-aki<- c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
-        'Prevalence of stunting, height for age (% of children under 5)',
+aki<- c(#'Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
+        #'Prevalence of stunting, height for age (% of children under 5)',
         #'Mortality rate, under-5 (per 1,000 live births)', This was replaced using the following source https://childmortality.org/data 
         'Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
         'People using safely managed drinking water services (% of population)',
@@ -1249,8 +1249,8 @@ aki<- c('Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
         'Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
         'Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
         'Renewable energy consumption (% of total final energy consumption)',
-        'Total greenhouse gas emissions (kt of CO2 equivalent)',
-        'Terrestrial and marine protected areas (% of total territorial area)',
+        #'Total greenhouse gas emissions (kt of CO2 equivalent)',
+        #'Terrestrial and marine protected areas (% of total territorial area)',
         'Households and NPISHs Final consumption expenditure (current LCU)',
         'GNI (current LCU)',
         'Debt service (PPG and IMF only, % of exports of goods, services and primary income)'  )
@@ -1276,7 +1276,7 @@ for (reference_year in 2016:2018) {
               enddate=reference_year,
               return_wide = T,
               removeNA=FALSE) %>%
-          filter(((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% #filter out years outside reference window of 3 years     
+          filter(((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% #filter out years outside reference window of 3 years     
           write_excel_csv(path = paste(csv_output, "/D3.AKI_data_pull_",reference_year,".csv", sep="" )) %>%
           mutate_at(.vars=aki_list$id, ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
           group_by(iso3c, country) %>%
@@ -1351,7 +1351,7 @@ for (reference_year in 2016:2018) {
   
   temp1<-df %>%
         filter(coveragetype==3) %>% #keep just nationally representative samples
-        mutate(frequency=((reference_year-as.numeric(year))<=5) & (reference_year>as.numeric(year))) %>% 
+        mutate(frequency=((reference_year-as.numeric(year))<=5) & (reference_year>=as.numeric(year))) %>% 
         filter(frequency==TRUE) %>%
         group_by(countrycode, comparability) %>% #for each country and comparability type, get number of comparable estimates
         summarise(SPI.QUAL.D3.POV=n())  %>%
@@ -1363,7 +1363,7 @@ for (reference_year in 2016:2018) {
   
   temp <-df %>%
           filter(coveragetype==3) %>% #keep just nationally representative samples
-          mutate(frequency=((reference_year-as.numeric(year))<=5) & (reference_year>as.numeric(year))) %>% 
+          mutate(frequency=((reference_year-as.numeric(year))<=5) & (reference_year>=as.numeric(year))) %>% 
           mutate(SPI.FREQ.D3.POV=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
           group_by(countryname,countrycode) %>%
           summarise(SPI.FREQ.D3.POV=sum(SPI.FREQ.D3.POV, na.rm=T)) %>% 
@@ -1390,6 +1390,52 @@ D3.1.AKI <- bind_rows(D3.1.AKI_2016, D3.1.AKI_2017, D3.1.AKI_2018)
 
 
 
+```
+
+### AKI 3.2: Hunger
+
+We examine two sources: Prevalence of stunting, height for age (% of children under 5), which can be found in the WDI, and the Food Insecurity Experience Scale from the FAO (http://www.fao.org/faostat/en/#data/FS).  Data for food insecurity was pulled on May 1, 2020.
+
+Scoring
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
+
+
+```{r AKI_3.2}
+
+
+#Read in data from UN Inter-agency Group for Child Mortality Estimation
+
+D3.2.AKI.FIES <- read_csv(file=paste(csv_dir, 'D3.2.FIES.csv', sep="/")) %>%
+  rename(year_code="Year Code",
+         iso3c="ISO3 Code") %>%
+  mutate(date=as.numeric(str_extract(year_code, "^.{4}")),
+         SPI.D3.FIES=Value)
+
+#Now loop from 2016 and 2018, keeping just data inside last 5 years.
+for (reference_year in 2016:2018) {
+  temp <-D3.2.AKI.FIES %>%
+          filter(((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% #filter out years outside reference window of 5 years     
+          mutate(SPI.D3.FIES=if_else(is.na(SPI.D3.FIES),0,1)) %>% #create 0,1 variable for whether data point exists for country
+          group_by(iso3c) %>%
+          summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
+          mutate(SPI.D3.FIES=case_when(
+            SPI.D3.FIES>=3 ~ 1,
+            SPI.D3.FIES==2 ~ 0.6,
+            SPI.D3.FIES==1 ~ 0.3,
+            SPI.D3.FIES==0 ~ 0, 
+            TRUE ~ 0
+          )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
+          mutate(date=reference_year) %>%
+          select( iso3c, date, starts_with('SPI.')) 
+
+
+  assign(paste("D3.2.AKI",reference_year,sep="_"), temp)
+}
+
+D3.2.AKI <- bind_rows(D3.2.AKI_2016, D3.2.AKI_2017, D3.2.AKI_2018)
 ```
 
 
@@ -1431,7 +1477,7 @@ D3.3.AKI.MORT <- read_csv(file=paste(csv_dir, 'D3.3_child_mort_RAW_v01.csv', sep
 #Now loop from 2016 and 2018, keeping just data inside last 5 years.
 for (reference_year in 2016:2018) {
   temp <-D3.3.AKI.MORT %>%
-          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% 
+          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% 
           mutate(SPI.FREQ.D3.CHLD.MORT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
           mutate(SPI.QUAL.D3.CHLD.MORT=case_when(
                    reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
@@ -1518,8 +1564,67 @@ EdStatsJSON_metadata <- jsonlite::fromJSON(EdStatsResponse_metadata, flatten = T
 
 ### AKI 3.5 Maternal Mortality Ratio
 
-The data is sourced from the the Inter-Agency Group (200 countries) to improve time and country coverages. Tne national estimates with the source information are available at https://www.who.int/gho/maternal_health/countries/en/.  We use the country reported estimate (https://apps.who.int/gho/athena/api/GHO/MDG_0000000032?format=csv).  
+The data is sourced from the the Inter-Agency Group (200 countries) to improve time and country coverages. Tne national estimates with the source information are available at https://www.who.int/reproductivehealth/publications/maternal-mortality-2000-2017/en/.  The data was accessed on April 3, 2020.  This data was used for modelling maternal mortality, which are then fed into the modelled estimates on Maternal Mortality (SH.STA.MMRT) in the WDI.
 
+For our purposes, we will use the raw data from the country surveys as our data for the availability of key indicators, since the modelled estimates are produced out of sample, and thus not reflective of a country's national statistical system.
+
+Countries are ranked by source quality (admin data > survey > no data) and frequency.
+Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
+
+Quality (0.5 points total):
+0.5 Point. Vital Registration data available within past 5 years	
+0.25 Points. Survey Data or Census Data availabe, but no Vital Registration data within past 5 years; 	
+0 Points. None within past 5 years
+
+Frequency (0.5 points total):
+0.5 Point. 3 or more values available within past 5 years	
+0.3 Points. 2 values available within past 5 years; 	
+0.15 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
+
+```{r AKI_3.5}
+
+
+#Read in data from UN Inter-agency Group 
+
+D3.5.AKI.MMR <- read_csv(file=paste(csv_dir, 'D3.5.BMat2019_datainputs.csv', sep="/")) %>%
+  filter(modelinclude=='TRUE') %>% #keep just observations that the UN inter-agency group deemed credible for use in modelling 
+  mutate(date=end,
+         iso3c=iso,
+         D3.MMRT=pm_obs)
+
+#Now loop from 2016 and 2018, keeping just data inside last 5 years.
+for (reference_year in 2016:2018) {
+  temp <-D3.5.AKI.MMR %>%
+          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% 
+          mutate(SPI.FREQ.D3.MMRT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          mutate(SPI.QUAL.D3.MMRT=case_when(
+                   reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
+                   type=='vr' ~ 0.5,
+                   type!='vr' ~ 0.25,
+                   TRUE ~ as.numeric(NA)
+                 )) %>%
+          group_by(iso3c) %>%
+          summarise(SPI.FREQ.D3.MMRT=sum(SPI.FREQ.D3.MMRT, na.rm=T),
+                    SPI.QUAL.D3.MMRT=max(SPI.QUAL.D3.MMRT, na.rm=T)) %>% 
+          mutate(SPI.FREQ.D3.MMRT=case_when(
+            SPI.FREQ.D3.MMRT>=3 ~ 0.5,
+            SPI.FREQ.D3.MMRT==2 ~ 0.3,
+            SPI.FREQ.D3.MMRT==1 ~ 0.15,
+            SPI.FREQ.D3.MMRT==0 ~ 0, 
+            TRUE ~ 0
+          )) %>%
+          mutate(SPI.D3.MMRT=SPI.FREQ.D3.MMRT+SPI.QUAL.D3.MMRT) %>% 
+          mutate(date=reference_year) %>%
+          select( iso3c, date, starts_with('SPI.')) 
+
+
+  assign(paste("D3.5.AKI",reference_year,sep="_"), temp)
+}
+
+D3.5.AKI <- bind_rows(D3.5.AKI_2016, D3.5.AKI_2017, D3.5.AKI_2018)
+
+```
 
 
 
@@ -1546,7 +1651,7 @@ Scoring
 0.3 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years
 
-```{r}
+```{r D3.7_AKI}
 #read in file from rawdata folder
 D3.7.ELEC <- read_csv(file = paste(csv_dir, "D3.7.ELEC.csv", sep="/" )) %>%
   rename(country=Country,
@@ -1556,7 +1661,7 @@ D3.7.ELEC <- read_csv(file = paste(csv_dir, "D3.7.ELEC.csv", sep="/" )) %>%
 #Now loop from 2016 and 2018, keeping just data inside last 5 years.
 for (reference_year in 2016:2018) {
   temp <-D3.7.ELEC %>%
-          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% 
+          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% 
           mutate(SPI.D3.ELEC=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
           group_by(country) %>%
           summarise(SPI.D3.ELEC=sum(SPI.D3.ELEC, na.rm=T)) %>%
@@ -1604,7 +1709,7 @@ for (reference_year in 2016:2018) {
 temp <-D3.17.QUART.GDP %>%
   mutate(date=as.numeric(str_sub(TIME_PERIOD,1,4))) %>%
   mutate(iso2c=REF_AREA) %>%
-  mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>as.numeric(date))) %>% 
+  mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% 
   mutate(SPI.D3.QUART.GDP=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
   group_by(iso2c, date) %>%
   summarise(SPI.D3.QUART.GDP=max(SPI.D3.QUART.GDP, na.rm=T)) %>% 
@@ -1635,7 +1740,9 @@ D3.17.AKI <- bind_rows(D3.17.AKI_2016, D3.17.AKI_2017, D3.17.AKI_2018)
 #now combine AKI databases and write to csv
 D3.AKI <- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018) %>%
   left_join(D3.1.AKI) %>%
+  left_join(D3.2.AKI) %>%
   left_join(D3.3.AKI) %>%
+  left_join(D3.5.AKI) %>%
   left_join(D3.7.AKI) %>%
   left_join(D3.17.AKI) %>%
   mutate_at(vars(starts_with('SPI.D3.')), ~if_else(is.na(.),0,as.numeric(.))) 
@@ -1977,6 +2084,20 @@ SPI<-D1.MSC %>%
   left_join(D3.AKI) %>%
   left_join(D4.DPO) 
 
+#add in country population as last step
+  pop <-wbstats::wb(country="countries_only", 
+              indicator='SP.POP.TOTL',
+              startdate=2016,
+              enddate=2018,
+              return_wide = F,
+              removeNA=FALSE) %>%
+    mutate(population=value,
+           date=as.numeric(date)) %>%
+    select(country,iso3c, date, population)
+  
+SPI <- SPI %>%
+  left_join(pop)
+
 #Construct overall score
 SPI <- SPI %>%
   mutate(SPI.OVRL.SCR=(SPI.D1.MSC+SPI.D2.CS+SPI.D3.AKI+SPI.D4.DPO)/4)
@@ -2016,12 +2137,14 @@ var.labels=c(iso3c='3 digit country code',
              SPI.D2.7.HLTH='Health/Demographic survey', 
              SPI.D2.8.BIZZ='Business/establishment survey', 
              SPI.D3.AKI='Dimension 3: Availability of Key Indicators (AKI)', 
-             SPI.D3.SI.POV.DDAY='Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
+             SPI.D3.POV='Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
              SPI.D3.SH.STA.STNT.ZS='Prevalence of stunting, height for age (% of children under 5)',
-            SPI.D3.SH.DYN.MORT='Mortality rate, under-5 (per 1,000 live births)', 
+             SPI.D3.FIES='Food Insecurity Experience Scale',
+             SPI.D3.CHLD.MORT='Mortality rate, under-5 (per 1,000 live births)', 
              SPI.D3.SE.LPV.PRIM.BMP='Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
+             SPI.D3.MMRT='Maternal Mortality',
              SPI.D3.SH.H2O.SMDW.ZS='People using safely managed drinking water services (% of population)',
-             SPI.D3.EG.ELC.ACCS.ZS='Access to electricity (% of population)',
+             SPI.D3.ELEC='Access to electricity (% of population)',
              SPI.D3.SL.UEM.TOTL.NE.ZS='Unemployment, total (% of total labor force) (national estimate)' ,
              SPI.D3.NV.IND.MANF.ZS='Manufacturing, value added (% of GDP)',
              SPI.D3.SI.SPR.PC40.ZG='Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
@@ -2031,6 +2154,7 @@ var.labels=c(iso3c='3 digit country code',
              SPI.D3.ER.PTD.TOTL.ZS='Terrestrial and marine protected areas (% of total territorial area)',
              SPI.D3.NE.CON.PRVT.CN='Households and NPISHs Final consumption expenditure (current LCU)',
              SPI.D3.NY.GNP.MKTP.CN='GNI (current LCU)',
+             SPI.D3.QUART.GDP='Quarterly GDP',
              SPI.D3.DT.TDS.DPPF.XP.ZS='Debt service (PPG and IMF only, % of exports of goods, services and primary income)', 
              SPI.D4.DPO='Dimension 4: Dissemination Practices & Openness (DPO)', 
              SPI.D4.1.CALD='NSO has an Advance Release Calendar and it is published ', 
@@ -2044,7 +2168,7 @@ var.labels=c(iso3c='3 digit country code',
 
 
 #label data
-label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+#label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
 
 #turn variable labels into data frame 
 var.labels.df<-data.frame(var.labels) %>% 

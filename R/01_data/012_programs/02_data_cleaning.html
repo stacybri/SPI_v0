@@ -11,7 +11,7 @@
 
 <meta name="author" content="Brian Stacy" />
 
-<meta name="date" content="2020-04-29" />
+<meta name="date" content="2020-05-06" />
 
 <title>SPI Data Documentation</title>
 
@@ -374,7 +374,7 @@ summary {
 
 <h1 class="title toc-ignore">SPI Data Documentation</h1>
 <h4 class="author">Brian Stacy</h4>
-<h4 class="date">2020-04-29</h4>
+<h4 class="date">2020-05-06</h4>
 
 </div>
 
@@ -412,7 +412,9 @@ summary {
 <li><a href="#spi-dimension-3-availability-of-key-indicators-aki">SPI Dimension 3: Availability of Key Indicators (AKI):</a><ul>
 <li><a href="#aki-3.1-3.2-3.9-3.10-3.11-3.12-3.13-3.14-3.15-3.16-3.18">AKI 3.1, 3.2, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14, 3.15, 3.16, 3.18</a></li>
 <li><a href="#aki-3.1-poverty-headcount-ratio-at-1.90-a-day-2011-ppp-of-population">AKI 3.1: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)</a></li>
+<li><a href="#aki-3.2-hunger">AKI 3.2: Hunger</a></li>
 <li><a href="#aki-3.3-mortality-rate-under-5-per-1000-live-births">AKI 3.3: Mortality rate, under-5 (per 1,000 live births)</a></li>
+<li><a href="#aki-3.5-maternal-mortality-ratio">AKI 3.5 Maternal Mortality Ratio</a></li>
 <li><a href="#aki-3.6-people-using-safely-managed-drinking-water-services-of-population">AKI 3.6: People using safely managed drinking water services (% of population)</a></li>
 <li><a href="#aki-3.7-access-to-electricity-of-population">AKI 3.7: Access to electricity (% of population)</a></li>
 <li><a href="#aki-3.17-quarterly-gdp">AKI 3.17 Quarterly GDP</a></li>
@@ -3837,8 +3839,7 @@ SPI.D2.8.BIZZ
 </li>
 </ol>
 <ul>
-<li>AKI 3.5:<br />
-</li>
+<li>AKI 3.5: Maternal Mortality</li>
 <li>AKI 3.6: People using safely managed drinking water services (% of population)<br />
 </li>
 <li>AKI 3.7: Access to electricity (% of population)<br />
@@ -3914,8 +3915,8 @@ EdStatsResponse &lt;- content(EdStatsRequest, as = &quot;text&quot;, encoding = 
 EdStatsJSON &lt;- jsonlite::fromJSON(EdStatsResponse, flatten = TRUE) %&gt;%
   data.frame()
 
-aki&lt;- c(&#39;Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)&#39;,
-        &#39;Prevalence of stunting, height for age (% of children under 5)&#39;,
+aki&lt;- c(#&#39;Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)&#39;,
+        #&#39;Prevalence of stunting, height for age (% of children under 5)&#39;,
         #&#39;Mortality rate, under-5 (per 1,000 live births)&#39;, This was replaced using the following source https://childmortality.org/data 
         &#39;Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold&#39;,
         &#39;People using safely managed drinking water services (% of population)&#39;,
@@ -3925,8 +3926,8 @@ aki&lt;- c(&#39;Poverty headcount ratio at $1.90 a day (2011 PPP) (% of populati
         &#39;Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)&#39;,
         &#39;Level of water stress: freshwater withdrawal as a proportion of available freshwater resources&#39;,
         &#39;Renewable energy consumption (% of total final energy consumption)&#39;,
-        &#39;Total greenhouse gas emissions (kt of CO2 equivalent)&#39;,
-        &#39;Terrestrial and marine protected areas (% of total territorial area)&#39;,
+        #&#39;Total greenhouse gas emissions (kt of CO2 equivalent)&#39;,
+        #&#39;Terrestrial and marine protected areas (% of total territorial area)&#39;,
         &#39;Households and NPISHs Final consumption expenditure (current LCU)&#39;,
         &#39;GNI (current LCU)&#39;,
         &#39;Debt service (PPG and IMF only, % of exports of goods, services and primary income)&#39;  )
@@ -4052,6 +4053,43 @@ for (reference_year in 2016:2018) {
 
 D3.1.AKI &lt;- bind_rows(D3.1.AKI_2016, D3.1.AKI_2017, D3.1.AKI_2018)</code></pre>
 </div>
+<div id="aki-3.2-hunger" class="section level3">
+<h3>AKI 3.2: Hunger</h3>
+<p>We examine two sources: Prevalence of stunting, height for age (% of children under 5), which can be found in the WDI, and the Food Insecurity Experience Scale from the FAO (<a href="http://www.fao.org/faostat/en/#data/FS" class="uri">http://www.fao.org/faostat/en/#data/FS</a>). Data for food insecurity was pulled on May 1, 2020.</p>
+<p>Scoring 1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years</p>
+<pre class="r"><code>#Read in data from UN Inter-agency Group for Child Mortality Estimation
+
+D3.2.AKI.FIES &lt;- read_csv(file=paste(csv_dir, &#39;D3.2.FIES.csv&#39;, sep=&quot;/&quot;)) %&gt;%
+  rename(year_code=&quot;Year Code&quot;,
+         iso3c=&quot;ISO3 Code&quot;) %&gt;%
+  mutate(date=as.numeric(str_extract(year_code, &quot;^.{4}&quot;)),
+         SPI.D3.FIES=Value)
+
+#Now loop from 2016 and 2018, keeping just data inside last 5 years.
+for (reference_year in 2016:2018) {
+  temp &lt;-D3.2.AKI.FIES %&gt;%
+          filter(((reference_year-as.numeric(date))&lt;=5) &amp; (reference_year&gt;as.numeric(date))) %&gt;% #filter out years outside reference window of 5 years     
+          mutate(SPI.D3.FIES=if_else(is.na(SPI.D3.FIES),0,1)) %&gt;% #create 0,1 variable for whether data point exists for country
+          group_by(iso3c) %&gt;%
+          summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %&gt;% #group by country to create one observation per country                 containing whether or not data point existed
+          mutate(SPI.D3.FIES=case_when(
+            SPI.D3.FIES&gt;=3 ~ 1,
+            SPI.D3.FIES==2 ~ 0.6,
+            SPI.D3.FIES==1 ~ 0.3,
+            SPI.D3.FIES==0 ~ 0, 
+            TRUE ~ 0
+          )) %&gt;% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
+          mutate(date=reference_year) %&gt;%
+          select( iso3c, date, starts_with(&#39;SPI.&#39;)) 
+
+
+  assign(paste(&quot;D3.2.AKI&quot;,reference_year,sep=&quot;_&quot;), temp)
+}
+
+D3.2.AKI &lt;- bind_rows(D3.2.AKI_2016, D3.2.AKI_2017, D3.2.AKI_2018)</code></pre>
+</div>
 <div id="aki-3.3-mortality-rate-under-5-per-1000-live-births" class="section level3">
 <h3>AKI 3.3: Mortality rate, under-5 (per 1,000 live births)</h3>
 <p>The data in WDI is modeled, based on HHS and Vital Registration. We use the following as a source for raw data produced by national statistical offices that is used in this modeling.</p>
@@ -4104,6 +4142,57 @@ for (reference_year in 2016:2018) {
 }
 
 D3.3.AKI &lt;- bind_rows(D3.3.AKI_2016, D3.3.AKI_2017, D3.3.AKI_2018)</code></pre>
+</div>
+<div id="aki-3.5-maternal-mortality-ratio" class="section level3">
+<h3>AKI 3.5 Maternal Mortality Ratio</h3>
+<p>The data is sourced from the the Inter-Agency Group (200 countries) to improve time and country coverages. Tne national estimates with the source information are available at <a href="https://www.who.int/reproductivehealth/publications/maternal-mortality-2000-2017/en/" class="uri">https://www.who.int/reproductivehealth/publications/maternal-mortality-2000-2017/en/</a>. The data was accessed on April 3, 2020. This data was used for modelling maternal mortality, which are then fed into the modelled estimates on Maternal Mortality (SH.STA.MMRT) in the WDI.</p>
+<p>For our purposes, we will use the raw data from the country surveys as our data for the availability of key indicators, since the modelled estimates are produced out of sample, and thus not reflective of a country’s national statistical system.</p>
+<p>Countries are ranked by source quality (admin data &gt; survey &gt; no data) and frequency. Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency. Detailed scoring for source quality and frequency components are below.</p>
+<p>Quality (0.5 points total): 0.5 Point. Vital Registration data available within past 5 years<br />
+0.25 Points. Survey Data or Census Data availabe, but no Vital Registration data within past 5 years;<br />
+0 Points. None within past 5 years</p>
+<p>Frequency (0.5 points total): 0.5 Point. 3 or more values available within past 5 years<br />
+0.3 Points. 2 values available within past 5 years;<br />
+0.15 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years</p>
+<pre class="r"><code>#Read in data from UN Inter-agency Group 
+
+D3.5.AKI.MMR &lt;- read_csv(file=paste(csv_dir, &#39;D3.5.BMat2019_datainputs.csv&#39;, sep=&quot;/&quot;)) %&gt;%
+  filter(modelinclude==&#39;TRUE&#39;) %&gt;% #keep just observations that the UN inter-agency group deemed credible for use in modelling 
+  mutate(date=end,
+         iso3c=iso,
+         D3.MMRT=pm_obs)
+
+#Now loop from 2016 and 2018, keeping just data inside last 5 years.
+for (reference_year in 2016:2018) {
+  temp &lt;-D3.5.AKI.MMR %&gt;%
+          mutate(frequency=((reference_year-as.numeric(date))&lt;=5) &amp; (reference_year&gt;as.numeric(date))) %&gt;% 
+          mutate(SPI.FREQ.D3.MMRT=if_else(frequency==TRUE,1,0)) %&gt;% #create 0,1 variable for whether data point exists for country
+          mutate(SPI.QUAL.D3.MMRT=case_when(
+                   reference_year-as.numeric(date)&gt;=5 ~ 0, #outside 5 year window
+                   type==&#39;vr&#39; ~ 0.5,
+                   type!=&#39;vr&#39; ~ 0.25,
+                   TRUE ~ as.numeric(NA)
+                 )) %&gt;%
+          group_by(iso3c) %&gt;%
+          summarise(SPI.FREQ.D3.MMRT=sum(SPI.FREQ.D3.MMRT, na.rm=T),
+                    SPI.QUAL.D3.MMRT=max(SPI.QUAL.D3.MMRT, na.rm=T)) %&gt;% 
+          mutate(SPI.FREQ.D3.MMRT=case_when(
+            SPI.FREQ.D3.MMRT&gt;=3 ~ 0.5,
+            SPI.FREQ.D3.MMRT==2 ~ 0.3,
+            SPI.FREQ.D3.MMRT==1 ~ 0.15,
+            SPI.FREQ.D3.MMRT==0 ~ 0, 
+            TRUE ~ 0
+          )) %&gt;%
+          mutate(SPI.D3.MMRT=SPI.FREQ.D3.MMRT+SPI.QUAL.D3.MMRT) %&gt;% 
+          mutate(date=reference_year) %&gt;%
+          select( iso3c, date, starts_with(&#39;SPI.&#39;)) 
+
+
+  assign(paste(&quot;D3.5.AKI&quot;,reference_year,sep=&quot;_&quot;), temp)
+}
+
+D3.5.AKI &lt;- bind_rows(D3.5.AKI_2016, D3.5.AKI_2017, D3.5.AKI_2018)</code></pre>
 </div>
 <div id="aki-3.6-people-using-safely-managed-drinking-water-services-of-population" class="section level3">
 <h3>AKI 3.6: People using safely managed drinking water services (% of population)</h3>
@@ -4192,7 +4281,9 @@ D3.17.AKI &lt;- bind_rows(D3.17.AKI_2016, D3.17.AKI_2017, D3.17.AKI_2018)  </cod
 <pre class="r"><code>#now combine AKI databases and write to csv
 D3.AKI &lt;- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018) %&gt;%
   left_join(D3.1.AKI) %&gt;%
+  left_join(D3.2.AKI) %&gt;%
   left_join(D3.3.AKI) %&gt;%
+  left_join(D3.5.AKI) %&gt;%
   left_join(D3.7.AKI) %&gt;%
   left_join(D3.17.AKI) %&gt;%
   mutate_at(vars(starts_with(&#39;SPI.D3.&#39;)), ~if_else(is.na(.),0,as.numeric(.))) 
@@ -4268,216 +4359,6 @@ Histogram
 <tbody>
 <tr>
 <td style="text-align:left;">
-SPI.D3.SI.POV.DDAY
-</td>
-<td style="text-align:right;">
-2016
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.41
-</td>
-<td style="text-align:right;">
-0.42
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▆▁▁▆
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SI.POV.DDAY
-</td>
-<td style="text-align:right;">
-2017
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.41
-</td>
-<td style="text-align:right;">
-0.42
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▅▁▁▆
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SI.POV.DDAY
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.40
-</td>
-<td style="text-align:right;">
-0.42
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▅▁▁▆
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SH.STA.STNT.ZS
-</td>
-<td style="text-align:right;">
-2016
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.22
-</td>
-<td style="text-align:right;">
-0.28
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▅▂▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SH.STA.STNT.ZS
-</td>
-<td style="text-align:right;">
-2017
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.22
-</td>
-<td style="text-align:right;">
-0.28
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▅▂▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SH.STA.STNT.ZS
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.19
-</td>
-<td style="text-align:right;">
-0.26
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▅▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 SPI.D3.SE.LPV.PRIM.BMP
 </td>
 <td style="text-align:right;">
@@ -4493,7 +4374,7 @@ SPI.D3.SE.LPV.PRIM.BMP
 0.16
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -4528,7 +4409,7 @@ SPI.D3.SE.LPV.PRIM.BMP
 0.15
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -4563,7 +4444,7 @@ SPI.D3.SE.LPV.PRIM.BMP
 0.15
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -4598,7 +4479,7 @@ SPI.D3.SH.H2O.SMDW.ZS
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -4633,7 +4514,7 @@ SPI.D3.SH.H2O.SMDW.ZS
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -4668,7 +4549,7 @@ SPI.D3.SH.H2O.SMDW.ZS
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -4703,7 +4584,7 @@ SPI.D3.SL.UEM.TOTL.NE.ZS
 0.42
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.30
@@ -4738,7 +4619,7 @@ SPI.D3.SL.UEM.TOTL.NE.ZS
 0.42
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.30
@@ -4773,7 +4654,7 @@ SPI.D3.SL.UEM.TOTL.NE.ZS
 0.43
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.30
@@ -4808,7 +4689,7 @@ SPI.D3.NV.IND.MANF.ZS
 0.32
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -4843,7 +4724,7 @@ SPI.D3.NV.IND.MANF.ZS
 0.33
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -4878,7 +4759,7 @@ SPI.D3.NV.IND.MANF.ZS
 0.33
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -4913,7 +4794,7 @@ SPI.D3.SI.SPR.PC40.ZG
 0.07
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -4948,7 +4829,7 @@ SPI.D3.SI.SPR.PC40.ZG
 0.10
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -4983,7 +4864,7 @@ SPI.D3.SI.SPR.PC40.ZG
 0.14
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5018,7 +4899,7 @@ SPI.D3.ER.H2O.FWST.ZS
 0.13
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.30
@@ -5053,7 +4934,7 @@ SPI.D3.ER.H2O.FWST.ZS
 0.13
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.30
@@ -5088,7 +4969,7 @@ SPI.D3.ER.H2O.FWST.ZS
 0.13
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.30
@@ -5123,7 +5004,7 @@ SPI.D3.EG.FEC.RNEW.ZS
 0.13
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5158,7 +5039,7 @@ SPI.D3.EG.FEC.RNEW.ZS
 0.13
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5193,7 +5074,7 @@ SPI.D3.EG.FEC.RNEW.ZS
 0.13
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5206,216 +5087,6 @@ SPI.D3.EG.FEC.RNEW.ZS
 </td>
 <td style="text-align:right;">
 1.00
-</td>
-<td style="text-align:left;">
-▁▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.EN.ATM.GHGT.KT.CE
-</td>
-<td style="text-align:right;">
-2016
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.49
-</td>
-<td style="text-align:right;">
-0.23
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:left;">
-▂▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.EN.ATM.GHGT.KT.CE
-</td>
-<td style="text-align:right;">
-2017
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.24
-</td>
-<td style="text-align:right;">
-0.12
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:left;">
-▂▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.EN.ATM.GHGT.KT.CE
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:left;">
-▁▁▇▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.ER.PTD.TOTL.ZS
-</td>
-<td style="text-align:right;">
-2016
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:left;">
-▁▁▇▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.ER.PTD.TOTL.ZS
-</td>
-<td style="text-align:right;">
-2017
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.29
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:left;">
-▁▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.ER.PTD.TOTL.ZS
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.58
-</td>
-<td style="text-align:right;">
-0.10
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:right;">
-0.60
 </td>
 <td style="text-align:left;">
 ▁▁▁▁▇
@@ -5438,7 +5109,7 @@ SPI.D3.NE.CON.PRVT.CN
 0.37
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5473,7 +5144,7 @@ SPI.D3.NE.CON.PRVT.CN
 0.37
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5508,7 +5179,7 @@ SPI.D3.NE.CON.PRVT.CN
 0.38
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5543,7 +5214,7 @@ SPI.D3.NY.GNP.MKTP.CN
 0.27
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5578,7 +5249,7 @@ SPI.D3.NY.GNP.MKTP.CN
 0.27
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5613,7 +5284,7 @@ SPI.D3.NY.GNP.MKTP.CN
 0.27
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 1.00
@@ -5648,7 +5319,7 @@ SPI.D3.DT.TDS.DPPF.XP.ZS
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5683,7 +5354,7 @@ SPI.D3.DT.TDS.DPPF.XP.ZS
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5718,7 +5389,7 @@ SPI.D3.DT.TDS.DPPF.XP.ZS
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5753,7 +5424,7 @@ SPI.D3.POV
 0.44
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5788,7 +5459,7 @@ SPI.D3.POV
 0.44
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5823,7 +5494,7 @@ SPI.D3.POV
 0.44
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5843,6 +5514,111 @@ SPI.D3.POV
 </tr>
 <tr>
 <td style="text-align:left;">
+SPI.D3.FIES
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:left;">
+▇▁▁▁▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D3.FIES
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:left;">
+▇▁▁▁▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D3.FIES
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:left;">
+▇▁▁▁▆
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 SPI.D3.CHLD.MORT
 </td>
 <td style="text-align:right;">
@@ -5858,7 +5634,7 @@ SPI.D3.CHLD.MORT
 0.42
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5893,7 +5669,7 @@ SPI.D3.CHLD.MORT
 0.43
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5928,7 +5704,7 @@ SPI.D3.CHLD.MORT
 0.44
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5948,6 +5724,111 @@ SPI.D3.CHLD.MORT
 </tr>
 <tr>
 <td style="text-align:left;">
+SPI.D3.MMRT
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:left;">
+▆▅▁▂▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D3.MMRT
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:left;">
+▇▅▁▂▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPI.D3.MMRT
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:left;">
+▇▃▁▂▇
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 SPI.D3.ELEC
 </td>
 <td style="text-align:right;">
@@ -5963,7 +5844,7 @@ SPI.D3.ELEC
 0.49
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -5998,7 +5879,7 @@ SPI.D3.ELEC
 0.49
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -6033,7 +5914,7 @@ SPI.D3.ELEC
 0.49
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -6068,7 +5949,7 @@ SPI.D3.QUART.GDP
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -6103,7 +5984,7 @@ SPI.D3.QUART.GDP
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -6138,7 +6019,7 @@ SPI.D3.QUART.GDP
 0.50
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
 0.00
@@ -6167,28 +6048,28 @@ SPI.D3.AKI
 1
 </td>
 <td style="text-align:right;">
-47.92
+52.86
 </td>
 <td style="text-align:right;">
-17.22
+19.88
 </td>
 <td style="text-align:right;">
-0.00
+0
 </td>
 <td style="text-align:right;">
-38.33
+41.25
 </td>
 <td style="text-align:right;">
-51.11
+54.69
 </td>
 <td style="text-align:right;">
-62.22
+69.69
 </td>
 <td style="text-align:right;">
-77.50
+88.75
 </td>
 <td style="text-align:left;">
-▁▃▆▇▆
+▂▃▆▇▅
 </td>
 </tr>
 <tr>
@@ -6202,28 +6083,28 @@ SPI.D3.AKI
 1
 </td>
 <td style="text-align:right;">
-47.86
+52.54
 </td>
 <td style="text-align:right;">
-17.29
+20.13
 </td>
 <td style="text-align:right;">
-1.67
+0
 </td>
 <td style="text-align:right;">
-38.33
+40.94
 </td>
 <td style="text-align:right;">
-50.00
+55.00
 </td>
 <td style="text-align:right;">
-62.22
+70.62
 </td>
 <td style="text-align:right;">
-80.56
+86.88
 </td>
 <td style="text-align:left;">
-▁▃▆▇▃
+▂▅▇▇▇
 </td>
 </tr>
 <tr>
@@ -6237,25 +6118,25 @@ SPI.D3.AKI
 1
 </td>
 <td style="text-align:right;">
-47.59
+52.03
 </td>
 <td style="text-align:right;">
-17.32
+20.61
 </td>
 <td style="text-align:right;">
-3.33
+0
 </td>
 <td style="text-align:right;">
-36.94
+38.44
 </td>
 <td style="text-align:right;">
-50.56
+53.75
 </td>
 <td style="text-align:right;">
-62.50
+69.69
 </td>
 <td style="text-align:right;">
-76.67
+86.88
 </td>
 <td style="text-align:left;">
 ▂▅▇▇▇
@@ -7365,6 +7246,20 @@ SPI&lt;-D1.MSC %&gt;%
   left_join(D3.AKI) %&gt;%
   left_join(D4.DPO) 
 
+#add in country population as last step
+  pop &lt;-wbstats::wb(country=&quot;countries_only&quot;, 
+              indicator=&#39;SP.POP.TOTL&#39;,
+              startdate=2016,
+              enddate=2018,
+              return_wide = F,
+              removeNA=FALSE) %&gt;%
+    mutate(population=value,
+           date=as.numeric(date)) %&gt;%
+    select(country,iso3c, date, population)
+  
+SPI &lt;- SPI %&gt;%
+  left_join(pop)
+
 #Construct overall score
 SPI &lt;- SPI %&gt;%
   mutate(SPI.OVRL.SCR=(SPI.D1.MSC+SPI.D2.CS+SPI.D3.AKI+SPI.D4.DPO)/4)
@@ -7404,12 +7299,14 @@ var.labels=c(iso3c=&#39;3 digit country code&#39;,
              SPI.D2.7.HLTH=&#39;Health/Demographic survey&#39;, 
              SPI.D2.8.BIZZ=&#39;Business/establishment survey&#39;, 
              SPI.D3.AKI=&#39;Dimension 3: Availability of Key Indicators (AKI)&#39;, 
-             SPI.D3.SI.POV.DDAY=&#39;Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)&#39;,
+             SPI.D3.POV=&#39;Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)&#39;,
              SPI.D3.SH.STA.STNT.ZS=&#39;Prevalence of stunting, height for age (% of children under 5)&#39;,
-            SPI.D3.SH.DYN.MORT=&#39;Mortality rate, under-5 (per 1,000 live births)&#39;, 
+             SPI.D3.FIES=&#39;Food Insecurity Experience Scale&#39;,
+             SPI.D3.CHLD.MORT=&#39;Mortality rate, under-5 (per 1,000 live births)&#39;, 
              SPI.D3.SE.LPV.PRIM.BMP=&#39;Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold&#39;,
+             SPI.D3.MMRT=&#39;Maternal Mortality&#39;,
              SPI.D3.SH.H2O.SMDW.ZS=&#39;People using safely managed drinking water services (% of population)&#39;,
-             SPI.D3.EG.ELC.ACCS.ZS=&#39;Access to electricity (% of population)&#39;,
+             SPI.D3.ELEC=&#39;Access to electricity (% of population)&#39;,
              SPI.D3.SL.UEM.TOTL.NE.ZS=&#39;Unemployment, total (% of total labor force) (national estimate)&#39; ,
              SPI.D3.NV.IND.MANF.ZS=&#39;Manufacturing, value added (% of GDP)&#39;,
              SPI.D3.SI.SPR.PC40.ZG=&#39;Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)&#39;,
@@ -7419,6 +7316,7 @@ var.labels=c(iso3c=&#39;3 digit country code&#39;,
              SPI.D3.ER.PTD.TOTL.ZS=&#39;Terrestrial and marine protected areas (% of total territorial area)&#39;,
              SPI.D3.NE.CON.PRVT.CN=&#39;Households and NPISHs Final consumption expenditure (current LCU)&#39;,
              SPI.D3.NY.GNP.MKTP.CN=&#39;GNI (current LCU)&#39;,
+             SPI.D3.QUART.GDP=&#39;Quarterly GDP&#39;,
              SPI.D3.DT.TDS.DPPF.XP.ZS=&#39;Debt service (PPG and IMF only, % of exports of goods, services and primary income)&#39;, 
              SPI.D4.DPO=&#39;Dimension 4: Dissemination Practices &amp; Openness (DPO)&#39;, 
              SPI.D4.1.CALD=&#39;NSO has an Advance Release Calendar and it is published &#39;, 
@@ -7432,7 +7330,7 @@ var.labels=c(iso3c=&#39;3 digit country code&#39;,
 
 
 #label data
-label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+#label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
 
 #turn variable labels into data frame 
 var.labels.df&lt;-data.frame(var.labels) %&gt;% 
@@ -7891,22 +7789,26 @@ Business/establishment survey
 </tr>
 <tr>
 <td style="text-align:left;max-width: 20em; ">
-SPI.D3.SI.POV.DDAY
+SPI.D3.POV
 </td>
 <td style="text-align:left;max-width: 20em; ">
 Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)
 </td>
 <td style="text-align:left;max-width: 20em; ">
-<a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators" class="uri">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>
+Povcalnet, <a href="https://development-data-hub-s3-public.s3.amazonaws.com/ddhfiles/506801/povcalnet_comparability.csv" class="uri">https://development-data-hub-s3-public.s3.amazonaws.com/ddhfiles/506801/povcalnet_comparability.csv</a>
 </td>
 <td style="text-align:left;max-width: 20em; ">
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+Scoring is as follows: Quality (0.5 points total): 0.5 Point. Comparable data lasting at least two years within past 5 years<br />
+0 Points. No comparable data within past 5 years</li>
+</ol></li>
+</ul>
+Frequency (0.5 points total): 0.5 Point. 3 or more values available within past 5 years<br />
+0.3 Points. 2 values available within past 5 years;<br />
+0.15 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -7923,30 +7825,52 @@ Prevalence of stunting, height for age (% of children under 5)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years<br />
+0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
 <td style="text-align:left;max-width: 20em; ">
-SPI.D3.SH.DYN.MORT
+SPI.D3.FIES
+</td>
+<td style="text-align:left;max-width: 20em; ">
+Food Insecurity Experience Scale
+</td>
+<td style="text-align:left;max-width: 20em; ">
+FAO, <a href="http://www.fao.org/faostat/en/#data/FS" class="uri">http://www.fao.org/faostat/en/#data/FS</a>
+</td>
+<td style="text-align:left;max-width: 20em; ">
+FAO
+</td>
+<td style="text-align:left;max-width: 20em; ">
+0.5 Point. Comparable data lasting at least two years within past 5 years
+</td>
+</tr>
+<tr>
+<td style="text-align:left;max-width: 20em; ">
+SPI.D3.CHLD.MORT
 </td>
 <td style="text-align:left;max-width: 20em; ">
 Mortality rate, under-5 (per 1,000 live births)
 </td>
 <td style="text-align:left;max-width: 20em; ">
-<a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators" class="uri">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>
+<a href="https://childmortality.org/data" class="uri">https://childmortality.org/data</a>
 </td>
 <td style="text-align:left;max-width: 20em; ">
-WDI database
+Inter-Agency Group
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency. Detailed scoring for source quality and frequency components are below.</p>
+<p>Quality (0.5 points total): 0.5 Point. Vital Registration data available within past 5 years<br />
+0.25 Points. Survey Data availabe, but no Vital Registration data within past 5 years;<br />
+0 Points. None within past 5 years</p>
+Frequency (0.5 points total): 0.5 Point. 3 or more values available within past 5 years<br />
+0.3 Points. 2 values available within past 5 years;<br />
+0.15 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -7963,10 +7887,37 @@ Pupils below minimum reading proficiency at end of primary (%). Low GAML thresho
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
+</td>
+</tr>
+<tr>
+<td style="text-align:left;max-width: 20em; ">
+SPI.D3.MMRT
+</td>
+<td style="text-align:left;max-width: 20em; ">
+Maternal Mortality
+</td>
+<td style="text-align:left;max-width: 20em; ">
+WHO, Inter-Agency Group, <a href="https://www.who.int/reproductivehealth/publications/maternal-mortality-2000-2017/en/" class="uri">https://www.who.int/reproductivehealth/publications/maternal-mortality-2000-2017/en/</a>.
+</td>
+<td style="text-align:left;max-width: 20em; ">
+WHO, Inter-agency group
+</td>
+<td style="text-align:left;max-width: 20em; ">
+<p>Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency. Detailed scoring for source quality and frequency components are below.</p>
+<p>Quality (0.5 points total): 0.5 Point. Vital Registration data available within past 5 years<br />
+0.25 Points. Survey Data or Census Data availabe, but no Vital Registration data within past 5 years;<br />
+0 Points. None within past 5 years</p>
+Frequency (0.5 points total): 0.5 Point. 3 or more values available within past 5 years<br />
+0.3 Points. 2 values available within past 5 years;<br />
+0.15 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years 1 Point. 3 or more values available within past 5 years<br />
+0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -7983,30 +7934,30 @@ People using safely managed drinking water services (% of population)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
 <td style="text-align:left;max-width: 20em; ">
-SPI.D3.EG.ELC.ACCS.ZS
+SPI.D3.ELEC
 </td>
 <td style="text-align:left;max-width: 20em; ">
 Access to electricity (% of population)
 </td>
 <td style="text-align:left;max-width: 20em; ">
-<a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators" class="uri">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>
+Data for access to electricity are collected among different sources: mostly data from nationally representative household surveys (including national censuses) were used. Survey sources include Demographic and Health Surveys (DHS) and Living Standards Measurement Surveys (LSMS), Multi-Indicator Cluster Surveys (MICS), the World Health Survey (WHS), other nationally developed and implemented surveys, and various government agencies (for example, ministries of energy and utilities)
 </td>
 <td style="text-align:left;max-width: 20em; ">
-WDI database
+World Bank
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8023,10 +7974,10 @@ Unemployment, total (% of total labor force) (national estimate)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8043,10 +7994,10 @@ Manufacturing, value added (% of GDP)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8063,10 +8014,10 @@ Annualized average growth rate in per capita real survey mean consumption or inc
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8083,10 +8034,10 @@ Level of water stress: freshwater withdrawal as a proportion of available freshw
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8103,10 +8054,10 @@ Renewable energy consumption (% of total final energy consumption)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8123,10 +8074,10 @@ Total greenhouse gas emissions (kt of CO2 equivalent)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8143,10 +8094,10 @@ Terrestrial and marine protected areas (% of total territorial area)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8163,10 +8114,10 @@ Households and NPISHs Final consumption expenditure (current LCU)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8183,10 +8134,30 @@ GNI (current LCU)
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
+</td>
+</tr>
+<tr>
+<td style="text-align:left;max-width: 20em; ">
+SPI.D3.QUART.GDP
+</td>
+<td style="text-align:left;max-width: 20em; ">
+Quarterly GDP
+</td>
+<td style="text-align:left;max-width: 20em; ">
+IMF, <a href="https://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B" class="uri">https://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B</a>
+</td>
+<td style="text-align:left;max-width: 20em; ">
+IMF
+</td>
+<td style="text-align:left;max-width: 20em; ">
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8203,10 +8174,10 @@ Debt service (PPG and IMF only, % of exports of goods, services and primary inco
 WDI database
 </td>
 <td style="text-align:left;max-width: 20em; ">
-1 Point. 3 or more surveys done within past 10 years<br />
-0.6 Points. 2 surveys done within past 10 years;<br />
-0.3 Points. 1 survey done within past 10 years;<br />
-0 Points. None within past 10 years
+<p>Scoring:</p>
+1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
+0.3 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years
 </td>
 </tr>
 <tr>
@@ -8234,9 +8205,7 @@ SPI.D4.2.NADA
 NSO has a listing of surveys and microdata sets (or NADA)
 </td>
 <td style="text-align:left;max-width: 20em; ">
-<a href="https://unstats.un.org/home/nso_sites/" class="uri">https://unstats.un.org/home/nso_sites/</a></li>
-</ol></li>
-</ul>
+<p><a href="https://unstats.un.org/home/nso_sites/" class="uri">https://unstats.un.org/home/nso_sites/</a></p>
 <a href="http://www.adp.ihsn.org/country_activities" class="uri">http://www.adp.ihsn.org/country_activities</a>
 </td>
 <td style="text-align:left;max-width: 20em; ">

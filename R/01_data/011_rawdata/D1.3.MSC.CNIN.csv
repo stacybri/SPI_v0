@@ -2,24 +2,30 @@
 AFG,Afghanistan,2016,na
 AFG,Afghanistan,2017,"NA"
 AFG,Afghanistan,2018,"NA"
+AFG,Afghanistan,2019,na
 AGO,Angola,2016,rev4
 AGO,Angola,2017,Rev4
 AGO,Angola,2018,Rev4
+AGO,Angola,2019,rev4
 ALB,Albania,2016,rev4
 ALB,Albania,2017,Rev4
 ALB,Albania,2018,Rev4
+ALB,Albania,2019,rev4
 ARE,United Arab Emirates,2016,rev4
 ARE,United Arab Emirates,2017,rev4
 ARE,United Arab Emirates,2018,rev4
 ARG,Argentina,2016,rev3
 ARG,Argentina,2017,rev3
 ARG,Argentina,2018,rev3
+ARG,Argentina,2019,rev3
 ARM,Armenia,2016,nace rev2
 ARM,Armenia,2017,nace rev2
 ARM,Armenia,2018,nace rev2
+ARM,Armenia,2019,nace rev2
 ATG,Antigua and Barbuda,2016,rev3
 ATG,Antigua and Barbuda,2017,rev3
 ATG,Antigua and Barbuda,2018,rev3
+ATG,Antigua and Barbuda,2019,rev3
 AUS,Australia,2016,rev4
 AUS,Australia,2017,Rev4
 AUS,Australia,2018,Rev4
@@ -29,24 +35,30 @@ AUT,Austria,2018,Rev4
 AZE,Azerbaijan,2016,rev4
 AZE,Azerbaijan,2017,Rev4
 AZE,Azerbaijan,2018,Rev4
+AZE,Azerbaijan,2019,rev4
 BDI,Burundi,2016,rev3
 BDI,Burundi,2017,Rev3
 BDI,Burundi,2018,Rev3
+BDI,Burundi,2019,rev3
 BEL,Belgium,2016,rev4
 BEL,Belgium,2017,Rev4
 BEL,Belgium,2018,Rev4
 BEN,Benin,2016,rev3
 BEN,Benin,2017,Rev3
 BEN,Benin,2018,Rev3
+BEN,Benin,2019,rev3
 BFA,Burkina Faso,2016,rev3
 BFA,Burkina Faso,2017,Rev3
 BFA,Burkina Faso,2018,Rev3
+BFA,Burkina Faso,2019,rev4
 BGD,Bangladesh,2016,rev4
 BGD,Bangladesh,2017,Rev4
 BGD,Bangladesh,2018,Rev4
+BGD,Bangladesh,2019,rev4
 BGR,Bulgaria,2016,rev4
 BGR,Bulgaria,2017,Rev4
 BGR,Bulgaria,2018,Rev4
+BGR,Bulgaria,2019,rev4
 BHR,Bahrain,2016,rev3
 BHR,Bahrain,2017,Rev3
 BHR,Bahrain,2018,Rev3
@@ -56,18 +68,23 @@ BHS,"Bahamas, The",2018,rev4
 BIH,Bosnia and Herzegovina,2016,rev4
 BIH,Bosnia and Herzegovina,2017,Rev4
 BIH,Bosnia and Herzegovina,2018,Rev4
+BIH,Bosnia and Herzegovina,2019,rev4
 BLR,Belarus,2016,rev4
 BLR,Belarus,2017,Rev4
 BLR,Belarus,2018,Rev4
+BLR,Belarus,2019,rev4
 BLZ,Belize,2016,Rev3
 BLZ,Belize,2017,Rev3
 BLZ,Belize,2018,Rev3
+BLZ,Belize,2019,Rev3
 BOL,Bolivia,2016,rev3
 BOL,Bolivia,2017,rev3
 BOL,Bolivia,2018,rev3
+BOL,Bolivia,2019,rev3
 BRA,Brazil,2016,rev4
 BRA,Brazil,2017,Rev4
 BRA,Brazil,2018,Rev4
+BRA,Brazil,2019,rev4
 BRB,Barbados,2016,rev3
 BRB,Barbados,2017,Rev3
 BRB,Barbados,2018,Rev3
@@ -77,12 +94,15 @@ BRN,Brunei Darussalam,2018,Rev3
 BTN,Bhutan,2016,ISIC rev2
 BTN,Bhutan,2017,ISIC rev2
 BTN,Bhutan,2018,ISIC rev2
+BTN,Bhutan,2019,na
 BWA,Botswana,2016,na
 BWA,Botswana,2017,Rev4
 BWA,Botswana,2018,Rev4
+BWA,Botswana,2019,rev4
 CAF,Central African Republic,2016,rev3
 CAF,Central African Republic,2017,rev3
 CAF,Central African Republic,2018,rev3
+CAF,Central African Republic,2019,rev3
 CAN,Canada,2016,rev4
 CAN,Canada,2017,Rev4
 CAN,Canada,2018,Rev4
@@ -92,33 +112,43 @@ CHE,Switzerland,2018,Rev4
 CHL,Chile,2016,rev3
 CHL,Chile,2017,Rev3
 CHL,Chile,2018,Rev3
+CHL,Chile,2019,rev3
 CHN,China,2016,rev4
 CHN,China,2017,rev4
 CHN,China,2018,rev4
+CHN,China,2019,rev4
 CIV,Côte d'Ivoire,2016,rev3
 CIV,Côte d'Ivoire,2017,Rev3
 CIV,Côte d'Ivoire,2018,Rev3
+CIV,Côte d'Ivoire,2019,rev3
 CMR,Cameroon,2016,rev4
 CMR,Cameroon,2017,Rev4
 CMR,Cameroon,2018,Rev4
+CMR,Cameroon,2019,rev4
 COD,"Congo, Dem. Rep.",2016,rev3
 COD,"Congo, Dem. Rep.",2017,rev3
 COD,"Congo, Dem. Rep.",2018,rev3
+COD,"Congo, Dem. Rep.",2019,rev3
 COG,"Congo, Rep.",2016,ISIC rev2
 COG,"Congo, Rep.",2017,ISIC rev2
 COG,"Congo, Rep.",2018,ISIC rev2
+COG,"Congo, Rep.",2019,ISIC rev2
 COL,Colombia,2016,rev4
 COL,Colombia,2017,rev4
 COL,Colombia,2018,rev4
+COL,Colombia,2019,rev4
 COM,Comoros,2016,"NA"
 COM,Comoros,2017,"NA"
 COM,Comoros,2018,"NA"
+COM,Comoros,2019,"NA"
 CPV,Cabo Verde,2016,ISIC rev2
 CPV,Cabo Verde,2017,ISIC rev2
 CPV,Cabo Verde,2018,ISIC rev2
+CPV,Cabo Verde,2019,ISIC rev2
 CRI,Costa Rica,2016,rev4
 CRI,Costa Rica,2017,rev4
 CRI,Costa Rica,2018,rev4
+CRI,Costa Rica,2019,rev4
 CYP,Cyprus,2016,rev4
 CYP,Cyprus,2017,Rev4
 CYP,Cyprus,2018,Rev4
@@ -131,27 +161,34 @@ DEU,Germany,2018,Rev4
 DJI,Djibouti,2016,ISIC rev2
 DJI,Djibouti,2017,ISIC rev2
 DJI,Djibouti,2018,ISIC rev2
+DJI,Djibouti,2019,ISIC rev2
 DMA,Dominica,2016,rev3
 DMA,Dominica,2017,rev3
 DMA,Dominica,2018,rev3
+DMA,Dominica,2019,rev3
 DNK,Denmark,2016,rev4
 DNK,Denmark,2017,Rev4
 DNK,Denmark,2018,Rev4
 DOM,Dominican Republic,2016,rev4
 DOM,Dominican Republic,2017,rev4
 DOM,Dominican Republic,2018,rev4
+DOM,Dominican Republic,2019,rev4
 DZA,Algeria,2016,rev3
 DZA,Algeria,2017,Rev3
 DZA,Algeria,2018,Rev3
+DZA,Algeria,2019,rev3
 ECU,Ecuador,2016,rev4
 ECU,Ecuador,2017,rev4
 ECU,Ecuador,2018,rev4
+ECU,Ecuador,2019,rev4
 EGY,"Egypt, Arab Rep.",2016,rev4
 EGY,"Egypt, Arab Rep.",2017,rev4
 EGY,"Egypt, Arab Rep.",2018,rev4
+EGY,"Egypt, Arab Rep.",2019,rev4
 ERI,Eritrea,2016,"NA"
 ERI,Eritrea,2017,"NA"
 ERI,Eritrea,2018,"NA"
+ERI,Eritrea,2019,"NA"
 ESP,Spain,2016,rev4
 ESP,Spain,2017,Rev4
 ESP,Spain,2018,Rev4
@@ -161,81 +198,101 @@ EST,Estonia,2018,Rev4
 ETH,Ethiopia,2016,ISIC rev2
 ETH,Ethiopia,2017,ISIC rev2
 ETH,Ethiopia,2018,ISIC rev2
+ETH,Ethiopia,2019,ISIC rev2
 FIN,Finland,2016,rev4
 FIN,Finland,2017,Rev4
 FIN,Finland,2018,Rev4
 FJI,Fiji,2016,rev4
 FJI,Fiji,2017,Rev4
 FJI,Fiji,2018,Rev4
+FJI,Fiji,2019,rev4
 FRA,France,2016,rev4
 FRA,France,2017,Rev4
 FRA,France,2018,Rev4
 FSM,"Micronesia, Fed. Sts.",2016,"NA"
 FSM,"Micronesia, Fed. Sts.",2017,"NA"
 FSM,"Micronesia, Fed. Sts.",2018,"NA"
+FSM,"Micronesia, Fed. Sts.",2019,"NA"
 GAB,Gabon,2016,rev3
 GAB,Gabon,2017,rev3
 GAB,Gabon,2018,rev3
+GAB,Gabon,2019,rev3
 GBR,United Kingdom,2016,rev4
 GBR,United Kingdom,2017,Rev4
 GBR,United Kingdom,2018,Rev4
 GEO,Georgia,2016,rev3
 GEO,Georgia,2017,Rev3
 GEO,Georgia,2018,Rev3
+GEO,Georgia,2019,rev3
 GHA,Ghana,2016,rev4
 GHA,Ghana,2017,Rev4
 GHA,Ghana,2018,Rev4
+GHA,Ghana,2019,rev4
 GIN,Guinea,2016,ISIC rev2
 GIN,Guinea,2017,ISIC rev2
 GIN,Guinea,2018,ISIC rev2
+GIN,Guinea,2019,ISIC rev2
 GMB,"Gambia, The",2016,rev3
 GMB,"Gambia, The",2017,rev3
 GMB,"Gambia, The",2018,rev3
+GMB,"Gambia, The",2019,rev3
 GNB,Guinea-Bissau,2016,ISIC rev2
 GNB,Guinea-Bissau,2017,ISIC rev2
 GNB,Guinea-Bissau,2018,ISIC rev2
+GNB,Guinea-Bissau,2019,ISIC rev2
 GNQ,Equatorial Guinea,2016,"NA"
 GNQ,Equatorial Guinea,2017,"NA"
 GNQ,Equatorial Guinea,2018,"NA"
+GNQ,Equatorial Guinea,2019,"NA"
 GRC,Greece,2016,rev4
 GRC,Greece,2017,Rev4
 GRC,Greece,2018,Rev4
 GRD,Grenada,2016,rev3
 GRD,Grenada,2017,rev3
 GRD,Grenada,2018,rev3
+GRD,Grenada,2019,rev3
 GTM,Guatemala,2016,rev3
 GTM,Guatemala,2017,rev3
 GTM,Guatemala,2018,rev3
+GTM,Guatemala,2019,rev3
 GUY,Guyana,2016,rev4
 GUY,Guyana,2017,rev4
 GUY,Guyana,2018,rev4
+GUY,Guyana,2019,rev4
 HND,Honduras,2016,rev3
 HND,Honduras,2017,Rev3
 HND,Honduras,2018,Rev3
+HND,Honduras,2019,rev3
 HRV,Croatia,2016,rev4
 HRV,Croatia,2017,Rev4
 HRV,Croatia,2018,Rev4
+HRV,Croatia,2019,rev4
 HTI,Haiti,2016,na
 HTI,Haiti,2017,"NA"
 HTI,Haiti,2018,"NA"
+HTI,Haiti,2019,na
 HUN,Hungary,2016,rev4
 HUN,Hungary,2017,Rev4
 HUN,Hungary,2018,Rev4
 IDN,Indonesia,2016,rev4
 IDN,Indonesia,2017,rev4
 IDN,Indonesia,2018,rev4
+IDN,Indonesia,2019,rev4
 IND,India,2016,rev3
 IND,India,2017,Rev3
 IND,India,2018,Rev3
+IND,India,2019,rev3
 IRL,Ireland,2016,rev4
 IRL,Ireland,2017,Rev4
 IRL,Ireland,2018,Rev4
 IRN,"Iran, Islamic Rep.",2016,rev3
 IRN,"Iran, Islamic Rep.",2017,rev3
 IRN,"Iran, Islamic Rep.",2018,rev3
+IRN,"Iran, Islamic Rep.",2019,rev3
 IRQ,Iraq,2016,rev3
 IRQ,Iraq,2017,rev3
 IRQ,Iraq,2018,rev3
+IRQ,Iraq,2019,rev3
 ISL,Iceland,2016,nace rev1
 ISL,Iceland,2017,nace rev1
 ISL,Iceland,2018,nace rev1
@@ -248,30 +305,38 @@ ITA,Italy,2018,Rev4
 JAM,Jamaica,2016,rev3
 JAM,Jamaica,2017,rev3
 JAM,Jamaica,2018,rev3
+JAM,Jamaica,2019,rev3
 JOR,Jordan,2016,rev4
 JOR,Jordan,2017,Rev4
 JOR,Jordan,2018,Rev4
+JOR,Jordan,2019,rev4
 JPN,Japan,2016,rev4
 JPN,Japan,2017,Rev4
 JPN,Japan,2018,Rev4
 KAZ,Kazakhstan,2016,nace rev2
 KAZ,Kazakhstan,2017,nace rev2
 KAZ,Kazakhstan,2018,nace rev2
+KAZ,Kazakhstan,2019,nace rev2
 KEN,Kenya,2016,rev3
 KEN,Kenya,2017,rev3
 KEN,Kenya,2018,rev3
+KEN,Kenya,2019,rev3
 KGZ,Kyrgyz Republic,2016,rev4
 KGZ,Kyrgyz Republic,2017,rev4
 KGZ,Kyrgyz Republic,2018,rev4
+KGZ,Kyrgyz Republic,2019,rev4
 KHM,Cambodia,2016,rev3
 KHM,Cambodia,2017,rev3
 KHM,Cambodia,2018,rev3
+KHM,Cambodia,2019,rev3
 KIR,Kiribati,2016,rev3
 KIR,Kiribati,2017,rev3
 KIR,Kiribati,2018,rev3
+KIR,Kiribati,2019,rev3
 KNA,St. Kitts and Nevis,2016,rev3
 KNA,St. Kitts and Nevis,2017,rev3
 KNA,St. Kitts and Nevis,2018,rev3
+KNA,St. Kitts and Nevis,2019,rev3
 KOR,"Korea, Rep.",2016,rev4
 KOR,"Korea, Rep.",2017,rev4
 KOR,"Korea, Rep.",2018,rev4
@@ -281,24 +346,31 @@ KWT,Kuwait,2018,rev3
 LAO,Lao PDR,2016,"NA"
 LAO,Lao PDR,2017,"NA"
 LAO,Lao PDR,2018,"NA"
+LAO,Lao PDR,2019,"NA"
 LBN,Lebanon,2016,na
 LBN,Lebanon,2017,"NA"
 LBN,Lebanon,2018,"NA"
+LBN,Lebanon,2019,na
 LBR,Liberia,2016,rev3
 LBR,Liberia,2017,rev3
 LBR,Liberia,2018,rev3
+LBR,Liberia,2019,rev3
 LBY,Libya,2016,rev3
 LBY,Libya,2017,rev3
 LBY,Libya,2018,rev3
+LBY,Libya,2019,rev3
 LCA,St. Lucia,2016,rev3
 LCA,St. Lucia,2017,rev3
 LCA,St. Lucia,2018,rev3
+LCA,St. Lucia,2019,rev3
 LKA,Sri Lanka,2016,rev4
 LKA,Sri Lanka,2017,rev4
 LKA,Sri Lanka,2018,rev4
+LKA,Sri Lanka,2019,rev4
 LSO,Lesotho,2016,rev3
 LSO,Lesotho,2017,rev3
 LSO,Lesotho,2018,rev3
+LSO,Lesotho,2019,rev3
 LTU,Lithuania,2016,rev4
 LTU,Lithuania,2017,Rev4
 LTU,Lithuania,2018,Rev4
@@ -311,66 +383,86 @@ LVA,Latvia,2018,Rev4
 MAR,Morocco,2016,rev3
 MAR,Morocco,2017,rev3
 MAR,Morocco,2018,rev3
+MAR,Morocco,2019,rev3
 MDA,Moldova,2016,rev4
 MDA,Moldova,2017,nace rev2
 MDA,Moldova,2018,nace rev2
+MDA,Moldova,2019,rev4
 MDG,Madagascar,2016,ISIC rev2
 MDG,Madagascar,2017,ISIC rev2
 MDG,Madagascar,2018,ISIC rev2
+MDG,Madagascar,2019,ISIC rev2
 MDV,Maldives,2016,"NA"
 MDV,Maldives,2017,"NA"
 MDV,Maldives,2018,"NA"
+MDV,Maldives,2019,rev4
 MEX,Mexico,2016,rev4
 MEX,Mexico,2017,Rev4
 MEX,Mexico,2018,Rev4
+MEX,Mexico,2019,rev4
 MHL,Marshall Islands,2016,"NA"
 MHL,Marshall Islands,2017,"NA"
 MHL,Marshall Islands,2018,"NA"
+MHL,Marshall Islands,2019,"NA"
 MKD,"Macedonia, FYR",2016,rev4
 MKD,"Macedonia, FYR",2017,nace rev2
 MKD,"Macedonia, FYR",2018,nace rev2
+MKD,"Macedonia, FYR",2019,rev4
 MLI,Mali,2016,rev3
 MLI,Mali,2017,Rev3
 MLI,Mali,2018,Rev3
+MLI,Mali,2019,rev3
 MLT,Malta,2016,rev4
 MLT,Malta,2017,Rev4
 MLT,Malta,2018,Rev4
 MMR,Myanmar,2016,na
 MMR,Myanmar,2017,"NA"
 MMR,Myanmar,2018,"NA"
+MMR,Myanmar,2019,na
 MNE,Montenegro,2016,rev4
 MNE,Montenegro,2017,Rev4
 MNE,Montenegro,2018,Rev4
+MNE,Montenegro,2019,rev4
 MNG,Mongolia,2016,rev3
 MNG,Mongolia,2017,Rev3
 MNG,Mongolia,2018,Rev3
+MNG,Mongolia,2019,rev3
 MOZ,Mozambique,2016,rev3
 MOZ,Mozambique,2017,rev3
 MOZ,Mozambique,2018,rev3
+MOZ,Mozambique,2019,rev3
 MRT,Mauritania,2016,rev4
 MRT,Mauritania,2017,Rev4
 MRT,Mauritania,2018,Rev4
+MRT,Mauritania,2019,rev4
 MUS,Mauritius,2016,rev4
 MUS,Mauritius,2017,Rev4
 MUS,Mauritius,2018,Rev4
+MUS,Mauritius,2019,rev4
 MWI,Malawi,2016,rev3
 MWI,Malawi,2017,rev3
 MWI,Malawi,2018,rev3
+MWI,Malawi,2019,rev3
 MYS,Malaysia,2016,rev4
 MYS,Malaysia,2017,Rev4
 MYS,Malaysia,2018,Rev4
+MYS,Malaysia,2019,rev4
 NAM,Namibia,2016,rev3
 NAM,Namibia,2017,rev3
 NAM,Namibia,2018,rev3
+NAM,Namibia,2019,rev3
 NER,Niger,2016,rev3
 NER,Niger,2017,Rev3
 NER,Niger,2018,Rev3
+NER,Niger,2019,rev3
 NGA,Nigeria,2016,rev4
 NGA,Nigeria,2017,Rev4
 NGA,Nigeria,2018,Rev4
+NGA,Nigeria,2019,rev4
 NIC,Nicaragua,2016,rev3
 NIC,Nicaragua,2017,rev3
 NIC,Nicaragua,2018,rev3
+NIC,Nicaragua,2019,rev3
 NLD,Netherlands,2016,rev4
 NLD,Netherlands,2017,Rev4
 NLD,Netherlands,2018,Rev4
@@ -380,9 +472,11 @@ NOR,Norway,2018,Rev4
 NPL,Nepal,2016,rev3
 NPL,Nepal,2017,rev3
 NPL,Nepal,2018,rev3
+NPL,Nepal,2019,rev3
 NRU,Nauru,2016,"NA"
 NRU,Nauru,2017,"NA"
 NRU,Nauru,2018,"NA"
+NRU,Nauru,2019,"NA"
 NZL,New Zealand,2016,rev4
 NZL,New Zealand,2017,Rev4
 NZL,New Zealand,2018,Rev4
@@ -392,84 +486,106 @@ OMN,Oman,2018,rev3
 PAK,Pakistan,2016,rev4
 PAK,Pakistan,2017,rev4
 PAK,Pakistan,2018,rev4
+PAK,Pakistan,2019,rev4
 PAN,Panama,2016,rev3
 PAN,Panama,2017,rev3
 PAN,Panama,2018,rev3
+PAN,Panama,2019,rev3
 PER,Peru,2016,rev4
 PER,Peru,2017,Rev4
 PER,Peru,2018,Rev4
+PER,Peru,2019,rev4
 PHL,Philippines,2016,rev3
 PHL,Philippines,2017,rev3
 PHL,Philippines,2018,rev3
+PHL,Philippines,2019,rev3
 PLW,Palau,2016,"NA"
 PLW,Palau,2017,"NA"
 PLW,Palau,2018,"NA"
+PLW,Palau,2019,rev4
 PNG,Papua New Guinea,2016,"NA"
 PNG,Papua New Guinea,2017,"NA"
 PNG,Papua New Guinea,2018,"NA"
+PNG,Papua New Guinea,2019,"NA"
 POL,Poland,2016,rev4
 POL,Poland,2017,Rev4
 POL,Poland,2018,Rev4
+POL,Poland,2019,rev4
 PRT,Portugal,2016,rev4
 PRT,Portugal,2017,Rev4
 PRT,Portugal,2018,Rev4
 PRY,Paraguay,2016,rev3
 PRY,Paraguay,2017,Rev3
 PRY,Paraguay,2018,Rev3
+PRY,Paraguay,2019,rev3
 PSE,West Bank and Gaza,2016,rev4
 PSE,West Bank and Gaza,2017,rev4
 PSE,West Bank and Gaza,2018,rev4
+PSE,West Bank and Gaza,2019,rev4
 QAT,Qatar,2016,rev3
 QAT,Qatar,2017,Rev3
 QAT,Qatar,2018,Rev3
 ROU,Romania,2016,rev4
 ROU,Romania,2017,Rev4
 ROU,Romania,2018,Rev4
+ROU,Romania,2019,rev4
 RUS,Russian Federation,2016,rev3
 RUS,Russian Federation,2017,NACE Rev2
 RUS,Russian Federation,2018,NACE Rev2
+RUS,Russian Federation,2019,NACE REV2
 RWA,Rwanda,2016,rev4
 RWA,Rwanda,2017,rev4
 RWA,Rwanda,2018,rev4
+RWA,Rwanda,2019,rev4
 SAU,Saudi Arabia,2016,rev3
 SAU,Saudi Arabia,2017,Rev3
 SAU,Saudi Arabia,2018,Rev3
 SDN,Sudan,2016,ISIC rev2
 SDN,Sudan,2017,ISIC rev2
 SDN,Sudan,2018,ISIC rev2
+SDN,Sudan,2019,ISIC rev2
 SEN,Senegal,2016,rev3
 SEN,Senegal,2017,Rev3
 SEN,Senegal,2018,Rev3
+SEN,Senegal,2019,rev3
 SGP,Singapore,2016,rev4
 SGP,Singapore,2017,rev4
 SGP,Singapore,2018,rev4
 SLB,Solomon Islands,2016,rev3
 SLB,Solomon Islands,2017,rev3
 SLB,Solomon Islands,2018,rev3
+SLB,Solomon Islands,2019,rev3
 SLE,Sierra Leone,2016,rev3
 SLE,Sierra Leone,2017,rev3
 SLE,Sierra Leone,2018,rev3
+SLE,Sierra Leone,2019,rev3
 SLV,El Salvador,2016,rev3
 SLV,El Salvador,2017,rev4
 SLV,El Salvador,2018,rev4
+SLV,El Salvador,2019,rev4
 SMR,San Marino,2016,nace rev1
 SMR,San Marino,2017,nace rev1
 SMR,San Marino,2018,nace rev1
 SOM,Somalia,2016,na
 SOM,Somalia,2017,"NA"
 SOM,Somalia,2018,"NA"
+SOM,Somalia,2019,na
 SRB,Serbia,2016,rev4
 SRB,Serbia,2017,Rev4
 SRB,Serbia,2018,Rev4
+SRB,Serbia,2019,rev4
 SSD,South Sudan,2016,"NA"
 SSD,South Sudan,2017,"NA"
 SSD,South Sudan,2018,"NA"
+SSD,South Sudan,2019,"NA"
 STP,São Tomé and Principe,2016,rev3
 STP,São Tomé and Principe,2017,rev3
 STP,São Tomé and Principe,2018,rev3
+STP,São Tomé and Principe,2019,rev3
 SUR,Suriname,2016,rev3
 SUR,Suriname,2017,rev3
 SUR,Suriname,2018,rev3
+SUR,Suriname,2019,rev3
 SVK,Slovak Republic,2016,rev4
 SVK,Slovak Republic,2017,nace rev2
 SVK,Slovak Republic,2018,nace rev2
@@ -482,90 +598,119 @@ SWE,Sweden,2018,Rev4
 SWZ,Eswatini,2016,rev4
 SWZ,Eswatini,2017,rev4
 SWZ,Eswatini,2018,rev4
+SWZ,Eswatini,2019,rev4
 SYC,Seychelles,2016,rev4
 SYC,Seychelles,2017,rev4
 SYC,Seychelles,2018,rev4
+SYC,Seychelles,2019,rev4
 SYR,Syrian Arab Republic,2016,na
 SYR,Syrian Arab Republic,2017,rev3
 SYR,Syrian Arab Republic,2018,rev3
+SYR,Syrian Arab Republic,2019,rev3
 TCD,Chad,2016,"NA"
 TCD,Chad,2017,"NA"
 TCD,Chad,2018,"NA"
+TCD,Chad,2019,"NA"
 TGO,Togo,2016,rev4
 TGO,Togo,2017,Rev4
 TGO,Togo,2018,Rev4
+TGO,Togo,2019,rev4
 THA,Thailand,2016,rev4
 THA,Thailand,2017,rev4
 THA,Thailand,2018,rev4
+THA,Thailand,2019,rev4
 TJK,Tajikistan,2016,na
 TJK,Tajikistan,2017,"NA"
 TJK,Tajikistan,2018,"NA"
+TJK,Tajikistan,2019,na
 TKM,Turkmenistan,2016,na
 TKM,Turkmenistan,2017,"NA"
 TKM,Turkmenistan,2018,"NA"
+TKM,Turkmenistan,2019,na
 TLS,Timor-Leste,2016,rev4
 TLS,Timor-Leste,2017,rev4
 TLS,Timor-Leste,2018,rev4
+TLS,Timor-Leste,2019,rev4
 TON,Tonga,2016,rev1
 TON,Tonga,2017,rev1
 TON,Tonga,2018,rev1
+TON,Tonga,2019,rev1
 TTO,Trinidad and Tobago,2016,rev3
 TTO,Trinidad and Tobago,2017,Rev3
 TTO,Trinidad and Tobago,2018,Rev3
+TTO,Trinidad and Tobago,2019,rev3
 TUN,Tunisia,2016,rev4
 TUN,Tunisia,2017,Rev4
 TUN,Tunisia,2018,Rev4
+TUN,Tunisia,2019,rev4
 TUR,Turkey,2016,rev4
 TUR,Turkey,2017,Rev4
 TUR,Turkey,2018,Rev4
+TUR,Turkey,2019,rev4
 TUV,Tuvalu,2016,na
 TUV,Tuvalu,2017,"NA"
 TUV,Tuvalu,2018,"NA"
+TUV,Tuvalu,2019,na
 TZA,Tanzania,2016,rev3
 TZA,Tanzania,2017,rev3
 TZA,Tanzania,2018,rev3
+TZA,Tanzania,2019,rev3
 UGA,Uganda,2016,na
 UGA,Uganda,2017,"NA"
 UGA,Uganda,2018,"NA"
+UGA,Uganda,2019,na
 UKR,Ukraine,2016,rev4
 UKR,Ukraine,2017,Rev4
 UKR,Ukraine,2018,Rev4
+UKR,Ukraine,2019,rev4
 URY,Uruguay,2016,ISIC rev2
 URY,Uruguay,2017,rev3
 URY,Uruguay,2018,rev3
+URY,Uruguay,2019,rev3
 USA,United States,2016,rev4
 USA,United States,2017,Rev4
 USA,United States,2018,Rev4
 UZB,Uzbekistan,2016,nace rev2
 UZB,Uzbekistan,2017,nace rev2
 UZB,Uzbekistan,2018,nace rev2
+UZB,Uzbekistan,2019,nace rev2
 VCT,St. Vincent and the Grenadines,2016,rev3
 VCT,St. Vincent and the Grenadines,2017,rev3
 VCT,St. Vincent and the Grenadines,2018,rev3
+VCT,St. Vincent and the Grenadines,2019,rev3
 VEN,"Venezuela, RB",2016,ISIC rev2
 VEN,"Venezuela, RB",2017,ISIC rev2
 VEN,"Venezuela, RB",2018,ISIC rev2
+VEN,"Venezuela, RB",2019,ISIC rev2
 VNM,Vietnam,2016,rev4
 VNM,Vietnam,2017,rev4
 VNM,Vietnam,2018,rev4
+VNM,Vietnam,2019,rev4
 VUT,Vanuatu,2016,na
 VUT,Vanuatu,2017,"NA"
 VUT,Vanuatu,2018,"NA"
+VUT,Vanuatu,2019,na
 WSM,Samoa,2016,rev3
 WSM,Samoa,2017,rev3
 WSM,Samoa,2018,rev3
+WSM,Samoa,2019,rev3
 XKX,Kosovo,2016,NACE REV2
 XKX,Kosovo,2017,nace rev2
 XKX,Kosovo,2018,nace rev2
+XKX,Kosovo,2019,NACE REV2
 YEM,"Yemen, Rep.",2016,rev3
 YEM,"Yemen, Rep.",2017,rev3
 YEM,"Yemen, Rep.",2018,rev3
+YEM,"Yemen, Rep.",2019,rev3
 ZAF,South Africa,2016,rev3
 ZAF,South Africa,2017,rev3
 ZAF,South Africa,2018,rev3
+ZAF,South Africa,2019,rev3
 ZMB,Zambia,2016,rev3
 ZMB,Zambia,2017,Rev3
 ZMB,Zambia,2018,Rev3
+ZMB,Zambia,2019,rev3
 ZWE,Zimbabwe,2016,rev3
 ZWE,Zimbabwe,2017,rev3
 ZWE,Zimbabwe,2018,rev3
+ZWE,Zimbabwe,2019,rev3

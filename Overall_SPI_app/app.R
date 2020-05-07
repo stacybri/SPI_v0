@@ -23,7 +23,9 @@ library(ggcorrplot)
 library(Hmisc)
 library(plotly)
 #read in underlying data
-load('SPI_simple.Rdata')
+load('SPI.Rdata')
+
+
 
 #label columns
 var.labels=c(
@@ -51,12 +53,14 @@ var.labels=c(
     SPI.D2.7.HLTH='Health/Demographic survey', 
     SPI.D2.8.BIZZ='Business/establishment survey', 
     SPI.D3.AKI='Dimension 3: Availability of Key Indicators (AKI)', 
-    SPI.D3.SI.POV.DDAY='Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
+    SPI.D3.POV='Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
     SPI.D3.SH.STA.STNT.ZS='Prevalence of stunting, height for age (% of children under 5)',
-    SPI.D3.SH.DYN.MORT='Mortality rate, under-5 (per 1,000 live births)', 
+    SPI.D3.FIES='Food Insecurity Experience Scale',
+    SPI.D3.CHLD.MORT='Mortality rate, under-5 (per 1,000 live births)', 
     SPI.D3.SE.LPV.PRIM.BMP='Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
+    SPI.D3.MMRT='Maternal Mortality',
     SPI.D3.SH.H2O.SMDW.ZS='People using safely managed drinking water services (% of population)',
-    SPI.D3.EG.ELC.ACCS.ZS='Access to electricity (% of population)',
+    SPI.D3.ELEC='Access to electricity (% of population)',
     SPI.D3.SL.UEM.TOTL.NE.ZS='Unemployment, total (% of total labor force) (national estimate)' ,
     SPI.D3.NV.IND.MANF.ZS='Manufacturing, value added (% of GDP)',
     SPI.D3.SI.SPR.PC40.ZG='Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
@@ -66,6 +70,7 @@ var.labels=c(
     SPI.D3.ER.PTD.TOTL.ZS='Terrestrial and marine protected areas (% of total territorial area)',
     SPI.D3.NE.CON.PRVT.CN='Households and NPISHs Final consumption expenditure (current LCU)',
     SPI.D3.NY.GNP.MKTP.CN='GNI (current LCU)',
+    SPI.D3.QUART.GDP='Quarterly GDP',
     SPI.D3.DT.TDS.DPPF.XP.ZS='Debt service (PPG and IMF only, % of exports of goods, services and primary income)', 
     SPI.D4.DPO='Dimension 4: Dissemination Practices & Openness (DPO)', 
     SPI.D4.1.CALD='NSO has an Advance Release Calendar and it is published ', 
@@ -132,6 +137,13 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                            "Reference Year",
                                                            choices=c(2016:2018),
                                                            selected=2018
+                                                           
+                                            ),
+                                            selectizeInput("income_groups_overall",
+                                                           "Select Income Groups",
+                                                           choices=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                           selected=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                           multiple=T
                                             ),
                                             selectizeInput("color_choices_overall", "Choose Indicator to Color Map", 
                                                            choices=NULL) 
@@ -162,6 +174,12 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                        "Reference Year",
                                                        choices=c(2016:2018),
                                                        selected=2018
+                                           ),
+                                           selectizeInput("income_groups_d1",
+                                                          "Select Income Groups",
+                                                          choices=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                          selected=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                          multiple=T
                                            ),
                                            selectizeInput("color_choices_d1", "Choose Indicator to Color Map", 
                                                           choices=NULL) 
@@ -194,6 +212,12 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                            choices=c(2016:2018),
                                                            selected=2018
                                             ),
+                                            selectizeInput("income_groups_d2",
+                                                           "Select Income Groups",
+                                                           choices=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                           selected=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                           multiple=T
+                                            ),
                                             selectizeInput("color_choices_d2", "Choose Indicator to Color Map", 
                                                            choices=NULL) 
                               )
@@ -225,6 +249,12 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                            choices=c(2016:2018),
                                                            selected=2018
                                             ),
+                                            selectizeInput("income_groups_d3",
+                                                           "Select Income Groups",
+                                                           choices=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                           selected=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                           multiple=T
+                                            ),
                                             selectizeInput("color_choices_d3", "Choose Indicator to Color Map", 
                                                            choices=NULL) 
                               )
@@ -254,6 +284,12 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                                            "Reference Year",
                                                            choices=c(2016:2018),
                                                            selected=2018
+                                            ),
+                                            selectizeInput("income_groups_d4",
+                                                           "Select Income Groups",
+                                                           choices=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                           selected=c("Low income","Lower middle income","Upper middle income","High income"),
+                                                           multiple=T
                                             ),
                                             selectizeInput("color_choices_d4", "Choose Indicator to Color Map", 
                                                            choices=NULL) 
@@ -351,21 +387,22 @@ server <- function(input, output, session) {
         
         #produce by region
         time_df<- SPI %>%
-            select(iso3c, country, date, time_var() ) %>%
+            select(iso3c, country, income, date, population, time_var() ) %>%
+            filter(income %in% input$income_groups_overall) %>% #filter out income groups not selected
             rename(y=time_var()) %>%
             left_join(country_info) %>%
             group_by(date, region) %>%
-            summarise(y=100*mean(y, na.rm=T))  %>%
+            summarise(y=100*weighted.mean(y,population, na.rm=T))  %>%
             ungroup()  
         
 
         #produce global number
         time_df_gl<- SPI %>%
-            select(iso3c, country, date, time_var() ) %>%
+            select(iso3c, country, date, population, time_var() ) %>%
             rename(y=time_var()) %>%
             mutate(region='Global') %>%
             group_by(date, region) %>%
-            summarise(y=100*mean(y, na.rm=T)) %>%
+            summarise(y=100*weighted.mean(y,population, na.rm=T)) %>%
             ungroup()
     
         #join
@@ -404,8 +441,9 @@ server <- function(input, output, session) {
     
     df_overall<- reactive({
         SPI %>%
-            select(iso3c, country, date, c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO')) %>%
+            select(iso3c, country,  income, date, c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'), population) %>%
             filter(date==input$year_overall) %>%
+            filter(income %in% input$income_groups_overall) %>% #filter out income groups not selected
             mutate(ISO_A3_EH=iso3c) 
         
         
@@ -478,15 +516,16 @@ server <- function(input, output, session) {
         sumstats<- df_overall() %>%
             left_join(country_info) %>%
             group_by(region) %>%
-            select(region, c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO')) %>%
-            summarise_all(~round(mean(., na.rm=T),2)) 
+            filter(!is.na(region)) %>%
+            select(region, c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'), population) %>%
+            summarise_at(c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'),~round(wtd.mean(as.numeric(.),as.numeric(population), na.rm=T),2)) 
         
         #produce global number
         sumstats_gl<- df_overall() %>%
             mutate(region='Global') %>%
             group_by(region) %>%
-            select(region, c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO')) %>%
-            summarise_all(~round(mean(., na.rm=T),2)) 
+            select(region, c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'), population) %>%
+            summarise_at(c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'),~round(wtd.mean(as.numeric(.),as.numeric(population), na.rm=T),2)) 
         
         
         #transpose data
@@ -518,7 +557,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -618,8 +657,9 @@ server <- function(input, output, session) {
     
     df_d1<- reactive({
         SPI %>%
-            select(iso3c, country, date, starts_with("SPI.D1")) %>%
+            select(iso3c, country, income, date, starts_with("SPI.D1"), population) %>%
             filter(date==input$year_d1) %>%
+            filter(income %in% input$income_groups_d1) %>% #filter out income groups not selected
             mutate(ISO_A3_EH=iso3c) 
         
         
@@ -707,16 +747,18 @@ server <- function(input, output, session) {
             sumstats<- df_d1() %>%
                 left_join(country_info) %>%
                 group_by(region) %>%
-                select(region, starts_with('SPI.D1.')) %>%
-                summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+                select(region, starts_with('SPI.D1.'), population) %>%
+                summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+                select(-population) %>%
                 mutate(SPI.D1.MSC=round(SPI.D1.MSC/100,2))
             
             #produce global number
             sumstats_gl<- df_d1() %>%
                 mutate(region='Global') %>%
                 group_by(region) %>%
-                select(region, starts_with('SPI.D1.')) %>%
-                summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+                select(region, starts_with('SPI.D1.'),population) %>%
+                summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+                select(-population) %>%
                 mutate(SPI.D1.MSC=round(SPI.D1.MSC/100,2))
             
             
@@ -749,7 +791,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
                                             style = 'caption-side: top; text-align: left;',
-                                            htmltools::em("Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+                                            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
                                             extensions = 'Buttons', options=list(
                           dom = 'Bfrtip',
                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -846,8 +888,9 @@ server <- function(input, output, session) {
     
     df_d2<- reactive({
         SPI %>%
-            select(iso3c, country, date, starts_with("SPI.D2")) %>%
+            select(iso3c, country, income, date, starts_with("SPI.D2"), population) %>%
             filter(date==input$year_d2) %>%
+            filter(income %in% input$income_groups_d2) %>% #filter out income groups not selected
             mutate(ISO_A3_EH=iso3c) 
         
         
@@ -928,16 +971,18 @@ server <- function(input, output, session) {
         sumstats<- df_d2() %>%
             left_join(country_info) %>%
             group_by(region) %>%
-            select(region, starts_with('SPI.D2.')) %>%
-            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+            select(region, starts_with('SPI.D2.'),population) %>%
+            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            select(-population) %>%
             mutate(SPI.D2.CS=round(SPI.D2.CS/100,2))
         
         #produce global number
         sumstats_gl<- df_d2() %>%
             mutate(region='Global') %>%
             group_by(region) %>%
-            select(region, starts_with('SPI.D2.')) %>%
-            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+            select(region, starts_with('SPI.D2.'),population) %>%
+            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            select(-population) %>%
             mutate(SPI.D2.CS=round(SPI.D2.CS/100,2))
         
         
@@ -970,7 +1015,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1066,8 +1111,9 @@ server <- function(input, output, session) {
     
     df_d3<- reactive({
         SPI %>%
-            select(iso3c, country, date, starts_with("SPI.D3")) %>%
+            select(iso3c, country, income, date, starts_with("SPI.D3"), population) %>%
             filter(date==input$year_d3) %>%
+            filter(income %in% input$income_groups_d3) %>% #filter out income groups not selected
             mutate(ISO_A3_EH=iso3c) 
         
         
@@ -1118,27 +1164,25 @@ server <- function(input, output, session) {
             ",
             spi_map_d3@data$NAME_EN, 
             label(spi_map_d3@data$SPI.D3.AKI), round(spi_map_d3@data$SPI.D3.AKI, digits = 1),
-            label(spi_map_d3@data$SPI.D3.SI.POV.DDAY), round(spi_map_d3@data$SPI.D3.SI.POV.DDAY, digits = 1),
-            label(spi_map_d3@data$SPI.D3.SH.STA.STNT.ZS), round(spi_map_d3@data$SPI.D3.SH.STA.STNT.ZS, digits = 1),
-            label(spi_map_d3@data$SPI.D3.SH.DYN.MORT), round(spi_map_d3@data$SPI.D3.SH.DYN.MORT, digits = 1),
+            label(spi_map_d3@data$SPI.D3.POV), round(spi_map_d3@data$SPI.D3.POV, digits = 1),
+            label(spi_map_d3@data$SPI.D3.FIES), round(spi_map_d3@data$SPI.D3.FIES, digits = 1),
+            label(spi_map_d3@data$SPI.D3.CHLD.MORT), round(spi_map_d3@data$SPI.D3.CHLD.MORT, digits = 1),
             label(spi_map_d3@data$SPI.D3.SE.LPV.PRIM.BMP), round(spi_map_d3@data$SPI.D3.SE.LPV.PRIM.BMP, digits = 1),
+            label(spi_map_d3@data$SPI.D3.MMRT), round(spi_map_d3@data$SPI.D3.MMRT, digits = 1),
             label(spi_map_d3@data$SPI.D3.SH.H2O.SMDW.ZS), round(spi_map_d3@data$SPI.D3.SH.H2O.SMDW.ZS, digits = 1),
-            label(spi_map_d3@data$SPI.D3.EG.ELC.ACCS.ZS), round(spi_map_d3@data$SPI.D3.EG.ELC.ACCS.ZS, digits = 1),
+            label(spi_map_d3@data$SPI.D3.ELEC), round(spi_map_d3@data$SPI.D3.ELEC, digits = 1),
             label(spi_map_d3@data$SPI.D3.SL.UEM.TOTL.NE.ZS), round(spi_map_d3@data$SPI.D3.SL.UEM.TOTL.NE.ZS, digits = 1),
             label(spi_map_d3@data$SPI.D3.NV.IND.MANF.ZS), round(spi_map_d3@data$SPI.D3.NV.IND.MANF.ZS, digits = 1),
             label(spi_map_d3@data$SPI.D3.SI.SPR.PC40.ZG), round(spi_map_d3@data$SPI.D3.SI.SPR.PC40.ZG, digits = 1),
             label(spi_map_d3@data$SPI.D3.ER.H2O.FWST.ZS), round(spi_map_d3@data$SPI.D3.ER.H2O.FWST.ZS, digits = 1),
             label(spi_map_d3@data$SPI.D3.EG.FEC.RNEW.ZS), round(spi_map_d3@data$SPI.D3.EG.FEC.RNEW.ZS, digits = 1),
-            label(spi_map_d3@data$SPI.D3.EN.ATM.GHGT.KT.CE), round(spi_map_d3@data$SPI.D3.EN.ATM.GHGT.KT.CE, digits = 1),
-            label(spi_map_d3@data$SPI.D3.ER.PTD.TOTL.ZS), round(spi_map_d3@data$SPI.D3.ER.PTD.TOTL.ZS, digits = 1),
             label(spi_map_d3@data$SPI.D3.NE.CON.PRVT.CN), round(spi_map_d3@data$SPI.D3.NE.CON.PRVT.CN, digits = 1),
+            label(spi_map_d3@data$SPI.D3.QUART.GDP), round(spi_map_d3@data$SPI.D3.QUART.GDP, digits = 1),
             label(spi_map_d3@data$SPI.D3.NY.GNP.MKTP.CN), round(spi_map_d3@data$SPI.D3.NY.GNP.MKTP.CN, digits = 1)
             
         ) %>% 
             lapply(htmltools::HTML)
-        
-        
-        
+
         
         leaflet(spi_map_d3) %>%
             addProviderTiles(providers$Esri.WorldStreetMap) %>%
@@ -1162,16 +1206,18 @@ server <- function(input, output, session) {
         sumstats<- df_d3() %>%
             left_join(country_info) %>%
             group_by(region) %>%
-            select(region, starts_with('SPI.D3.')) %>%
-            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+            select(region, starts_with('SPI.D3.'),population) %>%
+            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            select(-population) %>%
             mutate(SPI.D3.AKI=round(SPI.D3.AKI/100,2))
         
         #produce global number
         sumstats_gl<- df_d3() %>%
             mutate(region='Global') %>%
             group_by(region) %>%
-            select(region, starts_with('SPI.D3.')) %>%
-            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+            select(region, starts_with('SPI.D3.'),population) %>%
+            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            select(-population) %>%
             mutate(SPI.D3.AKI=round(SPI.D3.AKI/100,2))
         
         
@@ -1204,7 +1250,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1294,8 +1340,9 @@ server <- function(input, output, session) {
     
     df_d4<- reactive({
         SPI %>%
-            select(iso3c, country, date, starts_with("SPI.D4")) %>%
+            select(iso3c, country, income, date, starts_with("SPI.D4"), population) %>%
             filter(date==input$year_d4) %>%
+            filter(income %in% input$income_groups_d4) %>% #filter out income groups not selected
             mutate(ISO_A3_EH=iso3c) 
         
         
@@ -1374,16 +1421,18 @@ server <- function(input, output, session) {
         sumstats<- df_d4() %>%
             left_join(country_info) %>%
             group_by(region) %>%
-            select(region, starts_with('SPI.D4.')) %>%
-            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+            select(region, starts_with('SPI.D4.'),population) %>%
+            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            select(-population) %>%            
             mutate(SPI.D4.DPO=round(SPI.D4.DPO/100,2))
         
         #produce global number
         sumstats_gl<- df_d4() %>%
             mutate(region='Global') %>%
             group_by(region) %>%
-            select(region, starts_with('SPI.D4.')) %>%
-            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+            select(region, starts_with('SPI.D4.'),population) %>%
+            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            select(-population) %>%
             mutate(SPI.D4.DPO=round(SPI.D4.DPO/100,2))
         
         
@@ -1416,7 +1465,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
