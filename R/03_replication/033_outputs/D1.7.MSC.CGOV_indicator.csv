@@ -1,0 +1,191 @@
+﻿iso3c,country,CGOV_2016,CGOV_2017,CGOV_2018,CGOV_2019,SPI.D1.7.CGOV_2016,SPI.D1.7.CGOV_2017,SPI.D1.7.CGOV_2018,SPI.D1.7.CGOV_2019
+AFG,Afghanistan,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+ALB,Albania,AC,AC,AC,NA,1,1,1,0
+DZA,Algeria,NA,NA,NA,NA,0,0,0,0
+AGO,Angola,NA,NA,NA,NA,0,0,0,0
+ATG,Antigua and Barbuda,NA,NA,NA,NA,0,0,0,0
+ARG,Argentina,AC,AC,AC,AC,1,1,1,1
+ARM,Armenia,NA,CA,CA,CA,0,0.5,0.5,0.5
+AUS,Australia,AC,AC,AC,NA,1,1,1,NA
+AUT,Austria,AC,AC,AC,NA,1,1,1,NA
+AZE,Azerbaijan,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+BHS,"Bahamas, The",CA,CA,CA,NA,0.5,0.5,0.5,NA
+BHR,Bahrain,NA,NA,NA,NA,0,0,0,NA
+BGD,Bangladesh,NA,NA,NA,NA,0,0,0,0
+BRB,Barbados,NA,NA,NA,NA,0,0,0,NA
+BLR,Belarus,AC,CA,CA,CA,1,0.5,0.5,0.5
+BEL,Belgium,AC,AC,AC,NA,1,1,1,NA
+BLZ,Belize,NA,NA,NA,NA,0,0,0,0
+BEN,Benin,NA,NA,NA,NA,0,0,0,0
+BTN,Bhutan,CA,CA,CA,NA,0.5,0.5,0.5,0
+BOL,Bolivia,0,0,0,0,0,0,0,0
+BIH,Bosnia and Herzegovina,AC,AC,AC,AC,1,1,1,1
+BWA,Botswana,NA,NA,NA,NA,0,0,0,0
+BRA,Brazil,AC,AC,AC,AC,1,1,1,1
+BRN,Brunei Darussalam,0,0,0,NA,0,0,0,NA
+BGR,Bulgaria,AC,AC,AC,AC,1,1,1,1
+BFA,Burkina Faso,NA,NA,NA,NA,0,0,0,0
+BDI,Burundi,NA,NA,NA,NA,0,0,0,0
+CPV,Cabo Verde,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+KHM,Cambodia,NA,NA,NA,NA,0,0,0,0
+CMR,Cameroon,0,0,0,0,0,0,0,0
+CAN,Canada,AC,AC,AC,NA,1,1,1,NA
+CAF,Central African Republic,NA,NA,NA,NA,0,0,0,0
+TCD,Chad,0,0,0,0,0,0,0,0
+CHL,Chile,NA,NA,NA,AC,0,0,0,1
+CHN,China,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+COL,Colombia,AC,AC,AC,AC,1,1,1,1
+COM,Comoros,0,0,0,0,0,0,0,0
+COD,"Congo, Dem. Rep.",NA,NA,NA,NA,0,0,0,0
+COG,"Congo, Rep.",AC,NA,NA,NA,1,0,0,0
+CRI,Costa Rica,AC,AC,AC,AC,1,1,1,1
+NA,Côte d'Ivoire,NA,NA,NA,NA,0,0,0,0
+HRV,Croatia,NA,NA,NA,AC,0,0,0,1
+CYP,Cyprus,AC,AC,AC,NA,1,1,1,NA
+CZE,Czech Republic,CA,AC,AC,NA,0.5,1,1,NA
+DNK,Denmark,AC,AC,AC,NA,1,1,1,NA
+DJI,Djibouti,0,0,0,0,0,0,0,0
+DMA,Dominica,NA,NA,NA,NA,0,0,0,0
+DOM,Dominican Republic,AC,AC,AC,AC,1,1,1,1
+ECU,Ecuador,0,0,0,0,0,0,0,0
+EGY,"Egypt, Arab Rep.",NA,NA,NA,NA,0,0,0,0
+SLV,El Salvador,AC,AC,AC,AC,1,1,1,1
+GNQ,Equatorial Guinea,NA,NA,NA,NA,0,0,0,0
+ERI,Eritrea,0,0,0,0,0,0,0,0
+EST,Estonia,AC,AC,AC,NA,1,1,1,NA
+SWZ,Eswatini,0,0,0,0,0,0,0,0
+ETH,Ethiopia,NA,NA,NA,NA,0,0,0,0
+FJI,Fiji,NA,NA,NA,NA,0,0,0,0
+FIN,Finland,AC,AC,AC,NA,1,1,1,NA
+FRA,France,AC,AC,AC,NA,1,1,1,NA
+GAB,Gabon,0,0,0,0,0,0,0,0
+GMB,"Gambia, The",CA,CA,CA,CA,0.5,0.5,0.5,0.5
+GEO,Georgia,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+DEU,Germany,AC,AC,AC,NA,1,1,1,NA
+GHA,Ghana,NA,CA,CA,CA,0,0.5,0.5,0.5
+GRC,Greece,AC,AC,AC,NA,1,1,1,NA
+GRD,Grenada,NA,NA,NA,NA,0,0,0,0
+GTM,Guatemala,NA,NA,NA,NA,0,0,0,0
+GIN,Guinea,0,0,0,0,0,0,0,0
+GNB,Guinea-Bissau,0,0,0,0,0,0,0,0
+GUY,Guyana,0,0,0,0,0,0,0,0
+HTI,Haiti,0,0,0,0,0,0,0,0
+HND,Honduras,AC,AC,AC,AC,1,1,1,1
+HUN,Hungary,AC,AC,AC,NA,1,1,1,NA
+ISL,Iceland,AC,AC,AC,NA,1,1,1,NA
+IND,India,CA,CA,CA,NA,0.5,0.5,0.5,0
+IDN,Indonesia,AC,CA,CA,CA,1,0.5,0.5,0.5
+IRN,"Iran, Islamic Rep.",CA,CA,CA,CA,0.5,0.5,0.5,0.5
+IRQ,Iraq,NA,NA,NA,NA,0,0,0,0
+IRL,Ireland,AC,AC,AC,NA,1,1,1,NA
+ISR,Israel,AC,AC,AC,NA,1,1,1,NA
+ITA,Italy,AC,AC,AC,NA,1,1,1,NA
+JAM,Jamaica,AC,NA,NA,NA,1,0,0,0
+JPN,Japan,AC,AC,AC,NA,1,1,1,NA
+JOR,Jordan,NA,NA,NA,NA,0,0,0,0
+KAZ,Kazakhstan,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+KEN,Kenya,AC,AC,AC,AC,1,1,1,1
+KIR,Kiribati,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+KOR,"Korea, Rep.",0,0,0,NA,0,0,0,NA
+XKX,Kosovo,0,0,0,NA,0,0,0,0
+KWT,Kuwait,CA,CA,CA,NA,0.5,0.5,0.5,NA
+KGZ,Kyrgyz Republic,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+LAO,Lao PDR,0,0,0,NA,0,0,0,0
+LVA,Latvia,AC,AC,AC,NA,1,1,1,NA
+LBN,Lebanon,NA,NA,NA,NA,0,0,0,0
+LSO,Lesotho,NA,NA,NA,NA,0,0,0,0
+LBR,Liberia,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+LBY,Libya,0,0,0,0,0,0,0,0
+LTU,Lithuania,AC,AC,AC,NA,1,1,1,NA
+LUX,Luxembourg,AC,AC,AC,NA,1,1,1,NA
+NA,"Macedonia, FYR",NA,CA,CA,CA,0,0.5,0.5,0.5
+MDG,Madagascar,AC,NA,NA,NA,1,0,0,0
+MWI,Malawi,NA,NA,NA,NA,0,0,0,0
+MYS,Malaysia,NA,NA,NA,NA,0,0,0,0
+MDV,Maldives,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+MLI,Mali,NA,NA,NA,NA,0,0,0,0
+MLT,Malta,AC,AC,AC,NA,1,1,1,NA
+MHL,Marshall Islands,NA,NA,NA,NA,0,0,0,0
+MRT,Mauritania,0,0,0,0,0,0,0,0
+MUS,Mauritius,AC,AC,AC,AC,1,1,1,1
+MEX,Mexico,0,CA,CA,CA,0,0.5,0.5,0.5
+FSM,"Micronesia, Fed. Sts.",0,0,0,NA,0,0,0,0
+MDA,Moldova,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+MNG,Mongolia,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+MNE,Montenegro,0,0,0,0,0,0,0,0
+MAR,Morocco,NA,NA,NA,NA,0,0,0,0
+MOZ,Mozambique,NA,NA,NA,NA,0,0,0,0
+MMR,Myanmar,0,CA,CA,CA,0,0.5,0.5,0.5
+NAM,Namibia,NA,NA,NA,NA,0,0,0,0
+NRU,Nauru,0,0,0,0,0,0,0,0
+NPL,Nepal,NA,NA,NA,NA,0,0,0,0
+NLD,Netherlands,AC,AC,AC,NA,1,1,1,NA
+NZL,New Zealand,NA,NA,NA,NA,0,0,0,NA
+NIC,Nicaragua,NA,NA,NA,NA,0,0,0,0
+NER,Niger,0,0,0,0,0,0,0,0
+NGA,Nigeria,NA,NA,NA,NA,0,0,0,0
+NOR,Norway,AC,AC,AC,NA,1,1,1,NA
+OMN,Oman,NA,NA,NA,NA,0,0,0,NA
+PAK,Pakistan,NA,NA,NA,NA,0,0,0,0
+PLW,Palau,NA,NA,NA,NA,0,0,0,0
+PAN,Panama,0,0,0,0,0,0,0,0
+PNG,Papua New Guinea,0,NA,NA,NA,0,0,0,0
+PRY,Paraguay,AC,AC,AC,AC,1,1,1,1
+PER,Peru,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+PHL,Philippines,NA,NA,NA,NA,0,0,0,0
+POL,Poland,AC,AC,AC,AC,1,1,1,1
+PRT,Portugal,AC,AC,AC,NA,1,1,1,NA
+QAT,Qatar,NA,NA,NA,NA,0,0,0,NA
+ROU,Romania,AC,AC,AC,AC,1,1,1,1
+RUS,Russian Federation,AC,AC,AC,AC,1,1,1,1
+RWA,Rwanda,AC,NA,NA,NA,1,0,0,0
+WSM,Samoa,NA,NA,NA,CA,0,0,0,0.5
+SMR,San Marino,AC,AC,AC,NA,1,1,1,NA
+NA,São Tomé and Principe,NA,NA,NA,NA,0,0,0,0
+SAU,Saudi Arabia,0,NA,NA,NA,0,0,0,NA
+SEN,Senegal,NA,NA,NA,NA,0,0,0,0
+SRB,Serbia,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+SYC,Seychelles,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+SLE,Sierra Leone,NA,NA,NA,NA,0,0,0,0
+SGP,Singapore,CA,CA,CA,NA,0.5,0.5,0.5,NA
+SVK,Slovak Republic,AC,AC,AC,NA,1,1,1,NA
+SVN,Slovenia,AC,AC,AC,NA,1,1,1,NA
+SLB,Solomon Islands,NA,NA,NA,NA,0,0,0,0
+SOM,Somalia,0,0,0,0,0,0,0,0
+ZAF,South Africa,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+SSD,South Sudan,0,0,0,0,0,0,0,0
+ESP,Spain,AC,AC,AC,NA,1,1,1,NA
+LKA,Sri Lanka,NA,NA,NA,NA,0,0,0,0
+KNA,St. Kitts and Nevis,0,0,0,NA,0,0,0,0
+LCA,St. Lucia,NA,NA,NA,NA,0,0,0,0
+VCT,St. Vincent and the Grenadines,0,0,0,NA,0,0,0,0
+SDN,Sudan,0,0,0,0,0,0,0,0
+SUR,Suriname,NA,NA,NA,NA,0,0,0,0
+SWE,Sweden,AC,AC,AC,NA,1,1,1,NA
+CHE,Switzerland,AC,AC,AC,NA,1,1,1,NA
+SYR,Syrian Arab Republic,NA,NA,NA,0,0,0,0,0
+TJK,Tajikistan,0,0,0,0,0,0,0,0
+TZA,Tanzania,NA,NA,NA,NA,0,0,0,0
+THA,Thailand,AC,AC,AC,AC,1,1,1,1
+TLS,Timor-Leste,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+TGO,Togo,NA,NA,NA,NA,0,0,0,0
+TON,Tonga,0,AC,AC,AC,0,1,1,1
+TTO,Trinidad and Tobago,NA,NA,NA,NA,0,0,0,0
+TUN,Tunisia,NA,NA,NA,NA,0,0,0,0
+TUR,Turkey,AC,AC,AC,AC,1,1,1,1
+TKM,Turkmenistan,0,0,0,0,0,0,0,0
+TUV,Tuvalu,0,0,0,0,0,0,0,0
+UGA,Uganda,AC,AC,AC,AC,1,1,1,1
+UKR,Ukraine,CA,CA,CA,AC,0.5,0.5,0.5,1
+ARE,United Arab Emirates,AC,AC,AC,NA,1,1,1,NA
+GBR,United Kingdom,AC,AC,AC,NA,1,1,1,NA
+USA,United States,AC,AC,AC,NA,1,1,1,NA
+URY,Uruguay,CA,CA,CA,0,0.5,0.5,0.5,0
+UZB,Uzbekistan,CA,CA,CA,CA,0.5,0.5,0.5,0.5
+VUT,Vanuatu,NA,NA,NA,NA,0,0,0,0
+VEN,"Venezuela, RB",0,0,0,0,0,0,0,0
+VNM,Vietnam,0,0,0,0,0,0,0,0
+PSE,West Bank and Gaza,AC,AC,AC,AC,1,1,1,1
+YEM,"Yemen, Rep.",0,0,0,NA,0,0,0,0
+ZMB,Zambia,NA,NA,NA,NA,0,0,0,0
+ZWE,Zimbabwe,NA,NA,NA,NA,0,0,0,0

@@ -1,0 +1,504 @@
+---
+title: "Statistical Performance Indicators - Analysis using Original Data"
+author: "Brian Stacy"
+date: "5/8/2020"
+output:
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning = FALSE, message = FALSE)
+
+# Load Packages
+library(tidyverse)
+library(skimr)
+library(kableExtra)
+library(readxl)
+library(Hmisc)
+library(haven)
+library(gt)
+library(xlsx)
+
+# Directory for SPI csv files that were previously created
+csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/03_replication/033_outputs"
+out_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/03_replication/033_outputs"
+
+```
+
+# Introduction
+
+This file produces a number of summary statistics for the SPI dimensions.  Summary statistics are presented both population weighted and unweighted.  We will produce a table of summary statistics with mean, median, standard deviation, etc, and also a table of means by region and income level.
+
+
+```{r load, include=FALSE}
+
+#import data
+load(paste(csv_dir, "SPI.RData", sep="/" ))
+
+#country metadata
+country_metadata <- wbstats::wbcountries()
+
+SPI <- SPI %>%
+  left_join(country_metadata)
+
+```
+
+
+
+# Summary Statistics
+
+Below we show summary statistics for the year 2018.  The same table is available for other years in the appendix.  The first table shows the summary statistics weighted by population.  The second shows unweighted.
+
+## Population Weighted Summary Statistics
+
+```{r sumstats_weighted, echo=FALSE}
+
+#add function to produce weighted summary stats
+        my_skim<-    skim_with( numeric = sfl( mean = ~ wtd.mean(.,  weights =pop, na.rm=TRUE),
+                                               sd = ~ sqrt(wtd.var(.,  weights=pop, na.rm=TRUE)),
+                                               p25 = ~ (wtd.quantile(., probs=c(0.25),  weights=pop, na.rm=TRUE)),
+                                               p50 = ~ (wtd.quantile(., probs=c(0.5), weights=pop, na.rm=TRUE)),
+                                               p75 = ~ (wtd.quantile(., probs=c(0.75), weights=pop, na.rm=TRUE))
+                                               ))
+
+for (reference_year in 2016:2018) {
+temp <- SPI %>%
+  filter(date==reference_year) 
+
+#add population weight
+pop <- temp$population
+
+temp <- temp %>%
+  select( SPI.OVRL.SCR, contains('SPI.D1'),contains('SPI.D2'),contains('SPI.D3'),contains('SPI.D4')) %>%
+  my_skim() %>%
+  yank('numeric') %>%
+  rename(Series=skim_variable) %>%
+  left_join(metadata) %>% #add labels to variables
+  select(Series, 'Indicator Name', mean, sd,p0,p100, hist)
+
+assign(paste("spi_weighted_sumstats",reference_year,sep="_"), temp)
+
+}
+
+#save these to an excel file for easy sharing
+write.xlsx(
+  spi_weighted_sumstats_2016,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_weighted_sumstats_2016',
+  append=FALSE
+) 
+
+write.xlsx(
+  spi_weighted_sumstats_2017,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_weighted_sumstats_2017',
+  append=T
+)     
+
+write.xlsx(
+  spi_weighted_sumstats_2018,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_weighted_sumstats_2018',
+  append=T
+)     
+
+ 
+
+
+
+#create grouping variable for table
+group <- spi_weighted_sumstats_2018 %>%
+  mutate(group=case_when(
+    grepl('OVRL', Series) ~ "Overall",
+    grepl('D1', Series) ~ "Dimension 1",
+    grepl('D2', Series) ~ "Dimension 2",
+    grepl('D3', Series) ~ "Dimension 3",
+    grepl('D4', Series) ~ "Dimension 4"
+  ))
+
+kable(spi_weighted_sumstats_2018,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2018") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+      
+      
+
+
+
+```
+
+## Regional Means (Weighted by Population)
+
+```{r regional_weighted, echo=FALSE}
+
+for (reference_year in 2016:2018) {
+df_overall <- SPI %>%
+  filter(date==reference_year) 
+#produce by region
+        sumstats<- df_overall %>%
+            group_by(region) %>%
+            filter(!is.na(region)) %>%
+            select(region, SPI.OVRL.SCR, contains('SPI.D1'),contains('SPI.D2'),contains('SPI.D3'),contains('SPI.D4'), population) %>%
+            summarise_all(~round(100*wtd.mean(.,population, na.rm=T),2)) %>%
+            select(-population) %>%
+            mutate(SPI.OVRL.SCR=round(SPI.OVRL.SCR/100,2),
+                   SPI.D1.MSC=round(SPI.D1.MSC/100,2),
+                   SPI.D2.CS=round(SPI.D2.CS/100,2),
+                   SPI.D3.AKI=round(SPI.D3.AKI/100,2),
+                   SPI.D4.DPO=round(SPI.D4.DPO/100,2)) 
+        
+        #produce global number
+        sumstats_gl<- df_overall %>%
+            mutate(region='Global') %>%
+            group_by(region) %>%
+            select(region, SPI.OVRL.SCR, contains('SPI.D1'),contains('SPI.D2'),contains('SPI.D3'),contains('SPI.D4'), population) %>%
+            summarise_all(~round(100*wtd.mean(.,population, na.rm=T),2)) %>%
+            select(-population) %>%
+            mutate(SPI.OVRL.SCR=round(SPI.OVRL.SCR/100,2),
+                   SPI.D1.MSC=round(SPI.D1.MSC/100,2),
+                   SPI.D2.CS=round(SPI.D2.CS/100,2),
+                   SPI.D3.AKI=round(SPI.D3.AKI/100,2),
+                   SPI.D4.DPO=round(SPI.D4.DPO/100,2))
+        
+        
+        #transpose data
+        sumstats_df_long <-sumstats_gl %>%
+            bind_rows(sumstats) 
+        
+        sumstats_df <- as.data.frame(t(sumstats_df_long %>% select(-region)))
+        colnames(sumstats_df) = sumstats_df_long$region 
+        
+        
+        sumstats_df <- sumstats_df %>%
+            rownames_to_column() %>%
+            rename(series=rowname)
+        
+        
+        #create labels df
+        metadata_tab2_overall <- metadata %>% 
+            janitor::clean_names() %>%
+            select(series, indicator_name)
+        
+        
+        #add variable label
+        sumstats_df <- sumstats_df %>%
+            left_join(metadata_tab2_overall) %>%
+            rename(Series=series,
+                   Label=indicator_name) %>%
+            select(Series, Label, everything())
+
+ assign(paste("spi_weighted_regional",reference_year,sep="_"), sumstats_df)
+       
+        }
+ #save these to an excel file for easy sharing
+write.xlsx(
+  spi_weighted_regional_2016,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_weighted_regional_2016',
+  append=T
+) 
+
+write.xlsx(
+  spi_weighted_regional_2017,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_weighted_regional_2017',
+  append=T
+) 
+write.xlsx(
+  spi_weighted_regional_2018,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_weighted_regional_2018',
+  append=T
+) 
+          
+        DT::datatable(spi_weighted_regional_2018, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region in 2018.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60)) 
+
+```
+
+
+# Unweighted Summary Statistics
+
+
+```{r sumstats_unweighted, echo=FALSE}
+
+
+for (reference_year in 2016:2018) {
+temp <- SPI %>%
+  filter(date==reference_year) %>%
+  select( SPI.OVRL.SCR, contains('SPI.D1'),contains('SPI.D2'),contains('SPI.D3'),contains('SPI.D4')) %>%
+  skim() %>%
+  yank('numeric') %>%
+  rename(Series=skim_variable) %>%
+  left_join(metadata) %>% #add labels to variables
+  select(Series, 'Indicator Name', mean, sd,p0,p100, hist)
+
+assign(paste("spi_unweighted_sumstats",reference_year,sep="_"), temp)
+
+}
+
+#save these to an excel file for easy sharing
+write.xlsx(
+  spi_unweighted_sumstats_2016,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_unweighted_sumstats_2016',
+  append=T
+) 
+
+write.xlsx(
+  spi_unweighted_sumstats_2017,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_unweighted_sumstats_2017',
+  append=T
+)      
+
+write.xlsx(
+  spi_unweighted_sumstats_2018,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_unweighted_sumstats_2018',
+  append=T
+) 
+
+#create grouping variable for table
+group <- spi_unweighted_sumstats_2018 %>%
+  mutate(group=case_when(
+    grepl('OVRL', Series) ~ "Overall",
+    grepl('D1', Series) ~ "Dimension 1",
+    grepl('D2', Series) ~ "Dimension 2",
+    grepl('D3', Series) ~ "Dimension 3",
+    grepl('D4', Series) ~ "Dimension 4"
+  ))
+
+kable(spi_unweighted_sumstats_2018,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Unweighted Summary Statistics for 2018") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+      
+      
+
+
+
+```
+
+## Regional Means (Weighted by Population)
+
+```{r regional_unweighted, echo=FALSE}
+
+for (reference_year in 2016:2018) {
+df_overall <- SPI %>%
+  filter(date==reference_year) 
+#produce by region
+        sumstats<- df_overall %>%
+            group_by(region) %>%
+            filter(!is.na(region)) %>%
+            select(region, SPI.OVRL.SCR, contains('SPI.D1'),contains('SPI.D2'),contains('SPI.D3'),contains('SPI.D4'), population) %>%
+            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+            select(-population) %>%
+            mutate(SPI.OVRL.SCR=round(SPI.OVRL.SCR/100,2),
+                   SPI.D1.MSC=round(SPI.D1.MSC/100,2),
+                   SPI.D2.CS=round(SPI.D2.CS/100,2),
+                   SPI.D3.AKI=round(SPI.D3.AKI/100,2),
+                   SPI.D4.DPO=round(SPI.D4.DPO/100,2)) 
+        
+        #produce global number
+        sumstats_gl<- df_overall %>%
+            mutate(region='Global') %>%
+            group_by(region) %>%
+            select(region, SPI.OVRL.SCR, contains('SPI.D1'),contains('SPI.D2'),contains('SPI.D3'),contains('SPI.D4'), population) %>%
+            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
+            select(-population) %>%
+            mutate(SPI.OVRL.SCR=round(SPI.OVRL.SCR/100,2),
+                   SPI.D1.MSC=round(SPI.D1.MSC/100,2),
+                   SPI.D2.CS=round(SPI.D2.CS/100,2),
+                   SPI.D3.AKI=round(SPI.D3.AKI/100,2),
+                   SPI.D4.DPO=round(SPI.D4.DPO/100,2))
+        
+        
+        #transpose data
+        sumstats_df_long <-sumstats_gl %>%
+            bind_rows(sumstats) 
+        
+        sumstats_df <- as.data.frame(t(sumstats_df_long %>% select(-region)))
+        colnames(sumstats_df) = sumstats_df_long$region 
+        
+        
+        sumstats_df <- sumstats_df %>%
+            rownames_to_column() %>%
+            rename(series=rowname)
+        
+        
+        #create labels df
+        metadata_tab2_overall <- metadata %>% 
+            janitor::clean_names() %>%
+            select(series, indicator_name)
+        
+        
+        #add variable label
+        sumstats_df <- sumstats_df %>%
+            left_join(metadata_tab2_overall) %>%
+            rename(Series=series,
+                   Label=indicator_name) %>%
+            select(Series, Label, everything())
+
+ assign(paste("spi_unweighted_regional",reference_year,sep="_"), sumstats_df)
+       
+        }
+ #save these to an excel file for easy sharing
+write.xlsx(
+  spi_unweighted_regional_2016,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_unweighted_regional_2016',
+  append=T
+) 
+
+write.xlsx(
+  spi_unweighted_regional_2017,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_unweighted_regional_2017',
+  append=T
+)     
+
+write.xlsx(
+  spi_unweighted_regional_2018,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_unweighted_regional_2018',
+  append=T
+)     
+   
+DT::datatable(spi_unweighted_regional_2018, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Unweighted Mean of SPI Indicators by Region in 2018.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60)) 
+
+```
+
+# Appendix
+
+## Summary Statistics 2016
+
+Below we show summary statistics for the year 2016.
+
+```{r sumstats_2016, echo=FALSE}
+
+kable(spi_weighted_sumstats_2016,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2016") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+
+DT::datatable(spi_weighted_regional_2016, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region in 2016.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60)) 
+
+kable(spi_unweighted_sumstats_2016,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Unweighted Summary Statistics for 2016") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+
+
+        
+DT::datatable(spi_unweighted_regional_2016, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Unweighted Mean of SPI Indicators by Region in 2016.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60))         
+
+```
+
+
+
+## Summary Statistics 2017
+
+Below we show summary statistics for the year 2017.
+
+```{r sumstats_2017, echo=FALSE}
+kable(spi_weighted_sumstats_2017,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2017") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+
+DT::datatable(spi_weighted_regional_2017, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region in 2017.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60)) 
+
+kable(spi_unweighted_sumstats_2017,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Unweighted Summary Statistics for 2017") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+
+DT::datatable(spi_unweighted_regional_2017, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Unweighted Mean of SPI Indicators by Region in 2017.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60))               
+```
+
+
+
+## Summary Statistics 2018
+
+Below we show summary statistics for the year 2018.
+
+```{r sumstats_2018, echo=FALSE}
+kable(spi_weighted_sumstats_2018,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2018") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+
+DT::datatable(spi_weighted_regional_2018, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region in 2018.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60)) 
+
+kable(spi_unweighted_sumstats_2018,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Unweighted Summary Statistics for 2018") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+
+DT::datatable(spi_unweighted_regional_2018, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Unweighted Mean of SPI Indicators by Region in 2018.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60))               
+```

@@ -1,7 +1,7 @@
 ---
 title: "Statistical Performance Indicators - Analysis"
 author: "Brian Stacy"
-date: "4/9/2020"
+date: "5/8/2020"
 output:
   html_document: 
     toc: yes
@@ -36,8 +36,7 @@ This file produces a number of summary statistics for the SPI dimensions.  Summa
 #import data
 load(paste(csv_dir, "SPI.RData", sep="/" ))
 
-SPI <- SPI %>%
-  filter(income!="High income")
+SPI <- SPI 
 
 ```
 
@@ -45,7 +44,7 @@ SPI <- SPI %>%
 
 # Summary Statistics
 
-Below we show summary statistics for the year 2018.  The same table is available for other years in the appendix.  The first table shows the summary statistics weighted by population.  The second shows unweighted.
+Below we show summary statistics for the year 2019.  The same table is available for other years in the appendix.  The first table shows the summary statistics weighted by population.  The second shows unweighted.
 
 ## Population Weighted Summary Statistics
 
@@ -59,7 +58,7 @@ Below we show summary statistics for the year 2018.  The same table is available
                                                p75 = ~ (wtd.quantile(., probs=c(0.75), weights=pop, na.rm=TRUE))
                                                ))
 
-for (reference_year in 2016:2018) {
+for (reference_year in 2016:2019) {
 temp <- SPI %>%
   filter(date==reference_year) 
 
@@ -100,10 +99,17 @@ write.xlsx(
   append=T
 )     
 
+write.xlsx(
+  spi_weighted_sumstats_2019,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_weighted_sumstats_2019',
+  append=T
+)     
+
 
 
 #create grouping variable for table
-group <- spi_weighted_sumstats_2018 %>%
+group <- spi_weighted_sumstats_2019 %>%
   mutate(group=case_when(
     grepl('OVRL', Series) ~ "Overall",
     grepl('D1', Series) ~ "Dimension 1",
@@ -112,10 +118,10 @@ group <- spi_weighted_sumstats_2018 %>%
     grepl('D4', Series) ~ "Dimension 4"
   ))
 
-kable(spi_weighted_sumstats_2018,
+kable(spi_weighted_sumstats_2019,
       digits=2,
       col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
-      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2018") %>%
+      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2019") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
       
@@ -129,7 +135,7 @@ kable(spi_weighted_sumstats_2018,
 
 ```{r regional_weighted, echo=FALSE}
 
-for (reference_year in 2016:2018) {
+for (reference_year in 2016:2019) {
 df_overall <- SPI %>%
   filter(date==reference_year) 
 #produce by region
@@ -208,11 +214,16 @@ write.xlsx(
   sheetName='spi_weighted_regional_2018',
   append=T
 ) 
-
+write.xlsx(
+  spi_weighted_regional_2019,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_weighted_regional_2019',
+  append=T
+) 
                 
-        DT::datatable(spi_weighted_regional_2018, caption=htmltools::tags$caption(
+        DT::datatable(spi_weighted_regional_2019, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Population Weighted Mean of SPI Indicators by Region in 2018.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region in 2019.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -227,7 +238,7 @@ write.xlsx(
 ```{r sumstats_unweighted, echo=FALSE}
 
 
-for (reference_year in 2016:2018) {
+for (reference_year in 2016:2019) {
 temp <- SPI %>%
   filter(date==reference_year) %>%
   select( SPI.OVRL.SCR, contains('SPI.D1'),contains('SPI.D2'),contains('SPI.D3'),contains('SPI.D4')) %>%
@@ -262,10 +273,15 @@ write.xlsx(
   sheetName='spi_unweighted_sumstats_2018',
   append=T
 ) 
-
+write.xlsx(
+  spi_unweighted_sumstats_2019,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_unweighted_sumstats_2019',
+  append=T
+) 
 
 #create grouping variable for table
-group <- spi_unweighted_sumstats_2018 %>%
+group <- spi_unweighted_sumstats_2019 %>%
   mutate(group=case_when(
     grepl('OVRL', Series) ~ "Overall",
     grepl('D1', Series) ~ "Dimension 1",
@@ -274,10 +290,10 @@ group <- spi_unweighted_sumstats_2018 %>%
     grepl('D4', Series) ~ "Dimension 4"
   ))
 
-kable(spi_unweighted_sumstats_2018,
+kable(spi_unweighted_sumstats_2019,
       digits=2,
       col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
-      caption="Statistical Performance Indicator Unweighted Summary Statistics for 2018") %>%
+      caption="Statistical Performance Indicator Unweighted Summary Statistics for 2019") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
       
@@ -291,7 +307,7 @@ kable(spi_unweighted_sumstats_2018,
 
 ```{r regional_unweighted, echo=FALSE}
 
-for (reference_year in 2016:2018) {
+for (reference_year in 2016:2019) {
 df_overall <- SPI %>%
   filter(date==reference_year) 
 #produce by region
@@ -371,10 +387,15 @@ write.xlsx(
   sheetName='spi_unweighted_regional_2018',
   append=T
 )     
-
-DT::datatable(spi_unweighted_regional_2018, caption=htmltools::tags$caption(
+write.xlsx(
+  spi_unweighted_regional_2019,
+  file=paste(out_dir, 'summary_statistics_SPI.xlsx', sep="/"),
+  sheetName='spi_unweighted_regional_2019',
+  append=T
+)     
+DT::datatable(spi_unweighted_regional_2019, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Unweighted Mean of SPI Indicators by Region in 2018.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Unweighted Mean of SPI Indicators by Region in 2019.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -456,6 +477,44 @@ kable(spi_unweighted_sumstats_2017,
 DT::datatable(spi_unweighted_regional_2017, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
             htmltools::em("Unweighted Mean of SPI Indicators by Region in 2017.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60))               
+```
+
+
+
+## Summary Statistics 2018
+
+Below we show summary statistics for the year 2018.
+
+```{r sumstats_2018, echo=FALSE}
+kable(spi_weighted_sumstats_2018,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2018") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+
+DT::datatable(spi_weighted_regional_2018, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Population Weighted Mean of SPI Indicators by Region in 2018.  Sub-indicators scaled to be 0-100."))    ,
+            extensions = 'Buttons', options=list(
+                dom = 'Bfrtip',
+                buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                pageLength = 60)) 
+
+kable(spi_unweighted_sumstats_2018,
+      digits=2,
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      caption="Statistical Performance Indicator Unweighted Summary Statistics for 2018") %>%
+  kable_styling(bootstrap_options = c('striped','hover')) %>%
+  pack_rows(index=table(fct_inorder(group$group)))
+
+DT::datatable(spi_unweighted_regional_2018, caption=htmltools::tags$caption(
+            style = 'caption-side: top; text-align: left;',
+            htmltools::em("Unweighted Mean of SPI Indicators by Region in 2018.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
