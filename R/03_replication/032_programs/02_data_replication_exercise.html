@@ -397,6 +397,7 @@ summary {
 <li><a href="#crvs">1.11 CRVS</a></li>
 <li><a href="#business-process">1.12 Business process</a></li>
 <li><a href="#msc-score">MSC Score</a></li>
+<li><a href="#replication-of-msc-scores">Replication of MSC Scores</a></li>
 </ul></li>
 <li><a href="#spi-dimension-2-censuses-and-surveys-cs">SPI Dimension 2: Censuses and Surveys (CS):</a><ul>
 <li><a href="#population-housing-census">2.1 Population &amp; Housing census</a></li>
@@ -408,8 +409,11 @@ summary {
 <li><a href="#healthdemographic-survey">2.7 Health/Demographic survey</a></li>
 <li><a href="#businessestablishment-survey">2.8 Business/establishment survey</a></li>
 <li><a href="#cs-score">CS Score</a></li>
+<li><a href="#replication-of-cs-scores">Replication of CS Scores</a></li>
 </ul></li>
-<li><a href="#spi-dimension-3-availability-of-key-indicators-aki">SPI Dimension 3: Availability of Key Indicators (AKI):</a></li>
+<li><a href="#spi-dimension-3-availability-of-key-indicators-aki">SPI Dimension 3: Availability of Key Indicators (AKI):</a><ul>
+<li><a href="#replication-of-aki-scores">Replication of AKI Scores</a></li>
+</ul></li>
 <li><a href="#spi-dimension-4-dissemination-practices-and-openness-dpo">SPI Dimension 4: Dissemination Practices and Openness (DPO):</a><ul>
 <li><a href="#nso-has-an-advance-release-calendar-and-it-is-published">4.1 NSO has an Advance Release Calendar and it is published</a></li>
 <li><a href="#nso-has-a-listing-of-surveys-and-microdata-sets-or-nada">4.2 NSO has a listing of surveys and microdata sets (or NADA)</a></li>
@@ -419,6 +423,7 @@ summary {
 <li><a href="#nso-has-conducted-a-user-satisfaction-survey">4.6 NSO has conducted a user satisfaction survey</a></li>
 <li><a href="#geospatial-data-available-on-relevant-agency-website">4.7 Geospatial data available on relevant agency website</a></li>
 <li><a href="#dpo-score">DPO Score</a></li>
+<li><a href="#replication-of-dpo-scores">Replication of DPO Scores</a></li>
 </ul></li>
 <li><a href="#overall-score">Overall Score</a></li>
 </ul></li>
@@ -2787,6 +2792,9 @@ SPI.D1.12.GSBP
 </tr>
 </tbody>
 </table>
+</div>
+<div id="replication-of-msc-scores" class="section level3">
+<h3>Replication of MSC Scores</h3>
 <p>Now bring in data on indicators as they were originally computed by SPI team and produce correlations. Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.</p>
 <pre class="r"><code>orig_data &lt;- read_excel(path=&quot;C:/Users/wb469649/Documents/Github/SPI_AKI/Data/FinalCopy of SPI SCORE 2016-2018-DW.xlsx&quot;,
                         sheet=&#39;Sheet1&#39;)
@@ -4282,6 +4290,9 @@ SPI.D2.8.BIZZ
 </tr>
 </tbody>
 </table>
+</div>
+<div id="replication-of-cs-scores" class="section level3">
+<h3>Replication of CS Scores</h3>
 <p>Now bring in data on indicators as they were originally computed by SPI team and produce correlations. Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.</p>
 <pre class="r"><code>comparison_cs &lt;- D2.CS_wide %&gt;%
   left_join(orig_data)
@@ -5786,6 +5797,8 @@ SN.ITK.DEFC.ZS
 </tr>
 </tbody>
 </table>
+<div id="replication-of-aki-scores" class="section level3">
+<h3>Replication of AKI Scores</h3>
 <p>Now bring in data on indicators as they were originally computed by SPI team and produce correlations. There appear to be some differences with original values computed by SPI team</p>
 <pre class="r"><code>comparison_aki &lt;- D3.AKI_wide %&gt;%
   left_join(orig_data)
@@ -5802,6 +5815,7 @@ cor(comparison_aki$SPI.D3.AKI_2017, comparison_aki$AKI_2017,
 cor(comparison_aki$SPI.D3.AKI_2018, comparison_aki$AKI_2018,
     use=&#39;complete.obs&#39;)</code></pre>
 <pre><code>## [1] 0.9518704</code></pre>
+</div>
 </div>
 <div id="spi-dimension-4-dissemination-practices-and-openness-dpo" class="section level2">
 <h2>SPI Dimension 4: Dissemination Practices and Openness (DPO):</h2>
@@ -7171,6 +7185,9 @@ SPI.D4.7.GEOS
 </tr>
 </tbody>
 </table>
+</div>
+<div id="replication-of-dpo-scores" class="section level3">
+<h3>Replication of DPO Scores</h3>
 <p>Now bring in data on indicators as they were originally computed by SPI team and produce correlations. Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.</p>
 <pre class="r"><code>comparison_dpo &lt;- D4.DPO_wide %&gt;%
   left_join(orig_data)

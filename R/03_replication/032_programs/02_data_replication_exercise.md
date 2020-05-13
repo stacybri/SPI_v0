@@ -1242,6 +1242,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
 </table>
 
 
+### Replication of MSC Scores
 
 
 Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.
@@ -2250,6 +2251,7 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
 </tbody>
 </table>
 
+### Replication of CS Scores
 
 Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.
 
@@ -2903,6 +2905,7 @@ kable(msc_sumstats, caption="Summary Statistics of Availability of Key Indicator
 </tbody>
 </table>
 
+### Replication of AKI Scores
 
 Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  There appear to be some differences with original values computed by SPI team
 
@@ -3661,6 +3664,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
 </tbody>
 </table>
 
+### Replication of DPO Scores
 
 
 Now bring in data on indicators as they were originally computed by SPI team and produce correlations.  Upon inspection, slight difference from 1.0 correlation appears to be due to rounding.
