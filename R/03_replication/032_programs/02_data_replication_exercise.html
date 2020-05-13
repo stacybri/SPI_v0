@@ -11,7 +11,7 @@
 
 <meta name="author" content="Brian Stacy" />
 
-<meta name="date" content="2020-05-08" />
+<meta name="date" content="2020-05-11" />
 
 <title>SPI Data Documentation</title>
 
@@ -374,7 +374,7 @@ summary {
 
 <h1 class="title toc-ignore">SPI Data Documentation</h1>
 <h4 class="author">Brian Stacy</h4>
-<h4 class="date">2020-05-08</h4>
+<h4 class="date">2020-05-11</h4>
 
 </div>
 
@@ -8344,8 +8344,13 @@ The concept adopted here views the statistical capacity of an NSS in terms of it
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>save(SPI, SPI_wide, metadata,
-     file = paste(csv_output, &quot;SPI.Rdata&quot;, sep=&quot;/&quot; ))</code></pre>
+<pre class="r"><code>#rename the data frames to 
+SPI_replication&lt;-SPI
+SPI_wide_replication &lt;- SPI_wide
+metadata_replication &lt;- metadata
+
+save(SPI_replication, SPI_wide_replication, metadata_replication,
+     file = paste(csv_output, &quot;SPI_replication_data.Rdata&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
 
 

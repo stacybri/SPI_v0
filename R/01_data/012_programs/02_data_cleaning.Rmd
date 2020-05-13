@@ -24,10 +24,10 @@ library(httr)
 library(rsdmx)
 
 # Directory for SPI csv files that were previously created
-csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/03_replication/011_rawdata"
+csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
 
 # Directory for SPI csv files that are saved
-csv_output <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/03_replication/013_outputs"
+csv_output <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/013_outputs"
 
 ```
 
@@ -2078,6 +2078,13 @@ SPI<-D1.MSC %>%
   left_join(D2.CS) %>%
   left_join(D3.AKI) %>%
   left_join(D4.DPO) 
+
+#Update ISO codes
+SPI <- SPI %>%
+  select(-iso3c) %>%
+  left_join(country_list)
+
+
 
 #add in country population as last step
 # make request to World Bank API

@@ -1776,8 +1776,13 @@ kable(metadata, caption="Metadata for Statistical Performance Index Indicators" 
 
 ```{r save_R_frame}
 
-save(SPI, SPI_wide, metadata,
-     file = paste(csv_output, "SPI.Rdata", sep="/" ))
+#rename the data frames to 
+SPI_replication<-SPI
+SPI_wide_replication <- SPI_wide
+metadata_replication <- metadata
+
+save(SPI_replication, SPI_wide_replication, metadata_replication,
+     file = paste(csv_output, "SPI_replication_data.Rdata", sep="/" ))
 
 ```
 
