@@ -1,23 +1,6 @@
-Statistical Performance Index - Availability of Key Indicators
+Statistical Performance Index 
 ================
 
-# Overview
-
-DECIS has been tasked with coming up with a set of roughly 12 indicators
-for the Availability of Key Indicators (AKI) dimension of the
-Statistical Performance Index (SPI). Based on feedback from the concept
-note of the SPI, the SPI team has requested the indicators for the AKI:
-
-1.  Cover topic areas (i.e. the SDGs) as well as possible (for instance,
-    in the current set of indicators below there is no coverage of
-    environmental SDGs). Tier 1 SDG indicators are preferred  
-2.  The indicators must be (as much as possible) produced by the country
-    statistical systems, so as to measure statistical capacity. Not
-    modelled estimates.
-3.  Included in the WDI.
-
-I am continually updating a dashboard to help us with the indicator
-selection here: <https://datanalytics.worldbank.org/content/435>
 
 ## Statistical Performance Index Overview
 
