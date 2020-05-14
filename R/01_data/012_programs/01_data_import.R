@@ -565,29 +565,16 @@ bind_rows(D1.12.MSC.GSBP_2016, D1.12.MSC.GSBP_2017, D1.12.MSC.GSBP_2018,D1.12.MS
 # of the housing census.  It is recommended that population and housing censuses be conducted at least every 10 years. 
 #########
 
-D2.1.CEN.POPU<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.1.CEN.POPU - REV.xlsx", sep=""),
-                          sheet="2016-2018 data",
-                          skip=1,
-                          .name_repair = 'universal')
 
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
-  mutate(POPU.CENSUS=gsub("^,*|(?<=,),|,*$", "", ..2018..Population...Housing.census, perl=T)) %>%
-  mutate(POPU.CENSUS=gsub("^,*|(?<=,),|,*$", "", ..2018..Population...Housing.census, perl=T),
-         iso3c=Code,
-         country=Country,
-         database_last_updated=2018) %>% #remove leading and trailing commas
-  select(country,database_last_updated, POPU.CENSUS) %>%
-  filter(!is.na(country))
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.1.CEN.POPU_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.1.CEN.POPU - REV.xlsx", sep=""),
+D2.1.CEN.POPU<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.1.CEN.POPU - REV.xlsx", sep=""),
                           sheet="2019 Data Template",
                           skip=2,
                           .name_repair = 'universal')
 
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.1.CEN.POPU_2019 <- D2.1.CEN.POPU_2019 %>%
+D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
   mutate(POPU.CENSUS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T)) %>%
   mutate(POPU.CENSUS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T),
          iso3c=Code,
@@ -598,7 +585,6 @@ D2.1.CEN.POPU_2019 <- D2.1.CEN.POPU_2019 %>%
 
 #bind 2019 data to 2018 and previous
 D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
-  bind_rows(D2.1.CEN.POPU_2019) %>%
   group_by(country) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
@@ -623,28 +609,16 @@ write_excel_csv(D2.1.CEN.POPU,
 #########
 
 
-D2.2.CEN.AGRI<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.2.CEN.AGRI - REV.xlsx", sep=""),
-                          sheet="2016-2018 data",
-                          skip=1,
-                          .name_repair = 'universal')
 
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.2.CEN.AGRI <- D2.2.CEN.AGRI %>%
-  mutate(AGRI.CENSUS=gsub("^,*|(?<=,),|,*$", "", AGRI.CENSUS, perl=T), 
-         iso3c=Code,
-         country=Country,
-         database_last_updated=2018) %>% #remove leading and trailing commas
-  select(country,database_last_updated, AGRI.CENSUS) %>%
-  filter(!is.na(country))
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.2.CEN.AGRI_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.2.CEN.AGRI2 - REV.xlsx", sep=""),
+D2.2.CEN.AGRI<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.2.CEN.AGRI2 - REV.xlsx", sep=""),
                           sheet="2019 Data",
                           skip=2,
                           .name_repair = 'universal')
 
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.2.CEN.AGRI_2019 <- D2.2.CEN.AGRI_2019 %>%
+D2.2.CEN.AGRI <- D2.2.CEN.AGRI %>%
   mutate(AGRI.CENSUS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
          iso3c=Code,
          country=Country...3,
@@ -654,7 +628,6 @@ D2.2.CEN.AGRI_2019 <- D2.2.CEN.AGRI_2019 %>%
 
 #bind 2019 data to 2018 and previous
 D2.2.CEN.AGRI <- D2.2.CEN.AGRI %>%
-  bind_rows(D2.2.CEN.AGRI_2019) %>%
   group_by(country) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
@@ -675,28 +648,15 @@ write_excel_csv(D2.2.CEN.AGRI,
 # classification, and operating data (e.g., receipts and employment).
 #########
 
-D2.3.CEN.BIZZ<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.3.CEN.BIZZ - REV.xlsx", sep=""),
-                          sheet="2016 data",
-                          skip=1,
-                          .name_repair = 'universal')
-
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.3.CEN.BIZZ <- D2.3.CEN.BIZZ %>%
-  mutate(BIZZ.CENSUS=gsub("^,*|(?<=,),|,*$", "", BIZZ.CENSUS, perl=T), 
-         iso3c=Code,
-         country=Country,
-         database_last_updated=2018) %>% #remove leading and trailing commas
-  select(country,database_last_updated, BIZZ.CENSUS) %>%
-  filter(!is.na(country))
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.3.CEN.BIZZ_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.3.CEN.BIZZ - REV.xlsx", sep=""),
+D2.3.CEN.BIZZ<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.3.CEN.BIZZ - REV.xlsx", sep=""),
                                sheet="2019 Data",
                                skip=2,
                                .name_repair = 'universal')
 
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.3.CEN.BIZZ_2019 <- D2.3.CEN.BIZZ_2019 %>%
+D2.3.CEN.BIZZ <- D2.3.CEN.BIZZ %>%
   mutate(BIZZ.CENSUS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
          iso3c=Code,
          country=Country,
@@ -706,7 +666,6 @@ D2.3.CEN.BIZZ_2019 <- D2.3.CEN.BIZZ_2019 %>%
 
 #bind 2019 data to 2018 and previous
 D2.3.CEN.BIZZ <- D2.3.CEN.BIZZ %>%
-  bind_rows(D2.3.CEN.BIZZ_2019) %>%
   group_by(country) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
@@ -729,28 +688,14 @@ write_excel_csv(D2.3.CEN.BIZZ,
 # 3 to 5 years.
 #########
 
-D2.4.SVY.HOUS<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.4.SVY.HOUS - REV.xlsx", sep=""),
-                          sheet="2016-2018 data",
-                          skip=1,
-                          .name_repair = 'universal')
-
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.4.SVY.HOUS <- D2.4.SVY.HOUS %>%
-  mutate(HOUS.SURVEYS=gsub("^,*|(?<=,),|,*$", "", HOUS.SURVEYS, perl=T), 
-         iso3c=Code,
-         country=Country,
-         database_last_updated=2018) %>% #remove leading and trailing commas
-  select(country,database_last_updated, HOUS.SURVEYS)  %>%
-  filter(!is.na(country))
-
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.4.SVY.HOUS_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.4.SVY.HOUS - REV.xlsx", sep=""),
+D2.4.SVY.HOUS<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.4.SVY.HOUS - REV.xlsx", sep=""),
                                sheet="2019 Data",
                                skip=2,
                                .name_repair = 'universal')
 
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.4.SVY.HOUS_2019 <- D2.4.SVY.HOUS_2019 %>%
+D2.4.SVY.HOUS <- D2.4.SVY.HOUS %>%
   mutate(HOUS.SURVEYS=gsub("^,*|(?<=,),|,*$", "", Houseshold.survey.on.income..consumption..expenditure..budget..Integrated.Survey, perl=T), 
          iso3c=Code,
          country=Country,
@@ -760,7 +705,6 @@ D2.4.SVY.HOUS_2019 <- D2.4.SVY.HOUS_2019 %>%
 
 #bind 2019 data to 2018 and previous
 D2.4.SVY.HOUS <- D2.4.SVY.HOUS %>%
-  bind_rows(D2.4.SVY.HOUS_2019) %>%
   group_by( country) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
@@ -781,29 +725,16 @@ write_excel_csv(D2.4.SVY.HOUS,
 # interest to most agriculture surveys.
 #########
 
-D2.5.SVY.AGRI<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.5.SVY.AGRI - REV.xlsx", sep=""),
-                          sheet="2016-2018 data",
-                          skip=1,
-                          .name_repair = 'universal')
-
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.5.SVY.AGRI <- D2.5.SVY.AGRI %>%
-  mutate(AGRI.SURVEYS=gsub("^,*|(?<=,),|,*$", "", AGRI.SURVEYS, perl=T), 
-         iso3c=Code,
-         country=Country,
-         database_last_updated=2018) %>% #remove leading and trailing commas
-  select(country,database_last_updated, AGRI.SURVEYS)  %>%
-  filter(!is.na(country))
 
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.5.SVY.AGRI_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.5.SVY.AGRI - REV.xlsx", sep=""),
+D2.5.SVY.AGRI<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.5.SVY.AGRI - REV.xlsx", sep=""),
                                sheet="2019 Data",
                                skip=2,
                                .name_repair = 'universal')
 
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.5.SVY.AGRI_2019 <- D2.5.SVY.AGRI_2019 %>%
+D2.5.SVY.AGRI <- D2.5.SVY.AGRI %>%
   mutate(AGRI.SURVEYS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
          iso3c=Code,
          country=Country,
@@ -812,7 +743,6 @@ D2.5.SVY.AGRI_2019 <- D2.5.SVY.AGRI_2019 %>%
   filter(!is.na(country))
 #bind 2019 data to 2018 and previous
 D2.5.SVY.AGRI <- D2.5.SVY.AGRI %>%
-  bind_rows(D2.5.SVY.AGRI_2019) %>%
   group_by( country) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
@@ -837,28 +767,15 @@ write_excel_csv(D2.5.SVY.AGRI,
 # unemployment.
 #########
 
-D2.6.SVY.LABR<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.6.SVY.LABR - REV.xlsx", sep=""),
-                          sheet="2016-2018 data",
-                          skip=1,
-                          .name_repair = 'universal')
-
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.6.SVY.LABR <- D2.6.SVY.LABR %>%
-  mutate(LABR.SURVEYS=gsub("^,*|(?<=,),|,*$", "", LABR.SURVEYS, perl=T), 
-         iso3c=Code,
-         country=Country,
-         database_last_updated=2018) %>% #remove leading and trailing commas
-  select(country,database_last_updated, LABR.SURVEYS)  %>%
-  filter(!is.na(country))
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.6.SVY.LABR_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.6.SVY.LABR - REV.xlsx", sep=""),
+D2.6.SVY.LABR<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.6.SVY.LABR - REV.xlsx", sep=""),
                                sheet="2019 data",
                                skip=2,
                                .name_repair = 'universal')
 
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.6.SVY.LABR_2019 <- D2.6.SVY.LABR_2019 %>%
+D2.6.SVY.LABR <- D2.6.SVY.LABR %>%
   mutate(LABR.SURVEYS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
          iso3c=Code,
          country=Country,
@@ -868,7 +785,6 @@ D2.6.SVY.LABR_2019 <- D2.6.SVY.LABR_2019 %>%
 
 #bind 2019 data to 2018 and previous
 D2.6.SVY.LABR <- D2.6.SVY.LABR %>%
-  bind_rows(D2.6.SVY.LABR_2019) %>%
   group_by( country) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
@@ -891,22 +807,10 @@ write_excel_csv(D2.6.SVY.LABR,
 # health surveys be conducted at least every 3 to 5 years.
 #########
 
-D2.7.SVY.HLTH<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
-                          sheet="2016 data",
-                          skip=1,
-                          .name_repair = 'universal')
 
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>%
-  mutate(HLTH.SURVEYS=gsub("^,*|(?<=,),|,*$", "", HLTH.SURVEYS, perl=T), 
-         iso3c=Code,
-         country=Country,
-         database_last_updated=2018) %>% #remove leading and trailing commas
-  select(country,database_last_updated, HLTH.SURVEYS)  %>%
-  filter(!is.na(country))
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.7.SVY.HLTH_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
+D2.7.SVY.HLTH<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
                                sheet="2016-19 DCS DHS,MICS-formulas",
                                skip=1,
                                .name_repair = 'universal')
@@ -914,7 +818,7 @@ D2.7.SVY.HLTH_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 201
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
 
 
-D2.7.SVY.HLTH_2019 <- D2.7.SVY.HLTH_2019 %>% #do some reshaping of this df to match previous version
+D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>% #do some reshaping of this df to match previous version
   mutate_at(vars(starts_with('YR')), 
     funs(ifelse(. == 1, deparse(substitute(.)), NA)) # replace value with column name (year)
   ) %>%
@@ -930,7 +834,6 @@ D2.7.SVY.HLTH_2019 <- D2.7.SVY.HLTH_2019 %>% #do some reshaping of this df to ma
 
 #bind 2019 data to 2018 and previous
 D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>%
-  bind_rows(D2.7.SVY.HLTH_2019) %>%
   group_by( country) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
@@ -955,28 +858,15 @@ write_excel_csv(D2.7.SVY.HLTH,
 # and demographics.
 #########
 
-D2.8.SVY.BIZZ<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, & 2018 - D2.8.SVY.BIZZ - REV.xlsx", sep=""),
-                          sheet="2016-2018 data",
-                          skip=1,
-                          .name_repair = 'universal')
-
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.8.SVY.BIZZ <- D2.8.SVY.BIZZ %>%
-  mutate(BIZZ.SURVEYS=gsub("^,*|(?<=,),|,*$", "", BIZZ.SURVEYS, perl=T), 
-         iso3c=Code,
-         country=Country,
-         database_last_updated=2018) %>% #remove leading and trailing commas
-  select(country,database_last_updated, BIZZ.SURVEYS)  %>%
-  filter(!is.na(country))
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.8.SVY.BIZZ_2019<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019- D2.8.SVY.BIZZ - REV.xlsx", sep=""),
+D2.8.SVY.BIZZ<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019- D2.8.SVY.BIZZ - REV.xlsx", sep=""),
                                sheet="2019 data",
                                skip=2,
                                .name_repair = 'universal')
 
 #data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
-D2.8.SVY.BIZZ_2019 <- D2.8.SVY.BIZZ_2019 %>%
+D2.8.SVY.BIZZ <- D2.8.SVY.BIZZ %>%
   mutate(BIZZ.SURVEYS=gsub("^,*|(?<=,),|,*$", "", Years, perl=T), 
          iso3c=Code,
          country=Country,
@@ -985,7 +875,6 @@ D2.8.SVY.BIZZ_2019 <- D2.8.SVY.BIZZ_2019 %>%
   filter(!is.na(country))
 #bind 2019 data to 2018 and previous
 D2.8.SVY.BIZZ <- D2.8.SVY.BIZZ %>%
-  bind_rows(D2.8.SVY.BIZZ_2019) %>%
   group_by( country) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
@@ -1147,7 +1036,7 @@ D4.1.SC.DPO.CALD_2016 <- spi_loader_4(4,1,'CALD', 2016,2) %>%
          date=2016) %>%
   select(country,date, CALD)
 
-D4.1.SC.DPO.CALD_2017 <- spi_loader_4(4,1,'CALD', 2018,2) %>%
+D4.1.SC.DPO.CALD_2017 <- spi_loader_4(4,1,'CALD', 2017,2) %>%
   mutate(CALD=...2017,
          iso3c=Code,
          country=Country,
