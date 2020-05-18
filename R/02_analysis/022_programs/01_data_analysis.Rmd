@@ -36,7 +36,8 @@ This file produces a number of summary statistics for the SPI dimensions.  Summa
 #import data
 load(paste(csv_dir, "SPI.RData", sep="/" ))
 
-SPI <- SPI 
+SPI <- SPI %>%
+  filter((lending %in% c('IDA', 'IBRD', 'Blend')) | (iso3c=='PSE')) #keep just the borrowing countries & West Bank & Gaza
 
 ```
 
@@ -55,8 +56,8 @@ Below we show summary statistics for the year 2019.  The same table is available
                                                sd = ~ sqrt(wtd.var(.,  weights=pop, na.rm=TRUE)),
                                                p25 = ~ (wtd.quantile(., probs=c(0.25),  weights=pop, na.rm=TRUE)),
                                                p50 = ~ (wtd.quantile(., probs=c(0.5), weights=pop, na.rm=TRUE)),
-                                               p75 = ~ (wtd.quantile(., probs=c(0.75), weights=pop, na.rm=TRUE))
-                                               ))
+                                               p75 = ~ (wtd.quantile(., probs=c(0.75), weights=pop, na.rm=TRUE)),
+                                               N = ~ sum(!is.na(.))))
 
 for (reference_year in 2016:2019) {
 temp <- SPI %>%
@@ -71,7 +72,7 @@ temp <- temp %>%
   yank('numeric') %>%
   rename(Series=skim_variable) %>%
   left_join(metadata) %>% #add labels to variables
-  select(Series, 'Indicator Name', mean, sd,p0,p100, hist)
+  select(Series, 'Indicator Name', mean, sd,p0,p100, hist, N)
 
 assign(paste("spi_weighted_sumstats",reference_year,sep="_"), temp)
 
@@ -120,7 +121,7 @@ group <- spi_weighted_sumstats_2019 %>%
 
 kable(spi_weighted_sumstats_2019,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
       caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2019") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -237,16 +238,22 @@ write.xlsx(
 
 ```{r sumstats_unweighted, echo=FALSE}
 
+        my_skim<-    skim_with( numeric = sfl( mean = ~ mean(.,   na.rm=TRUE),
+                                               sd = ~ sqrt(var(.,   na.rm=TRUE)),
+                                               p25 = ~ (quantile(., probs=c(0.25),   na.rm=TRUE)),
+                                               p50 = ~ (quantile(., probs=c(0.5),  na.rm=TRUE)),
+                                               p75 = ~ (quantile(., probs=c(0.75),  na.rm=TRUE)),
+                                               N = ~ sum(!is.na(.))))
 
 for (reference_year in 2016:2019) {
 temp <- SPI %>%
   filter(date==reference_year) %>%
   select( SPI.OVRL.SCR, contains('SPI.D1'),contains('SPI.D2'),contains('SPI.D3'),contains('SPI.D4')) %>%
-  skim() %>%
+  my_skim() %>%
   yank('numeric') %>%
   rename(Series=skim_variable) %>%
   left_join(metadata) %>% #add labels to variables
-  select(Series, 'Indicator Name', mean, sd,p0,p100, hist)
+  select(Series, 'Indicator Name', mean, sd,p0,p100, hist, N)
 
 assign(paste("spi_unweighted_sumstats",reference_year,sep="_"), temp)
 
@@ -292,7 +299,7 @@ group <- spi_unweighted_sumstats_2019 %>%
 
 kable(spi_unweighted_sumstats_2019,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
       caption="Statistical Performance Indicator Unweighted Summary Statistics for 2019") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -413,7 +420,7 @@ Below we show summary statistics for the year 2016.
 
 kable(spi_weighted_sumstats_2016,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
       caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2016") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -428,7 +435,7 @@ DT::datatable(spi_weighted_regional_2016, caption=htmltools::tags$caption(
 
 kable(spi_unweighted_sumstats_2016,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
       caption="Statistical Performance Indicator Unweighted Summary Statistics for 2016") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -454,7 +461,7 @@ Below we show summary statistics for the year 2017.
 ```{r sumstats_2017, echo=FALSE}
 kable(spi_weighted_sumstats_2017,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
       caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2017") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -469,7 +476,7 @@ DT::datatable(spi_weighted_regional_2017, caption=htmltools::tags$caption(
 
 kable(spi_unweighted_sumstats_2017,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
       caption="Statistical Performance Indicator Unweighted Summary Statistics for 2017") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -492,7 +499,7 @@ Below we show summary statistics for the year 2018.
 ```{r sumstats_2018, echo=FALSE}
 kable(spi_weighted_sumstats_2018,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
       caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2018") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -507,7 +514,7 @@ DT::datatable(spi_weighted_regional_2018, caption=htmltools::tags$caption(
 
 kable(spi_unweighted_sumstats_2018,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
       caption="Statistical Performance Indicator Unweighted Summary Statistics for 2018") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))

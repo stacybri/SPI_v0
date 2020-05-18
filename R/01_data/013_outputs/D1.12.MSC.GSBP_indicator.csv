@@ -39,7 +39,7 @@ COM,Comoros,0,0,0,0,0,0,0,0
 COD,"Congo, Dem. Rep.",0,0,0,0,0,0,0,0
 COG,"Congo, Rep.",0,0,0,0,0,0,0,0
 CRI,Costa Rica,0,0,0,0,0,0,0,0
-NA,Côte d'Ivoire,0,0,0,0,0,0,0,0
+CIV,Cote d'Ivoire,0,0,0,0,0,0,0,0
 HRV,Croatia,yes,yes,yes,yes,1,1,1,1
 CYP,Cyprus,yes,yes,yes,NA,1,1,1,NA
 CZE,Czech Republic,yes,yes,yes,NA,1,1,1,NA
@@ -53,6 +53,7 @@ SLV,El Salvador,0,0,0,0,0,0,0,0
 GNQ,Equatorial Guinea,0,0,0,0,0,0,0,0
 ERI,Eritrea,0,0,0,0,0,0,0,0
 EST,Estonia,0,0,0,NA,0,0,0,NA
+SWZ,Eswatini,0,0,0,0,0,0,0,0
 ETH,Ethiopia,0,0,0,0,0,0,0,0
 FJI,Fiji,0,0,0,0,0,0,0,0
 FIN,Finland,yes,yes,yes,NA,1,1,1,NA
@@ -97,7 +98,6 @@ LBR,Liberia,0,0,0,0,0,0,0,0
 LBY,Libya,0,0,0,0,0,0,0,0
 LTU,Lithuania,yes,yes,yes,NA,1,1,1,NA
 LUX,Luxembourg,0,0,0,NA,0,0,0,NA
-NA,"Macedonia, FYR",yes,YES,YES,YES,1,1,1,1
 MDG,Madagascar,0,0,0,0,0,0,0,0
 MWI,Malawi,0,0,0,0,0,0,0,0
 MYS,Malaysia,0,0,0,0,0,0,0,0
@@ -123,6 +123,7 @@ NZL,New Zealand,yes,yes,yes,NA,1,1,1,NA
 NIC,Nicaragua,0,0,0,0,0,0,0,0
 NER,Niger,0,0,0,0,0,0,0,0
 NGA,Nigeria,0,0,0,0,0,0,0,0
+MKD,North Macedonia,yes,YES,YES,YES,1,1,1,1
 NOR,Norway,yes,yes,yes,NA,1,1,1,NA
 OMN,Oman,0,0,0,NA,0,0,0,NA
 PAK,Pakistan,0,0,0,0,0,0,0,0
@@ -140,7 +141,7 @@ RUS,Russian Federation,yes,yes,yes,yes,1,1,1,1
 RWA,Rwanda,0,0,0,0,0,0,0,0
 WSM,Samoa,0,0,0,0,0,0,0,0
 SMR,San Marino,0,0,0,NA,0,0,0,NA
-NA,São Tomé and Principe,0,0,0,0,0,0,0,0
+STP,Sao Tome and Principe,0,0,0,0,0,0,0,0
 SAU,Saudi Arabia,0,0,0,NA,0,0,0,NA
 SEN,Senegal,0,0,0,0,0,0,0,0
 SRB,Serbia,yes,yes,yes,yes,1,1,1,1
@@ -160,7 +161,6 @@ LCA,St. Lucia,0,0,0,0,0,0,0,0
 VCT,St. Vincent and the Grenadines,0,0,0,0,0,0,0,0
 SDN,Sudan,0,0,0,0,0,0,0,0
 SUR,Suriname,0,0,0,0,0,0,0,0
-NA,Swaziland,0,0,0,0,0,0,0,0
 SWE,Sweden,yes,yes,yes,NA,1,1,1,NA
 CHE,Switzerland,0,0,0,NA,0,0,0,NA
 SYR,Syrian Arab Republic,0,0,0,0,0,0,0,0

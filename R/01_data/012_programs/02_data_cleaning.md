@@ -1,7 +1,7 @@
 ---
 title: "SPI Data Documentation"
 author: "Brian Stacy"
-date: "2020-05-14"
+date: "2020-05-18"
 output: 
   html_document: 
     fig_height: 6
@@ -567,9 +567,9 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.MSC </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 46.87 </td>
-   <td style="text-align:right;"> 25.68 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 46.89 </td>
+   <td style="text-align:right;"> 25.64 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 25.00 </td>
    <td style="text-align:right;"> 37.50 </td>
@@ -580,11 +580,11 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.MSC </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 48.18 </td>
-   <td style="text-align:right;"> 26.09 </td>
-   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 48.20 </td>
    <td style="text-align:right;"> 26.04 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 29.17 </td>
    <td style="text-align:right;"> 37.50 </td>
    <td style="text-align:right;"> 70.83 </td>
    <td style="text-align:right;"> 100 </td>
@@ -593,33 +593,33 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.MSC </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 49.43 </td>
-   <td style="text-align:right;"> 26.25 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 49.36 </td>
+   <td style="text-align:right;"> 26.26 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 29.17 </td>
    <td style="text-align:right;"> 41.67 </td>
    <td style="text-align:right;"> 75.00 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▂▇▅▃▃ </td>
+   <td style="text-align:left;"> ▂▇▃▃▃ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.MSC </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 43.14 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 43.05 </td>
    <td style="text-align:right;"> 22.22 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 25.00 </td>
    <td style="text-align:right;"> 37.50 </td>
    <td style="text-align:right;"> 54.17 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▂▇▆▂▂ </td>
+   <td style="text-align:left;"> ▂▇▅▂▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.1.SNAU </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.55 </td>
    <td style="text-align:right;"> 0.32 </td>
    <td style="text-align:right;"> 0 </td>
@@ -632,7 +632,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.1.SNAU </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.56 </td>
    <td style="text-align:right;"> 0.32 </td>
    <td style="text-align:right;"> 0 </td>
@@ -645,7 +645,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.1.SNAU </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.68 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0 </td>
@@ -658,7 +658,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.1.SNAU </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.67 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0 </td>
@@ -671,20 +671,20 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.2.NABY </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0.40 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.39 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.88 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▇▁▅ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.2.NABY </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.41 </td>
    <td style="text-align:right;"> 0.41 </td>
    <td style="text-align:right;"> 0 </td>
@@ -697,9 +697,9 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.2.NABY </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.42 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
@@ -710,9 +710,9 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.2.NABY </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 0.37 </td>
-   <td style="text-align:right;"> 0.40 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.38 </td>
+   <td style="text-align:right;"> 0.39 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
@@ -723,7 +723,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.3.CNIN </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.63 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0 </td>
@@ -736,7 +736,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.3.CNIN </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.65 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0 </td>
@@ -749,7 +749,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.3.CNIN </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.65 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0 </td>
@@ -762,7 +762,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.3.CNIN </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.59 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0 </td>
@@ -775,8 +775,8 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.4.CPIBY </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 0.45 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
@@ -788,7 +788,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.4.CPIBY </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.41 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0 </td>
@@ -801,7 +801,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.4.CPIBY </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0 </td>
@@ -814,7 +814,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.4.CPIBY </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.26 </td>
    <td style="text-align:right;"> 0.33 </td>
    <td style="text-align:right;"> 0 </td>
@@ -827,7 +827,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.5.HOUS </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.64 </td>
    <td style="text-align:right;"> 0.48 </td>
    <td style="text-align:right;"> 0 </td>
@@ -840,7 +840,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.5.HOUS </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.68 </td>
    <td style="text-align:right;"> 0.47 </td>
    <td style="text-align:right;"> 0 </td>
@@ -853,7 +853,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.5.HOUS </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.68 </td>
    <td style="text-align:right;"> 0.47 </td>
    <td style="text-align:right;"> 0 </td>
@@ -866,9 +866,9 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.5.HOUS </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.63 </td>
-   <td style="text-align:right;"> 0.48 </td>
+   <td style="text-align:right;"> 0.49 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
@@ -879,9 +879,9 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.6.EMPL </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.11 </td>
-   <td style="text-align:right;"> 0.32 </td>
+   <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
@@ -892,7 +892,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.6.EMPL </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.15 </td>
    <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0 </td>
@@ -905,7 +905,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.6.EMPL </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.15 </td>
    <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0 </td>
@@ -918,7 +918,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.6.EMPL </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.12 </td>
    <td style="text-align:right;"> 0.33 </td>
    <td style="text-align:right;"> 0 </td>
@@ -931,8 +931,8 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.7.CGOV </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0.45 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
@@ -944,7 +944,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.7.CGOV </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0 </td>
@@ -957,7 +957,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.7.CGOV </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0 </td>
@@ -970,7 +970,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.7.CGOV </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.26 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0 </td>
@@ -983,7 +983,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.8.FINA </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0.40 </td>
    <td style="text-align:right;"> 0 </td>
@@ -996,7 +996,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.8.FINA </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0.40 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1009,7 +1009,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.8.FINA </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0.40 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1022,7 +1022,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.8.FINA </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.23 </td>
    <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1035,8 +1035,8 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.9.MONY </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 0.72 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.73 </td>
    <td style="text-align:right;"> 0.45 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
@@ -1048,7 +1048,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.9.MONY </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.83 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1061,7 +1061,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.9.MONY </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.84 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1074,7 +1074,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.9.MONY </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.90 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1087,7 +1087,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.10.IDDS </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.67 </td>
    <td style="text-align:right;"> 0.28 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1100,7 +1100,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.10.IDDS </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.68 </td>
    <td style="text-align:right;"> 0.27 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1113,7 +1113,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.10.IDDS </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.68 </td>
    <td style="text-align:right;"> 0.27 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1126,7 +1126,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.10.IDDS </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.62 </td>
    <td style="text-align:right;"> 0.25 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1139,7 +1139,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.11.CRVS </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.48 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1152,7 +1152,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.11.CRVS </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.48 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1165,12 +1165,12 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.11.CRVS </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▇ </td>
@@ -1178,7 +1178,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.11.CRVS </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0.48 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1191,7 +1191,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.12.GSBP </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.25 </td>
    <td style="text-align:right;"> 0.43 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1204,7 +1204,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.12.GSBP </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.25 </td>
    <td style="text-align:right;"> 0.43 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1217,7 +1217,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.12.GSBP </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.25 </td>
    <td style="text-align:right;"> 0.43 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1230,7 +1230,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
   <tr>
    <td style="text-align:left;"> SPI.D1.12.GSBP </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.15 </td>
    <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0 </td>
@@ -1858,468 +1858,468 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 46.00 </td>
-   <td style="text-align:right;"> 18.08 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 46.03 </td>
+   <td style="text-align:right;"> 18.11 </td>
    <td style="text-align:right;"> 7.5 </td>
    <td style="text-align:right;"> 31.25 </td>
    <td style="text-align:right;"> 48.75 </td>
-   <td style="text-align:right;"> 57.50 </td>
+   <td style="text-align:right;"> 57.5 </td>
    <td style="text-align:right;"> 82.50 </td>
    <td style="text-align:left;"> ▃▇▇▇▃ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 45.23 </td>
-   <td style="text-align:right;"> 18.49 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 45.24 </td>
+   <td style="text-align:right;"> 18.48 </td>
    <td style="text-align:right;"> 10.0 </td>
    <td style="text-align:right;"> 30.00 </td>
    <td style="text-align:right;"> 45.00 </td>
-   <td style="text-align:right;"> 57.50 </td>
+   <td style="text-align:right;"> 57.5 </td>
    <td style="text-align:right;"> 87.50 </td>
    <td style="text-align:left;"> ▅▆▇▅▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 45.03 </td>
-   <td style="text-align:right;"> 18.97 </td>
+   <td style="text-align:right;"> 18.96 </td>
    <td style="text-align:right;"> 7.5 </td>
    <td style="text-align:right;"> 30.00 </td>
    <td style="text-align:right;"> 47.50 </td>
-   <td style="text-align:right;"> 57.50 </td>
+   <td style="text-align:right;"> 57.5 </td>
    <td style="text-align:right;"> 91.25 </td>
    <td style="text-align:left;"> ▃▅▇▂▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 44.59 </td>
-   <td style="text-align:right;"> 18.61 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 44.66 </td>
+   <td style="text-align:right;"> 18.59 </td>
    <td style="text-align:right;"> 7.5 </td>
    <td style="text-align:right;"> 28.75 </td>
    <td style="text-align:right;"> 45.00 </td>
-   <td style="text-align:right;"> 56.25 </td>
+   <td style="text-align:right;"> 57.5 </td>
    <td style="text-align:right;"> 88.75 </td>
    <td style="text-align:left;"> ▅▆▇▅▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.1.POPU </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.90 </td>
    <td style="text-align:right;"> 0.26 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▁▁▁▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.1.POPU </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.89 </td>
    <td style="text-align:right;"> 0.27 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▁▁▁▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.1.POPU </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.89 </td>
    <td style="text-align:right;"> 0.27 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▁▁▁▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.1.POPU </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.88 </td>
    <td style="text-align:right;"> 0.27 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▁▁▁▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.2.AGRI </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.63 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▅▁▂▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.2.AGRI </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.63 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▅▁▂▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.2.AGRI </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> 0.43 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▅▁▃▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.2.AGRI </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> 0.42 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▅▁▅▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.17 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.17 </td>
    <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.17 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.16 </td>
    <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.4.HOUS </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 0.72 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.71 </td>
    <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▁▂▃▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.4.HOUS </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
-   <td style="text-align:right;"> 0.71 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.70 </td>
    <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▂▂▃▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.4.HOUS </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.70 </td>
    <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.30 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▂▂▃▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.4.HOUS </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.69 </td>
-   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.30 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▂▂▃▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.5.AGRI </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.15 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.5.AGRI </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.16 </td>
-   <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 0.32 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.07 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.5.AGRI </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.16 </td>
    <td style="text-align:right;"> 0.32 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.5.AGRI </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.14 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.6.LABR </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.52 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▆▃▂▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.6.LABR </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.52 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▆▃▂▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.6.LABR </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.53 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▆▂▃▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.6.LABR </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.51 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▃▂▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.7.HLTH </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.42 </td>
-   <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 0.34 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.6 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▇▇▁▅ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.7.HLTH </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.6 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▇▇▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.7.HLTH </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.6 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▇▇▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.7.HLTH </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 0.99 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.39 </td>
    <td style="text-align:right;"> 0.33 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.6 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▇▇▁▃ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.8.BIZZ </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.18 </td>
    <td style="text-align:right;"> 0.33 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.3 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.8.BIZZ </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.19 </td>
    <td style="text-align:right;"> 0.34 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.3 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▂▁▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.8.BIZZ </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.20 </td>
    <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.3 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.8.BIZZ </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.20 </td>
    <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.3 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>

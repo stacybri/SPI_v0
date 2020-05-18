@@ -39,7 +39,7 @@ COM,Comoros,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 COD,"Congo, Dem. Rep.",e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 COG,"Congo, Rep.",e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 CRI,Costa Rica,SDDS,SDDS,SDDS,SDDS,1,1,1,1
-NA,Côte d'Ivoire,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
+CIV,Cote d'Ivoire,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 HRV,Croatia,SDDS,SDDS,SDDS,SDDS,1,1,1,1
 CYP,Cyprus,SDDS,SDDS,SDDS,NA,1,1,1,NA
 CZE,Czech Republic,SDDS Plus,SDDS Plus,SDDS Plus,NA,1,1,1,NA
@@ -98,7 +98,6 @@ LBR,Liberia,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 LBY,Libya,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 LTU,Lithuania,SDDS Plus,SDDS Plus,SDDS Plus,NA,1,1,1,NA
 LUX,Luxembourg,SDDS,SDDS,SDDS,NA,1,1,1,NA
-NA,"Macedonia, FYR",SDDS,SDDS Plus,SDDS Plus,SDDS Plus,1,1,1,1
 MDG,Madagascar,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 MWI,Malawi,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 MYS,Malaysia,SDDS,SDDS,SDDS,SDDS,1,1,1,1
@@ -124,6 +123,7 @@ NZL,New Zealand,0,0,0,NA,0,0,0,NA
 NIC,Nicaragua,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 NER,Niger,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 NGA,Nigeria,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
+MKD,North Macedonia,SDDS,SDDS Plus,SDDS Plus,SDDS Plus,1,1,1,1
 NOR,Norway,SDDS,SDDS,SDDS,NA,1,1,1,NA
 OMN,Oman,e-GDDS,e-GDDS,e-GDDS,NA,0.5,0.5,0.5,NA
 PAK,Pakistan,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
@@ -141,7 +141,7 @@ RUS,Russian Federation,SDDS,SDDS,SDDS,SDDS,1,1,1,1
 RWA,Rwanda,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 WSM,Samoa,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 SMR,San Marino,e-GDDS,e-GDDS,e-GDDS,NA,0.5,0.5,0.5,NA
-NA,São Tomé and Principe,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
+STP,Sao Tome and Principe,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5
 SAU,Saudi Arabia,e-GDDS,e-GDDS,e-GDDS,NA,0.5,0.5,0.5,NA
 SEN,Senegal,e-GDDS,SDDS,SDDS,SDDS,0.5,1,1,1
 SRB,Serbia,e-GDDS,e-GDDS,e-GDDS,e-GDDS,0.5,0.5,0.5,0.5

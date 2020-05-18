@@ -39,7 +39,7 @@ COM,Comoros,1990,1990,1990,2007,0,0,0,0
 COD,"Congo, Dem. Rep.",2005,2005,2005,2005,0,0,0,0
 COG,"Congo, Rep.",1990,1990,1990,1990,0,0,0,0
 CRI,Costa Rica,1991,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,0,1,1,1
-NA,Côte d'Ivoire,2009,2009,2009,2009,0.5,0.5,0.5,0.5
+CIV,Cote d'Ivoire,2009,2009,2009,2009,0.5,0.5,0.5,0.5
 HRV,Croatia,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,1,1,1,1
 CYP,Cyprus,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,NA,1,1,1,NA
 CZE,Czech Republic,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,NA,1,1,1,NA
@@ -98,7 +98,6 @@ LBR,Liberia,2000,2000,2000,1992,0,0,0,0
 LBY,Libya,2003,2003,2003,2003,0,0,0,0
 LTU,Lithuania,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,NA,1,1,1,NA
 LUX,Luxembourg,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,NA,1,1,1,NA
-NA,"Macedonia, FYR",2005,2005,2005,Original chained constant price data are rescaled.,0,0,0,1
 MDG,Madagascar,1984,1984,1984,1984,0,0,0,0
 MWI,Malawi,2010,2010,2010,2010,0.5,0.5,0.5,0.5
 MYS,Malaysia,2010,2010,2010,2010,0.5,0.5,0.5,0.5
@@ -124,6 +123,7 @@ NZL,New Zealand,Original chained constant price data are rescaled.,Original chai
 NIC,Nicaragua,2006,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,0.5,1,1,1
 NER,Niger,2006,2006,2006,2006,0.5,0,0,0
 NGA,Nigeria,2010,2010,2010,2010,0.5,0.5,0.5,0.5
+MKD,North Macedonia,2005,2005,2005,Original chained constant price data are rescaled.,0,0,0,1
 NOR,Norway,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,NA,1,1,1,NA
 OMN,Oman,2010,2010,2010,NA,0.5,0.5,0.5,NA
 PAK,Pakistan,2006,2006,2006,2006,0.5,0,0,0
@@ -141,7 +141,7 @@ RUS,Russian Federation,2011,2011,2016,Original chained constant price data are r
 RWA,Rwanda,2011,2014,2014,2014,0.5,0.5,0.5,0.5
 WSM,Samoa,2009,2009,2009,2009,0.5,0.5,0.5,0.5
 SMR,San Marino,1990,1990,2007,NA,0,0,0,NA
-NA,São Tomé and Principe,2001,2008,2008,2008,0,0.5,0.5,0
+STP,Sao Tome and Principe,2001,2008,2008,2008,0,0.5,0.5,0
 SAU,Saudi Arabia,2010,2010,2010,NA,0.5,0.5,0.5,NA
 SEN,Senegal,1999,1999,1999,2014,0,0,0,0.5
 SRB,Serbia,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,Original chained constant price data are rescaled.,1,1,1,1
@@ -185,7 +185,7 @@ UZB,Uzbekistan,Original chained constant price data are rescaled.,Original chain
 VUT,Vanuatu,2006,2006,2006,2006,0.5,0,0,0
 VEN,"Venezuela, RB",1997,1997,1997,1997,0,0,0,0
 VNM,Vietnam,2010,2010,2010,2010,0.5,0.5,0.5,0.5
-NA,West Bank nad Gaza,2004,2004,2015,2015,0,0,0.5,0.5
+PSE,West Bank and Gaza,2004,2004,2015,2015,0,0,0.5,0.5
 YEM,"Yemen, Rep.",1990,1990,1990,1990,0,0,0,0
 ZMB,Zambia,2010,2010,2010,2010,0.5,0.5,0.5,0.5
 ZWE,Zimbabwe,2009,2009,2009,2012,0.5,0.5,0.5,0.5

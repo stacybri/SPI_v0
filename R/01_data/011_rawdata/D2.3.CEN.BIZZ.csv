@@ -31,7 +31,7 @@ COM,KM,Comoros,Moroni,43.2418,-11.6986,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Sah
 COD,CD,"Congo, Dem. Rep.",Kinshasa,15.3222,-4.325,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA
 COG,CG,"Congo, Rep.",Brazzaville,15.2662,-4.2767,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2019,NA
 CRI,CR,Costa Rica,San Jose,-84.0089,9.63701,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
-NA,NA,Côte d'Ivoire,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2019,NA
+CIV,CI,Cote d'Ivoire,Yamoussoukro,-4.0305,5.332,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,NA
 HRV,HR,Croatia,Zagreb,15.9614,45.8069,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,NA
 DJI,DJ,Djibouti,Djibouti,43.1425,11.5806,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,NA
 DMA,DM,Dominica,Roseau,-61.39,15.2976,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IDB,XH,Blend,2019,NA
@@ -71,7 +71,7 @@ LBN,LB,Lebanon,Beirut,35.5134,33.8872,MEA,ZQ,Middle East & North Africa,MNA,XQ,M
 LSO,LS,Lesotho,Maseru,27.7167,-29.5208,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,NA
 LBR,LR,Liberia,Monrovia,-10.7957,6.30039,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,2008
 LBY,LY,Libya,Tripoli,13.1072,32.8578,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
-NA,NA,"Macedonia, FYR",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2019,NA
+MKD,MK,North Macedonia,Skopje,21.4361,42.0024,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
 MDG,MG,Madagascar,Antananarivo,45.7167,-20.4667,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA
 MWI,MW,Malawi,Lilongwe,33.7703,-13.9899,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA
 MYS,MY,Malaysia,Kuala Lumpur,101.684,3.12433,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,2016
@@ -106,7 +106,7 @@ ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,ECA,7E,Eur
 RUS,RU,Russian Federation,Moscow,37.6176,55.7558,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
 RWA,RW,Rwanda,Kigali,30.0587,-1.95325,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2011, 2014, 2017"
 WSM,WS,Samoa,Apia,-171.752,-13.8314,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IDX,XI,IDA,2019,NA
-NA,NA,São Tomé and Principe,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2019,NA
+STP,ST,Sao Tome and Principe,Sao Tome,6.6071,0.20618,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,NA
 SEN,SN,Senegal,Dakar,-17.4734,14.7247,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,NA
 SRB,RS,Serbia,Belgrade,20.4656,44.8024,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
 SYC,SC,Seychelles,Victoria,55.4466,-4.6309,SSF,ZG,Sub-Saharan Africa ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,NA
@@ -121,7 +121,7 @@ LCA,LC,St. Lucia,Castries,-60.9832,14,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,L
 VCT,VC,St. Vincent and the Grenadines,Kingstown,-61.2653,13.2035,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IDB,XH,Blend,2019,NA
 SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,NA
 SUR,SR,Suriname,Paramaribo,-55.1679,5.8232,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
-NA,NA,Swaziland,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2019,NA
+SWZ,SZ,Eswatini,Mbabane,31.4659,-26.5225,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,NA
 SYR,SY,Syrian Arab Republic,Damascus,36.3119,33.5146,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA
 TJK,TJ,Tajikistan,Dushanbe,68.7864,38.5878,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA
 TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA

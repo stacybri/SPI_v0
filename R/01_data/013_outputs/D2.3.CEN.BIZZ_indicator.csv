@@ -31,7 +31,7 @@ COM,Comoros,NA,NA,NA,NA,0,0,0,0
 COD,"Congo, Dem. Rep.",NA,NA,NA,NA,0,0,0,0
 COG,"Congo, Rep.",NA,NA,NA,NA,0,0,0,0
 CRI,Costa Rica,NA,NA,NA,NA,0,0,0,0
-NA,Côte d'Ivoire,NA,NA,NA,NA,0,0,0,0
+CIV,Cote d'Ivoire,NA,NA,NA,NA,0,0,0,0
 HRV,Croatia,NA,NA,NA,NA,0,0,0,0
 DJI,Djibouti,NA,NA,NA,NA,0,0,0,0
 DMA,Dominica,NA,NA,NA,NA,0,0,0,0
@@ -71,7 +71,6 @@ LBN,Lebanon,NA,NA,NA,NA,0,0,0,0
 LSO,Lesotho,NA,NA,NA,NA,0,0,0,0
 LBR,Liberia,2008,2008,2008,2008,1,1,1,0.5
 LBY,Libya,NA,NA,NA,NA,0,0,0,0
-NA,"Macedonia, FYR",NA,NA,NA,NA,0,0,0,0
 MDG,Madagascar,NA,NA,NA,NA,0,0,0,0
 MWI,Malawi,NA,NA,NA,NA,0,0,0,0
 MYS,Malaysia,2016,2016,2016,2016,0,1,1,1
@@ -94,6 +93,7 @@ NPL,Nepal,2006,2006,2006,2006,1,0.5,0.5,0.5
 NIC,Nicaragua,NA,NA,NA,NA,0,0,0,0
 NER,Niger,NA,NA,NA,NA,0,0,0,0
 NGA,Nigeria,NA,NA,NA,NA,0,0,0,0
+MKD,North Macedonia,NA,NA,NA,NA,0,0,0,0
 PAK,Pakistan,NA,NA,NA,NA,0,0,0,0
 PLW,Palau,NA,NA,NA,NA,0,0,0,0
 PAN,Panama,NA,NA,NA,NA,0,0,0,0
@@ -106,7 +106,7 @@ ROU,Romania,NA,NA,NA,NA,0,0,0,0
 RUS,Russian Federation,NA,NA,NA,NA,0,0,0,0
 RWA,Rwanda,"2011, 2014, 2017","2011, 2014, 2017","2011, 2014, 2017","2011, 2014, 2017",1,1,1,1
 WSM,Samoa,NA,NA,NA,NA,0,0,0,0
-NA,São Tomé and Principe,NA,NA,NA,NA,0,0,0,0
+STP,Sao Tome and Principe,NA,NA,NA,NA,0,0,0,0
 SEN,Senegal,NA,NA,NA,NA,0,0,0,0
 SRB,Serbia,NA,NA,NA,NA,0,0,0,0
 SYC,Seychelles,NA,NA,NA,NA,0,0,0,0
@@ -121,7 +121,6 @@ LCA,St. Lucia,NA,NA,NA,NA,0,0,0,0
 VCT,St. Vincent and the Grenadines,NA,NA,NA,NA,0,0,0,0
 SDN,Sudan,NA,NA,NA,NA,0,0,0,0
 SUR,Suriname,NA,NA,NA,NA,0,0,0,0
-NA,Swaziland,NA,NA,NA,NA,0,0,0,0
 SYR,Syrian Arab Republic,NA,NA,NA,NA,0,0,0,0
 TJK,Tajikistan,NA,NA,NA,NA,0,0,0,0
 TZA,Tanzania,NA,NA,NA,NA,0,0,0,0

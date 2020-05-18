@@ -39,7 +39,7 @@ COM,Comoros,NA,NA,NA,NA,0,0,0,0
 COD,"Congo, Dem. Rep.",rev3,rev3,rev3,rev3,0.5,0.5,0.5,0.5
 COG,"Congo, Rep.",ISIC rev2,ISIC rev2,ISIC rev2,ISIC rev2,0,0,0,0
 CRI,Costa Rica,rev4,rev4,rev4,rev4,1,1,1,1
-NA,Côte d'Ivoire,rev3,Rev3,Rev3,rev3,0.5,0.5,0.5,0.5
+CIV,Cote d'Ivoire,rev3,Rev3,Rev3,rev3,0.5,0.5,0.5,0.5
 HRV,Croatia,rev4,Rev4,Rev4,rev4,1,1,1,1
 CYP,Cyprus,rev4,Rev4,Rev4,NA,1,1,1,NA
 CZE,Czech Republic,rev4,nace rev2,nace rev2,NA,1,1,1,NA
@@ -98,7 +98,6 @@ LBR,Liberia,rev3,rev3,rev3,rev3,0.5,0.5,0.5,0.5
 LBY,Libya,rev3,rev3,rev3,rev3,0.5,0.5,0.5,0.5
 LTU,Lithuania,rev4,Rev4,Rev4,NA,1,1,1,NA
 LUX,Luxembourg,rev4,Rev4,Rev4,NA,1,1,1,NA
-NA,"Macedonia, FYR",rev4,nace rev2,nace rev2,rev4,1,1,1,1
 MDG,Madagascar,ISIC rev2,ISIC rev2,ISIC rev2,ISIC rev2,0,0,0,0
 MWI,Malawi,rev3,rev3,rev3,rev3,0.5,0.5,0.5,0.5
 MYS,Malaysia,rev4,Rev4,Rev4,rev4,1,1,1,1
@@ -124,6 +123,7 @@ NZL,New Zealand,rev4,Rev4,Rev4,NA,1,1,1,NA
 NIC,Nicaragua,rev3,rev3,rev3,rev3,0.5,0.5,0.5,0.5
 NER,Niger,rev3,Rev3,Rev3,rev3,0.5,0.5,0.5,0.5
 NGA,Nigeria,rev4,Rev4,Rev4,rev4,1,1,1,1
+MKD,North Macedonia,rev4,nace rev2,nace rev2,rev4,1,1,1,1
 NOR,Norway,rev4,Rev4,Rev4,NA,1,1,1,NA
 OMN,Oman,rev3,rev3,rev3,NA,0.5,0.5,0.5,NA
 PAK,Pakistan,rev4,rev4,rev4,rev4,1,1,1,1
@@ -141,7 +141,7 @@ RUS,Russian Federation,rev3,NACE Rev2,NACE Rev2,NACE REV2,0.5,1,1,1
 RWA,Rwanda,rev4,rev4,rev4,rev4,1,1,1,1
 WSM,Samoa,rev3,rev3,rev3,rev3,0.5,0.5,0.5,0.5
 SMR,San Marino,nace rev1,nace rev1,nace rev1,NA,0.5,0.5,0.5,NA
-NA,São Tomé and Principe,rev3,rev3,rev3,rev3,0.5,0.5,0.5,0.5
+STP,Sao Tome and Principe,rev3,rev3,rev3,rev3,0.5,0.5,0.5,0.5
 SAU,Saudi Arabia,rev3,Rev3,Rev3,NA,0.5,0.5,0.5,NA
 SEN,Senegal,rev3,Rev3,Rev3,rev3,0.5,0.5,0.5,0.5
 SRB,Serbia,rev4,Rev4,Rev4,rev4,1,1,1,1

@@ -71,32 +71,32 @@ D1.1.MSC.SNAU_2016 <- spi_loader(1,1,'SNAU', 2016,1) %>%
          iso3c=Code,
          country=Country,
          date=2016) %>%
-  select(country,date, SNAU)
+  select(iso3c,date, SNAU)
 
 D1.1.MSC.SNAU_2017 <- spi_loader(1,1,'SNAU', 2017,1) %>%
   mutate(SNAU=Sna.in.use,
          iso3c=Code,
          country=Country,
          date=2017) %>%
-  select(country,date, SNAU)
+  select(iso3c,date, SNAU)
 
 D1.1.MSC.SNAU_2018 <- spi_loader(1,1,'SNAU', 2018,1) %>%
   mutate(SNAU=Sna.in.use,
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, SNAU)
+  select(iso3c,date, SNAU)
 
 D1.1.MSC.SNAU_2019 <- spi_loader(1,1,'SNAU', 2019,1) %>%
   mutate(SNAU=Sna.in.use,
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, SNAU)
+  select(iso3c,date, SNAU)
 
 #save to csv
 bind_rows(D1.1.MSC.SNAU_2016, D1.1.MSC.SNAU_2017, D1.1.MSC.SNAU_2018, D1.1.MSC.SNAU_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -122,13 +122,13 @@ D1.2.MSC.NABY <- D1.2.MSC.NABY %>%
          NABY_2018=WDI.OCT2018,
          iso3c=Code,
          country=Country) %>%
-  select(country, NABY_2016, NABY_2017, NABY_2018) %>%
+  select(iso3c, NABY_2016, NABY_2017, NABY_2018) %>%
   pivot_longer(cols=contains(as.character(2016:2018)),
                names_to='date',
                names_prefix='NABY_',
                values_to='NABY') %>%
   mutate(date=as.numeric(date)) %>%
-  arrange(country, date) 
+  arrange(iso3c, date) 
 
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
@@ -144,19 +144,19 @@ D1.2.MSC.NABY_2019 <- D1.2.MSC.NABY_2019 %>%
          NABY_2019=WDI.OCT2019,
          iso3c=Code,
          country=Country) %>%
-  select(country, NABY_2016, NABY_2017, NABY_2018,NABY_2019) %>%
+  select(iso3c, NABY_2016, NABY_2017, NABY_2018,NABY_2019) %>%
   pivot_longer(cols=contains(as.character(2016:2019)),
                names_to='date',
                names_prefix='NABY_',
                values_to='NABY') %>%
   mutate(date=as.numeric(date)) %>%
   filter(date==2019) %>%
-  arrange(country, date) 
+  arrange(iso3c, date) 
   
 
 D1.2.MSC.NABY <- D1.2.MSC.NABY %>%
   bind_rows(D1.2.MSC.NABY_2019) %>%
-  arrange(country, date)  %>%
+  arrange(iso3c, date)  %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything())
 
@@ -183,7 +183,7 @@ temp <- spi_loader(1,3,'CNIN', i,0) %>%
          iso3c=Code,
          country=Country,
          date=i) %>%
-  select(country,date, CNIN)
+  select(iso3c,date, CNIN)
  
 assign(paste("D1.3.MSC.CNIN",i,sep="_"), temp)
 
@@ -195,18 +195,18 @@ D1.3.MSC.CNIN_2018 <- spi_loader(1,3,'CNIN', 2018,1) %>%
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, CNIN)
+  select(iso3c,date, CNIN)
 
 D1.3.MSC.CNIN_2019 <- spi_loader(1,3,'CNIN', 2019,1) %>%
   mutate(CNIN=...2019...7,
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, CNIN)
+  select(iso3c,date, CNIN)
 
 #save to csv
 bind_rows(D1.3.MSC.CNIN_2016, D1.3.MSC.CNIN_2017, D1.3.MSC.CNIN_2018,D1.3.MSC.CNIN_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -233,13 +233,13 @@ D1.4.MSC.CPIBY <- D1.4.MSC.CPIBY %>%
          CPIBY_2018=CPI.BY.OCT2018,
          iso3c=Code,
          country=Country) %>%
-  select(country, CPIBY_2016, CPIBY_2017, CPIBY_2018) %>%
+  select(iso3c, CPIBY_2016, CPIBY_2017, CPIBY_2018) %>%
   pivot_longer(cols=contains(as.character(2016:2018)),
                names_to='date',
                names_prefix='CPIBY_',
                values_to='CPIBY') %>%
   mutate(date=as.numeric(date)) %>%
-  arrange(country, date) 
+  arrange(iso3c, date) 
 
 #add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
 D1.4.MSC.CPIBY_2019<-read_excel(path=paste(excel_dir,"/D1. MSC/","/2016, 2017, 2018 & 2019 - D1.4.MSC.CPIBY -REV.xlsx", sep=""),
@@ -254,18 +254,18 @@ D1.4.MSC.CPIBY_2019 <- D1.4.MSC.CPIBY_2019 %>%
          CPIBY_2019=CPI.BY.DEC.2019,
          iso3c=Code,
          country=Country) %>%
-  select(country, CPIBY_2016, CPIBY_2017, CPIBY_2018,CPIBY_2019) %>%
+  select(iso3c, CPIBY_2016, CPIBY_2017, CPIBY_2018,CPIBY_2019) %>%
   pivot_longer(cols=contains(as.character(2016:2019)),
                names_to='date',
                names_prefix='CPIBY_',
                values_to='CPIBY') %>%
   mutate(date=as.numeric(date)) %>%
   filter(date==2019) %>%
-  arrange(country, date) 
+  arrange(iso3c, date) 
 
 D1.4.MSC.CPIBY <- D1.4.MSC.CPIBY %>%
   bind_rows(D1.4.MSC.CPIBY_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) 
 
@@ -294,7 +294,7 @@ for (i in 2016:2019) {
            iso3c=Code,
            country=Country,
            date=i) %>%
-    select(country,date, HOUS)
+    select(iso3c,date, HOUS)
   
   assign(paste("D1.5.MSC.HOUS",i,sep="_"), temp)
   
@@ -304,7 +304,7 @@ for (i in 2016:2019) {
 
 #save to csv
 bind_rows(D1.5.MSC.HOUS_2016, D1.5.MSC.HOUS_2017, D1.5.MSC.HOUS_2018, D1.5.MSC.HOUS_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -331,7 +331,7 @@ for (i in 2016:2019) {
            iso3c=Code,
            country=Country,
            date=i) %>%
-    select(country,date, EMPL)
+    select(iso3c,date, EMPL)
   
   assign(paste("D1.6.MSC.EMPL",i,sep="_"), temp)
   
@@ -342,7 +342,7 @@ for (i in 2016:2019) {
 
 #save to csv
 bind_rows(D1.6.MSC.EMPL_2016, D1.6.MSC.EMPL_2017, D1.6.MSC.EMPL_2018, D1.6.MSC.EMPL_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -366,7 +366,7 @@ for (i in 2016:2019) {
            iso3c=Code,
            country=Country,
            date=i) %>%
-    select(country,date, CGOV)
+    select(iso3c,date, CGOV)
   
   assign(paste("D1.7.MSC.CGOV",i,sep="_"), temp)
   
@@ -375,7 +375,7 @@ for (i in 2016:2019) {
 
 #save to csv
 bind_rows(D1.7.MSC.CGOV_2016, D1.7.MSC.CGOV_2017, D1.7.MSC.CGOV_2018, D1.7.MSC.CGOV_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -399,7 +399,7 @@ for (i in 2016:2019) {
            iso3c=Code,
            country=Country,
            date=i) %>%
-    select(country,date, FINA)
+    select(iso3c,date, FINA)
   
   assign(paste("D1.8.MSC.FINA",i,sep="_"), temp)
   
@@ -409,7 +409,7 @@ for (i in 2016:2019) {
 
 #save to csv
 bind_rows(D1.8.MSC.FINA_2016, D1.8.MSC.FINA_2017, D1.8.MSC.FINA_2018, D1.8.MSC.FINA_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -432,7 +432,7 @@ for (i in 2016:2019) {
            iso3c=Code,
            country=Country,
            date=i) %>%
-    select(country,date, MONY)
+    select(iso3c,date, MONY)
   
   assign(paste("D1.9.MSC.MONY",i,sep="_"), temp)
   
@@ -442,7 +442,7 @@ for (i in 2016:2019) {
 
 #save to csv
 bind_rows(D1.9.MSC.MONY_2016, D1.9.MSC.MONY_2017, D1.9.MSC.MONY_2018, D1.9.MSC.MONY_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -466,7 +466,7 @@ for (i in 2016:2019) {
            iso3c=Code,
            country=Country,
            date=i) %>%
-    select(country,date, IDDS)
+    select(iso3c,date, IDDS)
   
   assign(paste("D1.10.MSC.IDDS",i,sep="_"), temp)
   
@@ -476,7 +476,7 @@ for (i in 2016:2019) {
 
 #save to csv
 bind_rows(D1.10.MSC.IDDS_2016, D1.10.MSC.IDDS_2017, D1.10.MSC.IDDS_2018, D1.10.MSC.IDDS_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -500,7 +500,7 @@ for (i in 2016:2019) {
            iso3c=Code,
            country=Country,
            date=i) %>%
-    select(country,date, CRVS)
+    select(iso3c,date, CRVS)
   
   assign(paste("D1.11.MSC.CRVS",i,sep="_"), temp)
   
@@ -509,7 +509,7 @@ for (i in 2016:2019) {
 
 #save to csv
 bind_rows(D1.11.MSC.CRVS_2016, D1.11.MSC.CRVS_2017, D1.11.MSC.CRVS_2018, D1.11.MSC.CRVS_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -532,7 +532,7 @@ for (i in 2016:2019) {
            iso3c=Code,
            country=Country,
            date=i) %>%
-    select(country,date, GSBP)
+    select(iso3c,date, GSBP)
   
   assign(paste("D1.12.MSC.GSBP",i,sep="_"), temp)
   
@@ -542,7 +542,7 @@ for (i in 2016:2019) {
 
 #save to csv
 bind_rows(D1.12.MSC.GSBP_2016, D1.12.MSC.GSBP_2017, D1.12.MSC.GSBP_2018,D1.12.MSC.GSBP_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -580,12 +580,12 @@ D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
          iso3c=Code,
          country=Country...3,
          database_last_updated=2019) %>% #remove leading and trailing commas
-  select(country,database_last_updated, POPU.CENSUS) %>%
-  filter(!is.na(country))
+  select(iso3c,database_last_updated, POPU.CENSUS) %>%
+  filter(!is.na(iso3c))
 
 #bind 2019 data to 2018 and previous
 D2.1.CEN.POPU <- D2.1.CEN.POPU %>%
-  group_by(country) %>% #keep latest year for each country
+  group_by(iso3c) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
   left_join(country_metadata) %>%
@@ -623,12 +623,12 @@ D2.2.CEN.AGRI <- D2.2.CEN.AGRI %>%
          iso3c=Code,
          country=Country...3,
          database_last_updated=2019) %>% #remove leading and trailing commas
-  select(country,database_last_updated, AGRI.CENSUS) %>%
-  filter(!is.na(country))
+  select(iso3c,database_last_updated, AGRI.CENSUS) %>%
+  filter(!is.na(iso3c))
 
 #bind 2019 data to 2018 and previous
 D2.2.CEN.AGRI <- D2.2.CEN.AGRI %>%
-  group_by(country) %>% #keep latest year for each country
+  group_by(iso3c) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
   left_join(country_metadata) %>%
@@ -661,12 +661,12 @@ D2.3.CEN.BIZZ <- D2.3.CEN.BIZZ %>%
          iso3c=Code,
          country=Country,
          database_last_updated=2019) %>% #remove leading and trailing commas
-  select(country,database_last_updated, BIZZ.CENSUS) %>%
-  filter(!is.na(country))
+  select(iso3c,database_last_updated, BIZZ.CENSUS) %>%
+  filter(!is.na(iso3c))
 
 #bind 2019 data to 2018 and previous
 D2.3.CEN.BIZZ <- D2.3.CEN.BIZZ %>%
-  group_by(country) %>% #keep latest year for each country
+  group_by(iso3c) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
   left_join(country_metadata) %>%
@@ -700,15 +700,15 @@ D2.4.SVY.HOUS <- D2.4.SVY.HOUS %>%
          iso3c=Code,
          country=Country,
          database_last_updated=2019) %>% #remove leading and trailing commas
-  select(country,database_last_updated, HOUS.SURVEYS)  %>%
-  filter(!is.na(country))
+  select(iso3c,database_last_updated, HOUS.SURVEYS)  %>%
+  filter(!is.na(iso3c))
 
 #bind 2019 data to 2018 and previous
 D2.4.SVY.HOUS <- D2.4.SVY.HOUS %>%
-  group_by( country) %>% #keep latest year for each country
+  group_by( iso3c) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
-  arrange(country) %>%
+  arrange(iso3c) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything())
 
@@ -739,14 +739,14 @@ D2.5.SVY.AGRI <- D2.5.SVY.AGRI %>%
          iso3c=Code,
          country=Country,
          database_last_updated=2019) %>% #remove leading and trailing commas
-  select(country,database_last_updated, AGRI.SURVEYS)  %>%
-  filter(!is.na(country))
+  select(iso3c,database_last_updated, AGRI.SURVEYS)  %>%
+  filter(!is.na(iso3c))
 #bind 2019 data to 2018 and previous
 D2.5.SVY.AGRI <- D2.5.SVY.AGRI %>%
-  group_by( country) %>% #keep latest year for each country
+  group_by( iso3c) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
-  arrange( country) %>%
+  arrange( iso3c) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything())
 
@@ -780,15 +780,15 @@ D2.6.SVY.LABR <- D2.6.SVY.LABR %>%
          iso3c=Code,
          country=Country,
          database_last_updated=2019) %>% #remove leading and trailing commas
-  select(country,database_last_updated, LABR.SURVEYS)  %>%
-  filter(!is.na(country))
+  select(iso3c,database_last_updated, LABR.SURVEYS)  %>%
+  filter(!is.na(iso3c))
 
 #bind 2019 data to 2018 and previous
 D2.6.SVY.LABR <- D2.6.SVY.LABR %>%
-  group_by( country) %>% #keep latest year for each country
+  group_by( iso3c) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
-  arrange( country) %>%
+  arrange( iso3c) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything())
 
@@ -829,15 +829,15 @@ D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>% #do some reshaping of this df to match previo
          iso3c=Country,
          country=country.name,
          database_last_updated=2019) %>% #remove leading and trailing commas
-  select(country,database_last_updated, HLTH.SURVEYS)  %>%
-  filter(!is.na(country))
+  select(iso3c,database_last_updated, HLTH.SURVEYS)  %>%
+  filter(!is.na(iso3c))
 
 #bind 2019 data to 2018 and previous
 D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>%
-  group_by( country) %>% #keep latest year for each country
+  group_by( iso3c) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
-  arrange( country) %>%
+  arrange( iso3c) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything())
 
@@ -871,14 +871,14 @@ D2.8.SVY.BIZZ <- D2.8.SVY.BIZZ %>%
          iso3c=Code,
          country=Country,
          database_last_updated=2019) %>% #remove leading and trailing commas
-  select(country,database_last_updated, BIZZ.SURVEYS)  %>%
-  filter(!is.na(country))
+  select(iso3c,database_last_updated, BIZZ.SURVEYS)  %>%
+  filter(!is.na(iso3c))
 #bind 2019 data to 2018 and previous
 D2.8.SVY.BIZZ <- D2.8.SVY.BIZZ %>%
-  group_by( country) %>% #keep latest year for each country
+  group_by( iso3c) %>% #keep latest year for each country
   filter(database_last_updated==max(database_last_updated)) %>%
   ungroup() %>%
-  arrange( country) %>%
+  arrange( iso3c) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything())
 
@@ -1034,21 +1034,21 @@ D4.1.SC.DPO.CALD_2016 <- spi_loader_4(4,1,'CALD', 2016,2) %>%
          iso3c=Code,
          country=Country,
          date=2016) %>%
-  select(country,date, CALD)
+  select(iso3c,date, CALD)
 
 D4.1.SC.DPO.CALD_2017 <- spi_loader_4(4,1,'CALD', 2017,2) %>%
   mutate(CALD=...2017,
          iso3c=Code,
          country=Country,
          date=2017) %>%
-  select(country,date, CALD)
+  select(iso3c,date, CALD)
 
 D4.1.SC.DPO.CALD_2018 <- spi_loader_4(4,1,'CALD', 2018,2) %>%
   mutate(CALD=...2018,
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, CALD)
+  select(iso3c,date, CALD)
 
 D4.1.SC.DPO.CALD_2019 <- spi_loader_4(4,1,'CALD', 2019,0) %>%
   mutate(CALD=NSO.Advance.Release.Calendar,
@@ -1056,11 +1056,11 @@ D4.1.SC.DPO.CALD_2019 <- spi_loader_4(4,1,'CALD', 2019,0) %>%
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, CALD, CALD_text)
+  select(iso3c,date, CALD, CALD_text)
 
 #save to csv
 bind_rows(D4.1.SC.DPO.CALD_2016, D4.1.SC.DPO.CALD_2017, D4.1.SC.DPO.CALD_2018, D4.1.SC.DPO.CALD_2019) %>%
-  arrange(country, date) %>% 
+  arrange(iso3c, date) %>% 
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -1082,21 +1082,21 @@ D4.2.SC.DPO.NADA_2016 <- spi_loader_4(4,2,'NADA', 2016,2) %>%
          iso3c=Code,
          country=Country,
          date=2016) %>%
-  select(country,date, NADA)
+  select(iso3c,date, NADA)
 
 D4.2.SC.DPO.NADA_2017 <- spi_loader_4(4,2,'NADA', 2017,2) %>%
   mutate(NADA=...2017,
          iso3c=Code,
          country=Country,
          date=2017) %>%
-  select(country,date, NADA)
+  select(iso3c,date, NADA)
 
 D4.2.SC.DPO.NADA_2018 <- spi_loader_4(4,2,'NADA', 2018,2) %>%
   mutate(NADA=...2018,
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, NADA)
+  select(iso3c,date, NADA)
 
 D4.2.SC.DPO.NADA_2019 <- spi_loader_4(4,2,'NADA', 2019,0) %>%
   mutate(NADA=NSO.listing.of.surveys.and.microdata.sets.or.NADA.,
@@ -1104,11 +1104,11 @@ D4.2.SC.DPO.NADA_2019 <- spi_loader_4(4,2,'NADA', 2019,0) %>%
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, NADA, NADA_text)
+  select(iso3c,date, NADA, NADA_text)
 
 #save to csv
 bind_rows(D4.2.SC.DPO.NADA_2016, D4.2.SC.DPO.NADA_2017, D4.2.SC.DPO.NADA_2018, D4.2.SC.DPO.NADA_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -1129,21 +1129,21 @@ D4.3.SC.DPO.PORT_2016 <- spi_loader_4(4,3,'PORT', 2016,2) %>%
          iso3c=Code,
          country=Country,
          date=2016) %>%
-  select(country,date, PORT)
+  select(iso3c,date, PORT)
 
 D4.3.SC.DPO.PORT_2017 <- spi_loader_4(4,3,'PORT', 2017,2) %>%
   mutate(PORT=...2017,
          iso3c=Code,
          country=Country,
          date=2017) %>%
-  select(country,date, PORT)
+  select(iso3c,date, PORT)
 
 D4.3.SC.DPO.PORT_2018 <- spi_loader_4(4,3,'PORT', 2018,2) %>%
   mutate(PORT=...2018,
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, PORT)
+  select(iso3c,date, PORT)
 
 D4.3.SC.DPO.PORT_2019 <- spi_loader_4(4,3,'PORT', 2019,0) %>%
   mutate(PORT=NSO.data.portal,
@@ -1151,11 +1151,11 @@ D4.3.SC.DPO.PORT_2019 <- spi_loader_4(4,3,'PORT', 2019,0) %>%
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, PORT, PORT_text)
+  select(iso3c,date, PORT, PORT_text)
 
 #save to csv
 bind_rows(D4.3.SC.DPO.PORT_2016, D4.3.SC.DPO.PORT_2017, D4.3.SC.DPO.PORT_2018, D4.3.SC.DPO.PORT_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -1175,21 +1175,21 @@ D4.4.SC.DPO.TIME_2016 <- spi_loader_4(4,4,'TIME', 2016,2) %>%
          iso3c=Code,
          country=Country,
          date=2016) %>%
-  select(country,date, TIME)
+  select(iso3c,date, TIME)
 
 D4.4.SC.DPO.TIME_2017 <- spi_loader_4(4,4,'TIME', 2017,2) %>%
   mutate(TIME=...2017,
          iso3c=Code,
          country=Country,
          date=2017) %>%
-  select(country,date, TIME)
+  select(iso3c,date, TIME)
 
 D4.4.SC.DPO.TIME_2018 <- spi_loader_4(4,4,'TIME', 2018,2) %>%
   mutate(TIME=...2018,
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, TIME)
+  select(iso3c,date, TIME)
 
 D4.4.SC.DPO.TIME_2019 <- spi_loader_4(4,4,'TIME', 2019,0) %>%
   mutate(TIME=Timeseries.indicators.available.for.download.in.reusable.format.for.free,
@@ -1197,11 +1197,11 @@ D4.4.SC.DPO.TIME_2019 <- spi_loader_4(4,4,'TIME', 2019,0) %>%
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, TIME, TIME_text)
+  select(iso3c,date, TIME, TIME_text)
 
 #save to csv
 bind_rows(D4.4.SC.DPO.TIME_2016, D4.4.SC.DPO.TIME_2017, D4.4.SC.DPO.TIME_2018,D4.4.SC.DPO.TIME_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -1221,21 +1221,21 @@ D4.5.SC.DPO.META_2016 <- spi_loader_4(4,5,'META', 2016,2) %>%
          iso3c=Code,
          country=Country,
          date=2016) %>%
-  select(country,date, META)
+  select(iso3c,date, META)
 
 D4.5.SC.DPO.META_2017 <- spi_loader_4(4,5,'META', 2017,2) %>%
   mutate(META=...2017,
          iso3c=Code,
          country=Country,
          date=2017) %>%
-  select(country,date, META)
+  select(iso3c,date, META)
 
 D4.5.SC.DPO.META_2018 <- spi_loader_4(4,5,'META', 2018,2) %>%
   mutate(META=...2018,
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, META)
+  select(iso3c,date, META)
 
 D4.5.SC.DPO.META_2019 <- spi_loader_4(4,5,'META', 2019,0) %>%
   mutate(META=Metadata.available..definition..methodology..standards..classifications.,
@@ -1243,11 +1243,11 @@ D4.5.SC.DPO.META_2019 <- spi_loader_4(4,5,'META', 2019,0) %>%
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, META,META_text)
+  select(iso3c,date, META,META_text)
 
 #save to csv
 bind_rows(D4.5.SC.DPO.META_2016, D4.5.SC.DPO.META_2017, D4.5.SC.DPO.META_2018,D4.5.SC.DPO.META_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -1270,21 +1270,21 @@ D4.6.SC.DPO.USER_2016 <- spi_loader_4(4,6,'USER', 2016,2) %>%
          iso3c=Code,
          country=Country,
          date=2016) %>%
-  select(country,date, USER)
+  select(iso3c,date, USER)
 
 D4.6.SC.DPO.USER_2017 <- spi_loader_4(4,6,'USER', 2017,2) %>%
   mutate(USER=...2017,
          iso3c=Code,
          country=Country,
          date=2017) %>%
-  select(country,date, USER)
+  select(iso3c,date, USER)
 
 D4.6.SC.DPO.USER_2018 <- spi_loader_4(4,6,'USER', 2018,2) %>%
   mutate(USER=...2018,
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, USER)
+  select(iso3c,date, USER)
 
 D4.6.SC.DPO.USER_2019 <- spi_loader_4(4,6,'USER', 2019,0) %>%
   mutate(USER=NSO.user.satisfaction.survey,
@@ -1292,11 +1292,11 @@ D4.6.SC.DPO.USER_2019 <- spi_loader_4(4,6,'USER', 2019,0) %>%
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, USER,USER_text)
+  select(iso3c,date, USER,USER_text)
 
 #save to csv
 bind_rows(D4.6.SC.DPO.USER_2016, D4.6.SC.DPO.USER_2017, D4.6.SC.DPO.USER_2018,D4.6.SC.DPO.USER_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(
@@ -1317,21 +1317,21 @@ D4.7.SC.DPO.GEOS_2016 <- spi_loader_4(4,7,'GEOS', 2016,2) %>%
          iso3c=Code,
          country=Country,
          date=2016) %>%
-  select(country,date, GEOS)
+  select(iso3c,date, GEOS)
 
 D4.7.SC.DPO.GEOS_2017 <- spi_loader_4(4,7,'GEOS', 2017,2) %>%
   mutate(GEOS=...2017,
          iso3c=Code,
          country=Country,
          date=2017) %>%
-  select(country,date, GEOS)
+  select(iso3c,date, GEOS)
 
 D4.7.SC.DPO.GEOS_2018 <- spi_loader_4(4,7,'GEOS', 2018,2) %>%
   mutate(GEOS=...2018,
          iso3c=Code,
          country=Country,
          date=2018) %>%
-  select(country,date, GEOS)
+  select(iso3c,date, GEOS)
 
 D4.7.SC.DPO.GEOS_2019 <- spi_loader_4(4,7,'GEOS', 2019,0) %>%
   mutate(GEOS=Geospatial.data.available.on.NSO.website,
@@ -1339,11 +1339,11 @@ D4.7.SC.DPO.GEOS_2019 <- spi_loader_4(4,7,'GEOS', 2019,0) %>%
          iso3c=Code,
          country=Country,
          date=2019) %>%
-  select(country,date, GEOS, GEOS_text)
+  select(iso3c,date, GEOS, GEOS_text)
 
 #save to csv
 bind_rows(D4.7.SC.DPO.GEOS_2016, D4.7.SC.DPO.GEOS_2017, D4.7.SC.DPO.GEOS_2018,D4.7.SC.DPO.GEOS_2019) %>%
-  arrange(country, date) %>%
+  arrange(iso3c, date) %>%
   left_join(country_metadata) %>%
   select(colnames(country_metadata), everything()) %>%
   write_excel_csv(

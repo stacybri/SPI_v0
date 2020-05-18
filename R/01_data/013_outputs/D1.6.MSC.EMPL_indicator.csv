@@ -39,7 +39,7 @@ COM,Comoros,na,NA,NA,NA,0,0,0,0
 COD,"Congo, Dem. Rep.",na,NA,NA,NA,0,0,0,0
 COG,"Congo, Rep.",na,NA,NA,NA,0,0,0,0
 CRI,Costa Rica,ISCO 88,ISCO-88,ISCO-88,ISCO-88,0,0,0,0
-NA,Côte d'Ivoire,na,NA,NA,NA,0,0,0,0
+CIV,Cote d'Ivoire,na,NA,NA,NA,0,0,0,0
 HRV,Croatia,ICSE-93,ICSE-93,ICSE-93,ICSE-93,1,1,1,1
 CYP,Cyprus,na,ISCO-08,ISCO-08,NA,0,0,0,NA
 CZE,Czech Republic,NACE Rev2,NA,NA,NA,0,0,0,NA
@@ -98,7 +98,6 @@ LBR,Liberia,na,NA,NA,NA,0,0,0,0
 LBY,Libya,na,NA,NA,NA,0,0,0,0
 LTU,Lithuania,ICSE-93,ICSE-93,ICSE-93,NA,1,1,1,NA
 LUX,Luxembourg,na,NA,NA,NA,0,0,0,NA
-NA,"Macedonia, FYR",na,ISCO-08,ISCO-08,ISCO-08,0,0,0,0
 MDG,Madagascar,na,NA,NA,NA,0,0,0,0
 MWI,Malawi,na,NA,NA,NA,0,0,0,0
 MYS,Malaysia,na,ISCO-08,ISCO-08,ISCO-08,0,0,0,0
@@ -124,6 +123,7 @@ NZL,New Zealand,na,NA,NA,NA,0,0,0,NA
 NIC,Nicaragua,0,NA,NA,NA,0,0,0,0
 NER,Niger,na,NA,NA,NA,0,0,0,0
 NGA,Nigeria,na,NA,NA,NA,0,0,0,0
+MKD,North Macedonia,na,ISCO-08,ISCO-08,ISCO-08,0,0,0,0
 NOR,Norway,na,na,na,NA,0,0,0,NA
 OMN,Oman,na,NA,NA,NA,0,0,0,NA
 PAK,Pakistan,na,ISCO-88,ISCO-88,ISCO-88,0,0,0,0
@@ -141,7 +141,7 @@ RUS,Russian Federation,na,ISCO-08,ISCO-08,ISCO-08,0,0,0,0
 RWA,Rwanda,na,NA,NA,NA,0,0,0,0
 WSM,Samoa,na,NA,NA,NA,0,0,0,0
 SMR,San Marino,ICSE-93,ICSE-93,ICSE-93,NA,1,1,1,NA
-NA,São Tomé and Principe,na,NA,NA,NA,0,0,0,0
+STP,Sao Tome and Principe,na,NA,NA,NA,0,0,0,0
 SAU,Saudi Arabia,na,NA,NA,NA,0,0,0,NA
 SEN,Senegal,na,"ISCO, ISIC, ISCED","ISCO, ISIC, ISCED","ISCO, ISIC, ISCED",0,0,0,0
 SRB,Serbia,na,ICSE-93,ICSE-93,ICSE-93,0,1,1,1
