@@ -1,7 +1,7 @@
 ---
 title: "SPI Data Documentation"
 author: "Brian Stacy"
-date: "2020-05-18"
+date: "2020-05-19"
 output: 
   html_document: 
     fig_height: 6
@@ -2399,7 +2399,7 @@ EdStatsJSON <- jsonlite::fromJSON(EdStatsResponse, flatten = TRUE) %>%
   data.frame()
 
 aki<- c(#'Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
-        #'Prevalence of stunting, height for age (% of children under 5)',
+        'Prevalence of stunting, height for age (% of children under 5)',
         #'Mortality rate, under-5 (per 1,000 live births)', This was replaced using the following source https://childmortality.org/data 
         'Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
         'People using safely managed drinking water services (% of population)',
@@ -2508,7 +2508,7 @@ df <- pcn %>%
 for (reference_year in 2016:2019) {
   
   temp1<-df %>%
-        filter(coveragetype==3) %>% #keep just nationally representative samples
+        filter(coveragetype %in% c(3,4)) %>% #keep just nationally representative samples
         mutate(frequency=((reference_year-as.numeric(year))<=5) & (reference_year>=as.numeric(year))) %>% 
         filter(frequency==TRUE) %>%
         group_by(countrycode, comparability) %>% #for each country and comparability type, get number of comparable estimates
@@ -2520,7 +2520,7 @@ for (reference_year in 2016:2019) {
   
   
   temp <-df %>%
-          filter(coveragetype==3) %>% #keep just nationally representative samples
+          filter(coveragetype %in% c(3,4)) %>% #keep just nationally representative samples
           mutate(frequency=((reference_year-as.numeric(year))<=5) & (reference_year>=as.numeric(year))) %>% 
           mutate(SPI.FREQ.D3.POV=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
           group_by(countryname,countrycode) %>%
@@ -2905,6 +2905,58 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
   </tr>
  </thead>
 <tbody>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.SH.STA.STNT.ZS </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.25 </td>
+   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> ▇▅▂▁▂ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.SH.STA.STNT.ZS </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.24 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> ▇▅▂▁▁ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.SH.STA.STNT.ZS </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.22 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> ▇▃▂▁▁ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.SH.STA.STNT.ZS </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.19 </td>
+   <td style="text-align:right;"> 0.28 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> ▇▃▂▁▁ </td>
+  </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SE.LPV.PRIM.BMP </td>
    <td style="text-align:right;"> 2016 </td>
@@ -3429,7 +3481,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.POV </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.38 </td>
+   <td style="text-align:right;"> 0.39 </td>
    <td style="text-align:right;"> 0.45 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
@@ -3442,8 +3494,8 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.POV </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.37 </td>
-   <td style="text-align:right;"> 0.44 </td>
+   <td style="text-align:right;"> 0.38 </td>
+   <td style="text-align:right;"> 0.45 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.15 </td>
@@ -3455,7 +3507,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.POV </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
@@ -3468,8 +3520,8 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.POV </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.15 </td>
@@ -3741,53 +3793,53 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 53.99 </td>
-   <td style="text-align:right;"> 20.27 </td>
+   <td style="text-align:right;"> 52.37 </td>
+   <td style="text-align:right;"> 19.64 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 41.88 </td>
-   <td style="text-align:right;"> 57.19 </td>
-   <td style="text-align:right;"> 70.62 </td>
-   <td style="text-align:right;"> 88.75 </td>
+   <td style="text-align:right;"> 41.18 </td>
+   <td style="text-align:right;"> 56.47 </td>
+   <td style="text-align:right;"> 68.53 </td>
+   <td style="text-align:right;"> 86.18 </td>
    <td style="text-align:left;"> ▂▃▆▇▆ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 53.23 </td>
-   <td style="text-align:right;"> 20.49 </td>
+   <td style="text-align:right;"> 51.56 </td>
+   <td style="text-align:right;"> 19.79 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 40.94 </td>
-   <td style="text-align:right;"> 56.56 </td>
-   <td style="text-align:right;"> 71.25 </td>
-   <td style="text-align:right;"> 86.88 </td>
-   <td style="text-align:left;"> ▂▅▆▇▇ </td>
+   <td style="text-align:right;"> 40.29 </td>
+   <td style="text-align:right;"> 55.29 </td>
+   <td style="text-align:right;"> 68.53 </td>
+   <td style="text-align:right;"> 86.18 </td>
+   <td style="text-align:left;"> ▂▃▆▇▆ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 52.51 </td>
-   <td style="text-align:right;"> 20.76 </td>
+   <td style="text-align:right;"> 50.75 </td>
+   <td style="text-align:right;"> 20.00 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 38.44 </td>
-   <td style="text-align:right;"> 55.31 </td>
-   <td style="text-align:right;"> 71.25 </td>
-   <td style="text-align:right;"> 88.75 </td>
-   <td style="text-align:left;"> ▂▅▇▇▇ </td>
+   <td style="text-align:right;"> 37.94 </td>
+   <td style="text-align:right;"> 54.71 </td>
+   <td style="text-align:right;"> 67.94 </td>
+   <td style="text-align:right;"> 85.29 </td>
+   <td style="text-align:left;"> ▂▃▅▇▆ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 48.65 </td>
-   <td style="text-align:right;"> 20.76 </td>
+   <td style="text-align:right;"> 46.98 </td>
+   <td style="text-align:right;"> 19.93 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 34.06 </td>
-   <td style="text-align:right;"> 50.62 </td>
-   <td style="text-align:right;"> 66.56 </td>
-   <td style="text-align:right;"> 86.25 </td>
-   <td style="text-align:left;"> ▃▅▇▇▆ </td>
+   <td style="text-align:right;"> 32.94 </td>
+   <td style="text-align:right;"> 50.88 </td>
+   <td style="text-align:right;"> 64.41 </td>
+   <td style="text-align:right;"> 82.94 </td>
+   <td style="text-align:left;"> ▃▃▆▇▅ </td>
   </tr>
 </tbody>
 </table>
