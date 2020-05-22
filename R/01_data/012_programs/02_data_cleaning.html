@@ -11,7 +11,7 @@
 
 <meta name="author" content="Brian Stacy" />
 
-<meta name="date" content="2020-05-19" />
+<meta name="date" content="2020-05-21" />
 
 <title>SPI Data Documentation</title>
 
@@ -374,7 +374,7 @@ summary {
 
 <h1 class="title toc-ignore">SPI Data Documentation</h1>
 <h4 class="author">Brian Stacy</h4>
-<h4 class="date">2020-05-19</h4>
+<h4 class="date">2020-05-21</h4>
 
 </div>
 
@@ -418,6 +418,7 @@ summary {
 <li><a href="#aki-3.6-people-using-safely-managed-drinking-water-services-of-population">AKI 3.6: People using safely managed drinking water services (% of population)</a></li>
 <li><a href="#aki-3.7-access-to-electricity-of-population">AKI 3.7: Access to electricity (% of population)</a></li>
 <li><a href="#aki-3.17-quarterly-gdp">AKI 3.17 Quarterly GDP</a></li>
+<li><a href="#aki-3.15-debt-service-ppg-and-imf-only-of-exports-of-goods-services-and-primary-income">AKI 3.15 Debt service (PPG and IMF only, % of exports of goods, services and primary income)</a></li>
 <li><a href="#combine-all-sources-into-aki-database">Combine all sources into AKI database</a></li>
 </ul></li>
 <li><a href="#spi-dimension-4-dissemination-practices-and-openness-dpo">SPI Dimension 4: Dissemination Practices and Openness (DPO):</a><ul>
@@ -4621,17 +4622,27 @@ SPI.D2.8.BIZZ
 </li>
 <li>AKI 3.12: Renewable energy consumption (% of total final energy consumption)<br />
 </li>
-<li>AKI 3.13: Total greenhouse gas emissions (kt of CO2 equivalent)<br />
+<li>AKI 3.13: Households and NPISHs Final consumption expenditure (current LCU)<br />
 </li>
-<li>AKI 3.14: Terrestrial and marine protected areas (% of total territorial area)<br />
+<li>AKI 3.14: GNI (current LCU)<br />
 </li>
-<li>AKI 3.15: Households and NPISHs Final consumption expenditure (current LCU)<br />
-</li>
-<li>AKI 3.16: GNI (current LCU)<br />
-</li>
-<li>AKI 3.17: Quarterly GDP</li>
+<li>AKI 3.15: Quarterly GDP</li>
 <li>AKI 3.18: Debt service (PPG and IMF only, % of exports of goods, services and primary income)</li>
 </ul>
+<pre class="r"><code># pull in some WDI metadata which will be used for constructing AKI indicators.
+# WDI metadata was gathered using previous vintages of WDI from 2016-19
+# Metadata was gathered and saved as csv files in the 011_data folder
+
+for (i in 2016:2019) {
+  temp &lt;- read_csv(file = paste(csv_dir, &quot;/WDI_metadata_&quot;,i,&quot;.csv&quot;, sep=&quot;&quot; )) %&gt;%
+    as_tibble(.name_repair=&#39;universal&#39;) %&gt;%
+    mutate(National.accounts.reference.year=as.numeric(National.accounts.reference.year),
+           date=i)
+  
+    assign(paste(&quot;WDI_metadata&quot;,i,sep=&quot;_&quot;), temp)
+}
+
+WDI_metadata &lt;- bind_rows(WDI_metadata_2016, WDI_metadata_2017, WDI_metadata_2018, WDI_metadata_2019)</code></pre>
 <div id="aki-3.1-3.2-3.9-3.10-3.11-3.12-3.13-3.14-3.15-3.16-3.18" class="section level3">
 <h3>AKI 3.1, 3.2, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14, 3.15, 3.16, 3.18</h3>
 <p>First we will pull data for indicators coming straight from WDI. For some indicators, we will use alternative sources.</p>
@@ -4649,15 +4660,11 @@ SPI.D2.8.BIZZ
 </li>
 <li>AKI 3.12: Renewable energy consumption (% of total final energy consumption)<br />
 </li>
-<li>AKI 3.13: Total greenhouse gas emissions (kt of CO2 equivalent)<br />
+<li>AKI 3.13: Households and NPISHs Final consumption expenditure (current LCU)<br />
 </li>
-<li>AKI 3.14: Terrestrial and marine protected areas (% of total territorial area)<br />
+<li>AKI 3.14: GNI (current LCU)<br />
 </li>
-<li>AKI 3.15: Households and NPISHs Final consumption expenditure (current LCU)<br />
-</li>
-<li>AKI 3.16: GNI (current LCU)<br />
-</li>
-<li>AKI 3.18: Debt service (PPG and IMF only, % of exports of goods, services and primary income)</li>
+<li>AKI 3.15: Debt service (PPG and IMF only, % of exports of goods, services and primary income)</li>
 </ul>
 <p>Scoring:</p>
 <p>1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
@@ -5043,6 +5050,68 @@ temp &lt;-D3.17.QUART.GDP %&gt;%
 
 D3.17.AKI &lt;- bind_rows(D3.17.AKI_2016, D3.17.AKI_2017, D3.17.AKI_2018, D3.17.AKI_2019)  </code></pre>
 </div>
+<div id="aki-3.15-debt-service-ppg-and-imf-only-of-exports-of-goods-services-and-primary-income" class="section level3">
+<h3>AKI 3.15 Debt service (PPG and IMF only, % of exports of goods, services and primary income)</h3>
+<p>For this indicator, Debt service (PPG and IMF only, % of exports of goods, services and primary income), we will pull data from the WDI but modify the scoring using the WDI metadata on whether the external debt data is actual, estimated, or preliminary. The status “as reported (actual)” indicates that the country was fully current in its reporting under the DRS and that World Bank staff are satisfied that the reported data give an adequate and fair representation of the country’s total public debt. “Preliminary” data are based on reported or collected information, but because of incompleteness or other reasons, an element of staff estimation is included. “Estimated” data indicate that countries are not current in their reporting and that a significant element of staff estimation has been necessary for producing the data tables.</p>
+<p>Scoring is as follows:</p>
+<p>Frequency:</p>
+<p>0.5 Point. 3 or more values available within past 5 years<br />
+0.3 Points. 2 values available within past 5 years;<br />
+0.15 Points. 1 values available within past 5 years;<br />
+0 Points. None within past 5 years</p>
+<p>Quality:</p>
+<p>0.5 Points. Actual value 0.3 Points. Preliminary value 0.15 Points. Estimated value 0 Points. No value</p>
+<pre class="r"><code>#reshape metaadata file
+metadata_3.15 &lt;- WDI_metadata %&gt;%
+  transmute(iso3c=if_else(is.na(Country.Code), Code, Country.Code),
+            date=date,
+            External_debt_Reporting=External.debt.Reporting.status) %&gt;%
+  mutate(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS= case_when(
+            External_debt_Reporting==&#39;Actual&#39; ~ 0.5,
+            External_debt_Reporting==&#39;Preliminary&#39; ~ 0.3,
+            External_debt_Reporting==&#39;Estimate&#39; ~ 0.15,
+            TRUE ~ 0
+          ))
+
+#pull data from wdi and merge with metadata
+for (reference_year in 2016:2019) {
+  temp &lt;-wbstats::wb(country=&quot;countries_only&quot;, 
+              indicator=&#39;DT.TDS.DPPF.XP.ZS&#39;,
+              startdate=reference_year-5,
+              enddate=reference_year,
+              return_wide = T,
+              removeNA=FALSE) %&gt;%
+          filter(((reference_year-as.numeric(date))&lt;=5) &amp; (reference_year&gt;=as.numeric(date))) %&gt;% #filter out years outside reference window of 3 years     
+          mutate_at(.vars=c(&#39;DT.TDS.DPPF.XP.ZS&#39;), ~if_else(is.na(.),0,1)) %&gt;% #create 0,1 variable for whether data point exists for country
+          group_by(iso3c, country) %&gt;%
+          summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %&gt;% #group by country to create one observation per country                 containing whether or not data point existed
+          mutate(SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS = case_when(
+            DT.TDS.DPPF.XP.ZS&gt;=3 ~ 0.5,
+            DT.TDS.DPPF.XP.ZS==2 ~ 0.3,
+            DT.TDS.DPPF.XP.ZS==1 ~ 0.15,
+            DT.TDS.DPPF.XP.ZS==0 ~ 0, 
+            TRUE ~ 0
+          )) %&gt;% # 0.5 point for at least 3 values, 0.3 for 2 values, 0.15 for 1 values, 0 otherwise
+          mutate(date=reference_year) %&gt;%
+          left_join(metadata_3.15) %&gt;% #attach country metadata 
+          mutate(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS= case_when(
+            External_debt_Reporting==&#39;Actual&#39; ~ 0.5,
+            External_debt_Reporting==&#39;Preliminary&#39; ~ 0.3,
+            External_debt_Reporting==&#39;Estimate&#39; ~ 0.15,
+            TRUE ~ 0
+          )) %&gt;% # 0.5 point for actual, 0.3 for preliminary, 0.15 for estimate
+          mutate(
+                 SPI.D3.DT.TDS.DPPF.XP.ZS=(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS + SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS)) %&gt;%
+          ungroup() %&gt;%
+          select(iso3c, country, date,  contains(&#39;D3.DT.TDS.DPPF.XP.ZS&#39;)) 
+
+
+
+  assign(paste(&quot;D3.15.AKI&quot;,reference_year,sep=&quot;_&quot;), temp)
+}
+
+D3.15.AKI &lt;- bind_rows(D3.15.AKI_2016, D3.15.AKI_2017, D3.15.AKI_2018, D3.15.AKI_2019)  </code></pre>
+</div>
 <div id="combine-all-sources-into-aki-database" class="section level3">
 <h3>Combine all sources into AKI database</h3>
 <pre class="r"><code>#now combine AKI databases and write to csv
@@ -5052,6 +5121,7 @@ D3.AKI &lt;- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018, D3.AKI_2019) %&gt;
   left_join(D3.3.AKI) %&gt;%
   left_join(D3.5.AKI) %&gt;%
   left_join(D3.7.AKI) %&gt;%
+  left_join(D3.15.AKI) %&gt;%
   left_join(D3.17.AKI) %&gt;%
   mutate_at(vars(starts_with(&#39;SPI.D3.&#39;)), ~if_else(is.na(.),0,as.numeric(.))) 
 

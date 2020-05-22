@@ -1,7 +1,7 @@
 ---
 title: "SPI Data Documentation"
 author: "Brian Stacy"
-date: "2020-05-19"
+date: "2020-05-21"
 output: 
   html_document: 
     fig_height: 6
@@ -2345,12 +2345,30 @@ Below is the list of AKI indicators:
 - AKI 3.10: Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)  
 - AKI 3.11: Level of water stress: freshwater withdrawal as a proportion of available freshwater resources  
 - AKI 3.12: Renewable energy consumption (% of total final energy consumption)  
-- AKI 3.13: Total greenhouse gas emissions (kt of CO2 equivalent)  
-- AKI 3.14: Terrestrial and marine protected areas (% of total territorial area)  
-- AKI 3.15: Households and NPISHs Final consumption expenditure (current LCU)  
-- AKI 3.16: GNI (current LCU)  
-- AKI 3.17: Quarterly GDP
+- AKI 3.13: Households and NPISHs Final consumption expenditure (current LCU)  
+- AKI 3.14: GNI (current LCU)  
+- AKI 3.15: Quarterly GDP
 - AKI 3.18: Debt service (PPG and IMF only, % of exports of goods, services and primary income) 
+
+
+```r
+# pull in some WDI metadata which will be used for constructing AKI indicators.
+# WDI metadata was gathered using previous vintages of WDI from 2016-19
+# Metadata was gathered and saved as csv files in the 011_data folder
+
+for (i in 2016:2019) {
+  temp <- read_csv(file = paste(csv_dir, "/WDI_metadata_",i,".csv", sep="" )) %>%
+    as_tibble(.name_repair='universal') %>%
+    mutate(National.accounts.reference.year=as.numeric(National.accounts.reference.year),
+           date=i)
+  
+    assign(paste("WDI_metadata",i,sep="_"), temp)
+}
+
+WDI_metadata <- bind_rows(WDI_metadata_2016, WDI_metadata_2017, WDI_metadata_2018, WDI_metadata_2019)
+```
+
+
 
 ### AKI 3.1, 3.2, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14, 3.15, 3.16, 3.18
 
@@ -2364,11 +2382,9 @@ Indicators coming from the WDI directly are:
 - AKI 3.10: Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)  
 - AKI 3.11: Level of water stress: freshwater withdrawal as a proportion of available freshwater resources  
 - AKI 3.12: Renewable energy consumption (% of total final energy consumption)  
-- AKI 3.13: Total greenhouse gas emissions (kt of CO2 equivalent)  
-- AKI 3.14: Terrestrial and marine protected areas (% of total territorial area)  
-- AKI 3.15: Households and NPISHs Final consumption expenditure (current LCU)  
-- AKI 3.16: GNI (current LCU)  
-- AKI 3.18: Debt service (PPG and IMF only, % of exports of goods, services and primary income) 
+- AKI 3.13: Households and NPISHs Final consumption expenditure (current LCU)  
+- AKI 3.14: GNI (current LCU)  
+- AKI 3.15: Debt service (PPG and IMF only, % of exports of goods, services and primary income) 
 
 Scoring:
 
@@ -2838,6 +2854,81 @@ temp <-D3.17.QUART.GDP %>%
 D3.17.AKI <- bind_rows(D3.17.AKI_2016, D3.17.AKI_2017, D3.17.AKI_2018, D3.17.AKI_2019)  
 ```
 
+### AKI 3.15 Debt service (PPG and IMF only, % of exports of goods, services and primary income)
+
+For this indicator, Debt service (PPG and IMF only, % of exports of goods, services and primary income), we will pull data from the WDI but modify the scoring using the WDI metadata on whether the external debt data is actual, estimated, or preliminary.  The status “as reported (actual)” indicates that the country was fully current in its reporting under the DRS and that World Bank staff are satisfied that the reported data give an adequate and fair representation of the country’s total public debt. “Preliminary” data are based on reported or collected information, but because of incompleteness or other reasons, an element of staff estimation is included. “Estimated” data indicate that countries are not current in their reporting and that a significant element of staff estimation has been necessary for producing the data tables. 
+
+Scoring is as follows:
+
+Frequency:
+
+0.5 Point. 3 or more values available within past 5 years	
+0.3 Points. 2 values available within past 5 years; 	
+0.15 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
+
+Quality: 
+
+0.5 Points. Actual value
+0.3 Points. Preliminary value
+0.15 Points. Estimated value
+0 Points. No value
+
+
+```r
+#reshape metaadata file
+metadata_3.15 <- WDI_metadata %>%
+  transmute(iso3c=if_else(is.na(Country.Code), Code, Country.Code),
+            date=date,
+            External_debt_Reporting=External.debt.Reporting.status) %>%
+  mutate(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS= case_when(
+            External_debt_Reporting=='Actual' ~ 0.5,
+            External_debt_Reporting=='Preliminary' ~ 0.3,
+            External_debt_Reporting=='Estimate' ~ 0.15,
+            TRUE ~ 0
+          ))
+
+#pull data from wdi and merge with metadata
+for (reference_year in 2016:2019) {
+  temp <-wbstats::wb(country="countries_only", 
+              indicator='DT.TDS.DPPF.XP.ZS',
+              startdate=reference_year-5,
+              enddate=reference_year,
+              return_wide = T,
+              removeNA=FALSE) %>%
+          filter(((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% #filter out years outside reference window of 3 years     
+          mutate_at(.vars=c('DT.TDS.DPPF.XP.ZS'), ~if_else(is.na(.),0,1)) %>% #create 0,1 variable for whether data point exists for country
+          group_by(iso3c, country) %>%
+          summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
+          mutate(SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS = case_when(
+            DT.TDS.DPPF.XP.ZS>=3 ~ 0.5,
+            DT.TDS.DPPF.XP.ZS==2 ~ 0.3,
+            DT.TDS.DPPF.XP.ZS==1 ~ 0.15,
+            DT.TDS.DPPF.XP.ZS==0 ~ 0, 
+            TRUE ~ 0
+          )) %>% # 0.5 point for at least 3 values, 0.3 for 2 values, 0.15 for 1 values, 0 otherwise
+          mutate(date=reference_year) %>%
+          left_join(metadata_3.15) %>% #attach country metadata 
+          mutate(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS= case_when(
+            External_debt_Reporting=='Actual' ~ 0.5,
+            External_debt_Reporting=='Preliminary' ~ 0.3,
+            External_debt_Reporting=='Estimate' ~ 0.15,
+            TRUE ~ 0
+          )) %>% # 0.5 point for actual, 0.3 for preliminary, 0.15 for estimate
+          mutate(
+                 SPI.D3.DT.TDS.DPPF.XP.ZS=(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS + SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS)) %>%
+          ungroup() %>%
+          select(iso3c, country, date,  contains('D3.DT.TDS.DPPF.XP.ZS')) 
+
+
+
+  assign(paste("D3.15.AKI",reference_year,sep="_"), temp)
+}
+
+D3.15.AKI <- bind_rows(D3.15.AKI_2016, D3.15.AKI_2017, D3.15.AKI_2018, D3.15.AKI_2019)  
+```
+
+
 ### Combine all sources into AKI database
 
 
@@ -2849,6 +2940,7 @@ D3.AKI <- bind_rows(D3.AKI_2016, D3.AKI_2017, D3.AKI_2018, D3.AKI_2019) %>%
   left_join(D3.3.AKI) %>%
   left_join(D3.5.AKI) %>%
   left_join(D3.7.AKI) %>%
+  left_join(D3.15.AKI) %>%
   left_join(D3.17.AKI) %>%
   mutate_at(vars(starts_with('SPI.D3.')), ~if_else(is.na(.),0,as.numeric(.))) 
 
