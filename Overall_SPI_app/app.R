@@ -135,8 +135,8 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                             h2("Indicator Year"),
                                             selectizeInput("year_overall",
                                                            "Reference Year",
-                                                           choices=c(2016:2018),
-                                                           selected=2018
+                                                           choices=c(2016:2019),
+                                                           selected=2019
                                                            
                                             ),
                                             selectizeInput("income_groups_overall",
@@ -172,8 +172,8 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                            h2("Indicator Year"),
                                            selectizeInput("year_d1",
                                                        "Reference Year",
-                                                       choices=c(2016:2018),
-                                                       selected=2018
+                                                       choices=c(2016:2019),
+                                                       selected=2019
                                            ),
                                            selectizeInput("income_groups_d1",
                                                           "Select Income Groups",
@@ -209,8 +209,8 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                             h2("Indicator Year"),
                                             selectizeInput("year_d2",
                                                            "Reference Year",
-                                                           choices=c(2016:2018),
-                                                           selected=2018
+                                                           choices=c(2016:2019),
+                                                           selected=2019
                                             ),
                                             selectizeInput("income_groups_d2",
                                                            "Select Income Groups",
@@ -246,8 +246,8 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                             h2("Indicator Year"),
                                             selectizeInput("year_d3",
                                                            "Reference Year",
-                                                           choices=c(2016:2018),
-                                                           selected=2018
+                                                           choices=c(2016:2019),
+                                                           selected=2019
                                             ),
                                             selectizeInput("income_groups_d3",
                                                            "Select Income Groups",
@@ -282,8 +282,8 @@ ui <- navbarPage("Statistical Performance Index", id="nav",
                                             h2("Indicator Year"),
                                             selectizeInput("year_d4",
                                                            "Reference Year",
-                                                           choices=c(2016:2018),
-                                                           selected=2018
+                                                           choices=c(2016:2019),
+                                                           selected=2019
                                             ),
                                             selectizeInput("income_groups_d4",
                                                            "Select Income Groups",

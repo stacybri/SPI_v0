@@ -9193,7 +9193,7 @@ var.labels=c(iso3c=&#39;3 digit country code&#39;,
 
 
 #label data
-#label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
 
 #turn variable labels into data frame 
 var.labels.df&lt;-data.frame(var.labels) %&gt;% 

@@ -310,7 +310,7 @@ kable(spi_unweighted_sumstats_2019,
 
 ```
 
-## Regional Means (Weighted by Population)
+## Regional Means (Unweighted)
 
 ```{r regional_unweighted, echo=FALSE}
 
