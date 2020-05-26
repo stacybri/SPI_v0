@@ -1,7 +1,7 @@
 ---
 title: "SPI Data Documentation"
 author: "Brian Stacy"
-date: "2020-05-21"
+date: "2020-05-26"
 output: 
   html_document: 
     fig_height: 6
@@ -1859,53 +1859,53 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 46.03 </td>
-   <td style="text-align:right;"> 18.11 </td>
-   <td style="text-align:right;"> 7.5 </td>
-   <td style="text-align:right;"> 31.25 </td>
-   <td style="text-align:right;"> 48.75 </td>
-   <td style="text-align:right;"> 57.5 </td>
-   <td style="text-align:right;"> 82.50 </td>
-   <td style="text-align:left;"> ▃▇▇▇▃ </td>
+   <td style="text-align:right;"> 46.14 </td>
+   <td style="text-align:right;"> 18.60 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 30.00 </td>
+   <td style="text-align:right;"> 47.5 </td>
+   <td style="text-align:right;"> 60.00 </td>
+   <td style="text-align:right;"> 90 </td>
+   <td style="text-align:left;"> ▁▆▇▇▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 45.24 </td>
-   <td style="text-align:right;"> 18.48 </td>
-   <td style="text-align:right;"> 10.0 </td>
+   <td style="text-align:right;"> 45.35 </td>
+   <td style="text-align:right;"> 19.32 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 30.00 </td>
-   <td style="text-align:right;"> 45.00 </td>
-   <td style="text-align:right;"> 57.5 </td>
-   <td style="text-align:right;"> 87.50 </td>
-   <td style="text-align:left;"> ▅▆▇▅▂ </td>
+   <td style="text-align:right;"> 47.5 </td>
+   <td style="text-align:right;"> 57.50 </td>
+   <td style="text-align:right;"> 90 </td>
+   <td style="text-align:left;"> ▂▆▇▆▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 45.03 </td>
-   <td style="text-align:right;"> 18.96 </td>
-   <td style="text-align:right;"> 7.5 </td>
-   <td style="text-align:right;"> 30.00 </td>
-   <td style="text-align:right;"> 47.50 </td>
-   <td style="text-align:right;"> 57.5 </td>
-   <td style="text-align:right;"> 91.25 </td>
-   <td style="text-align:left;"> ▃▅▇▂▂ </td>
+   <td style="text-align:right;"> 45.15 </td>
+   <td style="text-align:right;"> 19.81 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 28.75 </td>
+   <td style="text-align:right;"> 47.5 </td>
+   <td style="text-align:right;"> 58.75 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:left;"> ▃▇▇▃▁ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 44.66 </td>
-   <td style="text-align:right;"> 18.59 </td>
-   <td style="text-align:right;"> 7.5 </td>
-   <td style="text-align:right;"> 28.75 </td>
-   <td style="text-align:right;"> 45.00 </td>
-   <td style="text-align:right;"> 57.5 </td>
-   <td style="text-align:right;"> 88.75 </td>
-   <td style="text-align:left;"> ▅▆▇▅▂ </td>
+   <td style="text-align:right;"> 44.77 </td>
+   <td style="text-align:right;"> 19.19 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 30.00 </td>
+   <td style="text-align:right;"> 45.0 </td>
+   <td style="text-align:right;"> 57.50 </td>
+   <td style="text-align:right;"> 90 </td>
+   <td style="text-align:left;"> ▂▇▇▇▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.1.POPU </td>
@@ -1913,11 +1913,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.90 </td>
    <td style="text-align:right;"> 0.26 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▁▁▁▁▇ </td>
   </tr>
   <tr>
@@ -1926,11 +1926,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.89 </td>
    <td style="text-align:right;"> 0.27 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▁▁▁▁▇ </td>
   </tr>
   <tr>
@@ -1939,11 +1939,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.89 </td>
    <td style="text-align:right;"> 0.27 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▁▁▁▁▇ </td>
   </tr>
   <tr>
@@ -1952,11 +1952,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.88 </td>
    <td style="text-align:right;"> 0.27 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▁▁▁▁▇ </td>
   </tr>
   <tr>
@@ -1965,11 +1965,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.63 </td>
    <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▅▁▂▁▇ </td>
   </tr>
   <tr>
@@ -1978,11 +1978,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.63 </td>
    <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▅▁▂▁▇ </td>
   </tr>
   <tr>
@@ -1991,11 +1991,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 0.5 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▅▁▃▁▇ </td>
   </tr>
   <tr>
@@ -2004,11 +2004,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> 0.42 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 0.5 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▅▁▅▁▇ </td>
   </tr>
   <tr>
@@ -2017,11 +2017,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.17 </td>
    <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
   <tr>
@@ -2030,11 +2030,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.17 </td>
    <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
   <tr>
@@ -2043,11 +2043,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.17 </td>
    <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
   <tr>
@@ -2056,11 +2056,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.16 </td>
    <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
@@ -2069,11 +2069,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.71 </td>
    <td style="text-align:right;"> 0.35 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▁▂▃▁▇ </td>
   </tr>
   <tr>
@@ -2082,11 +2082,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.70 </td>
    <td style="text-align:right;"> 0.35 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▂▂▃▁▇ </td>
   </tr>
   <tr>
@@ -2095,11 +2095,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.70 </td>
    <td style="text-align:right;"> 0.36 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▂▂▃▁▇ </td>
   </tr>
   <tr>
@@ -2108,11 +2108,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.69 </td>
    <td style="text-align:right;"> 0.35 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▂▂▃▁▇ </td>
   </tr>
   <tr>
@@ -2121,11 +2121,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.15 </td>
    <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
@@ -2134,11 +2134,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.16 </td>
    <td style="text-align:right;"> 0.32 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
@@ -2147,11 +2147,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.16 </td>
    <td style="text-align:right;"> 0.32 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
@@ -2160,11 +2160,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.14 </td>
    <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
@@ -2173,11 +2173,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.52 </td>
    <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 0.3 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▆▃▂▁▇ </td>
   </tr>
   <tr>
@@ -2186,11 +2186,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.52 </td>
    <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 0.6 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▆▃▂▁▇ </td>
   </tr>
   <tr>
@@ -2199,11 +2199,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.53 </td>
    <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 0.6 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▆▂▃▁▇ </td>
   </tr>
   <tr>
@@ -2212,63 +2212,63 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.51 </td>
    <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 0.6 </td>
    <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▃▂▁▇ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.7.HLTH </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 0.43 </td>
    <td style="text-align:right;"> 0.34 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▇▇▁▅ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.7.HLTH </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0.31 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▇▇▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.7.HLTH </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0.31 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▇▇▁▂ </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.7.HLTH </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0.40 </td>
    <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▇▇▁▃ </td>
   </tr>
   <tr>
@@ -2277,11 +2277,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.18 </td>
    <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▁ </td>
   </tr>
   <tr>
@@ -2290,11 +2290,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.19 </td>
    <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▂▁▁▂ </td>
   </tr>
   <tr>
@@ -2303,11 +2303,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.20 </td>
    <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
   <tr>
@@ -2316,11 +2316,11 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.20 </td>
    <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:left;"> ▇▁▁▁▂ </td>
   </tr>
 </tbody>

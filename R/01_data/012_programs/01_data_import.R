@@ -809,15 +809,45 @@ write_excel_csv(D2.6.SVY.LABR,
 
 
 
-#add in 2019 data.  Because the data doesn't include HIC countries, we append this to the original database
-D2.7.SVY.HLTH<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
-                               sheet="2016-19 DCS DHS,MICS-formulas",
-                               skip=1,
+#read in four different worksheets.  Each corresponding to NSO website, MICS, DHS, or surveys in microdata library
+D2.7.SVY.HLTH.NSO<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
+                               sheet="2016-19 NSO websites",
+                               skip=2,
                                .name_repair = 'universal')
 
-#data contains values of past census years, (i.e. ,1987, 1997, etc), need to clean these for our purposes
+D2.7.SVY.HLTH.MICS<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
+                          sheet="2016-19 MICS (MICS) counts",
+                          skip=1,
+                          .name_repair = 'universal')
+
+D2.7.SVY.HLTH.DHS<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
+                          sheet="2016-19 DHS (DHS) counts ",
+                          skip=2,
+                          .name_repair = 'universal')
+
+#microdata library
+D2.7.SVY.HLTH.MDL<-read_excel(path=paste(excel_dir,"/D2. CS/","/2016, 2017, 2018 & 2019 - D2.7.SVY.HLTH - REV.xlsx", sep=""),
+                              sheet="2016-19 MicrodataLibrary (MDL) ",
+                              skip=2,
+                              .name_repair = 'universal')
 
 
+#Now I need to join these dataframes together.  Each dataframe has columns for each year, with 1 if it is available and missing otherwise
+# I will do left_joins replacing missing values if the joining dataframe has a value.
+D2.7.SVY.HLTH <- D2.7.SVY.HLTH.NSO
+vars <- grep("YR", colnames(D2.7.SVY.HLTH)) #get list of column names starting with "YR"
+
+#MICS join
+D2.7.SVY.HLTH[vars] <- Map(pmax, D2.7.SVY.HLTH[vars], D2.7.SVY.HLTH.MICS[match(D2.7.SVY.HLTH$Country, D2.7.SVY.HLTH.MICS$Country), vars], na.rm=TRUE)
+
+#DHS join
+D2.7.SVY.HLTH[vars] <- Map(pmax, D2.7.SVY.HLTH[vars], D2.7.SVY.HLTH.DHS[match(D2.7.SVY.HLTH$Country, D2.7.SVY.HLTH.DHS$Country), vars], na.rm=TRUE)
+
+#Microdata Library join
+D2.7.SVY.HLTH[vars] <- Map(pmax, D2.7.SVY.HLTH[vars], D2.7.SVY.HLTH.MDL[match(D2.7.SVY.HLTH$Country, D2.7.SVY.HLTH.MDL$Country), vars], na.rm=TRUE)
+
+
+# Now do a final reshap to make the dataset similar to other Dimension 2 datasets
 D2.7.SVY.HLTH <- D2.7.SVY.HLTH %>% #do some reshaping of this df to match previous version
   mutate_at(vars(starts_with('YR')), 
     funs(ifelse(. == 1, deparse(substitute(.)), NA)) # replace value with column name (year)
