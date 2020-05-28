@@ -233,8 +233,7 @@ write.xlsx(
 ```
 
 
-# Unweighted Summary Statistics
-
+## Unweighted Summary Statistics
 
 ```{r sumstats_unweighted, echo=FALSE}
 

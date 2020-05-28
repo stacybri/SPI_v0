@@ -1379,3 +1379,5 @@ bind_rows(D4.7.SC.DPO.GEOS_2016, D4.7.SC.DPO.GEOS_2017, D4.7.SC.DPO.GEOS_2018,D4
   write_excel_csv(
     path = paste(csv_dir, "D4.7.SC.DPO.GEOS.csv", sep="/" ))
 
+
+#bind all of dimension information together

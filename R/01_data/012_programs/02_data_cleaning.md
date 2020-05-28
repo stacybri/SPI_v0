@@ -1,7 +1,7 @@
 ---
 title: "SPI Data Documentation"
 author: "Brian Stacy"
-date: "2020-05-26"
+date: "2020-05-28"
 output: 
   html_document: 
     fig_height: 6
@@ -4714,60 +4714,64 @@ var.labels=c(iso3c='3 digit country code',
              country='Country Name', 
              date='Date', 
              SPI.D1.MSC='Dimension 1: Methodology, Standards & Classifications (MSC)', 
-             SPI.D1.1.SNAU='System of National Accounts in use', 
-             SPI.D1.2.NABY='National Accounts base year ', 
-             SPI.D1.3.CNIN='Classification of national industry', 
-             SPI.D1.4.CPIBY='CPI base year', 
-             SPI.D1.5.HOUS='Classification of household consumption', 
-             SPI.D1.6.EMPL='Classification of status of employment', 
-             SPI.D1.7.CGOV='Central government accounting status', 
-             SPI.D1.8.FINA='Compilation of government finance statistics', 
-             SPI.D1.9.MONY='Compilation of monetary and financial statistics', 
-             SPI.D1.10.IDDS='SDDS/e-GDDS subscription', 
-             SPI.D1.11.CRVS='CRVS', 
-             SPI.D1.12.GSBP='Business process', 
+             SPI.D1.1.SNAU='Dimension 1: System of National Accounts in use', 
+             SPI.D1.2.NABY='Dimension 1: National Accounts base year ', 
+             SPI.D1.3.CNIN='Dimension 1: Classification of national industry', 
+             SPI.D1.4.CPIBY='Dimension 1: CPI base year', 
+             SPI.D1.5.HOUS='Dimension 1: Classification of household consumption', 
+             SPI.D1.6.EMPL='Dimension 1: Classification of status of employment', 
+             SPI.D1.7.CGOV='Dimension 1: Central government accounting status', 
+             SPI.D1.8.FINA='Dimension 1: Compilation of government finance statistics', 
+             SPI.D1.9.MONY='Dimension 1: Compilation of monetary and financial statistics', 
+             SPI.D1.10.IDDS='Dimension 1: SDDS/e-GDDS subscription', 
+             SPI.D1.11.CRVS='Dimension 1: CRVS', 
+             SPI.D1.12.GSBP='Dimension 1: Business process', 
              SPI.D2.CS='Dimension 2: Censuses and Surveys (CS)', 
-             SPI.D2.1.POPU='Population & Housing census', 
-             SPI.D2.2.AGRI='Agriculture census', 
-             SPI.D2.3.BIZZ='Business/establishment census', 
-             SPI.D2.4.HOUS='Household Survey on income/consumption/expenditure/budget/Integrated Survey ', 
-             SPI.D2.5.AGRI='Agriculture survey', 
-             SPI.D2.6.LABR='Labor Force Survey', 
-             SPI.D2.7.HLTH='Health/Demographic survey', 
-             SPI.D2.8.BIZZ='Business/establishment survey', 
+             SPI.D2.1.POPU='Dimension 2: Population & Housing census', 
+             SPI.D2.2.AGRI='Dimension 2: Agriculture census', 
+             SPI.D2.3.BIZZ='Dimension 2: Business/establishment census', 
+             SPI.D2.4.HOUS='Dimension 2: Household Survey on income/consumption/expenditure/budget/Integrated Survey ', 
+             SPI.D2.5.AGRI='Dimension 2: Agriculture survey', 
+             SPI.D2.6.LABR='Dimension 2: Labor Force Survey', 
+             SPI.D2.7.HLTH='Dimension 2: Health/Demographic survey', 
+             SPI.D2.8.BIZZ='Dimension 2: Business/establishment survey', 
              SPI.D3.AKI='Dimension 3: Availability of Key Indicators (AKI)', 
-             SPI.D3.POV='Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
-             SPI.D3.SH.STA.STNT.ZS='Prevalence of stunting, height for age (% of children under 5)',
-             SPI.D3.FIES='Food Insecurity Experience Scale',
-             SPI.D3.CHLD.MORT='Mortality rate, under-5 (per 1,000 live births)', 
-             SPI.D3.SE.LPV.PRIM.BMP='Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
-             SPI.D3.MMRT='Maternal Mortality',
-             SPI.D3.SH.H2O.SMDW.ZS='People using safely managed drinking water services (% of population)',
-             SPI.D3.ELEC='Access to electricity (% of population)',
-             SPI.D3.SL.UEM.TOTL.NE.ZS='Unemployment, total (% of total labor force) (national estimate)' ,
-             SPI.D3.NV.IND.MANF.ZS='Manufacturing, value added (% of GDP)',
-             SPI.D3.SI.SPR.PC40.ZG='Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
-             SPI.D3.ER.H2O.FWST.ZS='Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
-             SPI.D3.EG.FEC.RNEW.ZS='Renewable energy consumption (% of total final energy consumption)',
-             SPI.D3.EN.ATM.GHGT.KT.CE='Total greenhouse gas emissions (kt of CO2 equivalent)',
-             SPI.D3.ER.PTD.TOTL.ZS='Terrestrial and marine protected areas (% of total territorial area)',
-             SPI.D3.NE.CON.PRVT.CN='Households and NPISHs Final consumption expenditure (current LCU)',
-             SPI.D3.NY.GNP.MKTP.CN='GNI (current LCU)',
-             SPI.D3.QUART.GDP='Quarterly GDP',
-             SPI.D3.DT.TDS.DPPF.XP.ZS='Debt service (PPG and IMF only, % of exports of goods, services and primary income)', 
+             SPI.D3.POV='Dimension 3: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
+             SPI.D3.SH.STA.STNT.ZS='Dimension 3: Prevalence of stunting, height for age (% of children under 5)',
+             SPI.D3.FIES='Dimension 3: Food Insecurity Experience Scale',
+             SPI.D3.CHLD.MORT='Dimension 3: Mortality rate, under-5 (per 1,000 live births)', 
+             SPI.D3.SE.LPV.PRIM.BMP='Dimension 3: Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
+             SPI.D3.MMRT='Dimension 3: Maternal Mortality',
+             SPI.D3.SH.H2O.SMDW.ZS='Dimension 3: People using safely managed drinking water services (% of population)',
+             SPI.D3.ELEC='Dimension 3: Access to electricity (% of population)',
+             SPI.D3.SL.UEM.TOTL.NE.ZS='Dimension 3: Unemployment, total (% of total labor force) (national estimate)' ,
+             SPI.D3.NV.IND.MANF.ZS='Dimension 3: Manufacturing, value added (% of GDP)',
+             SPI.D3.SI.SPR.PC40.ZG='Dimension 3: Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
+             SPI.D3.ER.H2O.FWST.ZS='Dimension 3: Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
+             SPI.D3.EG.FEC.RNEW.ZS='Dimension 3: Renewable energy consumption (% of total final energy consumption)',
+             #SPI.D3.EN.ATM.GHGT.KT.CE='Dimension 3: Total greenhouse gas emissions (kt of CO2 equivalent)',
+             #SPI.D3.ER.PTD.TOTL.ZS='Dimension 3: Terrestrial and marine protected areas (% of total territorial area)',
+             SPI.D3.NE.CON.PRVT.CN='Dimension 3: Households and NPISHs Final consumption expenditure (current LCU)',
+             SPI.D3.NY.GNP.MKTP.CN='Dimension 3: GNI (current LCU)',
+             SPI.D3.QUART.GDP='Dimension 3: Quarterly GDP',
+             SPI.D3.DT.TDS.DPPF.XP.ZS='Dimension 3: Debt service (PPG and IMF only, % of exports of goods, services and primary income)', 
              SPI.D4.DPO='Dimension 4: Dissemination Practices & Openness (DPO)', 
-             SPI.D4.1.CALD='NSO has an Advance Release Calendar and it is published ', 
-             SPI.D4.2.NADA='NSO has a listing of surveys and microdata sets (or NADA)', 
-             SPI.D4.3.PORT='NSO has a data portal', 
-             SPI.D4.4.TIME='Timeseries indicators are available for download in reusable format for free', 
-             SPI.D4.5.META='Metadata is available providing definition, methodology, standards or classifications for existing data series', 
-             SPI.D4.6.USER='NSO has conducted a user satisfaction survey', 
-             SPI.D4.7.GEOS='Geospatial data available on relevant agency website', 
+             SPI.D4.1.CALD='Dimension 4: NSO has an Advance Release Calendar and it is published ', 
+             SPI.D4.2.NADA='Dimension 4: NSO has a listing of surveys and microdata sets (or NADA)', 
+             SPI.D4.3.PORT='Dimension 4: NSO has a data portal', 
+             SPI.D4.4.TIME='Dimension 4: Timeseries indicators are available for download in reusable format for free', 
+             SPI.D4.5.META='Dimension 4: Metadata is available providing definition, methodology, standards or classifications for existing data series', 
+             SPI.D4.6.USER='Dimension 4: NSO has conducted a user satisfaction survey', 
+             SPI.D4.7.GEOS='Dimension 4: Geospatial data available on relevant agency website', 
              SPI.OVRL.SCR='SPI Overall Score')
 
 
 #label data
-label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+#label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+
+#Order SPI data
+SPI <- SPI %>%
+  select(country, iso3c, date, names(var.labels), everything())
 
 #turn variable labels into data frame 
 var.labels.df<-data.frame(var.labels) %>% 
@@ -4777,6 +4781,13 @@ var.labels.df<-data.frame(var.labels) %>%
 #export data
 write_excel_csv(SPI,
                 path = paste(csv_output, "SPI_scores_long.csv", sep="/" ))
+
+SPI_labelled <- SPI %>%
+    filter((lending %in% c('IDA', 'IBRD', 'Blend')) | (iso3c=='PSE')) #keep just the borrowing countries & West Bank & Gaza
+
+colnames(SPI_labelled) = as.list(var.labels[match(names(SPI), names(var.labels))])
+write_excel_csv(SPI_labelled,
+                path = paste(csv_output, "SPI_scores_long_labelled.csv", sep="/" ))
 
 # #save to stata with compatible names
 # SPI  %>%
