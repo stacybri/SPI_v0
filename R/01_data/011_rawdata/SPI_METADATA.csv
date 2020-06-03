@@ -79,12 +79,6 @@ Frequency (0.5 points total):
 0.3 Points. 2 values available within past 5 years; 	
 0.15 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years"
-SPI.D3.SH.STA.STNT.ZS,"Prevalence of stunting, height for age (% of children under 5)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
-
-1 Point. 3 or more values available within past 5 years        
-0.6 Points. 2 values available within past 5 years;         
-0.3 Points. 1 values available within past 5 years;         
-0 Points. None within past 5 years"
 SPI.D3.FIES,Food Insecurity Experience Scale,"FAO, http://www.fao.org/faostat/en/#data/FS",FAO,0.5 Point. Comparable data lasting at least two years within past 5 years
 SPI.D3.CHLD.MORT,"Mortality rate, under-5 (per 1,000 live births)",https://childmortality.org/data,Inter-Agency Group,"Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
 
@@ -162,25 +156,7 @@ SPI.D3.EG.FEC.RNEW.ZS,Renewable energy consumption (% of total final energy cons
 0.6 Points. 2 values available within past 5 years; 	
 0.3 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years"
-SPI.D3.EN.ATM.GHGT.KT.CE,Total greenhouse gas emissions (kt of CO2 equivalent),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
-
-1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
-0 Points. None within past 5 years"
-SPI.D3.ER.PTD.TOTL.ZS,Terrestrial and marine protected areas (% of total territorial area),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
-
-1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
-0 Points. None within past 5 years"
 SPI.D3.NE.CON.PRVT.CN,Households and NPISHs Final consumption expenditure (current LCU),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
-
-1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
-0 Points. None within past 5 years"
-SPI.D3.NY.GNP.MKTP.CN,GNI (current LCU),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
 
 1 Point. 3 or more values available within past 5 years	
 0.6 Points. 2 values available within past 5 years; 	

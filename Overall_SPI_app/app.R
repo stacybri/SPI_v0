@@ -54,7 +54,6 @@ var.labels=c(
     SPI.D2.8.BIZZ='Business/establishment survey', 
     SPI.D3.AKI='Dimension 3: Availability of Key Indicators (AKI)', 
     SPI.D3.POV='Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)',
-    SPI.D3.SH.STA.STNT.ZS='Prevalence of stunting, height for age (% of children under 5)',
     SPI.D3.FIES='Food Insecurity Experience Scale',
     SPI.D3.CHLD.MORT='Mortality rate, under-5 (per 1,000 live births)', 
     SPI.D3.SE.LPV.PRIM.BMP='Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold',
@@ -66,10 +65,7 @@ var.labels=c(
     SPI.D3.SI.SPR.PC40.ZG='Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)',
     SPI.D3.ER.H2O.FWST.ZS='Level of water stress: freshwater withdrawal as a proportion of available freshwater resources',
     SPI.D3.EG.FEC.RNEW.ZS='Renewable energy consumption (% of total final energy consumption)',
-    SPI.D3.EN.ATM.GHGT.KT.CE='Total greenhouse gas emissions (kt of CO2 equivalent)',
-    SPI.D3.ER.PTD.TOTL.ZS='Terrestrial and marine protected areas (% of total territorial area)',
     SPI.D3.NE.CON.PRVT.CN='Households and NPISHs Final consumption expenditure (current LCU)',
-    SPI.D3.NY.GNP.MKTP.CN='GNI (current LCU)',
     SPI.D3.QUART.GDP='Quarterly GDP',
     SPI.D3.DT.TDS.DPPF.XP.ZS='Debt service (PPG and IMF only, % of exports of goods, services and primary income)', 
     SPI.D4.DPO='Dimension 4: Dissemination Practices & Openness (DPO)', 
@@ -392,7 +388,7 @@ server <- function(input, output, session) {
             rename(y=time_var()) %>%
             left_join(country_info) %>%
             group_by(date, region) %>%
-            summarise(y=100*weighted.mean(y,population, na.rm=T))  %>%
+            summarise(y=100*mean(y, na.rm=T))  %>%
             ungroup()  
         
 
@@ -402,7 +398,7 @@ server <- function(input, output, session) {
             rename(y=time_var()) %>%
             mutate(region='Global') %>%
             group_by(date, region) %>%
-            summarise(y=100*weighted.mean(y,population, na.rm=T)) %>%
+            summarise(y=100*mean(y, na.rm=T)) %>%
             ungroup()
     
         #join
@@ -518,14 +514,14 @@ server <- function(input, output, session) {
             group_by(region) %>%
             filter(!is.na(region)) %>%
             select(region, c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'), population) %>%
-            summarise_at(c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'),~round(wtd.mean(as.numeric(.),as.numeric(population), na.rm=T),2)) 
+            summarise_at(c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'),~round(mean(as.numeric(.), na.rm=T),2)) 
         
         #produce global number
         sumstats_gl<- df_overall() %>%
             mutate(region='Global') %>%
             group_by(region) %>%
             select(region, c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'), population) %>%
-            summarise_at(c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'),~round(wtd.mean(as.numeric(.),as.numeric(population), na.rm=T),2)) 
+            summarise_at(c('SPI.OVRL.SCR', 'SPI.D1.MSC', 'SPI.D2.CS', 'SPI.D3.AKI', 'SPI.D4.DPO'),~round(mean(as.numeric(.), na.rm=T),2)) 
         
         
         #transpose data
@@ -557,7 +553,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Unweighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -748,7 +744,7 @@ server <- function(input, output, session) {
                 left_join(country_info) %>%
                 group_by(region) %>%
                 select(region, starts_with('SPI.D1.'), population) %>%
-                summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+                summarise_all(~round(100*mean(., na.rm=T),2)) %>%
                 select(-population) %>%
                 mutate(SPI.D1.MSC=round(SPI.D1.MSC/100,2))
             
@@ -757,7 +753,7 @@ server <- function(input, output, session) {
                 mutate(region='Global') %>%
                 group_by(region) %>%
                 select(region, starts_with('SPI.D1.'),population) %>%
-                summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+                summarise_all(~round(100*mean(., na.rm=T),2)) %>%
                 select(-population) %>%
                 mutate(SPI.D1.MSC=round(SPI.D1.MSC/100,2))
             
@@ -791,7 +787,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
                                             style = 'caption-side: top; text-align: left;',
-                                            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+                                            htmltools::em("Unweighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
                                             extensions = 'Buttons', options=list(
                           dom = 'Bfrtip',
                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -972,7 +968,7 @@ server <- function(input, output, session) {
             left_join(country_info) %>%
             group_by(region) %>%
             select(region, starts_with('SPI.D2.'),population) %>%
-            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
             select(-population) %>%
             mutate(SPI.D2.CS=round(SPI.D2.CS/100,2))
         
@@ -981,7 +977,7 @@ server <- function(input, output, session) {
             mutate(region='Global') %>%
             group_by(region) %>%
             select(region, starts_with('SPI.D2.'),population) %>%
-            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
             select(-population) %>%
             mutate(SPI.D2.CS=round(SPI.D2.CS/100,2))
         
@@ -1015,7 +1011,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Unweighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1178,7 +1174,7 @@ server <- function(input, output, session) {
             label(spi_map_d3@data$SPI.D3.EG.FEC.RNEW.ZS), round(spi_map_d3@data$SPI.D3.EG.FEC.RNEW.ZS, digits = 1),
             label(spi_map_d3@data$SPI.D3.NE.CON.PRVT.CN), round(spi_map_d3@data$SPI.D3.NE.CON.PRVT.CN, digits = 1),
             label(spi_map_d3@data$SPI.D3.QUART.GDP), round(spi_map_d3@data$SPI.D3.QUART.GDP, digits = 1),
-            label(spi_map_d3@data$SPI.D3.NY.GNP.MKTP.CN), round(spi_map_d3@data$SPI.D3.NY.GNP.MKTP.CN, digits = 1)
+            label(spi_map_d3@data$SPI.D3.DT.TDS.DPPF.XP.ZS), round(spi_map_d3@data$SPI.D3.DT.TDS.DPPF.XP.ZS, digits = 1)
             
         ) %>% 
             lapply(htmltools::HTML)
@@ -1207,7 +1203,7 @@ server <- function(input, output, session) {
             left_join(country_info) %>%
             group_by(region) %>%
             select(region, starts_with('SPI.D3.'),population) %>%
-            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
             select(-population) %>%
             mutate(SPI.D3.AKI=round(SPI.D3.AKI/100,2))
         
@@ -1216,7 +1212,7 @@ server <- function(input, output, session) {
             mutate(region='Global') %>%
             group_by(region) %>%
             select(region, starts_with('SPI.D3.'),population) %>%
-            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
             select(-population) %>%
             mutate(SPI.D3.AKI=round(SPI.D3.AKI/100,2))
         
@@ -1250,7 +1246,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Unweighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
@@ -1422,7 +1418,7 @@ server <- function(input, output, session) {
             left_join(country_info) %>%
             group_by(region) %>%
             select(region, starts_with('SPI.D4.'),population) %>%
-            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
             select(-population) %>%            
             mutate(SPI.D4.DPO=round(SPI.D4.DPO/100,2))
         
@@ -1431,7 +1427,7 @@ server <- function(input, output, session) {
             mutate(region='Global') %>%
             group_by(region) %>%
             select(region, starts_with('SPI.D4.'),population) %>%
-            summarise_all(~round(100*weighted.mean(.,population, na.rm=T),2)) %>%
+            summarise_all(~round(100*mean(., na.rm=T),2)) %>%
             select(-population) %>%
             mutate(SPI.D4.DPO=round(SPI.D4.DPO/100,2))
         
@@ -1465,7 +1461,7 @@ server <- function(input, output, session) {
         
         DT::datatable(sumstats_df, caption=htmltools::tags$caption(
             style = 'caption-side: top; text-align: left;',
-            htmltools::em("Population Weighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
+            htmltools::em("Unweighted Mean of SPI Indicators by Region.  Sub-indicators scaled to be 0-100."))    ,
             extensions = 'Buttons', options=list(
                 dom = 'Bfrtip',
                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),

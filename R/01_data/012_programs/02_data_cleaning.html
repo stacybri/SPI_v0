@@ -11,7 +11,7 @@
 
 <meta name="author" content="Brian Stacy" />
 
-<meta name="date" content="2020-05-28" />
+<meta name="date" content="2020-06-03" />
 
 <title>SPI Data Documentation</title>
 
@@ -374,7 +374,7 @@ summary {
 
 <h1 class="title toc-ignore">SPI Data Documentation</h1>
 <h4 class="author">Brian Stacy</h4>
-<h4 class="date">2020-05-28</h4>
+<h4 class="date">2020-06-03</h4>
 
 </div>
 
@@ -410,14 +410,13 @@ summary {
 <li><a href="#cs-score">CS Score</a></li>
 </ul></li>
 <li><a href="#spi-dimension-3-availability-of-key-indicators-aki">SPI Dimension 3: Availability of Key Indicators (AKI):</a><ul>
-<li><a href="#aki-3.1-3.2-3.9-3.10-3.11-3.12-3.13-3.14-3.15-3.16-3.18">AKI 3.1, 3.2, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14, 3.15, 3.16, 3.18</a></li>
+<li><a href="#aki-3.1-3.9-3.10-3.11-3.12-3.13">AKI 3.1, 3.9, 3.10, 3.11, 3.12, 3.13</a></li>
 <li><a href="#aki-3.1-poverty-headcount-ratio-at-1.90-a-day-2011-ppp-of-population">AKI 3.1: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)</a></li>
 <li><a href="#aki-3.2-hunger">AKI 3.2: Hunger</a></li>
 <li><a href="#aki-3.3-mortality-rate-under-5-per-1000-live-births">AKI 3.3: Mortality rate, under-5 (per 1,000 live births)</a></li>
 <li><a href="#aki-3.5-maternal-mortality-ratio">AKI 3.5 Maternal Mortality Ratio</a></li>
-<li><a href="#aki-3.6-people-using-safely-managed-drinking-water-services-of-population">AKI 3.6: People using safely managed drinking water services (% of population)</a></li>
 <li><a href="#aki-3.7-access-to-electricity-of-population">AKI 3.7: Access to electricity (% of population)</a></li>
-<li><a href="#aki-3.17-quarterly-gdp">AKI 3.17 Quarterly GDP</a></li>
+<li><a href="#aki-3.14-quarterly-gdp">AKI 3.14 Quarterly GDP</a></li>
 <li><a href="#aki-3.15-debt-service-ppg-and-imf-only-of-exports-of-goods-services-and-primary-income">AKI 3.15 Debt service (PPG and IMF only, % of exports of goods, services and primary income)</a></li>
 <li><a href="#combine-all-sources-into-aki-database">Combine all sources into AKI database</a></li>
 </ul></li>
@@ -4596,17 +4595,11 @@ SPI.D2.8.BIZZ
 <ul>
 <li>AKI 3.1: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)<br />
 </li>
-<li>AKI 3.2: Prevalence of stunting, height for age (% of children under 5)<br />
-</li>
+<li>AKI 3.2: Food Insecurity Experience Scale</li>
 <li>AKI 3.3: Mortality rate, under-5 (per 1,000 live births)<br />
 </li>
-<li>AKI 3.4: Proportion of children and young people in grades 2/3 achieving at least a minimum proficiency level in</li>
-</ul>
-<ol style="list-style-type: lower-roman">
-<li>reading and (ii) mathematics, by sex.<br />
+<li>AKI 3.4: Proportion of children and young people in grades 2 or 3 achieving at least a minimum proficiency level in reading and mathematics, by sex.<br />
 </li>
-</ol>
-<ul>
 <li>AKI 3.5: Maternal Mortality</li>
 <li>AKI 3.6: People using safely managed drinking water services (% of population)<br />
 </li>
@@ -4624,10 +4617,8 @@ SPI.D2.8.BIZZ
 </li>
 <li>AKI 3.13: Households and NPISHs Final consumption expenditure (current LCU)<br />
 </li>
-<li>AKI 3.14: GNI (current LCU)<br />
-</li>
-<li>AKI 3.15: Quarterly GDP</li>
-<li>AKI 3.18: Debt service (PPG and IMF only, % of exports of goods, services and primary income)</li>
+<li>AKI 3.14: Quarterly GDP</li>
+<li>AKI 3.15: Debt service (PPG and IMF only, % of exports of goods, services and primary income)</li>
 </ul>
 <pre class="r"><code># pull in some WDI metadata which will be used for constructing AKI indicators.
 # WDI metadata was gathered using previous vintages of WDI from 2016-19
@@ -4643,14 +4634,12 @@ for (i in 2016:2019) {
 }
 
 WDI_metadata &lt;- bind_rows(WDI_metadata_2016, WDI_metadata_2017, WDI_metadata_2018, WDI_metadata_2019)</code></pre>
-<div id="aki-3.1-3.2-3.9-3.10-3.11-3.12-3.13-3.14-3.15-3.16-3.18" class="section level3">
-<h3>AKI 3.1, 3.2, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14, 3.15, 3.16, 3.18</h3>
+<div id="aki-3.1-3.9-3.10-3.11-3.12-3.13" class="section level3">
+<h3>AKI 3.1, 3.9, 3.10, 3.11, 3.12, 3.13</h3>
 <p>First we will pull data for indicators coming straight from WDI. For some indicators, we will use alternative sources.</p>
 <p>Indicators coming from the WDI directly are:</p>
 <ul>
 <li>AKI 3.1: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)<br />
-</li>
-<li>AKI 3.2: Prevalence of stunting, height for age (% of children under 5)<br />
 </li>
 <li>AKI 3.9: Manufacturing, value added (% of GDP)<br />
 </li>
@@ -4660,11 +4649,7 @@ WDI_metadata &lt;- bind_rows(WDI_metadata_2016, WDI_metadata_2017, WDI_metadata_
 </li>
 <li>AKI 3.12: Renewable energy consumption (% of total final energy consumption)<br />
 </li>
-<li>AKI 3.13: Households and NPISHs Final consumption expenditure (current LCU)<br />
-</li>
-<li>AKI 3.14: GNI (current LCU)<br />
-</li>
-<li>AKI 3.15: Debt service (PPG and IMF only, % of exports of goods, services and primary income)</li>
+<li>AKI 3.13: Households and NPISHs Final consumption expenditure (current LCU)</li>
 </ul>
 <p>Scoring:</p>
 <p>1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
@@ -4689,28 +4674,20 @@ EdStatsResponse &lt;- content(EdStatsRequest, as = &quot;text&quot;, encoding = 
 EdStatsJSON &lt;- jsonlite::fromJSON(EdStatsResponse, flatten = TRUE) %&gt;%
   data.frame()
 
-aki&lt;- c(#&#39;Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)&#39;,
-        &#39;Prevalence of stunting, height for age (% of children under 5)&#39;,
-        #&#39;Mortality rate, under-5 (per 1,000 live births)&#39;, This was replaced using the following source https://childmortality.org/data 
+aki&lt;- c(
         &#39;Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold&#39;,
         &#39;People using safely managed drinking water services (% of population)&#39;,
-        #&#39;Access to electricity (% of population)&#39;,
         &#39;Unemployment, total (% of total labor force) (national estimate)&#39; ,
         &#39;Manufacturing, value added (% of GDP)&#39;,
         &#39;Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)&#39;,
         &#39;Level of water stress: freshwater withdrawal as a proportion of available freshwater resources&#39;,
         &#39;Renewable energy consumption (% of total final energy consumption)&#39;,
-        #&#39;Total greenhouse gas emissions (kt of CO2 equivalent)&#39;,
-        #&#39;Terrestrial and marine protected areas (% of total territorial area)&#39;,
         &#39;Households and NPISHs Final consumption expenditure (current LCU)&#39;,
-        &#39;GNI (current LCU)&#39;,
         &#39;Debt service (PPG and IMF only, % of exports of goods, services and primary income)&#39;  )
 
 get_tag_aki_df&lt;-wdisJSON %&gt;%
   bind_rows(EdStatsJSON) %&gt;%
   filter((name %in% aki )) %&gt;%
-  group_by(id) %&gt;%
-  summarise_all(~first(.)) %&gt;%
   arrange(factor(name, levels = aki)) %&gt;%
   select(id, name,  sourceOrganization) 
 
@@ -4722,17 +4699,17 @@ aki_list&lt;-get_tag_aki_df[,&#39;id&#39;]
 
 for (reference_year in 2016:2019) {
   temp &lt;-wbstats::wb(country=&quot;countries_only&quot;, 
-              indicator=aki_list$id,
+              indicator=aki_list,
               startdate=reference_year-5,
               enddate=reference_year,
               return_wide = T,
               removeNA=FALSE) %&gt;%
           filter(((reference_year-as.numeric(date))&lt;=5) &amp; (reference_year&gt;=as.numeric(date))) %&gt;% #filter out years outside reference window of 3 years     
           write_excel_csv(path = paste(csv_output, &quot;/D3.AKI_data_pull_&quot;,reference_year,&quot;.csv&quot;, sep=&quot;&quot; )) %&gt;%
-          mutate_at(.vars=aki_list$id, ~if_else(is.na(.),0,1)) %&gt;% #create 0,1 variable for whether data point exists for country
+          mutate_at(.vars=aki_list, ~if_else(is.na(.),0,1)) %&gt;% #create 0,1 variable for whether data point exists for country
           group_by(iso3c, country) %&gt;%
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %&gt;% #group by country to create one observation per country                 containing whether or not data point existed
-          mutate_at(.vars=aki_list$id, ~case_when(
+          mutate_at(.vars=aki_list, ~case_when(
             .&gt;=3 ~ 1,
             .==2 ~ 0.6,
             .==1 ~ 0.3,
@@ -4741,8 +4718,8 @@ for (reference_year in 2016:2019) {
           )) %&gt;% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
           mutate(date=reference_year) %&gt;%
           ungroup() %&gt;%
-          select(iso3c, country, date,  aki_list$id) %&gt;%
-          rename_at(aki_list$id, ~(paste(&#39;SPI.D3.&#39;,.,sep=&quot;&quot;))) %&gt;% #add &#39;D3.&#39; as prefix before these indicators.
+          select(iso3c, country, date,  aki_list) %&gt;%
+          rename_at(aki_list, ~(paste(&#39;SPI.D3.&#39;,.,sep=&quot;&quot;))) %&gt;% #add &#39;D3.&#39; as prefix before these indicators.
           left_join(country_list) #attach country metadata
 
 
@@ -4829,7 +4806,7 @@ D3.1.AKI &lt;- bind_rows(D3.1.AKI_2016, D3.1.AKI_2017, D3.1.AKI_2018, D3.1.AKI_2
 </div>
 <div id="aki-3.2-hunger" class="section level3">
 <h3>AKI 3.2: Hunger</h3>
-<p>We examine two sources: Prevalence of stunting, height for age (% of children under 5), which can be found in the WDI, and the Food Insecurity Experience Scale from the FAO (<a href="http://www.fao.org/faostat/en/#data/FS" class="uri">http://www.fao.org/faostat/en/#data/FS</a>). Data for food insecurity was pulled on May 1, 2020.</p>
+<p>We examine the Food Insecurity Experience Scale from the FAO (<a href="http://www.fao.org/faostat/en/#data/FS" class="uri">http://www.fao.org/faostat/en/#data/FS</a>). Data for food insecurity was pulled on May 1, 2020.</p>
 <p>Scoring 1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
 0.3 Points. 1 values available within past 5 years;<br />
 0 Points. None within past 5 years</p>
@@ -4968,12 +4945,6 @@ for (reference_year in 2016:2019) {
 
 D3.5.AKI &lt;- bind_rows(D3.5.AKI_2016, D3.5.AKI_2017, D3.5.AKI_2018, D3.5.AKI_2019)</code></pre>
 </div>
-<div id="aki-3.6-people-using-safely-managed-drinking-water-services-of-population" class="section level3">
-<h3>AKI 3.6: People using safely managed drinking water services (% of population)</h3>
-<p>Safely managed drinking water has less coverage than basic drinking water. The hurdle for countries is measuring water quality (test for E coli, etc). Infrastructrure tends to be more static than other indicators, so expanding the window for the frequency of data may be needed. May consider indicator system where we have 0 points for no data, 0.5 points for all data except water quality (this is available in a pdf report by the Bank and Unicef), and 1 point for full indicator for safely managed water.</p>
-<p>We considered using data from the Joint Monitoring Programme for Water Supply, Sanitation and Hygiene. However, data was only updated up to 2017, which did not meet our needs.</p>
-<p>Rank by data availability for three components (Accessible on-premises, Available when needed, and Free from contamination)</p>
-</div>
 <div id="aki-3.7-access-to-electricity-of-population" class="section level3">
 <h3>AKI 3.7: Access to electricity (% of population)</h3>
 <p>Access to Electricity (% of population) has 99% coverage in the WDI database making it less useful for distinguishing between countries. In order to improve the usefulness of this indicator, we are making use of data compiled by World Bank colleagues on surveys containing electricity items. According to the access to electricity metadata, around 42 countries have no data and an imputed value is assigned based on the regional average. By going to survey source data, we address this issue of imputation, which gives a misleading picture of availability for our purposes. Below is the metadata from the WDI for methods for the access to electricity indicator.</p>
@@ -5012,20 +4983,20 @@ for (reference_year in 2016:2019) {
 
 D3.7.AKI &lt;- bind_rows(D3.7.AKI_2016, D3.7.AKI_2017, D3.7.AKI_2018, D3.7.AKI_2019)</code></pre>
 </div>
-<div id="aki-3.17-quarterly-gdp" class="section level3">
-<h3>AKI 3.17 Quarterly GDP</h3>
+<div id="aki-3.14-quarterly-gdp" class="section level3">
+<h3>AKI 3.14 Quarterly GDP</h3>
 <p>Quarterly GDP numbers were pulled from the IMF website.</p>
 <p>After GDP by expenditure, quarterly GDP is probably the most important development to be made in a system of National Accounts, before the development of full sectoral accounts. IMF IFS has quarterly GDP from various sources, including governments and international agencies at <a href="https://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B" class="uri">https://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B</a></p>
 <p>Scoring 1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
 0.3 Points. 1 values available within past 5 years;<br />
 0 Points. None within past 5 years</p>
 <pre class="r"><code>#read in file from rawdata folder
-D3.17.QUART.GDP &lt;- read_csv(file = paste(csv_dir, &quot;D3.17.QUART.GDP.csv&quot;, sep=&quot;/&quot; ))
+D3.14.QUART.GDP &lt;- read_csv(file = paste(csv_dir, &quot;D3.17.QUART.GDP.csv&quot;, sep=&quot;/&quot; ))
 
 #clean data and produce indicator for each year
 #Now loop from 2016 and 2019, keeping just data inside last 5 years.
 for (reference_year in 2016:2019) {
-temp &lt;-D3.17.QUART.GDP %&gt;%
+temp &lt;-D3.14.QUART.GDP %&gt;%
   mutate(date=as.numeric(str_sub(TIME_PERIOD,1,4))) %&gt;%
   mutate(iso2c=REF_AREA) %&gt;%
   mutate(frequency=((reference_year-as.numeric(date))&lt;=5) &amp; (reference_year&gt;=as.numeric(date))) %&gt;% 
@@ -5045,10 +5016,10 @@ temp &lt;-D3.17.QUART.GDP %&gt;%
   select( iso2c, date, starts_with(&#39;SPI.D3.QUART.GDP&#39;)) 
 
 
-  assign(paste(&quot;D3.17.AKI&quot;,reference_year,sep=&quot;_&quot;), temp)
+  assign(paste(&quot;D3.14.AKI&quot;,reference_year,sep=&quot;_&quot;), temp)
 }
 
-D3.17.AKI &lt;- bind_rows(D3.17.AKI_2016, D3.17.AKI_2017, D3.17.AKI_2018, D3.17.AKI_2019)  </code></pre>
+D3.17.AKI &lt;- bind_rows(D3.14.AKI_2016, D3.14.AKI_2017, D3.14.AKI_2018, D3.14.AKI_2019)  </code></pre>
 </div>
 <div id="aki-3.15-debt-service-ppg-and-imf-only-of-exports-of-goods-services-and-primary-income" class="section level3">
 <h3>AKI 3.15 Debt service (PPG and IMF only, % of exports of goods, services and primary income)</h3>
@@ -5194,146 +5165,6 @@ Histogram
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SH.STA.STNT.ZS
-</td>
-<td style="text-align:right;">
-2016
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.25
-</td>
-<td style="text-align:right;">
-0.31
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▅▂▁▂
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SH.STA.STNT.ZS
-</td>
-<td style="text-align:right;">
-2017
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.24
-</td>
-<td style="text-align:right;">
-0.29
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▅▂▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SH.STA.STNT.ZS
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.22
-</td>
-<td style="text-align:right;">
-0.29
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▃▂▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.SH.STA.STNT.ZS
-</td>
-<td style="text-align:right;">
-2019
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.19
-</td>
-<td style="text-align:right;">
-0.28
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▇▃▂▁▁
-</td>
-</tr>
 <tr>
 <td style="text-align:left;">
 SPI.D3.SE.LPV.PRIM.BMP
@@ -6456,146 +6287,6 @@ SPI.D3.NE.CON.PRVT.CN
 </tr>
 <tr>
 <td style="text-align:left;">
-SPI.D3.NY.GNP.MKTP.CN
-</td>
-<td style="text-align:right;">
-2016
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.92
-</td>
-<td style="text-align:right;">
-0.27
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▁▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.NY.GNP.MKTP.CN
-</td>
-<td style="text-align:right;">
-2017
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.92
-</td>
-<td style="text-align:right;">
-0.27
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▁▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.NY.GNP.MKTP.CN
-</td>
-<td style="text-align:right;">
-2018
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.91
-</td>
-<td style="text-align:right;">
-0.27
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▁▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SPI.D3.NY.GNP.MKTP.CN
-</td>
-<td style="text-align:right;">
-2019
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.91
-</td>
-<td style="text-align:right;">
-0.28
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:left;">
-▁▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 SPI.D3.DT.TDS.DPPF.XP.ZS
 </td>
 <td style="text-align:right;">
@@ -7585,28 +7276,28 @@ SPI.D3.AKI
 1
 </td>
 <td style="text-align:right;">
-52.37
+51.51
 </td>
 <td style="text-align:right;">
-19.64
+20.71
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-41.18
+38.00
 </td>
 <td style="text-align:right;">
-56.47
+54.33
 </td>
 <td style="text-align:right;">
-68.53
+69.00
 </td>
 <td style="text-align:right;">
-86.18
+88.00
 </td>
 <td style="text-align:left;">
-▂▃▆▇▆
+▃▃▇▇▇
 </td>
 </tr>
 <tr>
@@ -7620,28 +7311,28 @@ SPI.D3.AKI
 1
 </td>
 <td style="text-align:right;">
-51.56
+50.71
 </td>
 <td style="text-align:right;">
-19.79
+20.92
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-40.29
+37.00
 </td>
 <td style="text-align:right;">
-55.29
+53.67
 </td>
 <td style="text-align:right;">
-68.53
+69.33
 </td>
 <td style="text-align:right;">
-86.18
+86.00
 </td>
 <td style="text-align:left;">
-▂▃▆▇▆
+▃▅▇▇▇
 </td>
 </tr>
 <tr>
@@ -7655,28 +7346,28 @@ SPI.D3.AKI
 1
 </td>
 <td style="text-align:right;">
-50.75
+49.97
 </td>
 <td style="text-align:right;">
-20.00
+21.19
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-37.94
+34.33
 </td>
 <td style="text-align:right;">
-54.71
+52.33
 </td>
 <td style="text-align:right;">
-67.94
+69.33
 </td>
 <td style="text-align:right;">
-85.29
+88.00
 </td>
 <td style="text-align:left;">
-▂▃▅▇▆
+▃▅▇▇▇
 </td>
 </tr>
 <tr>
@@ -7690,28 +7381,28 @@ SPI.D3.AKI
 1
 </td>
 <td style="text-align:right;">
-46.98
+45.90
 </td>
 <td style="text-align:right;">
-19.93
+21.14
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
-32.94
+29.67
 </td>
 <td style="text-align:right;">
-50.88
+47.33
 </td>
 <td style="text-align:right;">
-64.41
+65.00
 </td>
 <td style="text-align:right;">
-82.94
+85.33
 </td>
 <td style="text-align:left;">
-▃▃▆▇▅
+▃▅▇▇▅
 </td>
 </tr>
 </tbody>
@@ -9163,7 +8854,6 @@ var.labels=c(iso3c=&#39;3 digit country code&#39;,
              SPI.D2.8.BIZZ=&#39;Dimension 2: Business/establishment survey&#39;, 
              SPI.D3.AKI=&#39;Dimension 3: Availability of Key Indicators (AKI)&#39;, 
              SPI.D3.POV=&#39;Dimension 3: Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)&#39;,
-             SPI.D3.SH.STA.STNT.ZS=&#39;Dimension 3: Prevalence of stunting, height for age (% of children under 5)&#39;,
              SPI.D3.FIES=&#39;Dimension 3: Food Insecurity Experience Scale&#39;,
              SPI.D3.CHLD.MORT=&#39;Dimension 3: Mortality rate, under-5 (per 1,000 live births)&#39;, 
              SPI.D3.SE.LPV.PRIM.BMP=&#39;Dimension 3: Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold&#39;,
@@ -9175,10 +8865,7 @@ var.labels=c(iso3c=&#39;3 digit country code&#39;,
              SPI.D3.SI.SPR.PC40.ZG=&#39;Dimension 3: Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)&#39;,
              SPI.D3.ER.H2O.FWST.ZS=&#39;Dimension 3: Level of water stress: freshwater withdrawal as a proportion of available freshwater resources&#39;,
              SPI.D3.EG.FEC.RNEW.ZS=&#39;Dimension 3: Renewable energy consumption (% of total final energy consumption)&#39;,
-             #SPI.D3.EN.ATM.GHGT.KT.CE=&#39;Dimension 3: Total greenhouse gas emissions (kt of CO2 equivalent)&#39;,
-             #SPI.D3.ER.PTD.TOTL.ZS=&#39;Dimension 3: Terrestrial and marine protected areas (% of total territorial area)&#39;,
              SPI.D3.NE.CON.PRVT.CN=&#39;Dimension 3: Households and NPISHs Final consumption expenditure (current LCU)&#39;,
-             SPI.D3.NY.GNP.MKTP.CN=&#39;Dimension 3: GNI (current LCU)&#39;,
              SPI.D3.QUART.GDP=&#39;Dimension 3: Quarterly GDP&#39;,
              SPI.D3.DT.TDS.DPPF.XP.ZS=&#39;Dimension 3: Debt service (PPG and IMF only, % of exports of goods, services and primary income)&#39;, 
              SPI.D4.DPO=&#39;Dimension 4: Dissemination Practices &amp; Openness (DPO)&#39;, 
@@ -9192,8 +8879,9 @@ var.labels=c(iso3c=&#39;3 digit country code&#39;,
              SPI.OVRL.SCR=&#39;SPI Overall Score&#39;)
 
 
+
 #label data
-#label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
 
 #Order SPI data
 SPI &lt;- SPI %&gt;%
@@ -9687,27 +9375,6 @@ Frequency (0.5 points total): 0.5 Point. 3 or more values available within past 
 </tr>
 <tr>
 <td style="text-align:left;max-width: 20em; ">
-SPI.D3.SH.STA.STNT.ZS
-</td>
-<td style="text-align:left;max-width: 20em; ">
-Prevalence of stunting, height for age (% of children under 5)
-</td>
-<td style="text-align:left;max-width: 20em; ">
-<a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators" class="uri">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>
-</td>
-<td style="text-align:left;max-width: 20em; ">
-WDI database
-</td>
-<td style="text-align:left;max-width: 20em; ">
-<p>Scoring:</p>
-1 Point. 3 or more values available within past 5 years<br />
-0.6 Points. 2 values available within past 5 years;<br />
-0.3 Points. 1 values available within past 5 years;<br />
-0 Points. None within past 5 years
-</td>
-</tr>
-<tr>
-<td style="text-align:left;max-width: 20em; ">
 SPI.D3.FIES
 </td>
 <td style="text-align:left;max-width: 20em; ">
@@ -9936,70 +9603,10 @@ WDI database
 </tr>
 <tr>
 <td style="text-align:left;max-width: 20em; ">
-SPI.D3.EN.ATM.GHGT.KT.CE
-</td>
-<td style="text-align:left;max-width: 20em; ">
-Total greenhouse gas emissions (kt of CO2 equivalent)
-</td>
-<td style="text-align:left;max-width: 20em; ">
-<a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators" class="uri">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>
-</td>
-<td style="text-align:left;max-width: 20em; ">
-WDI database
-</td>
-<td style="text-align:left;max-width: 20em; ">
-<p>Scoring:</p>
-1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
-0.3 Points. 1 values available within past 5 years;<br />
-0 Points. None within past 5 years
-</td>
-</tr>
-<tr>
-<td style="text-align:left;max-width: 20em; ">
-SPI.D3.ER.PTD.TOTL.ZS
-</td>
-<td style="text-align:left;max-width: 20em; ">
-Terrestrial and marine protected areas (% of total territorial area)
-</td>
-<td style="text-align:left;max-width: 20em; ">
-<a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators" class="uri">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>
-</td>
-<td style="text-align:left;max-width: 20em; ">
-WDI database
-</td>
-<td style="text-align:left;max-width: 20em; ">
-<p>Scoring:</p>
-1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
-0.3 Points. 1 values available within past 5 years;<br />
-0 Points. None within past 5 years
-</td>
-</tr>
-<tr>
-<td style="text-align:left;max-width: 20em; ">
 SPI.D3.NE.CON.PRVT.CN
 </td>
 <td style="text-align:left;max-width: 20em; ">
 Households and NPISHs Final consumption expenditure (current LCU)
-</td>
-<td style="text-align:left;max-width: 20em; ">
-<a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators" class="uri">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>
-</td>
-<td style="text-align:left;max-width: 20em; ">
-WDI database
-</td>
-<td style="text-align:left;max-width: 20em; ">
-<p>Scoring:</p>
-1 Point. 3 or more values available within past 5 years 0.6 Points. 2 values available within past 5 years;<br />
-0.3 Points. 1 values available within past 5 years;<br />
-0 Points. None within past 5 years
-</td>
-</tr>
-<tr>
-<td style="text-align:left;max-width: 20em; ">
-SPI.D3.NY.GNP.MKTP.CN
-</td>
-<td style="text-align:left;max-width: 20em; ">
-GNI (current LCU)
 </td>
 <td style="text-align:left;max-width: 20em; ">
 <a href="http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators" class="uri">http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators</a>

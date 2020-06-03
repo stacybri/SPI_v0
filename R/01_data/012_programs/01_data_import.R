@@ -1024,9 +1024,9 @@ GDPSXtoZW <- as.data.frame(dataset)
 
 
 #Merge Files to one
-D3.17.QUART.GDP <- bind_rows(GDPAFtoCN, GDPKMtoGW, GDPGYtoFM, GDPMDtoSG, GDPSXtoZW)
-write_excel_csv(D3.17.QUART.GDP,
-                path = paste(csv_dir, "D3.17.QUART.GDP.csv", sep="/" ))
+D3.14.QUART.GDP <- bind_rows(GDPAFtoCN, GDPKMtoGW, GDPGYtoFM, GDPMDtoSG, GDPSXtoZW)
+write_excel_csv(D3.14.QUART.GDP,
+                path = paste(csv_dir, "D3.14.QUART.GDP.csv", sep="/" ))
 
 
 
