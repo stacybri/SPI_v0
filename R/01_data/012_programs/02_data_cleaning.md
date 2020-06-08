@@ -1,7 +1,7 @@
 ---
 title: "SPI Data Documentation"
 author: "Brian Stacy"
-date: "2020-06-05"
+date: "2020-06-08"
 output: 
   html_document: 
     fig_height: 6
@@ -2802,7 +2802,7 @@ Scoring
 
 ```r
 #read in file from rawdata folder
-D3.14.QUART.GDP <- read_csv(file = paste(csv_dir, "D3.17.QUART.GDP.csv", sep="/" ))
+D3.14.QUART.GDP <- read_csv(file = paste(csv_dir, "D3.14.QUART.GDP.csv", sep="/" ))
 
 #clean data and produce indicator for each year
 #Now loop from 2016 and 2019, keeping just data inside last 5 years.
@@ -3734,7 +3734,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.QUART.GDP </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
@@ -3747,7 +3747,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.QUART.GDP </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.44 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
@@ -3760,8 +3760,8 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 51.51 </td>
-   <td style="text-align:right;"> 20.71 </td>
+   <td style="text-align:right;"> 51.54 </td>
+   <td style="text-align:right;"> 20.72 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 38.00 </td>
    <td style="text-align:right;"> 54.33 </td>
@@ -3773,8 +3773,8 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 50.71 </td>
-   <td style="text-align:right;"> 20.92 </td>
+   <td style="text-align:right;"> 50.74 </td>
+   <td style="text-align:right;"> 20.93 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 37.00 </td>
    <td style="text-align:right;"> 53.67 </td>
@@ -3786,8 +3786,8 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 49.97 </td>
-   <td style="text-align:right;"> 21.19 </td>
+   <td style="text-align:right;"> 50.00 </td>
+   <td style="text-align:right;"> 21.21 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 34.33 </td>
    <td style="text-align:right;"> 52.33 </td>
@@ -3799,8 +3799,8 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 45.90 </td>
-   <td style="text-align:right;"> 21.14 </td>
+   <td style="text-align:right;"> 45.94 </td>
+   <td style="text-align:right;"> 21.16 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 29.67 </td>
    <td style="text-align:right;"> 47.33 </td>
@@ -4636,14 +4636,15 @@ var.labels=c(iso3c='3 digit country code',
              SPI.D4.7.GEOS='Dimension 4: Geospatial data available on relevant agency website', 
              SPI.OVRL.SCR='SPI Overall Score')
 
-
-
-#label data
-label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
-
 #Order SPI data
 SPI <- SPI %>%
   select(country, iso3c, date, names(var.labels), everything())
+
+
+#label data
+SPI_unlabelled <- SPI #create unlabelled version to save
+label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+
 
 #turn variable labels into data frame 
 var.labels.df<-data.frame(var.labels) %>% 
@@ -5183,5 +5184,8 @@ This simple framework helps to identify four coherent dimensions for a measure o
 ```r
 save(SPI, SPI_wide, metadata,
      file = paste(csv_output, "SPI.Rdata", sep="/" ))
+
+save(SPI_unlabelled, SPI_wide, metadata,
+     file = paste(csv_output, "SPI_unlabelled.Rdata", sep="/" ))
 ```
 

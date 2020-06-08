@@ -1693,7 +1693,7 @@ Scoring
 ```{r AKI_3.17}
 
 #read in file from rawdata folder
-D3.14.QUART.GDP <- read_csv(file = paste(csv_dir, "D3.17.QUART.GDP.csv", sep="/" ))
+D3.14.QUART.GDP <- read_csv(file = paste(csv_dir, "D3.14.QUART.GDP.csv", sep="/" ))
 
 #clean data and produce indicator for each year
 #Now loop from 2016 and 2019, keeping just data inside last 5 years.
@@ -2242,14 +2242,15 @@ var.labels=c(iso3c='3 digit country code',
              SPI.D4.7.GEOS='Dimension 4: Geospatial data available on relevant agency website', 
              SPI.OVRL.SCR='SPI Overall Score')
 
-
-
-#label data
-label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
-
 #Order SPI data
 SPI <- SPI %>%
   select(country, iso3c, date, names(var.labels), everything())
+
+
+#label data
+SPI_unlabelled <- SPI #create unlabelled version to save
+label(SPI) = as.list(var.labels[match(names(SPI), names(var.labels))])
+
 
 #turn variable labels into data frame 
 var.labels.df<-data.frame(var.labels) %>% 
@@ -2303,5 +2304,7 @@ kable(metadata, caption="Metadata for Statistical Performance Index Indicators" 
 save(SPI, SPI_wide, metadata,
      file = paste(csv_output, "SPI.Rdata", sep="/" ))
 
+save(SPI_unlabelled, SPI_wide, metadata,
+     file = paste(csv_output, "SPI_unlabelled.Rdata", sep="/" ))
 ```
 
