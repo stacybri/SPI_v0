@@ -11,7 +11,7 @@
 
 <meta name="author" content="Brian Stacy" />
 
-<meta name="date" content="2020-06-03" />
+<meta name="date" content="2020-06-05" />
 
 <title>SPI Data Documentation</title>
 
@@ -374,7 +374,7 @@ summary {
 
 <h1 class="title toc-ignore">SPI Data Documentation</h1>
 <h4 class="author">Brian Stacy</h4>
-<h4 class="date">2020-06-03</h4>
+<h4 class="date">2020-06-05</h4>
 
 </div>
 
@@ -8904,9 +8904,12 @@ write_excel_csv(SPI_labelled,
                 path = paste(csv_output, &quot;SPI_scores_long_labelled.csv&quot;, sep=&quot;/&quot; ))
 
 # #save to stata with compatible names
-# SPI  %&gt;%
-#   janitor::clean_names() %&gt;%
-#   write_dta(path = paste(csv_output, &quot;SPI_scores.dta&quot;, sep=&quot;/&quot; ))
+ SPI_stata &lt;- SPI  %&gt;%
+   filter((lending %in% c(&#39;IDA&#39;, &#39;IBRD&#39;, &#39;Blend&#39;)) | (iso3c==&#39;PSE&#39;)) %&gt;% #keep just the borrowing countries &amp; West Bank &amp; Gaza
+   select(country, iso3c,date, contains(&quot;SPI.D&quot;), contains(&quot;SPI.O&quot;), region, regionID, income, incomeID, lending, lendingID ) %&gt;%
+   janitor::clean_names() 
+
+write_dta(SPI_stata, path = paste(csv_output, &quot;SPI_scores.dta&quot;, sep=&quot;/&quot; ), version=15)
 
 
 write_excel_csv(SPI_wide,

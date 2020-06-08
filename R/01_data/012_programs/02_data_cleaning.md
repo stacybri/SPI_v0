@@ -1,7 +1,7 @@
 ---
 title: "SPI Data Documentation"
 author: "Brian Stacy"
-date: "2020-06-03"
+date: "2020-06-05"
 output: 
   html_document: 
     fig_height: 6
@@ -4662,9 +4662,12 @@ write_excel_csv(SPI_labelled,
                 path = paste(csv_output, "SPI_scores_long_labelled.csv", sep="/" ))
 
 # #save to stata with compatible names
-# SPI  %>%
-#   janitor::clean_names() %>%
-#   write_dta(path = paste(csv_output, "SPI_scores.dta", sep="/" ))
+ SPI_stata <- SPI  %>%
+   filter((lending %in% c('IDA', 'IBRD', 'Blend')) | (iso3c=='PSE')) %>% #keep just the borrowing countries & West Bank & Gaza
+   select(country, iso3c,date, contains("SPI.D"), contains("SPI.O"), region, regionID, income, incomeID, lending, lendingID ) %>%
+   janitor::clean_names() 
+
+write_dta(SPI_stata, path = paste(csv_output, "SPI_scores.dta", sep="/" ), version=15)
 
 
 write_excel_csv(SPI_wide,
