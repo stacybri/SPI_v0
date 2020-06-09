@@ -21,8 +21,8 @@ library(gt)
 library(xlsx)
 
 # Directory for SPI csv files that were previously created
-csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/013_outputs"
-out_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/02_analysis/023_outputs"
+csv_dir <- "./R/01_data/013_outputs"
+out_dir <- "./R/02_analysis/023_outputs"
 
 ```
 

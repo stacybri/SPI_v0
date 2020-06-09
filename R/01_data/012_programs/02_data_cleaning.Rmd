@@ -24,11 +24,15 @@ library(lubridate)
 library(httr)
 library(rsdmx)
 
+# IMPORTANT: PLEASE READ
+# All paths are specified relative to the project directory
+# Please make sure you select "Project directory" as your knit directory
+
 # Directory for SPI csv files that were previously created
-csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
+csv_dir <- "./R/01_data/011_rawdata"
 
 # Directory for SPI csv files that are saved
-csv_output <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/013_outputs"
+csv_output <- "./R/01_data/013_outputs"
 
 ```
 
