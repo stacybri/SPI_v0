@@ -1,0 +1,194 @@
+Series,Indicator Name,Source,Source Organization,Source Note
+SPI.D1.1.SNAU,System of national accounts in use,http://data.worldbank.org/products/wdi,World Development Indicators Primary Data Documentation (WDI/PDD),SNA2008/ESA 2010
+SPI.D1.2.NABY,National Accounts base year,http://data.worldbank.org/products/wdi,World Development Indicators Primary Data Documentation (WDI/PDD),Annual chain linking
+SPI.D1.3.CNIN,Classification of national industry,"https://unstats.un.org/UNSD/mbs/app/DataSearchTable.aspx
+  
+ http://dsbb.imf.org/Default.aspx","- United Nations Monthly Bulletin of Statistics Database, Index of Industrial Production
+ - IMF: Dissemination Standards Bulletin Board (DSBB)","Latest version is adopted (ISIC Rev 4, NACE Rev 2 or a compatible classification)"
+SPI.D1.4.CPIBY,CPI base year,"http://www.elibrary.imf.org/browse?freeFilter=false&pageSize=10&sort=datedescending&t_7=urn%3ASeries%2F041
+  
+ http://dsbb.imf.org/Default.aspx","- IMF: International Financial Statistics (IFS) / Country notes
+ - IMF: Dissemination Standards Bulletin Board (DSBB)",Annual chain linking. Weights used for CPI calculation sourced with Household Budget/Expenditure/Consumption Surveys
+SPI.D1.5.HOUS,Classification of household consumption,http://dsbb.imf.org/Default.aspx,IMF: Dissemination Standards Bulletin Board (DSBB),Follow Classification of Individual Consumption by Purpose (COICOP)
+SPI.D1.6.EMPL,Classification of status of employment,http://dsbb.imf.org/Default.aspx,IMF: Dissemination Standards Bulletin Board (DSBB),"Follow International Labour Organization, International Classification of Status in Employment (ICSE-93) / 2012 North American Industry Classification System (NAICS)"
+SPI.D1.7.CGOV,Central government accounting status,"http://www.elibrary.imf.org/browse?freeFilter=false&pageSize=10&sort=datedescending&t_7=urn%3ASeries%2F043
+  
+ http://www.elibrary.imf.org/browse?freeFilter=false&pageSize=10&sort=datedescending&t_7=urn%3ASeries%2F043",IMF: Government Finance Statistics (GFS) Yearbook/Guide to country tables / Table B: Basis of Recording for Latest Year Reported,Consolidated Central Government accounting follows noncash recording basis
+SPI.D1.8.FINA,Compilation of government finance statistics,http://dsbb.imf.org/Default.aspx,- IMF: Dissemination Standards Bulletin Board (DSBB),Follow the latest Government Finance Statistical Manual (2014)
+SPI.D1.9.MONY,Compilation of monetary and financial statistics,http://www.elibrary.imf.org/browse?freeFilter=false&pageSize=10&sort=datedescending&t_7=urn%3ASeries%2F043,IMF: International Financial Statistics (IFS) / Country notes,Follow the latest Monetary and Finance Statistics Manual (2000) (MFSM) or Monetary and Finance Statistics: Compilation Guide (2008/2016)
+SPI.D1.10.IDDS,SDDS/e-GDDS subscription,http://dsbb.imf.org/Pages/GDDS/Home.aspx,IMF: Dissemination Standards Bulletin Board (DSBB),Subscribing to IMF SDDS+/SDDS standards
+SPI.D1.11.CRVS,CRVS,http://data.worldbank.org/products/wdi,WDI book: Primary Data Documentation,Vital registration complete
+SPI.D1.12.GSBP,Business process,"https://statswiki.unece.org/display/GSBPM/United+Nations+Industrial+Development+Organization+(UNIDO):+use+of+GSBPM
+  
+ https://statswiki.unece.org/display/GSBPM/Case+Studies+of+Metadata+use+with+GSBPM+and+GSIM","- United Nations Industrial Development Organization (UNIDO)
+ - United Nations Economic Commission for Europe (UNECE)",GSBPM is in use
+SPI.D2.1.POPU,Population & Housing census,https://unstats.un.org/unsd/demographic/sources/census/censusdates.htm#ASIA,United Nations Statistical Division (UNSD): 2020 World Population and Housing Census Programme,Population census done within last 10 years
+SPI.D2.2.AGRI,Agriculture census,http://www.fao.org/world-census-agriculture/countries/en/,Food and Agriculture Organisation (FAO): World Programme for the Census of Agriculture,a) Agriculture census done within last 10 years
+SPI.D2.3.BIZZ,Business/establishment census,https://unstats.un.org/home/nso_sites/,NSO websites,a) Business/ establishment census done within last 10 years
+SPI.D2.4.HOUS,Household Survey on income/ consumption/ expenditure/ budget/ Integrated Survey,"http://microdata.worldbank.org/index.php/home
+  
+ http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx
+  
+ http://catalog.ihsn.org/index.php/catalog
+  
+ http://datanavigator.ihsn.org/
+  
+ https://surveyscorecardqa.worldbank.org/index.php/","- Microdata library / World Bank, Development Research Group
+ - PovcalNet
+ - International Household Survey Network Catalog (IHSN).
+ - IHSN Gender Data Navigator",a) 3 or more household surveys done within past 10 years;
+SPI.D2.5.AGRI,Agriculture survey,"http://microdata.worldbank.org/index.php/home
+  
+ http://catalog.ihsn.org/index.php/catalog
+  
+ http://datanavigator.ihsn.org/
+  
+ http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx","- Microdata library / World Bank, Development Research Group
+ - PovcalNet
+ - International Household Survey Network Catalog (IHSN) 
+ - IHSN Gender Data Navigator",a) 3 or more agriculture surveys done within past 10 years;
+SPI.D2.6.LABR,Labor Force Survey,"http://www.ilo.org/surveydata/index.php/catalog/central#_r=&collection=&country=94,140&dtype=&from=2006&page=1&ps=&sid=&sk=&sort_by=nation&sort_order=&to=2016&topic=&view=s&vk=
+  
+ http://www.ilo.org/dyn/lfsurvey/lfsurvey.list?p_lang=en
+  
+ http://microdata.worldbank.org/index.php/home
+  
+ http://catalog.ihsn.org/index.php/catalog
+  
+ http://datanavigator.ihsn.org/
+  
+ http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx",International Labour Organisation (ILO) Microdata Repository,a) 3 or more labor force surveys done within past 10 years;
+SPI.D2.7.HLTH,Health/Demographic survey,"https://dhsprogram.com/What-We-Do/survey-search.cfm?pgType=main&SrvyTp=type
+ http://mics.unicef.org/surveys","- Demographic and Health Surveys (DHS)
+ - Multiple Indicator Cluster Survey (MICS)",a) 3 or more health surveys done within past 10 years
+SPI.D2.8.BIZZ,Business/establishment survey,"http://microdata.worldbank.org/index.php/home
+  
+ http://catalog.ihsn.org/index.php/catalog
+ http://datanavigator.ihsn.org/ 
+ http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx","- Microdata library / World Bank, Development Research Group
+ - PovcalNet
+ - International Household Survey Network Catalog (IHSN) 
+ - IHSN Gender Data Navigator",a) 3 or more business/establishment surveys done within past 10 years
+SPI.D3.POV,Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population),"Povcalnet, https://development-data-hub-s3-public.s3.amazonaws.com/ddhfiles/506801/povcalnet_comparability.csv",WDI database,"Scoring is as follows:
+Quality (0.5 points total):
+0.5 Point. Comparable data lasting at least two years within past 5 years	
+0 Points. No comparable data within past 5 years
+
+Frequency (0.5 points total):
+0.5 Point. 3 or more values available within past 5 years	
+0.3 Points. 2 values available within past 5 years; 	
+0.15 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.FIES,Food Insecurity Experience Scale,"FAO, http://www.fao.org/faostat/en/#data/FS",FAO,0.5 Point. Comparable data lasting at least two years within past 5 years
+SPI.D3.CHLD.MORT,"Mortality rate, under-5 (per 1,000 live births)",https://childmortality.org/data,Inter-Agency Group,"Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
+
+Quality (0.5 points total):
+0.5 Point. Vital Registration data available within past 5 years	
+0.25 Points. Survey Data availabe, but no Vital Registration data within past 5 years; 	
+0 Points. None within past 5 years
+
+Frequency (0.5 points total):
+0.5 Point. 3 or more values available within past 5 years	
+0.3 Points. 2 values available within past 5 years; 	
+0.15 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.SE.LPV.PRIM.BMP,Pupils below minimum reading proficiency at end of primary (%). Low GAML threshold,http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.MMRT,Maternal Mortality,"WHO, Inter-Agency Group, https://www.who.int/reproductivehealth/publications/maternal-mortality-2000-2017/en/.","WHO, Inter-agency group","Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
+
+Quality (0.5 points total):
+0.5 Point. Vital Registration data available within past 5 years	
+0.25 Points. Survey Data or Census Data availabe, but no Vital Registration data within past 5 years; 	
+0 Points. None within past 5 years
+
+Frequency (0.5 points total):
+0.5 Point. 3 or more values available within past 5 years	
+0.3 Points. 2 values available within past 5 years; 	
+0.15 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years
+1 Point. 3 or more values available within past 5 years        
+0.6 Points. 2 values available within past 5 years;         
+0.3 Points. 1 values available within past 5 years;         
+0 Points. None within past 5 years"
+SPI.D3.SH.H2O.SMDW.ZS,People using safely managed drinking water services (% of population),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.ELEC,Access to electricity (% of population),"Data for access to electricity are collected among different sources: mostly data from nationally representative household surveys (including national censuses) were used. Survey sources include Demographic and Health Surveys (DHS) and Living Standards Measurement Surveys (LSMS), Multi-Indicator Cluster Surveys (MICS), the World Health Survey (WHS), other nationally developed and implemented surveys, and various government agencies (for example, ministries of energy and utilities)",World Bank,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.SL.UEM.TOTL.NE.ZS,"Unemployment, total (% of total labor force) (national estimate)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.NV.IND.MANF.ZS,"Manufacturing, value added (% of GDP)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.SI.SPR.PC40.ZG,"Annualized average growth rate in per capita real survey mean consumption or income, bottom 40% of population (%)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.ER.H2O.FWST.ZS,Level of water stress: freshwater withdrawal as a proportion of available freshwater resources,http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.EG.FEC.RNEW.ZS,Renewable energy consumption (% of total final energy consumption),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.NE.CON.PRVT.CN,Households and NPISHs Final consumption expenditure (current LCU),http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.QUART.GDP,Quarterly GDP,"IMF, https://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B",IMF,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D3.DT.TDS.DPPF.XP.ZS,"Debt service (PPG and IMF only, % of exports of goods, services and primary income)",http://databank.worldbank.org/data/reports.aspx?source=world-development-indicators,WDI database,"Scoring:
+
+1 Point. 3 or more values available within past 5 years	
+0.6 Points. 2 values available within past 5 years; 	
+0.3 Points. 1 values available within past 5 years; 	
+0 Points. None within past 5 years"
+SPI.D4.1.CALD,NSO has an Advance Release Calendar and it is published,https://unstats.un.org/home/nso_sites/,NSO websites,Yes
+SPI.D4.2.NADA,NSO has a listing of surveys and microdata sets (or NADA),"https://unstats.un.org/home/nso_sites/ 
+  
+ http://www.adp.ihsn.org/country_activities",NSO websites / Accelerated Data Program of IHSN,Yes
+SPI.D4.3.PORT,NSO has a data portal,https://unstats.un.org/home/nso_sites/,NSO websites,Yes
+SPI.D4.4.TIME,Timeseries indicators are available for download in reusable format for free,https://unstats.un.org/home/nso_sites/,NSO websites,Yes
+SPI.D4.5.META,"Metadata is available providing definition, methodology, standards or classifications for existing data series",https://unstats.un.org/home/nso_sites/,NSO websites,Yes
+SPI.D4.6.USER,NSO has conducted a user satisfaction survey,https://unstats.un.org/home/nso_sites/,NSO websites,Yes
+SPI.D4.7.GEOS,Geospatial data available on relevant agency website,https://unstats.un.org/home/nso_sites/,NSO websites,Yes
+SPI.D1.MSC,"SPI Dimension 1: Methodology, Standards & Classifications (MSC)",Average of Dimension 1 Indicators,World Bank,"Internationally accepted and recommended methodology, classifications and standards provide the basis for national statistical offices (NSOs) on data integration, facilitating data exchange and providing the foundation for the preparation of relevant statistical indicators. This dimension aims to assess whether national statistical systems have the necessary capacity to adopt and comply with international statistical standards. "
+SPI.D2.CS,SPI Dimension 2: Censuses and Surveys (CS),Average of Dimension 2 Indicators,World Bank,"Data collection is the key responsibility of national statistical systems where information on a nation’s population, economy, health and other aspects are recorded in an accurate and timely manner. Through censuses and surveys, sometimes together with administrative systems, the NSSs collect data and generate aggregate indicators based on the results. This dimension aims to check the availability and frequency of key censuses and inter-census surveys. The required frequencies of censuses and surveys are established based on international recommendations. In some cases, criteria are adjusted to avoid unnecessarily punishing the least developed countries where there is huge disparities among country practices. For example, with labor force survey and establishment survey, the SPI loosened the criteria compared to the international recommendation. 
+This dimension covers 8 indicators on population and housing census, agricultural census, business census, income and expenditure surveys and other surveys on agriculture, health, labor force and establishments.
+"
+SPI.D3.AKI,SPI Dimension 3: Availability of Key Indicators (AKI),Average of Dimension 3 Indicators,World Bank,"Transforming source data into statistical outputs (indicators) and releasing them on a timely basis shows that the statistical systems are utilizing their capacity in data production. Reporting relevant data to specialized international agencies on time and getting them published in their respective databases demonstrates that statistical systems meet required quality standards and timeliness. Therefore, this dimension evaluates national statistical systems by reviewing the availability of country data for the most recent year in international databases. By looking at the data availability in international databases, it also makes the assessment cost-effective."
+SPI.D4.DPO,SPI Dimension 4: Dissemination Practices & Openness (DPO),Average of Dimension 4 Indicators,World Bank,"Data users are seen as an integral part of the national statistical system, which is crucial to the improvement of collection, processing and dissemination of quality data. Therefore, dissemination practices of statistical systems reflect an important part of the overall statistical capacity. This dimension is built on the principle that quality statistics should be delivered to the public in a timely, easily accessible manner for free. It includes 10 indicators under two sub-sections: Dissemination capacity of NSO and Openness of Data."
+SPI.OVRL.SCR,Statistical Performance Index: Overall Score,"Average of SPI Dimension 1, 2, 3, and 4",World Bank,"The concept adopted here views the statistical capacity of an NSS in terms of its range of products, and the processes it uses to produce and disseminate them. The production process for statistical outputs has certain similarities to the traditional production model from economics, and this analogy might be useful for identifying the salient dimensions of a statistical capacity measure. The production process begins with a technology that is used in generating the statistical products, and the level of this technology is clearly a relevant component of statistical capacity. The resulting statistical outputs might be divided into two general categories. First are the intermediate products, which have direct use for specialists but require additional processing to create products suitable for general use. For example, a census can be helpful for policy analysts but must be processed to obtain useful statistics. Second are the final products, which are available in a form that can be understood by the public. The key macro statistics of a country would naturally be viewed as final products. Even after the products have been created, their existence does not imply that potential users will actually have access to them. Statistical products may be available to only a few users, or available to all. The final dimension then covers the extent to which statistical products are disseminated.
+This simple framework helps to identify four coherent dimensions for a measure of statistical capacity, namely: (i) Methodology, Standards and Classifications (MSC), which provides information on the technology being used by the NSS; (ii) Census and Surveys (CS), which describes the intermediate products of the NSS; (iii) Availability of Key Indicators (AKI), which focuses on key final products needed for policy; and (iv) Dissemination Practices and Openness (DPO), which evaluates the extent to which products are publicly disseminated. It is easy to see that each of these dimensions is centrally related to the statistical capacity of an NSS. 
+"
