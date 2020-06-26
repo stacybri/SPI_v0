@@ -1,5 +1,5 @@
 ---
-title: "Statistical Performance Indicators - Analysis"
+title: "Statistical Performance Indicators - Special Requests for WDR"
 author: "Brian Stacy"
 date: "`r Sys.Date()`"
 output:
@@ -21,12 +21,136 @@ library(gt)
 library(xlsx)
 
 # Directory for SPI csv files that were previously created
-csv_dir <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/04_WDR/043_outputs"
+csv_inputs <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
+csv_dir <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/04_WDR/013_outputs"
 out_dir <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/04_WDR/043_outputs"
+
+country_metadata <- wbstats::wbcountries() %>%
+  filter(region!='Aggregates')
 
 ```
 
-# Introduction
+# Special Requests for WDR
+
+This file will clean the raw SPI data and form a set of indicators for use in the WDR.  
+
+Hi Brian, 
+
+Thanks so much for sending this my way – super super interesting materials. I am looking forward to seeing how the discussion with John Pullinger will evolve, and I’m sure I will be interested in citing some of the additional indicators. 
+In the meantime, I have updated the excel document as discussed. It is quite a long list of requests, please don’t hesitate to let me know if this is too much of a burden on your time. I have put indicator breakdowns as income level (LIC, LMC, UMC, HIC) and WGB regions, though we probably won’t be citing regions very often so if it’s a lot of extra work, feel free to disregard that. On the issue of weighting, do you recommend population weighting or not? 
+
+On the issue of child/infant mortality and maternal mortality, could you share with me the information as % of countries with vital reg source, survey source, no source as well as by each of the frequency intervals, broken down by income level? Again, please point out if too much work! 
+
+On povcalnet, I am wondering what kind of information you have on comparability of the data over time? 
+
+Again, thanks so much, Brian, for all your help with this, and please do let me know if this is asking too much!  
+All the best,
+Philip
+
+
+## Table
+
+| Section | Indicator | Source | SPI Inidicator | Proposed indicator |
+|-|-|-|-|-|
+| Coverage | coverage/availability score | ODIN | Could use SPI main score | Scores for dimensions 2 and 3 (separately), by income level and region |
+| Coverage | Poverty since 2015 | Povcalnet | Also in SPI, but Povcalnet is   our source | See email |
+| Coverage | Monthly or quarterly industrial production indices by income group | SCI | Quarterly GDP is included in SPI | % of countries with 3 or more values of quarterly GDP by incomelevel and   region; % of countries with no values in past 5 years by income level and   region |
+| Coverage | Half of agricultural data needs met in SSA | GSARS | We have data on all agricultural   census or agriculture surveys in past 10 years | will drop this from text |
+| Coverage | Gender statistics availability | UN Women | Gender indicator is Maternal   Mortality, but have been working to build database on whether breakdowns by   gender are available for several of first 10 SDGs | see email  |
+| Coverage | PH Census in last 10 years | SCI | SPI as well, which we can   customize | % of countries with PH census in last ten years by income level and   region |
+| Coverage | Ag Census in last 10 years | SCI | SPI as well, which we can   customize | same as PH census indicator |
+| Coverage | Complete vital stats coverage | SCI  | SPI as well, which we can   customize | % of complete CRVS by income and region |
+| Coverage | Number of people uncounted | UN Women | We do not have this | will use original source |
+| Coverage | Geospatial: addresses | Global Open Data Index | We do not have this | will use original source |
+| Coverage | Geospatial: maps | Global Open Data Index | We do not have this | will use original source |
+| Coverage | Geospatial: national maps | Global Open Data Index | We do not have this | will use original source |
+| Coverage | GDP per capita | SCI | We have actually dropped GDP per   capita, because we decided to include Quarterly GDP | use quarterly GDP, see above |
+| Coverage | Child mortality | SCI | SPI has good child mortality   data | let's use, see email |
+| Coverage | Immunization rates | SCI | Do not have | will drop this from text |
+| Coverage | Disaggregation at admin1 | ODIN | Do not have | will use original source |
+| Coverage | Disaggregation at admin2 | ODIN | Do not have | will use original source |
+| Openness & Interoperability | Data Openness Score | ODIN | We have a subscore for data   dissemination practices and openness | Dimension 4 score by income level and region |
+| Openness & Interoperability | Open terms of use agreement  | ODIN | Do not have | will be dropped or used from original source |
+| Openness & Interoperability | Available in machine-readable format  | ODIN | Do not have | will be dropped or used from original source |
+| Capacity | SCI score | SCI | We have this | (preliminary) SPI score by income level |
+| Governance | NSO independence | Ibrahim Foundation | Do not have | will use original source |
+| Additional   Indicators |  |  |  |  |
+|  |  |  |  | 4.1, 4.2, 4.3, 4.5, 4.6, 4.7 by income level and region |
+|  |  |  |  | Manufacturing, value added (% of GDP), % of countries without any in past   5 years by income and region |
+|  |  |  |  | GNI current LCU, % of countries without any in past 5 years by income and   region |
+
+
+
+
+
+
+```{r load1, include=FALSE}
+
+#import data
+load(paste(out_dir, "SPI_unlabelled.RData", sep="/" ))
+
+SPI <- SPI_unlabelled %>%
+  filter((lending %in% c('IDA', 'IBRD', 'Blend')) | (iso3c=='PSE')) #keep just the borrowing countries & West Bank & Gaza
+
+```
+
+# % of countries with 3 or more values of quarterly GDP by incomelevel and region; % of countries with no values in past 5 years by income level and region
+
+
+Quarterly GDP numbers were pulled from the IMF website.
+
+After GDP by expenditure, quarterly GDP is probably the most important development to be made in a system of National Accounts, before the development of full sectoral accounts. IMF IFS has quarterly GDP from various sources, including governments and international agencies at https://data.imf.org/?sk=4C514D48-B6BA-49ED-8AB9-52B0C1A0179B
+
+
+
+
+```{r AKI_3.17}
+
+#read in file from rawdata folder
+D3.14.QUART.GDP <- read_csv(file = paste(csv_inputs, "D3.14.QUART.GDP.csv", sep="/" ))
+
+#clean data and produce indicator for each year
+#Now loop from 2016 and 2019, keeping just data inside last 5 years.
+reference_year <-2019
+
+QGDP <- D3.14.QUART.GDP %>%
+  mutate(date=as.numeric(str_sub(TIME_PERIOD,1,4))) %>%
+  mutate(iso2c=REF_AREA) %>%
+  mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% 
+  mutate(SPI.D3.QUART.GDP=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+  group_by(iso2c, date) %>%
+  summarise(SPI.D3.QUART.GDP=max(SPI.D3.QUART.GDP, na.rm=T)) %>% 
+  group_by(iso2c) %>%
+  summarise(SPI.D3.QUART.GDP=sum(SPI.D3.QUART.GDP, na.rm=T)) %>% 
+  mutate(SPI.D3.QUART.GDP=case_when(
+    SPI.D3.QUART.GDP>=3 ~ '3 or More values of Quarterly GDP in Past 5 Years',
+    #SPI.D3.QUART.GDP==2 ~ 0.6,
+    #SPI.D3.QUART.GDP==1 ~ 0.3,
+    SPI.D3.QUART.GDP==0 ~ 'No values of Quarterly GDP in Past 5 Years', 
+    TRUE ~ '1-2 Values in Past 5 Years'
+  )) %>%
+  mutate(date=reference_year) %>%
+  select( iso2c, date, starts_with('SPI.D3.QUART.GDP')) %>%
+  right_join(country_metadata) %>%
+  mutate_at(vars(starts_with('SPI.D3.')), ~if_else(is.na(.),'No values of Quarterly GDP in Past 5 Years',.)) 
+
+
+QGDP %>%
+  ungroup() %>%
+  mutate(total=n()) %>%
+  group_by(region, SPI.D3.QUART.GDP) %>%
+  summarise(pct=n()/total,
+            N=n()) %>%
+  kable(caption='% of Countries by Number of Quarterly GDP Values by Region') %>%
+  kable_styling()
+  
+
+
+
+```
+
+
+# Overall SPI scores by Region and Income Level
 
 This file produces a number of summary statistics for the SPI dimensions.  Summary statistics are presented both population weighted and unweighted.  We will produce a table of summary statistics with mean, median, standard deviation, etc, and also a table of means by region and income level.
 
