@@ -1,5 +1,5 @@
 ---
-title: "SPI Data Documentation"
+title: "SPI Documentation for WDR Indicators"
 author: "Brian Stacy"
 date: "`r Sys.Date()`"
 output: 
@@ -25,94 +25,97 @@ library(httr)
 library(rsdmx)
 
 # Directory for SPI csv files that were previously created
-csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
+csv_dir <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
 
 # Directory for SPI csv files that are saved
-csv_output <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/013_outputs"
+csv_output <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/04_WDR/043_outputs"
 
 ```
 
 # Introduction
 
-This file will clean the raw SPI data and form the SPI indicators.  From the original technical report on the SPI:
+This file will clean the raw SPI data and form a set of indicators for use in the WDR.  
 
-Once the dimensions have been specified, attention turns to identifying the variables and selecting an appropriate aggregation method. The criteria suggest that the variables in an index should be coherent with the concept being measured; they should be publicly available (i.e., drawn from NSSs, rather than from experts or other sources). The aggregation method should be selected with rigor in mind, including the axioms or properties that the method satisfies. At the same time, it should aim for simplicity to maximize general understanding and impact.
+Hi Brian, 
 
-A variable is typically derived from a simple “yes-no” question concerning a normative guideline that a country’s NSS should meet.  Each of these “yes-no” questions generate a dichotomous variable having a 0-1 representation.  In the case of SPI, in Dimensions 1 and a part of Dimension 2 the yes-no questions generate three variables with 0-0.5-1 representation, while in the second half of Dimension 2 it has a 0-0.3-0.6-1 representation, and in dimensions 3 and 4 it generates a variable having a 0-1 representation.
+Thanks so much for sending this my way – super super interesting materials. I am looking forward to seeing how the discussion with John Pullinger will evolve, and I’m sure I will be interested in citing some of the additional indicators. 
+In the meantime, I have updated the excel document as discussed. It is quite a long list of requests, please don’t hesitate to let me know if this is too much of a burden on your time. I have put indicator breakdowns as income level (LIC, LMC, UMC, HIC) and WGB regions, though we probably won’t be citing regions very often so if it’s a lot of extra work, feel free to disregard that. On the issue of weighting, do you recommend population weighting or not? 
 
-Dimension  Score=Weighted Score÷Maximum Dimension Score×100
+On the issue of child/infant mortality and maternal mortality, could you share with me the information as % of countries with vital reg source, survey source, no source as well as by each of the frequency intervals, broken down by income level? Again, please point out if too much work! 
 
-The indicator selection process is guided by conventions of international agencies, expert opinions on statistical performance and the principles of SDGs. However, given the cost and time constraints and the accuracy concerns of assessment, trade-offs have to be made to build an actionable, cost-effective and internationally comparable index. 
+On povcalnet, I am wondering what kind of information you have on comparability of the data over time? 
 
-One such trade-off is the equal weighting of each dimension and individual indicator, even though some of them may be more important than others or countries may assign higher priority to some than others. The equal weighting selection may be, to some extent subjective, partly failing to address the relative importance of the dimensions and indicators. This could be checked by simulations that will show the sensitivity of SPI scores and rankings in relation to alternative weights. 
-
-When variables are dichotomous (or can be dichotomized), a measurement approach called a “counting method” is applicable and, indeed, has become standard for many types of measurement exercises. This method is used here to aggregate the scores of four dimensions into an overall SPI score and to create the composite index. Hence:
-
-Total SPI Score =(MSC+CS+DPO+AKI)/4
-
-Each of the four dimensions has a scale of 1-100 and are aggregated into a total score which also ranges from 1 to 100.  More information on the theoretical aspects of the SPI can be found in Cameron et al (2019).
+Again, thanks so much, Brian, for all your help with this, and please do let me know if this is asking too much!  
+All the best,
+Philip
 
 
-# Data
+## Table
 
-Raw data can be found in 011_rawdata folder of this directory.  Below is documentation.
+| Section | Indicator | Source | SPI Inidicator | Proposed indicator |
+|-|-|-|-|-|
+| Coverage | coverage/availability score | ODIN | Could use SPI main score | Scores for dimensions 2 and 3 (separately), by income level and region |
+| Coverage | Poverty since 2015 | Povcalnet | Also in SPI, but Povcalnet is   our source | See email |
+| Coverage | Monthly or quarterly industrial production indices by income group | SCI | Quarterly GDP is included in SPI | % of countries with 3 or more values of quarterly GDP by incomelevel and   region; % of countries with no values in past 5 years by income level and   region |
+| Coverage | Half of agricultural data needs met in SSA | GSARS | We have data on all agricultural   census or agriculture surveys in past 10 years | will drop this from text |
+| Coverage | Gender statistics availability | UN Women | Gender indicator is Maternal   Mortality, but have been working to build database on whether breakdowns by   gender are available for several of first 10 SDGs | see email  |
+| Coverage | PH Census in last 10 years | SCI | SPI as well, which we can   customize | % of countries with PH census in last ten years by income level and   region |
+| Coverage | Ag Census in last 10 years | SCI | SPI as well, which we can   customize | same as PH census indicator |
+| Coverage | Complete vital stats coverage | SCI  | SPI as well, which we can   customize | % of complete CRVS by income and region |
+| Coverage | Number of people uncounted | UN Women | We do not have this | will use original source |
+| Coverage | Geospatial: addresses | Global Open Data Index | We do not have this | will use original source |
+| Coverage | Geospatial: maps | Global Open Data Index | We do not have this | will use original source |
+| Coverage | Geospatial: national maps | Global Open Data Index | We do not have this | will use original source |
+| Coverage | GDP per capita | SCI | We have actually dropped GDP per   capita, because we decided to include Quarterly GDP | use quarterly GDP, see above |
+| Coverage | Child mortality | SCI | SPI has good child mortality   data | let's use, see email |
+| Coverage | Immunization rates | SCI | Do not have | will drop this from text |
+| Coverage | Disaggregation at admin1 | ODIN | Do not have | will use original source |
+| Coverage | Disaggregation at admin2 | ODIN | Do not have | will use original source |
+| Openness & Interoperability | Data Openness Score | ODIN | We have a subscore for data   dissemination practices and openness | Dimension 4 score by income level and region |
+| Openness & Interoperability | Open terms of use agreement  | ODIN | Do not have | will be dropped or used from original source |
+| Openness & Interoperability | Available in machine-readable format  | ODIN | Do not have | will be dropped or used from original source |
+| Capacity | SCI score | SCI | We have this | (preliminary) SPI score by income level |
+| Governance | NSO independence | Ibrahim Foundation | Do not have | will use original source |
+| Additional   Indicators |  |  |  |  |
+|  |  |  |  | 4.1, 4.2, 4.3, 4.5, 4.6, 4.7 by income level and region |
+|  |  |  |  | Manufacturing, value added (% of GDP), % of countries without any in past   5 years by income and region |
+|  |  |  |  | GNI current LCU, % of countries without any in past 5 years by income and   region |
 
 
-| SPI Concept                                                                                                        | File Name            | Variable Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------ | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.1 System of National Accounts in use                                                                             | D1.1.MSC.SNAU.csv    | SNAU - The national accounts data are compiled using the concepts, definitions, framework, and methodology of the System of National Account 2008 (SNA2008) or European System of National and Regional Accounts (ESA 2010).  The manual has evolved to meet the changing economic structure, to follow systematic accounting and ensure international compatibility.                                                                                                                                                                                                                                                                                                                                                                                                |
-| 1.2 National Accounts base year                                                                                    | D1.2.MSC.NABY.csv    | NABY - National accounts base year is the year used as the base period for constant price calculations in the country’s national accounts.  It is recommended that the base year of constant price estimates be changed periodically to reflect changes in economic structure and relative prices.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| 1.3 Classification of national industry                                                                            | D1.3.MSC.CNIN.csv    | The industrial production data are compiled using the International Standard Industrial Classification of All Economic Activities (ISIC) Rev.4 and Statistical Classification of Economic Activities in the European Community (NACE) Rev.2.  ISIC Rev.4 is a standard classification of economic activities arranged so that entities can be classified per the activity they carry out using criteria such as input, output and use of the products produced, more emphasis has been given to the character of the production process in defining and delineating ISIC classes for international comparability.  The manual and classification have changed to cover the complete scope of industrial production, employment, and GDP and other statistical areas. |
-| 1.4 CPI base year                                                                                                  | D1.4.MSC.CPIBY.csv   | Consumer Price Index serves as indicators of inflation and reflects changes in the cost of acquiring a fixed basket of goods and services by the average consumer.  Weights are usually derived from consumer expenditure surveys and the CPI base year refers to the year the weights were derived.  It is recommended that the base year be changed periodically to reflect changes in expenditure structure.                                                                                                                                                                                                                                                                                                                                                      |
-| 1.5. Classification of household consumption.                                                                      | D1.5.MSC.HOUS.csv    | Classification of Individual Consumption According to Purpose (COICOP) is used in household budget surveys, consumer price indices and international comparisons of gross domestic product (GDP) and its component expenditures.  Although COICOP is not strictly linked to any particular model of consumer behavior, the classification is designed to broadly reflect differences in income elasticities.  It is an integral part of the SNA1993 and more detailed subdivision of the classes provide comparability between countries and between statistics in these different areas.                                                                                                                                                                            |
-| 1.6 Classification of status of employment                                                                         | D1.6.MSC.EMPL.csv    | Classification of status of employment refers to employment data that are compiled using the current international standard International Classification of Status in Employment (ISCE-93).  It classifies jobs with respect to the type of explicit or implicit contract of employment between the job holder and the economic unit in which he or she is employed.  Therefore, it aims to provide the basis for production of internationally comparable statistics on the employment relationship, including the distinction between salaried employment and self-employment.                                                                                                                                                                                     |
-| 1.7 Central government accounting status                                                                           | D1.7.MSC.CGOV.csv    | Government finance accounting status refers to the accounting basis for reporting central government financial data.  For many countries’ government finance data, have been consolidated into one set of accounts capturing all the central government’s fiscal activities and following noncash recording basis.  Budgetary central government accounts do not necessarily include all central government units, the picture they provide of central government activities is usually incomplete.                                                                                                                                                                                                                                                                  |
-| 1.8. Compilation of government finance statistics.                                                                 | D1.8.MSC.FINA.csv    | (GFSM) in use for compiling the data.  It provides guidelines on the institutional structure of governments and the presentation of fiscal data in a format similar to business accounting with a balance sheet and income statement plus guidelines on the treatment of exchange rate and other valuation adjustments.  The latest manual GFSM2014 is harmonized with the SNA2008.                                                                                                                                                                                                                                                                                                                                                                                  |
-| 1.9 Compilation of monetary and financial statistics                                                               | D1.9.MSC.MONY.csv    | Compilation of monetary and financial statistics refers to the Monetary and Financial Statistics Manual (MFSM) in use.  It covers concepts, definitions, classifications of financial instruments and sectors, and accounting rules, and provides a comprehensive analytic framework for monetary and financial planning and policy determination.  The Monetary and Finance Statistics: Compilation Guide (2008) provides detailed guidelines for the compilation of monetary and financial statistics in addition to MFSM.                                                                                                                                                                                                                                         |
-| 1.10. SDDS/e-GDDS subscription.                                                                                    | D1.10.MSC.IDDS.csv   | The Special Data Dissemination Standard (SDDS) and electronic General Data Dissemination Standard (e-GDDS) were established by the International Monetary Fund (IMF) for member countries that have or that might seek access to international capital markets, to guide them in providing their economic and financial data to the public.  Although subscription is voluntary, the subscribing member needs to be committed to observing the standard and provide information about its data and data dissemination practices (metadata).  The metadata are posted on the IMF’s SDDS and e-GDDS websites.                                                                                                                                                          |
-| 1.11 CRVS                                                                                                          | D1.11.MSC.CRVS.csv   | Civil registration and vital statistics record the occurrence and characteristics of vital events (births, deaths, marriage and divorce etc.) pertaining to the population and serve as a main source of vital statistics. This identifies countries that report at least 90 percent complete registries of vital (birth and death) statistics to the United Nations Statistics Division and are reported in its Population and Vital Statistics Reports. Countries with complete vital statistics registries may have more accurate and timely demographic indicators.                                                                                                                                                                                              |
-| 1.12 Business process                                                                                              | D1.12.MSC.GSBP.csv   | GSBP The Generic Statistical Business Process Model (GSBPM) aims to describe statistics production in a general and process-oriented way.  It is used both within and between statistical offices as a common basis for work with statistics production in different ways, such as quality, efficiency, standardization, and process-orientation.  It is used for all types of surveys, and "business" is not related to "business statistics" but refers to the statistical office, simply expressed.                                                                                                                                                                                                                                                               |
-| 2.1 Population & Housing census                                                                                    | D2.1.CEN.POPU.csv    | Population censuses collect data on the size, distribution and composition of population and information on a broad range of social and economic characteristics of the population.  It also provides sampling frames for household and other surveys.  Housing censuses provide information on the supply of housing units, the structural characteristics and facilities, and health and the development of normal family living conditions.  Data obtained as part of the population census, including data on homeless persons, are often used in the presentation and analysis of the results of the housing census.  It is recommended that population and housing censuses be conducted at least every 10 years.                                              |
-| 2.2 Agriculture census                                                                                             | D2.2.CEN.AGRI.csv    | Agriculture censuses collect information on agricultural activities, such as size of holding, land tenure, land use, employment and production, and provide basic structural data and sampling frames for agricultural surveys.  Censuses of agriculture normally involves collecting key structural data by complete enumeration of all agricultural holdings, in combination with more detailed structural data using sampling methods.  It is recommended that agricultural censuses be conducted at least every 10 years.                                                                                                                                                                                                                                        |
-| 2.3 Business/establishment census                                                                                  | D2.3.CEN.BIZZ.csv    | Business/establishment censuses provide valuable information on all economic activities, number of employed and size of establishments in the economy.  Business Register information is establishment-based and includes business location, organization type (e.g. subsidiary or parent), industry classification, and operating data (e.g., receipts and employment).                                                                                                                                                                                                                                                                                                                                                                                             |
-| 2.4 Household survey on income/consumption/expenditure/budget/integrated survey.                                   | D2.4.SVY.HOUS.csv    | These surveys collect data on household income (including income in kind), consumption and expenditure.  They typically include income, expenditure, and consumption surveys, household budget surveys, integrated surveys.  It is recommended that surveys on income and expenditure be conducted at least every 3 to 5 years.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| 2.5 Agriculture survey.                                                                                            |                      | Agricultural surveys refer to surveys of agricultural holdings based on the sampling frames established by the agricultural census.  These are surveys on agricultural land, production, crops and livestock, aquaculture, labor and cost, and time use.  Some issues, such as gender and food security, are of interest to most agriculture surveys.                                                                                                                                                                                                                                                                                                                                                                                                                |
-| 2.6 Labor Force Survey                                                                                             | D2.6.SVY.LABR.csv    | Labor force survey is a standard household-based survey of work-related statistics at the national and sub-national employment or unemployment levels, rates or trends.  The surveys also provide the characteristics of the employed or unemployed, including labor force status by age or gender, breakdowns between employees and the self-employed, public versus private sector employment, multiple job-holding, hiring, job creation, and duration of unemployment.                                                                                                                                                                                                                                                                                           |
-| 2.7 Health/demographic survey                                                                                      | D2.7.SVY.HLTH.csv    | Health surveys collect information on various aspects of health of populations, such as health expenditure, access, utilization, and outcomes.  They typically include Demographic and Health Surveys.  It is recommended that health surveys be conducted at least every 3 to 5 years.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| 2.8 Business/establishment survey                                                                                  | D2.8.SVY.BIZZ.csv    | The business/establishment survey provides information on employment, hours, and earnings of employees from a sample of business establishments including private and public, entities that are classified based on an establishment's principal activity from the business or establishment census.  Establishment surveys include surveys of businesses, farms, and institutions.  They may ask for information about the establishment itself and/or employee characteristics and demographics.                                                                                                                                                                                                                                                                   |
-| 4.1 NSO has an Advance Release Calendar and it is published                                                        | D4.1.SC.DPO.CALD.csv | This indicator refers to a dissemination practice for relevant statistical data in accordance to the published advance release calendar.  Its presence provides information on upcoming releases in advance and creates public awareness; this will lead to more discipline and accountability from the statistical office.                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| 4.2 NSO has a listing of surveys and/ or microdata sets (or NADA) available upon request.                          | D4.2.SC.DPO.NADA.csv | NSO has a listing of surveys and microdata sets that can provide the necessary data and reference for follow-up.  Upon well-defined request and procedure per the national law and practice, users and practitioners can obtain the data collected from the households and businesses when needed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| 4.3 NSO has a data portal                                                                                          | D4.3.SC.DPO.PORT.csv | This indicator refers to a web-based or stand-alone platform or tools that is maintained by the NSO and provides access to the indicators and related metadata in systematic way.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| 4.4 Timeseries indicators are available for download in reusable format for free                                   | D4.4.SC.DPO.TIME.csv | This indicator will promote usage among the users and bring accountability to the NSO.  There are several different formats in which a user can access the data, such as Excel, CSV, and API etc.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| 4.5 Metadata is available providing definition, methodology, standards or classifications for existing data series | D4.5.SC.DPO.META.csv | Statistical systems must be open and transparent about their methods and procedures and provide access to adequate metadata – detailed descriptions of the methods and procedures used to produce the data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| 4.6 NSO has conducted a user satisfaction survey                                                                   | D4.6.SC.DPO.USER.csv | Through this indicator a NSO can improve its engagement and dissemination practice by seeking regular feedback from users and then making necessary adjustments.  It is also a good practice to continually monitor the changing data landscape and user needs as well as evolving technologies.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| 4.7 Geospatial data available on relevant agency website.                                                                                                                   |  D4.7.SC.DPO.GEOS.csv                    |    Geospatial data available on relevant agency website refers to geo-referenced, location-based disaggregated data from satellite.  Geospatial data are often used in combination with administrative level national and sub-national units.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+
+
+
+
+
+
+
+
 # Indicator Cleaning
 
-## SPI Dimension 1: Methodology, Standards and Classifications (MSC): 
+## SPI Dimension 1: Methodology, Standards and Classifications (MSC):
 
 
 ### 1.1 System of National Accounts in use
 
- The national accounts data are compiled using the concepts, definitions, 
- framework, and methodology of the System of National Account 2008 (SNA2008) 
- or European System of National and Regional Accounts (ESA 2010).  The manual 
- has evolved to meet the changing economic structure, to follow systematic accounting 
- and ensure international compatibility. 
- 
+ The national accounts data are compiled using the concepts, definitions,
+ framework, and methodology of the System of National Account 2008 (SNA2008)
+ or European System of National and Regional Accounts (ESA 2010).  The manual
+ has evolved to meet the changing economic structure, to follow systematic accounting
+ and ensure international compatibility.
+
  Scoring: 1 point for using SNA2008 or ESA 2010, 0.5 points for using SNA 1993 or ESA 1995, 0 points otherwise
- 
+
 ```{r snau}
 
 #read in csv file.
 D1.1.MSC.SNAU <- read_csv(file = paste(csv_dir, "D1.1.MSC.SNAU.csv", sep="/" )) %>%
   mutate(SPI.D1.1.SNAU=case_when(
-    SNAU=="SNA 2008" ~ 1, 
+    SNAU=="SNA 2008" ~ 1,
     SNAU=="SNA 1993" ~ 0.5,
-    TRUE ~ 0 
+    TRUE ~ 0
   )) %>%
   arrange(date, country) %>%
-  select(iso3c, country, date,SNAU, SPI.D1.1.SNAU  ) 
+  select(iso3c, country, date,SNAU, SPI.D1.1.SNAU  )
 
 
 D1.1.MSC.SNAU_wide <- D1.1.MSC.SNAU %>%
@@ -124,13 +127,13 @@ D1.1.MSC.SNAU_wide <- D1.1.MSC.SNAU %>%
 write_excel_csv(D1.1.MSC.SNAU_wide,
                 path = paste(csv_output, "D1.1.MSC.SNAU_indicator.csv", sep="/" ))
 ```
- 
 
-### 1.2 National Accounts base year 
 
-National accounts base year is the year used as the base period for constant price 
-calculations in the country's national accounts.  It is recommended that the base year of 
-constant price estimates be changed periodically to reflect changes in economic structure and relative prices. 
+### 1.2 National Accounts base year
+
+National accounts base year is the year used as the base period for constant price
+calculations in the country's national accounts.  It is recommended that the base year of
+constant price estimates be changed periodically to reflect changes in economic structure and relative prices.
 
 1 point for chained price, 0.5 for reference period within past 10 years, 0 points otherwise.
 
@@ -139,9 +142,9 @@ constant price estimates be changed periodically to reflect changes in economic 
 #read in csv file.
 D1.2.MSC.NABY <- read_csv(file = paste(csv_dir, "D1.2.MSC.NABY.csv", sep="/" )) %>%
   mutate(SPI.D1.2.NABY=case_when(
-    NABY=="Original chained constant price data are rescaled." ~ 1, 
+    NABY=="Original chained constant price data are rescaled." ~ 1,
     (date-as.numeric(NABY))<=10 ~ 0.5, #within 10 years of reference period
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, NABY, SPI.D1.2.NABY  ) %>%
   arrange(date, country)
@@ -159,16 +162,16 @@ write_excel_csv(D1.2.MSC.NABY_wide,
 
 ### 1.3 Classification of national industry
 
- The industrial production data are compiled using the International Standard Industrial 
- Classification of All Economic Activities (ISIC) Rev.4 and Statistical Classification of 
- Economic Activities in the European Community (NACE) Rev.2.  ISIC Rev.4 is a standard classification 
- of economic activities arranged so that entities can be classified per the activity they carry out 
- using criteria such as input, output and use of the products produced, more emphasis has been given 
- to the character of the production process in defining and delineating ISIC classes for international 
- comparability.  The manual and classification have changed to cover the complete scope of industrial 
+ The industrial production data are compiled using the International Standard Industrial
+ Classification of All Economic Activities (ISIC) Rev.4 and Statistical Classification of
+ Economic Activities in the European Community (NACE) Rev.2.  ISIC Rev.4 is a standard classification
+ of economic activities arranged so that entities can be classified per the activity they carry out
+ using criteria such as input, output and use of the products produced, more emphasis has been given
+ to the character of the production process in defining and delineating ISIC classes for international
+ comparability.  The manual and classification have changed to cover the complete scope of industrial
  production, employment, and GDP and other statistical areas.
 
-1 Point. Latest version is adopted (ISIC Rev 4, NACE Rev 2 or a compatible classification)  
+1 Point. Latest version is adopted (ISIC Rev 4, NACE Rev 2 or a compatible classification)
 
 0.5 Points.  Previous version is used (ISIC Rev 3, NACE Rev 1 or a compatible classification)
 
@@ -179,9 +182,9 @@ write_excel_csv(D1.2.MSC.NABY_wide,
 #read in csv file.
 D1.3.MSC.CNIN <- read_csv(file = paste(csv_dir, "D1.3.MSC.CNIN.csv", sep="/" )) %>%
   mutate(SPI.D1.3.CNIN=case_when(
-    str_to_lower(CNIN)=="nace rev2" | str_to_lower(CNIN)=="rev4" ~ 1, 
-    str_to_lower(CNIN)=="nace rev1" | str_to_lower(CNIN)=="rev3" ~ 0.5, 
-    TRUE ~ 0 
+    str_to_lower(CNIN)=="nace rev2" | str_to_lower(CNIN)=="rev4" ~ 1,
+    str_to_lower(CNIN)=="nace rev1" | str_to_lower(CNIN)=="rev3" ~ 0.5,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, CNIN, SPI.D1.3.CNIN  ) %>%
   arrange(date, country)
@@ -197,22 +200,22 @@ write_excel_csv(D1.3.MSC.CNIN_wide,
 
 ### 1.4 CPI base year
 
-Consumer Price Index serves as indicators of inflation and reflects changes in the 
- cost of acquiring a fixed basket of goods and services by the average consumer.  
- Weights are usually derived from consumer expenditure surveys and the CPI base year 
+Consumer Price Index serves as indicators of inflation and reflects changes in the
+ cost of acquiring a fixed basket of goods and services by the average consumer.
+ Weights are usually derived from consumer expenditure surveys and the CPI base year
  refers to the year the weights were derived.  It is recommended that the base year be
- changed periodically to reflect changes in expenditure structure.  
- 
+ changed periodically to reflect changes in expenditure structure.
+
  1 Point. Annual chain linking. 0.5 Points. Base year in last 10 years. 0 points. Otherwise
- 
+
 ```{r cpiby}
 
 #read in csv file.
 D1.4.MSC.CPIBY <- read_csv(file = paste(csv_dir, "D1.4.MSC.CPIBY.csv", sep="/" )) %>%
   mutate(SPI.D1.4.CPIBY=case_when(
-    CPIBY=="annual chained" ~ 1, 
+    CPIBY=="annual chained" ~ 1,
     (date-as.numeric(CPIBY))<=10 ~ 0.5, #within 10 years of reference period
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, CPIBY, SPI.D1.4.CPIBY  ) %>%
   arrange(date, country)
@@ -229,17 +232,17 @@ write_excel_csv(D1.4.MSC.CPIBY_wide,
 
 
 
- 
+
 ### 1.5 Classification of household consumption
 
-Classification of Individual Consumption According to Purpose (COICOP) 
-is used in household budget surveys, consumer price indices and international 
-comparisons of gross domestic product (GDP) and its component expenditures.  
-Although COICOP is not strictly linked to any particular model of consumer 
-behavior, the classification is designed to broadly reflect differences in 
-income elasticities.  It is an integral part of the SNA1993 and more detailed 
-subdivision of the classes provide comparability between countries and between 
-statistics in these different areas.    
+Classification of Individual Consumption According to Purpose (COICOP)
+is used in household budget surveys, consumer price indices and international
+comparisons of gross domestic product (GDP) and its component expenditures.
+Although COICOP is not strictly linked to any particular model of consumer
+behavior, the classification is designed to broadly reflect differences in
+income elasticities.  It is an integral part of the SNA1993 and more detailed
+subdivision of the classes provide comparability between countries and between
+statistics in these different areas.
 
 1 Point. Follow Classification of Individual Consumption by Purpose (COICOP)	0 Points.	Otherwise
 
@@ -248,8 +251,8 @@ statistics in these different areas.
 #read in csv file.
 D1.5.MSC.HOUS <- read_csv(file = paste(csv_dir, "D1.5.MSC.HOUS.csv", sep="/" )) %>%
   mutate(SPI.D1.5.HOUS=case_when(
-    HOUS=="COICOP" ~ 1, 
-    TRUE ~ 0 
+    HOUS=="COICOP" ~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, HOUS, SPI.D1.5.HOUS  ) %>%
   arrange(date, country)
@@ -267,25 +270,25 @@ write_excel_csv(D1.5.MSC.HOUS_wide,
 
 
 
-### 1.6 Classification of status of employment 
+### 1.6 Classification of status of employment
 
-Classification of status of employment refers to employment data that are 
- compiled using the current international standard International Classification 
+Classification of status of employment refers to employment data that are
+ compiled using the current international standard International Classification
  of Status in Employment (ISCE-93).  It classifies jobs with respect to the type
- of explicit or implicit contract of employment between the job holder and the 
+ of explicit or implicit contract of employment between the job holder and the
  economic unit in which he or she is employed.  Therefore, it aims to provide the
- basis for production of internationally comparable statistics on the employment 
- relationship, including the distinction between salaried employment and self-employment.  
- 
-1 Point. Follow International Labour Organization, International Classification of Status in Employment (ICSE-93) or 2012 North American Industry Classification System (NAICS). 0 Points Otherwise. 
- 
+ basis for production of internationally comparable statistics on the employment
+ relationship, including the distinction between salaried employment and self-employment.
+
+1 Point. Follow International Labour Organization, International Classification of Status in Employment (ICSE-93) or 2012 North American Industry Classification System (NAICS). 0 Points Otherwise.
+
 ```{r empl}
 
 #read in csv file.
 D1.6.MSC.EMPL <- read_csv(file = paste(csv_dir, "D1.6.MSC.EMPL.csv", sep="/" )) %>%
   mutate(SPI.D1.6.EMPL=case_when(
-    EMPL=="ICSE-93" | EMPL=="NAICS" ~ 1, 
-    TRUE ~ 0 
+    EMPL=="ICSE-93" | EMPL=="NAICS" ~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, EMPL, SPI.D1.6.EMPL  ) %>%
   arrange(date, country)
@@ -304,25 +307,25 @@ write_excel_csv(D1.6.MSC.EMPL_wide,
 
 ### 1.7 Central government accounting status
 
-Government finance accounting status refers to the accounting basis for 
-reporting central government financial data.  For many countries' government 
-finance data, have been consolidated into one set of accounts capturing all 
-the central government's fiscal activities and following noncash recording basis.  
-Budgetary central government accounts do not necessarily include all central government 
-units, the picture they provide of central government activities is usually incomplete.  
+Government finance accounting status refers to the accounting basis for
+reporting central government financial data.  For many countries' government
+finance data, have been consolidated into one set of accounts capturing all
+the central government's fiscal activities and following noncash recording basis.
+Budgetary central government accounts do not necessarily include all central government
+units, the picture they provide of central government activities is usually incomplete.
 
-1 Point. Consolidated central government accounting follows noncash recording basis	 
-0.5 Points. Consolidated central government accounting follows cash recording basis	 
-0 Points. Otherwise 
+1 Point. Consolidated central government accounting follows noncash recording basis
+0.5 Points. Consolidated central government accounting follows cash recording basis
+0 Points. Otherwise
 
 ```{r cgov}
 
 #read in csv file.
 D1.7.MSC.CGOV <- read_csv(file = paste(csv_dir, "D1.7.MSC.CGOV.csv", sep="/" )) %>%
   mutate(SPI.D1.7.CGOV=case_when(
-    CGOV=="AC" ~ 1, 
+    CGOV=="AC" ~ 1,
     CGOV=="CA" ~ 0.5,
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, CGOV, SPI.D1.7.CGOV  ) %>%
   arrange(date, country)
@@ -339,14 +342,14 @@ write_excel_csv(D1.7.MSC.CGOV_wide,
 
 ### 1.8 Compilation of government finance statistics
 
-(GFSM) in use for compiling the data.  It provides guidelines on the institutional 
-structure of governments and the presentation of fiscal data in a format similar to 
-business accounting with a balance sheet and income statement plus guidelines on the 
-treatment of exchange rate and other valuation adjustments.  The latest manual GFSM2014 
-is harmonized with the SNA2008. 
+(GFSM) in use for compiling the data.  It provides guidelines on the institutional
+structure of governments and the presentation of fiscal data in a format similar to
+business accounting with a balance sheet and income statement plus guidelines on the
+treatment of exchange rate and other valuation adjustments.  The latest manual GFSM2014
+is harmonized with the SNA2008.
 
-1 Point. Follow the latest Government Finance Statistical Manual (2014)/ ESA2010	
-0.5 Points. Previous version is used (GFSM 2001)	
+1 Point. Follow the latest Government Finance Statistical Manual (2014)/ ESA2010
+0.5 Points. Previous version is used (GFSM 2001)
 0 Points. Otherwise
 
 
@@ -355,9 +358,9 @@ is harmonized with the SNA2008.
 #read in csv file.
 D1.8.MSC.FINA <- read_csv(file = paste(csv_dir, "D1.8.MSC.FINA.csv", sep="/" )) %>%
   mutate(SPI.D1.8.FINA=case_when(
-    FINA=="2014" | FINA=="ESA 2010"~ 1, 
+    FINA=="2014" | FINA=="ESA 2010"~ 1,
     FINA=="2001" ~ 0.5,
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, FINA, SPI.D1.8.FINA  ) %>%
   arrange(date, country)
@@ -376,11 +379,11 @@ write_excel_csv(D1.8.MSC.FINA_wide,
 
 ### 1.9 Compilation of monetary and financial statistics
 
-Compilation of monetary and financial statistics refers to the Monetary and Financial Statistics Manual 
-(MFSM) in use.  It covers concepts, definitions, classifications of financial instruments and sectors, and 
-accounting rules, and provides a comprehensive analytic framework for monetary and financial planning and policy 
-determination.  The Monetary and Finance Statistics: Compilation Guide (2008) provides detailed guidelines for 
-the compilation of monetary and financial statistics in addition to MFSM. 
+Compilation of monetary and financial statistics refers to the Monetary and Financial Statistics Manual
+(MFSM) in use.  It covers concepts, definitions, classifications of financial instruments and sectors, and
+accounting rules, and provides a comprehensive analytic framework for monetary and financial planning and policy
+determination.  The Monetary and Finance Statistics: Compilation Guide (2008) provides detailed guidelines for
+the compilation of monetary and financial statistics in addition to MFSM.
 
 1 Point. Follow the latest Monetary and Finance Statistics Manual (2000) or Monetary and Finance Statistics: Compilation Guide (2008/2016)
 0 Points. Otherwise
@@ -390,8 +393,8 @@ the compilation of monetary and financial statistics in addition to MFSM.
 #read in csv file.
 D1.9.MSC.MONY <- read_csv(file = paste(csv_dir, "D1.9.MSC.MONY.csv", sep="/" )) %>%
   mutate(SPI.D1.9.MONY=case_when(
-    MONY=="MFSM 2000" | MONY=="MFSMCG 2016"~ 1, 
-    TRUE ~ 0 
+    MONY=="MFSM 2000" | MONY=="MFSMCG 2016"~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, MONY, SPI.D1.9.MONY  ) %>%
   arrange(date, country)
@@ -410,15 +413,15 @@ write_excel_csv(D1.9.MSC.MONY_wide,
 
 ### 1.10 SDDS/e-GDDS subscription
 
-Data Dissemination Standard (SDDS) and electronic General Data Dissemination Standard (e-GDDS) were 
-established by the International Monetary Fund (IMF) for member countries that have or that might seek 
+Data Dissemination Standard (SDDS) and electronic General Data Dissemination Standard (e-GDDS) were
+established by the International Monetary Fund (IMF) for member countries that have or that might seek
 access to international capital markets, to guide them in providing their economic and financial data to the public.
 Although subscription is voluntary, the subscribing member needs to be committed to observing the standard and provide
-information about its data and data dissemination practices (metadata).  The metadata are posted on the IMF's SDDS and 
-e-GDDS websites.       
+information about its data and data dissemination practices (metadata).  The metadata are posted on the IMF's SDDS and
+e-GDDS websites.
 
-1 Point. Subscribing to IMF SDDS+ or SDDS standards	
-0.5 Points. Subscribing to IMF e-GDDS standards	
+1 Point. Subscribing to IMF SDDS+ or SDDS standards
+0.5 Points. Subscribing to IMF e-GDDS standards
 0 Points. Otherwise
 
 ```{r idds}
@@ -426,9 +429,9 @@ e-GDDS websites.
 #read in csv file.
 D1.10.MSC.IDDS <- read_csv(file = paste(csv_dir, "D1.10.MSC.IDDS.csv", sep="/" )) %>%
   mutate(SPI.D1.10.IDDS=case_when(
-    IDDS=="SDDS Plus" | IDDS=="SDDS"~ 1, 
+    IDDS=="SDDS Plus" | IDDS=="SDDS"~ 1,
     IDDS=="e-GDDS"~ 0.5,
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, IDDS, SPI.D1.10.IDDS  ) %>%
   arrange(date, country)
@@ -445,24 +448,24 @@ write_excel_csv(D1.10.MSC.IDDS_wide,
 
 
 
-### 1.11 CRVS 
+### 1.11 CRVS
 
-Civil registration and vital statistics record the occurrence and characteristics of 
-vital events (births, deaths, marriage and divorce etc.) pertaining to the population and 
-serve as a main source of vital statistics. This identifies countries that report at least 
-90 percent complete registries of vital (birth and death) statistics to the United Nations 
-Statistics Division and are reported in its Population and Vital Statistics Reports. 
-Countries with complete vital statistics registries may have more accurate and timely demographic indicators. 
+Civil registration and vital statistics record the occurrence and characteristics of
+vital events (births, deaths, marriage and divorce etc.) pertaining to the population and
+serve as a main source of vital statistics. This identifies countries that report at least
+90 percent complete registries of vital (birth and death) statistics to the United Nations
+Statistics Division and are reported in its Population and Vital Statistics Reports.
+Countries with complete vital statistics registries may have more accurate and timely demographic indicators.
 
-1 Point. Vital registration complete	
+1 Point. Vital registration complete
 0 Points. Otherwise
 ```{r crvs}
 
 #read in csv file.
 D1.11.MSC.CRVS <- read_csv(file = paste(csv_dir, "D1.11.MSC.CRVS.csv", sep="/" )) %>%
   mutate(SPI.D1.11.CRVS=case_when(
-    str_to_lower(CRVS)=="yes" ~ 1, 
-    TRUE ~ 0 
+    str_to_lower(CRVS)=="yes" ~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, CRVS, SPI.D1.11.CRVS  ) %>%
   arrange(date, country)
@@ -481,12 +484,12 @@ write_excel_csv(D1.11.MSC.CRVS_wide,
 
 ### 1.12 Business process
 
-The Generic Statistical Business Process Model (GSBPM) aims to describe 
-statistics production in a general and process-oriented way.  It is used 
-both within and between statistical offices as a common basis for work with 
-statistics production in different ways, such as quality, efficiency, standardization, 
-and process-orientation.  It is used for all types of surveys, and "business" is not 
-related to "business statistics" but refers to the statistical office, simply expressed.  
+The Generic Statistical Business Process Model (GSBPM) aims to describe
+statistics production in a general and process-oriented way.  It is used
+both within and between statistical offices as a common basis for work with
+statistics production in different ways, such as quality, efficiency, standardization,
+and process-orientation.  It is used for all types of surveys, and "business" is not
+related to "business statistics" but refers to the statistical office, simply expressed.
 
 1 Point. GSBPM is in use
 0 Points. Otherwise
@@ -496,8 +499,8 @@ related to "business statistics" but refers to the statistical office, simply ex
 #read in csv file.
 D1.12.MSC.GSBP <- read_csv(file = paste(csv_dir, "D1.12.MSC.GSBP.csv", sep="/" )) %>%
   mutate(SPI.D1.12.GSBP=case_when(
-    str_to_lower(GSBP)=="yes" ~ 1, 
-    TRUE ~ 0 
+    str_to_lower(GSBP)=="yes" ~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, GSBP, SPI.D1.12.GSBP  ) %>%
   arrange(date, country)
@@ -530,10 +533,10 @@ D1.MSC <- D1.1.MSC.SNAU %>%
   left_join(D1.10.MSC.IDDS) %>%
   left_join(D1.11.MSC.CRVS) %>%
   left_join(D1.12.MSC.GSBP) %>%
-  select(iso3c, country, date, starts_with("SPI.D1")) 
+  select(iso3c, country, date, starts_with("SPI.D1"))
 #Now calculate MSC score which is the average across the 12 indicators
 D1.MSC <- D1.MSC %>%
-  mutate(SPI.D1.MSC=100*rowMeans(.[grep(x=colnames(D1.MSC), 
+  mutate(SPI.D1.MSC=100*rowMeans(.[grep(x=colnames(D1.MSC),
                                               pattern="SPI.D1")], na.rm=TRUE)) %>%
   arrange(date, iso3c) %>%
   select(iso3c, country, date,SPI.D1.MSC, starts_with("SPI.D1"))
@@ -582,7 +585,6 @@ including data on homeless persons, are often used in the presentation and analy
 of the housing census.  It is recommended that population and housing censuses be conducted at least every 10 years. 
 
 1 Point. Population census done within last 10 years	
-0.5 Points. Population census done within last 20 years	
 0 Points. Otherwise
 ```{r popu}
 
@@ -614,7 +616,7 @@ for (i in 2016:2019) {
   summarise(last_census=max(census_date, na.rm=T)) %>%
   mutate(SPI.D2.1.POPU=case_when(
     (date-last_census<=10) & (date-last_census>0) ~ 1, 
-    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    #(date-last_census<=20) & (date-last_census>0) ~ 0.5, 
     TRUE ~ 0 )
   )  %>%
    ungroup() %>%
@@ -650,7 +652,6 @@ structural data using sampling methods.  It is recommended that agricultural
 censuses be conducted at least every 10 years.
 
 1 Point.  census done within last 10 years	
-0.5 Points.  census done within last 20 years	
 0 Points. Otherwise
 
 ```{r agri}
@@ -682,7 +683,7 @@ for (i in 2016:2019) {
   summarise(last_census=max(census_date, na.rm=T)) %>%
   mutate(SPI.D2.2.AGRI=case_when(
     (date-last_census<=10) & (date-last_census>0) ~ 1, 
-    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    #(date-last_census<=20) & (date-last_census>0) ~ 0.5, 
     TRUE ~ 0 )
   )  %>%
    ungroup() %>%
@@ -714,8 +715,7 @@ Business Register information is establishment-based and includes business
 location, organization type (e.g. subsidiary or parent), industry
 classification, and operating data (e.g., receipts and employment).
 
-1 Point.  census done within last 10 years	
-0.5 Points.  census done within last 20 years	
+1 Point.  census done within last 10 years
 0 Points. Otherwise
 
 
@@ -723,19 +723,19 @@ classification, and operating data (e.g., receipts and employment).
 
 #read in csv file.
 D2.3.CEN.BIZZ_df <- read_csv(file = paste(csv_dir, "D2.3.CEN.BIZZ.csv", sep="/" )) %>%
-  group_by(iso3c, country) %>% 
+  group_by(iso3c, country) %>%
   nest() %>% # The next chunk of code will split our string with the years of the census (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$BIZZ.CENSUS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$BIZZ.CENSUS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
-  ) %>% 
+  ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(census_date=as.numeric(value)) 
+  mutate(census_date=as.numeric(value))
 
 
 
@@ -745,18 +745,18 @@ for (i in 2016:2019) {
   mutate(date=i) %>%
   mutate(recency_indicator=((date>census_date)) ) %>% #restrict to censuses that do not occur after reference date
   mutate(census_date=if_else(recency_indicator==TRUE, census_date, as.numeric(NA))) %>%
-  group_by(iso3c, country, date, database_last_updated, BIZZ.CENSUS ) %>%   
+  group_by(iso3c, country, date, database_last_updated, BIZZ.CENSUS ) %>%
   summarise(last_census=max(census_date, na.rm=T)) %>%
   mutate(SPI.D2.3.BIZZ=case_when(
-    (date-last_census<=10) & (date-last_census>0) ~ 1, 
-    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    (date-last_census<=10) & (date-last_census>0) ~ 1,
+    #(date-last_census<=20) & (date-last_census>0) ~ 0.5,
     TRUE ~ 0 )
   )  %>%
    ungroup() %>%
   select(iso3c, country, date, BIZZ.CENSUS, SPI.D2.3.BIZZ  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.3.CEN.BIZZ",i,sep="_"), temp)
 }
 
@@ -774,7 +774,7 @@ write_excel_csv(D2.3.CEN.BIZZ_wide,
 ```
 
 
-### 2.4 Household Survey on income/consumption/expenditure/budget/Integrated Survey 
+### 2.4 Household Survey on income/consumption/expenditure/budget/Integrated Survey
 
 These surveys collect data on household income (including income in kind),
 consumption and expenditure.  They typically include income, expenditure, and
@@ -782,9 +782,8 @@ consumption surveys, household budget surveys, integrated surveys.  It is
 recommended that surveys on income and expenditure be conducted at least every
 3 to 5 years.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 ```{r svy.hous}
@@ -792,18 +791,18 @@ recommended that surveys on income and expenditure be conducted at least every
 #read in csv file.
 D2.4.SVY.HOUS_df <- read_csv(file = paste(csv_dir, "D2.4.SVY.HOUS.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$HOUS.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$HOUS.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 
 # Now calculate our SPI score for this indicator
@@ -813,15 +812,15 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, HOUS.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.4.HOUS=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+    # sum(recency_indicator)==2 ~ 0.6,
+    # sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, HOUS.SURVEYS, SPI.D2.4.HOUS  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.4.SVY.HOUS",i,sep="_"), temp)
 }
 
@@ -849,9 +848,8 @@ agricultural land, production, crops and livestock, aquaculture, labor and
 cost, and time use.  Some issues, such as gender and food security, are of
 interest to most agriculture surveys.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 
@@ -860,18 +858,18 @@ interest to most agriculture surveys.
 #read in csv file.
 D2.5.SVY.AGRI_df <- read_csv(file = paste(csv_dir, "D2.5.SVY.AGRI.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$AGRI.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$AGRI.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 
 # Now calculate our SPI score for this indicator
@@ -881,15 +879,15 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, AGRI.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.5.AGRI=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+   # sum(recency_indicator)==2 ~ 0.6,
+   # sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, AGRI.SURVEYS, SPI.D2.5.AGRI  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.5.SVY.AGRI",i,sep="_"), temp)
 }
 
@@ -907,7 +905,7 @@ write_excel_csv(D2.5.SVY.AGRI_wide,
 
 
 
-### 2.6 Labor Force Survey 
+### 2.6 Labor Force Survey
 
 Labor force survey is a standard household-based survey of work-related
 statistics at the national and sub-national employment or unemployment levels,
@@ -917,9 +915,8 @@ between employees and the self-employed, public versus private sector
 employment, multiple job-holding, hiring, job creation, and duration of
 unemployment.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 
@@ -929,18 +926,18 @@ unemployment.
 #read in csv file.
 D2.6.SVY.LABR_df <- read_csv(file = paste(csv_dir, "D2.6.SVY.LABR.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$LABR.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$LABR.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 # Now calculate our SPI score for this indicator
 for (i in 2016:2019) {
@@ -949,15 +946,15 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, LABR.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.6.LABR=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+   # sum(recency_indicator)==2 ~ 0.6,
+   # sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, LABR.SURVEYS, SPI.D2.6.LABR  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.6.SVY.LABR",i,sep="_"), temp)
 }
 
@@ -983,9 +980,8 @@ populations, such as health expenditure, access, utilization, and outcomes.
 They typically include Demographic and Health Surveys.  It is recommended that
 health surveys be conducted at least every 3 to 5 years.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 ```{r svy.hlth}
@@ -993,18 +989,18 @@ health surveys be conducted at least every 3 to 5 years.
 #read in csv file.
 D2.7.SVY.HLTH_df <- read_csv(file = paste(csv_dir, "D2.7.SVY.HLTH.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$HLTH.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$HLTH.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 # Now calculate our SPI score for this indicator
 for (i in 2016:2019) {
@@ -1013,15 +1009,15 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, HLTH.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.7.HLTH=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+   # sum(recency_indicator)==2 ~ 0.6,
+   # sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, HLTH.SURVEYS, SPI.D2.7.HLTH  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.7.SVY.HLTH",i,sep="_"), temp)
 }
 
@@ -1050,9 +1046,8 @@ surveys include surveys of businesses, farms, and institutions.  They may ask
 for information about the establishment itself and/or employee characteristics
 and demographics.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 
@@ -1062,18 +1057,18 @@ and demographics.
 #read in csv file.
 D2.8.SVY.BIZZ_df <- read_csv(file = paste(csv_dir, "D2.8.SVY.BIZZ.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$BIZZ.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$BIZZ.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 # Now calculate our SPI score for this indicator
 
@@ -1083,9 +1078,9 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, BIZZ.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.8.BIZZ=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+    #sum(recency_indicator)==2 ~ 0.6,
+    #sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, BIZZ.SURVEYS, SPI.D2.8.BIZZ  ) %>%
@@ -1124,11 +1119,11 @@ D2.CS <- D2.1.CEN.POPU %>%
   left_join(D2.6.SVY.LABR) %>%
   left_join(D2.7.SVY.HLTH) %>%
   left_join(D2.8.SVY.BIZZ) %>%
-  select(iso3c, country, date, starts_with("SPI.D2")) 
+  select(iso3c, country, date, starts_with("SPI.D2"))
 
 #Now calculate MSC score which is the average across the 12 indicators
 D2.CS <- D2.CS %>%
-  mutate(SPI.D2.CS=100*rowMeans(.[grep(x=colnames(D2.CS), 
+  mutate(SPI.D2.CS=100*rowMeans(.[grep(x=colnames(D2.CS),
                                               pattern="SPI.D2")], na.rm=TRUE)) %>%
   arrange(date, iso3c) %>%
   select(iso3c, country, date,SPI.D2.CS, starts_with("SPI.D2"))
@@ -1221,8 +1216,7 @@ Indicators coming from the WDI directly are:
 Scoring:
 
 1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
+
 0 Points. None within past 5 years
 
 ```{r data_pulls, echo=TRUE}
@@ -1283,8 +1277,8 @@ for (reference_year in 2016:2019) {
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
           mutate_at(.vars=aki_list, ~case_when(
             .>=3 ~ 1,
-            .==2 ~ 0.6,
-            .==1 ~ 0.3,
+            #.==2 ~ 0.6,
+            #.==1 ~ 0.3,
             .==0 ~ 0, 
             TRUE ~ 0
           )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
@@ -1306,15 +1300,13 @@ for (reference_year in 2016:2019) {
 
 The data will be pulled from the WDI and combined with metadata from the Povcalnet
 
-Scoring is as follows:
+Scoring is as follows.  Overall score is the average of quality and frequency:
 Quality (0.5 points total):
-0.5 Point. Comparable data lasting at least two years within past 5 years	
+1 Point. Comparable data lasting at least two years within past 5 years	
 0 Points. No comparable data within past 5 years
 
 Frequency (0.5 points total):
-0.5 Point. 3 or more values available within past 5 years	
-0.3 Points. 2 values available within past 5 years; 	
-0.15 Points. 1 values available within past 5 years; 	
+1 Point. 3 or more values available within past 5 years	
 0 Points. None within past 5 years
 
 
@@ -1358,7 +1350,7 @@ for (reference_year in 2016:2019) {
         ungroup() %>%
         group_by(countrycode) %>% #now get a total by country with the max number of comparable estimates
         summarise(SPI.QUAL.D3.POV=max(SPI.QUAL.D3.POV, na.rm=T)) %>%
-        mutate(SPI.QUAL.D3.POV=if_else(SPI.QUAL.D3.POV>=2,0.5,0)) #only give point if there is at least two observations that are comparable
+        mutate(SPI.QUAL.D3.POV=if_else(SPI.QUAL.D3.POV>=2,1,0)) #only give point if there is at least two observations that are comparable
   
   
   temp <-df %>%
@@ -1368,15 +1360,15 @@ for (reference_year in 2016:2019) {
           group_by(countryname,countrycode) %>%
           summarise(SPI.FREQ.D3.POV=sum(SPI.FREQ.D3.POV, na.rm=T)) %>% 
           mutate(SPI.FREQ.D3.POV=case_when(
-            SPI.FREQ.D3.POV>=3 ~ 0.5,
-            SPI.FREQ.D3.POV==2 ~ 0.3,
-            SPI.FREQ.D3.POV==1 ~ 0.15,
+            SPI.FREQ.D3.POV>=3 ~ 1,
+           # SPI.FREQ.D3.POV==2 ~ 0.3,
+           # SPI.FREQ.D3.POV==1 ~ 0.15,
             SPI.FREQ.D3.POV==0 ~ 0, 
             TRUE ~ 0
           )) %>%
           left_join(temp1) %>% #now bring in quality dimension
           mutate(SPI.QUAL.D3.POV=if_else(!is.na(SPI.QUAL.D3.POV),SPI.QUAL.D3.POV,0)) %>% #recode some missing values as zero, who had no observations in 5 year window
-          mutate(SPI.D3.POV=SPI.FREQ.D3.POV+SPI.QUAL.D3.POV) %>% 
+          mutate(SPI.D3.POV=(SPI.FREQ.D3.POV+SPI.QUAL.D3.POV)/2) %>% 
           mutate(date=reference_year,
                  country=countryname,
                  iso3c=countrycode) %>%
@@ -1398,8 +1390,6 @@ We examine the Food Insecurity Experience Scale from the FAO (http://www.fao.org
 
 Scoring
 1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years
 
 
@@ -1423,8 +1413,8 @@ for (reference_year in 2016:2019) {
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
           mutate(SPI.D3.FIES=case_when(
             SPI.D3.FIES>=3 ~ 1,
-            SPI.D3.FIES==2 ~ 0.6,
-            SPI.D3.FIES==1 ~ 0.3,
+           # SPI.D3.FIES==2 ~ 0.6,
+           # SPI.D3.FIES==1 ~ 0.3,
             SPI.D3.FIES==0 ~ 0, 
             TRUE ~ 0
           )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
@@ -1449,17 +1439,14 @@ https://childmortality.org/data
 Data was pulled on April 13, 2020.
 
 Countries are ranked by source quality (admin data > survey > no data) and frequency.
-Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
+Score on this indicator has a max of 1 pointand is the average of the quality and frequency indicators.  Detailed scoring for source quality and frequency components are below.
 
 Quality (0.5 points total):
-0.5 Point. Vital Registration data available within past 5 years	
-0.25 Points. Survey Data availabe, but no Vital Registration data within past 5 years; 	
+1 Point. Vital Registration data available within past 5 years	
 0 Points. None within past 5 years
 
 Frequency (0.5 points total):
-0.5 Point. 3 or more values available within past 5 years	
-0.3 Points. 2 values available within past 5 years; 	
-0.15 Points. 1 values available within past 5 years; 	
+1 Point. 3 or more values available within past 5 years	
 0 Points. None within past 5 years
 
 
@@ -1481,21 +1468,21 @@ for (reference_year in 2016:2019) {
           mutate(SPI.FREQ.D3.CHLD.MORT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
           mutate(SPI.QUAL.D3.CHLD.MORT=case_when(
                    reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
-                   SERIES_METHOD=='Vital Registration' ~ 0.5,
-                   SERIES_METHOD!='Vital Registration' ~ 0.25,
+                   SERIES_METHOD=='Vital Registration' ~ 1,
+                  # SERIES_METHOD!='Vital Registration' ~ 0.25,
                    TRUE ~ as.numeric(NA)
                  )) %>%
           group_by(country) %>%
           summarise(SPI.FREQ.D3.CHLD.MORT=sum(SPI.FREQ.D3.CHLD.MORT, na.rm=T),
                     SPI.QUAL.D3.CHLD.MORT=max(SPI.QUAL.D3.CHLD.MORT, na.rm=T)) %>% 
           mutate(SPI.FREQ.D3.CHLD.MORT=case_when(
-            SPI.FREQ.D3.CHLD.MORT>=3 ~ 0.5,
-            SPI.FREQ.D3.CHLD.MORT==2 ~ 0.3,
-            SPI.FREQ.D3.CHLD.MORT==1 ~ 0.15,
+            SPI.FREQ.D3.CHLD.MORT>=3 ~ 1,
+           # SPI.FREQ.D3.CHLD.MORT==2 ~ 0.3,
+            #SPI.FREQ.D3.CHLD.MORT==1 ~ 0.15,
             SPI.FREQ.D3.CHLD.MORT==0 ~ 0, 
             TRUE ~ 0
           )) %>%
-          mutate(SPI.D3.CHLD.MORT=SPI.FREQ.D3.CHLD.MORT+SPI.QUAL.D3.CHLD.MORT) %>% 
+          mutate(SPI.D3.CHLD.MORT=(SPI.FREQ.D3.CHLD.MORT+SPI.QUAL.D3.CHLD.MORT)/2) %>% 
           mutate(date=reference_year) %>%
           select( country, date, starts_with('SPI.')) 
 
@@ -1569,17 +1556,14 @@ The data is sourced from the the Inter-Agency Group (200 countries) to improve t
 For our purposes, we will use the raw data from the country surveys as our data for the availability of key indicators, since the modelled estimates are produced out of sample, and thus not reflective of a country's national statistical system.
 
 Countries are ranked by source quality (admin data > survey > no data) and frequency.
-Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
+Score on this indicator has a max of 1 point and is the average of the frequency and quality indicators.  Detailed scoring for source quality and frequency components are below.
 
-Quality (0.5 points total):
-0.5 Point. Vital Registration data available within past 5 years	
-0.25 Points. Survey Data or Census Data availabe, but no Vital Registration data within past 5 years; 	
+Quality (1 points total):
+1 Point. Vital Registration data available within past 5 years	
 0 Points. None within past 5 years
 
-Frequency (0.5 points total):
-0.5 Point. 3 or more values available within past 5 years	
-0.3 Points. 2 values available within past 5 years; 	
-0.15 Points. 1 values available within past 5 years; 	
+Frequency (1 points total):
+1 Point. 3 or more values available within past 5 years	
 0 Points. None within past 5 years
 
 ```{r AKI_3.5}
@@ -1600,21 +1584,21 @@ for (reference_year in 2016:2019) {
           mutate(SPI.FREQ.D3.MMRT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
           mutate(SPI.QUAL.D3.MMRT=case_when(
                    reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
-                   type=='vr' ~ 0.5,
-                   type!='vr' ~ 0.25,
+                   type=='vr' ~ 1,
+                   #type!='vr' ~ 0.25,
                    TRUE ~ as.numeric(NA)
                  )) %>%
           group_by(iso3c) %>%
           summarise(SPI.FREQ.D3.MMRT=sum(SPI.FREQ.D3.MMRT, na.rm=T),
                     SPI.QUAL.D3.MMRT=max(SPI.QUAL.D3.MMRT, na.rm=T)) %>% 
           mutate(SPI.FREQ.D3.MMRT=case_when(
-            SPI.FREQ.D3.MMRT>=3 ~ 0.5,
-            SPI.FREQ.D3.MMRT==2 ~ 0.3,
-            SPI.FREQ.D3.MMRT==1 ~ 0.15,
+            SPI.FREQ.D3.MMRT>=3 ~ 1,
+  #          SPI.FREQ.D3.MMRT==2 ~ 0.3,
+  #          SPI.FREQ.D3.MMRT==1 ~ 0.15,
             SPI.FREQ.D3.MMRT==0 ~ 0, 
             TRUE ~ 0
           )) %>%
-          mutate(SPI.D3.MMRT=SPI.FREQ.D3.MMRT+SPI.QUAL.D3.MMRT) %>% 
+          mutate(SPI.D3.MMRT=(SPI.FREQ.D3.MMRT+SPI.QUAL.D3.MMRT)/2) %>% 
           mutate(date=reference_year) %>%
           select( iso3c, date, starts_with('SPI.')) 
 
@@ -1639,8 +1623,6 @@ Access to Electricity (% of population) has 99% coverage in the WDI database mak
 
 Scoring
 1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years
 
 ```{r D3.7_AKI}
@@ -1659,8 +1641,8 @@ for (reference_year in 2016:2019) {
           summarise(SPI.D3.ELEC=sum(SPI.D3.ELEC, na.rm=T)) %>%
           mutate(SPI.D3.ELEC=case_when(
             SPI.D3.ELEC>=3 ~ 1,
-            SPI.D3.ELEC==2 ~ 0.6,
-            SPI.D3.ELEC==1 ~ 0.3,
+ #           SPI.D3.ELEC==2 ~ 0.6,
+ #           SPI.D3.ELEC==1 ~ 0.3,
             SPI.D3.ELEC==0 ~ 0, 
             TRUE ~ 0
           )) %>%
@@ -1684,8 +1666,6 @@ After GDP by expenditure, quarterly GDP is probably the most important developme
 
 Scoring
 1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years
 
 
@@ -1709,8 +1689,8 @@ temp <-D3.14.QUART.GDP %>%
   summarise(SPI.D3.QUART.GDP=sum(SPI.D3.QUART.GDP, na.rm=T)) %>% 
   mutate(SPI.D3.QUART.GDP=case_when(
     SPI.D3.QUART.GDP>=3 ~ 1,
-    SPI.D3.QUART.GDP==2 ~ 0.6,
-    SPI.D3.QUART.GDP==1 ~ 0.3,
+    #SPI.D3.QUART.GDP==2 ~ 0.6,
+    #SPI.D3.QUART.GDP==1 ~ 0.3,
     SPI.D3.QUART.GDP==0 ~ 0, 
     TRUE ~ 0
   )) %>%
@@ -1729,20 +1709,16 @@ D3.17.AKI <- bind_rows(D3.14.AKI_2016, D3.14.AKI_2017, D3.14.AKI_2018, D3.14.AKI
 
 For this indicator, Debt service (PPG and IMF only, % of exports of goods, services and primary income), we will pull data from the WDI but modify the scoring using the WDI metadata on whether the external debt data is actual, estimated, or preliminary.  The status “as reported (actual)” indicates that the country was fully current in its reporting under the DRS and that World Bank staff are satisfied that the reported data give an adequate and fair representation of the country’s total public debt. “Preliminary” data are based on reported or collected information, but because of incompleteness or other reasons, an element of staff estimation is included. “Estimated” data indicate that countries are not current in their reporting and that a significant element of staff estimation has been necessary for producing the data tables. 
 
-Scoring is as follows:
+Scoring is as follows with the overall score being the average of the frequency and quality dimensions:
 
 Frequency:
 
-0.5 Point. 3 or more values available within past 5 years	
-0.3 Points. 2 values available within past 5 years; 	
-0.15 Points. 1 values available within past 5 years; 	
+1 Point. 3 or more values available within past 5 years	
 0 Points. None within past 5 years
 
 Quality: 
 
-0.5 Points. Actual value
-0.3 Points. Preliminary value
-0.15 Points. Estimated value
+1 Points. Actual value
 0 Points. No value
 
 ```{r 3.15_debt}
@@ -1753,9 +1729,9 @@ metadata_3.15 <- WDI_metadata %>%
             date=date,
             External_debt_Reporting=External.debt.Reporting.status) %>%
   mutate(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS= case_when(
-            External_debt_Reporting=='Actual' ~ 0.5,
-            External_debt_Reporting=='Preliminary' ~ 0.3,
-            External_debt_Reporting=='Estimate' ~ 0.15,
+            External_debt_Reporting=='Actual' ~ 1,
+           # External_debt_Reporting=='Preliminary' ~ 0.3,
+            #External_debt_Reporting=='Estimate' ~ 0.15,
             TRUE ~ 0
           ))
 
@@ -1772,22 +1748,22 @@ for (reference_year in 2016:2019) {
           group_by(iso3c, country) %>%
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
           mutate(SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS = case_when(
-            DT.TDS.DPPF.XP.ZS>=3 ~ 0.5,
-            DT.TDS.DPPF.XP.ZS==2 ~ 0.3,
-            DT.TDS.DPPF.XP.ZS==1 ~ 0.15,
+            DT.TDS.DPPF.XP.ZS>=3 ~ 1,
+           # DT.TDS.DPPF.XP.ZS==2 ~ 0.3,
+           # DT.TDS.DPPF.XP.ZS==1 ~ 0.15,
             DT.TDS.DPPF.XP.ZS==0 ~ 0, 
             TRUE ~ 0
           )) %>% # 0.5 point for at least 3 values, 0.3 for 2 values, 0.15 for 1 values, 0 otherwise
           mutate(date=reference_year) %>%
           left_join(metadata_3.15) %>% #attach country metadata 
           mutate(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS= case_when(
-            External_debt_Reporting=='Actual' ~ 0.5,
-            External_debt_Reporting=='Preliminary' ~ 0.3,
-            External_debt_Reporting=='Estimate' ~ 0.15,
+            External_debt_Reporting=='Actual' ~ 1,
+           # External_debt_Reporting=='Preliminary' ~ 0.3,
+            #External_debt_Reporting=='Estimate' ~ 0.15,
             TRUE ~ 0
           )) %>% # 0.5 point for actual, 0.3 for preliminary, 0.15 for estimate
           mutate(
-                 SPI.D3.DT.TDS.DPPF.XP.ZS=(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS + SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS)) %>%
+                 SPI.D3.DT.TDS.DPPF.XP.ZS=(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS + SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS)/2) %>%
           ungroup() %>%
           select(iso3c, country, date,  contains('D3.DT.TDS.DPPF.XP.ZS')) 
 
