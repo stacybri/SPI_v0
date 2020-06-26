@@ -72,30 +72,30 @@ Philip
 
 # Indicator Cleaning
 
-## SPI Dimension 1: Methodology, Standards and Classifications (MSC): 
+## SPI Dimension 1: Methodology, Standards and Classifications (MSC):
 
 
 ### 1.1 System of National Accounts in use
 
- The national accounts data are compiled using the concepts, definitions, 
- framework, and methodology of the System of National Account 2008 (SNA2008) 
- or European System of National and Regional Accounts (ESA 2010).  The manual 
- has evolved to meet the changing economic structure, to follow systematic accounting 
- and ensure international compatibility. 
- 
+ The national accounts data are compiled using the concepts, definitions,
+ framework, and methodology of the System of National Account 2008 (SNA2008)
+ or European System of National and Regional Accounts (ESA 2010).  The manual
+ has evolved to meet the changing economic structure, to follow systematic accounting
+ and ensure international compatibility.
+
  Scoring: 1 point for using SNA2008 or ESA 2010, 0.5 points for using SNA 1993 or ESA 1995, 0 points otherwise
- 
+
 
 ```r
 #read in csv file.
 D1.1.MSC.SNAU <- read_csv(file = paste(csv_dir, "D1.1.MSC.SNAU.csv", sep="/" )) %>%
   mutate(SPI.D1.1.SNAU=case_when(
-    SNAU=="SNA 2008" ~ 1, 
+    SNAU=="SNA 2008" ~ 1,
     SNAU=="SNA 1993" ~ 0.5,
-    TRUE ~ 0 
+    TRUE ~ 0
   )) %>%
   arrange(date, country) %>%
-  select(iso3c, country, date,SNAU, SPI.D1.1.SNAU  ) 
+  select(iso3c, country, date,SNAU, SPI.D1.1.SNAU  )
 
 
 D1.1.MSC.SNAU_wide <- D1.1.MSC.SNAU %>%
@@ -107,13 +107,13 @@ D1.1.MSC.SNAU_wide <- D1.1.MSC.SNAU %>%
 write_excel_csv(D1.1.MSC.SNAU_wide,
                 path = paste(csv_output, "D1.1.MSC.SNAU_indicator.csv", sep="/" ))
 ```
- 
 
-### 1.2 National Accounts base year 
 
-National accounts base year is the year used as the base period for constant price 
-calculations in the country's national accounts.  It is recommended that the base year of 
-constant price estimates be changed periodically to reflect changes in economic structure and relative prices. 
+### 1.2 National Accounts base year
+
+National accounts base year is the year used as the base period for constant price
+calculations in the country's national accounts.  It is recommended that the base year of
+constant price estimates be changed periodically to reflect changes in economic structure and relative prices.
 
 1 point for chained price, 0.5 for reference period within past 10 years, 0 points otherwise.
 
@@ -122,9 +122,9 @@ constant price estimates be changed periodically to reflect changes in economic 
 #read in csv file.
 D1.2.MSC.NABY <- read_csv(file = paste(csv_dir, "D1.2.MSC.NABY.csv", sep="/" )) %>%
   mutate(SPI.D1.2.NABY=case_when(
-    NABY=="Original chained constant price data are rescaled." ~ 1, 
+    NABY=="Original chained constant price data are rescaled." ~ 1,
     (date-as.numeric(NABY))<=10 ~ 0.5, #within 10 years of reference period
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, NABY, SPI.D1.2.NABY  ) %>%
   arrange(date, country)
@@ -141,16 +141,16 @@ write_excel_csv(D1.2.MSC.NABY_wide,
 
 ### 1.3 Classification of national industry
 
- The industrial production data are compiled using the International Standard Industrial 
- Classification of All Economic Activities (ISIC) Rev.4 and Statistical Classification of 
- Economic Activities in the European Community (NACE) Rev.2.  ISIC Rev.4 is a standard classification 
- of economic activities arranged so that entities can be classified per the activity they carry out 
- using criteria such as input, output and use of the products produced, more emphasis has been given 
- to the character of the production process in defining and delineating ISIC classes for international 
- comparability.  The manual and classification have changed to cover the complete scope of industrial 
+ The industrial production data are compiled using the International Standard Industrial
+ Classification of All Economic Activities (ISIC) Rev.4 and Statistical Classification of
+ Economic Activities in the European Community (NACE) Rev.2.  ISIC Rev.4 is a standard classification
+ of economic activities arranged so that entities can be classified per the activity they carry out
+ using criteria such as input, output and use of the products produced, more emphasis has been given
+ to the character of the production process in defining and delineating ISIC classes for international
+ comparability.  The manual and classification have changed to cover the complete scope of industrial
  production, employment, and GDP and other statistical areas.
 
-1 Point. Latest version is adopted (ISIC Rev 4, NACE Rev 2 or a compatible classification)  
+1 Point. Latest version is adopted (ISIC Rev 4, NACE Rev 2 or a compatible classification)
 
 0.5 Points.  Previous version is used (ISIC Rev 3, NACE Rev 1 or a compatible classification)
 
@@ -161,9 +161,9 @@ write_excel_csv(D1.2.MSC.NABY_wide,
 #read in csv file.
 D1.3.MSC.CNIN <- read_csv(file = paste(csv_dir, "D1.3.MSC.CNIN.csv", sep="/" )) %>%
   mutate(SPI.D1.3.CNIN=case_when(
-    str_to_lower(CNIN)=="nace rev2" | str_to_lower(CNIN)=="rev4" ~ 1, 
-    str_to_lower(CNIN)=="nace rev1" | str_to_lower(CNIN)=="rev3" ~ 0.5, 
-    TRUE ~ 0 
+    str_to_lower(CNIN)=="nace rev2" | str_to_lower(CNIN)=="rev4" ~ 1,
+    str_to_lower(CNIN)=="nace rev1" | str_to_lower(CNIN)=="rev3" ~ 0.5,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, CNIN, SPI.D1.3.CNIN  ) %>%
   arrange(date, country)
@@ -179,22 +179,22 @@ write_excel_csv(D1.3.MSC.CNIN_wide,
 
 ### 1.4 CPI base year
 
-Consumer Price Index serves as indicators of inflation and reflects changes in the 
- cost of acquiring a fixed basket of goods and services by the average consumer.  
- Weights are usually derived from consumer expenditure surveys and the CPI base year 
+Consumer Price Index serves as indicators of inflation and reflects changes in the
+ cost of acquiring a fixed basket of goods and services by the average consumer.
+ Weights are usually derived from consumer expenditure surveys and the CPI base year
  refers to the year the weights were derived.  It is recommended that the base year be
- changed periodically to reflect changes in expenditure structure.  
- 
+ changed periodically to reflect changes in expenditure structure.
+
  1 Point. Annual chain linking. 0.5 Points. Base year in last 10 years. 0 points. Otherwise
- 
+
 
 ```r
 #read in csv file.
 D1.4.MSC.CPIBY <- read_csv(file = paste(csv_dir, "D1.4.MSC.CPIBY.csv", sep="/" )) %>%
   mutate(SPI.D1.4.CPIBY=case_when(
-    CPIBY=="annual chained" ~ 1, 
+    CPIBY=="annual chained" ~ 1,
     (date-as.numeric(CPIBY))<=10 ~ 0.5, #within 10 years of reference period
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, CPIBY, SPI.D1.4.CPIBY  ) %>%
   arrange(date, country)
@@ -211,17 +211,17 @@ write_excel_csv(D1.4.MSC.CPIBY_wide,
 
 
 
- 
+
 ### 1.5 Classification of household consumption
 
-Classification of Individual Consumption According to Purpose (COICOP) 
-is used in household budget surveys, consumer price indices and international 
-comparisons of gross domestic product (GDP) and its component expenditures.  
-Although COICOP is not strictly linked to any particular model of consumer 
-behavior, the classification is designed to broadly reflect differences in 
-income elasticities.  It is an integral part of the SNA1993 and more detailed 
-subdivision of the classes provide comparability between countries and between 
-statistics in these different areas.    
+Classification of Individual Consumption According to Purpose (COICOP)
+is used in household budget surveys, consumer price indices and international
+comparisons of gross domestic product (GDP) and its component expenditures.
+Although COICOP is not strictly linked to any particular model of consumer
+behavior, the classification is designed to broadly reflect differences in
+income elasticities.  It is an integral part of the SNA1993 and more detailed
+subdivision of the classes provide comparability between countries and between
+statistics in these different areas.
 
 1 Point. Follow Classification of Individual Consumption by Purpose (COICOP)	0 Points.	Otherwise
 
@@ -230,8 +230,8 @@ statistics in these different areas.
 #read in csv file.
 D1.5.MSC.HOUS <- read_csv(file = paste(csv_dir, "D1.5.MSC.HOUS.csv", sep="/" )) %>%
   mutate(SPI.D1.5.HOUS=case_when(
-    HOUS=="COICOP" ~ 1, 
-    TRUE ~ 0 
+    HOUS=="COICOP" ~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, HOUS, SPI.D1.5.HOUS  ) %>%
   arrange(date, country)
@@ -249,25 +249,25 @@ write_excel_csv(D1.5.MSC.HOUS_wide,
 
 
 
-### 1.6 Classification of status of employment 
+### 1.6 Classification of status of employment
 
-Classification of status of employment refers to employment data that are 
- compiled using the current international standard International Classification 
+Classification of status of employment refers to employment data that are
+ compiled using the current international standard International Classification
  of Status in Employment (ISCE-93).  It classifies jobs with respect to the type
- of explicit or implicit contract of employment between the job holder and the 
+ of explicit or implicit contract of employment between the job holder and the
  economic unit in which he or she is employed.  Therefore, it aims to provide the
- basis for production of internationally comparable statistics on the employment 
- relationship, including the distinction between salaried employment and self-employment.  
- 
-1 Point. Follow International Labour Organization, International Classification of Status in Employment (ICSE-93) or 2012 North American Industry Classification System (NAICS). 0 Points Otherwise. 
- 
+ basis for production of internationally comparable statistics on the employment
+ relationship, including the distinction between salaried employment and self-employment.
+
+1 Point. Follow International Labour Organization, International Classification of Status in Employment (ICSE-93) or 2012 North American Industry Classification System (NAICS). 0 Points Otherwise.
+
 
 ```r
 #read in csv file.
 D1.6.MSC.EMPL <- read_csv(file = paste(csv_dir, "D1.6.MSC.EMPL.csv", sep="/" )) %>%
   mutate(SPI.D1.6.EMPL=case_when(
-    EMPL=="ICSE-93" | EMPL=="NAICS" ~ 1, 
-    TRUE ~ 0 
+    EMPL=="ICSE-93" | EMPL=="NAICS" ~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, EMPL, SPI.D1.6.EMPL  ) %>%
   arrange(date, country)
@@ -286,25 +286,25 @@ write_excel_csv(D1.6.MSC.EMPL_wide,
 
 ### 1.7 Central government accounting status
 
-Government finance accounting status refers to the accounting basis for 
-reporting central government financial data.  For many countries' government 
-finance data, have been consolidated into one set of accounts capturing all 
-the central government's fiscal activities and following noncash recording basis.  
-Budgetary central government accounts do not necessarily include all central government 
-units, the picture they provide of central government activities is usually incomplete.  
+Government finance accounting status refers to the accounting basis for
+reporting central government financial data.  For many countries' government
+finance data, have been consolidated into one set of accounts capturing all
+the central government's fiscal activities and following noncash recording basis.
+Budgetary central government accounts do not necessarily include all central government
+units, the picture they provide of central government activities is usually incomplete.
 
-1 Point. Consolidated central government accounting follows noncash recording basis	 
-0.5 Points. Consolidated central government accounting follows cash recording basis	 
-0 Points. Otherwise 
+1 Point. Consolidated central government accounting follows noncash recording basis
+0.5 Points. Consolidated central government accounting follows cash recording basis
+0 Points. Otherwise
 
 
 ```r
 #read in csv file.
 D1.7.MSC.CGOV <- read_csv(file = paste(csv_dir, "D1.7.MSC.CGOV.csv", sep="/" )) %>%
   mutate(SPI.D1.7.CGOV=case_when(
-    CGOV=="AC" ~ 1, 
+    CGOV=="AC" ~ 1,
     CGOV=="CA" ~ 0.5,
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, CGOV, SPI.D1.7.CGOV  ) %>%
   arrange(date, country)
@@ -321,14 +321,14 @@ write_excel_csv(D1.7.MSC.CGOV_wide,
 
 ### 1.8 Compilation of government finance statistics
 
-(GFSM) in use for compiling the data.  It provides guidelines on the institutional 
-structure of governments and the presentation of fiscal data in a format similar to 
-business accounting with a balance sheet and income statement plus guidelines on the 
-treatment of exchange rate and other valuation adjustments.  The latest manual GFSM2014 
-is harmonized with the SNA2008. 
+(GFSM) in use for compiling the data.  It provides guidelines on the institutional
+structure of governments and the presentation of fiscal data in a format similar to
+business accounting with a balance sheet and income statement plus guidelines on the
+treatment of exchange rate and other valuation adjustments.  The latest manual GFSM2014
+is harmonized with the SNA2008.
 
-1 Point. Follow the latest Government Finance Statistical Manual (2014)/ ESA2010	
-0.5 Points. Previous version is used (GFSM 2001)	
+1 Point. Follow the latest Government Finance Statistical Manual (2014)/ ESA2010
+0.5 Points. Previous version is used (GFSM 2001)
 0 Points. Otherwise
 
 
@@ -337,9 +337,9 @@ is harmonized with the SNA2008.
 #read in csv file.
 D1.8.MSC.FINA <- read_csv(file = paste(csv_dir, "D1.8.MSC.FINA.csv", sep="/" )) %>%
   mutate(SPI.D1.8.FINA=case_when(
-    FINA=="2014" | FINA=="ESA 2010"~ 1, 
+    FINA=="2014" | FINA=="ESA 2010"~ 1,
     FINA=="2001" ~ 0.5,
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, FINA, SPI.D1.8.FINA  ) %>%
   arrange(date, country)
@@ -358,11 +358,11 @@ write_excel_csv(D1.8.MSC.FINA_wide,
 
 ### 1.9 Compilation of monetary and financial statistics
 
-Compilation of monetary and financial statistics refers to the Monetary and Financial Statistics Manual 
-(MFSM) in use.  It covers concepts, definitions, classifications of financial instruments and sectors, and 
-accounting rules, and provides a comprehensive analytic framework for monetary and financial planning and policy 
-determination.  The Monetary and Finance Statistics: Compilation Guide (2008) provides detailed guidelines for 
-the compilation of monetary and financial statistics in addition to MFSM. 
+Compilation of monetary and financial statistics refers to the Monetary and Financial Statistics Manual
+(MFSM) in use.  It covers concepts, definitions, classifications of financial instruments and sectors, and
+accounting rules, and provides a comprehensive analytic framework for monetary and financial planning and policy
+determination.  The Monetary and Finance Statistics: Compilation Guide (2008) provides detailed guidelines for
+the compilation of monetary and financial statistics in addition to MFSM.
 
 1 Point. Follow the latest Monetary and Finance Statistics Manual (2000) or Monetary and Finance Statistics: Compilation Guide (2008/2016)
 0 Points. Otherwise
@@ -372,8 +372,8 @@ the compilation of monetary and financial statistics in addition to MFSM.
 #read in csv file.
 D1.9.MSC.MONY <- read_csv(file = paste(csv_dir, "D1.9.MSC.MONY.csv", sep="/" )) %>%
   mutate(SPI.D1.9.MONY=case_when(
-    MONY=="MFSM 2000" | MONY=="MFSMCG 2016"~ 1, 
-    TRUE ~ 0 
+    MONY=="MFSM 2000" | MONY=="MFSMCG 2016"~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, MONY, SPI.D1.9.MONY  ) %>%
   arrange(date, country)
@@ -392,15 +392,15 @@ write_excel_csv(D1.9.MSC.MONY_wide,
 
 ### 1.10 SDDS/e-GDDS subscription
 
-Data Dissemination Standard (SDDS) and electronic General Data Dissemination Standard (e-GDDS) were 
-established by the International Monetary Fund (IMF) for member countries that have or that might seek 
+Data Dissemination Standard (SDDS) and electronic General Data Dissemination Standard (e-GDDS) were
+established by the International Monetary Fund (IMF) for member countries that have or that might seek
 access to international capital markets, to guide them in providing their economic and financial data to the public.
 Although subscription is voluntary, the subscribing member needs to be committed to observing the standard and provide
-information about its data and data dissemination practices (metadata).  The metadata are posted on the IMF's SDDS and 
-e-GDDS websites.       
+information about its data and data dissemination practices (metadata).  The metadata are posted on the IMF's SDDS and
+e-GDDS websites.
 
-1 Point. Subscribing to IMF SDDS+ or SDDS standards	
-0.5 Points. Subscribing to IMF e-GDDS standards	
+1 Point. Subscribing to IMF SDDS+ or SDDS standards
+0.5 Points. Subscribing to IMF e-GDDS standards
 0 Points. Otherwise
 
 
@@ -408,9 +408,9 @@ e-GDDS websites.
 #read in csv file.
 D1.10.MSC.IDDS <- read_csv(file = paste(csv_dir, "D1.10.MSC.IDDS.csv", sep="/" )) %>%
   mutate(SPI.D1.10.IDDS=case_when(
-    IDDS=="SDDS Plus" | IDDS=="SDDS"~ 1, 
+    IDDS=="SDDS Plus" | IDDS=="SDDS"~ 1,
     IDDS=="e-GDDS"~ 0.5,
-    TRUE ~ 0 
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, IDDS, SPI.D1.10.IDDS  ) %>%
   arrange(date, country)
@@ -427,24 +427,24 @@ write_excel_csv(D1.10.MSC.IDDS_wide,
 
 
 
-### 1.11 CRVS 
+### 1.11 CRVS
 
-Civil registration and vital statistics record the occurrence and characteristics of 
-vital events (births, deaths, marriage and divorce etc.) pertaining to the population and 
-serve as a main source of vital statistics. This identifies countries that report at least 
-90 percent complete registries of vital (birth and death) statistics to the United Nations 
-Statistics Division and are reported in its Population and Vital Statistics Reports. 
-Countries with complete vital statistics registries may have more accurate and timely demographic indicators. 
+Civil registration and vital statistics record the occurrence and characteristics of
+vital events (births, deaths, marriage and divorce etc.) pertaining to the population and
+serve as a main source of vital statistics. This identifies countries that report at least
+90 percent complete registries of vital (birth and death) statistics to the United Nations
+Statistics Division and are reported in its Population and Vital Statistics Reports.
+Countries with complete vital statistics registries may have more accurate and timely demographic indicators.
 
-1 Point. Vital registration complete	
+1 Point. Vital registration complete
 0 Points. Otherwise
 
 ```r
 #read in csv file.
 D1.11.MSC.CRVS <- read_csv(file = paste(csv_dir, "D1.11.MSC.CRVS.csv", sep="/" )) %>%
   mutate(SPI.D1.11.CRVS=case_when(
-    str_to_lower(CRVS)=="yes" ~ 1, 
-    TRUE ~ 0 
+    str_to_lower(CRVS)=="yes" ~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, CRVS, SPI.D1.11.CRVS  ) %>%
   arrange(date, country)
@@ -463,12 +463,12 @@ write_excel_csv(D1.11.MSC.CRVS_wide,
 
 ### 1.12 Business process
 
-The Generic Statistical Business Process Model (GSBPM) aims to describe 
-statistics production in a general and process-oriented way.  It is used 
-both within and between statistical offices as a common basis for work with 
-statistics production in different ways, such as quality, efficiency, standardization, 
-and process-orientation.  It is used for all types of surveys, and "business" is not 
-related to "business statistics" but refers to the statistical office, simply expressed.  
+The Generic Statistical Business Process Model (GSBPM) aims to describe
+statistics production in a general and process-oriented way.  It is used
+both within and between statistical offices as a common basis for work with
+statistics production in different ways, such as quality, efficiency, standardization,
+and process-orientation.  It is used for all types of surveys, and "business" is not
+related to "business statistics" but refers to the statistical office, simply expressed.
 
 1 Point. GSBPM is in use
 0 Points. Otherwise
@@ -478,8 +478,8 @@ related to "business statistics" but refers to the statistical office, simply ex
 #read in csv file.
 D1.12.MSC.GSBP <- read_csv(file = paste(csv_dir, "D1.12.MSC.GSBP.csv", sep="/" )) %>%
   mutate(SPI.D1.12.GSBP=case_when(
-    str_to_lower(GSBP)=="yes" ~ 1, 
-    TRUE ~ 0 
+    str_to_lower(GSBP)=="yes" ~ 1,
+    TRUE ~ 0
   ))  %>%
   select(iso3c, country, date, GSBP, SPI.D1.12.GSBP  ) %>%
   arrange(date, country)
@@ -513,10 +513,10 @@ D1.MSC <- D1.1.MSC.SNAU %>%
   left_join(D1.10.MSC.IDDS) %>%
   left_join(D1.11.MSC.CRVS) %>%
   left_join(D1.12.MSC.GSBP) %>%
-  select(iso3c, country, date, starts_with("SPI.D1")) 
+  select(iso3c, country, date, starts_with("SPI.D1"))
 #Now calculate MSC score which is the average across the 12 indicators
 D1.MSC <- D1.MSC %>%
-  mutate(SPI.D1.MSC=100*rowMeans(.[grep(x=colnames(D1.MSC), 
+  mutate(SPI.D1.MSC=100*rowMeans(.[grep(x=colnames(D1.MSC),
                                               pattern="SPI.D1")], na.rm=TRUE)) %>%
   arrange(date, iso3c) %>%
   select(iso3c, country, date,SPI.D1.MSC, starts_with("SPI.D1"))
@@ -578,7 +578,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 37.50 </td>
    <td style="text-align:right;"> 66.67 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▂▇▃▃▃ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.MSC </td>
@@ -591,7 +591,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 37.50 </td>
    <td style="text-align:right;"> 70.83 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▂▇▃▃▃ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.MSC </td>
@@ -604,7 +604,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 41.67 </td>
    <td style="text-align:right;"> 75.00 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▂▇▃▃▃ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.MSC </td>
@@ -617,7 +617,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 37.50 </td>
    <td style="text-align:right;"> 54.17 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▂▇▅▂▂ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2582&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.1.SNAU </td>
@@ -630,7 +630,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▇▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.1.SNAU </td>
@@ -643,7 +643,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▇▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.1.SNAU </td>
@@ -656,7 +656,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▇▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.1.SNAU </td>
@@ -669,7 +669,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▇▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.2.NABY </td>
@@ -682,7 +682,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0.88 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▇▁▅ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.2.NABY </td>
@@ -695,7 +695,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▆▁▅ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.2.NABY </td>
@@ -708,7 +708,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▅▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.2.NABY </td>
@@ -721,7 +721,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▆▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.3.CNIN </td>
@@ -734,7 +734,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▃▁▆▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.3.CNIN </td>
@@ -747,7 +747,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▃▁▆▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.3.CNIN </td>
@@ -760,7 +760,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▃▁▆▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.3.CNIN </td>
@@ -773,7 +773,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▇▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.4.CPIBY </td>
@@ -786,7 +786,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▇▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.4.CPIBY </td>
@@ -799,7 +799,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▇▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.4.CPIBY </td>
@@ -812,7 +812,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▇▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.4.CPIBY </td>
@@ -825,7 +825,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▅▁▁ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.5.HOUS </td>
@@ -838,7 +838,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.5.HOUS </td>
@@ -851,7 +851,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▃▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.5.HOUS </td>
@@ -864,7 +864,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▃▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.5.HOUS </td>
@@ -877,7 +877,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.6.EMPL </td>
@@ -890,7 +890,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.6.EMPL </td>
@@ -903,7 +903,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.6.EMPL </td>
@@ -916,7 +916,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.6.EMPL </td>
@@ -929,7 +929,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.7.CGOV </td>
@@ -942,7 +942,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▂▁▅ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.7.CGOV </td>
@@ -955,7 +955,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▃▁▅ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.7.CGOV </td>
@@ -968,7 +968,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▃▁▅ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.7.CGOV </td>
@@ -981,7 +981,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▂▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.8.FINA </td>
@@ -994,7 +994,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▃▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.8.FINA </td>
@@ -1007,7 +1007,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▃▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.8.FINA </td>
@@ -1020,7 +1020,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▃▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.8.FINA </td>
@@ -1033,7 +1033,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▃▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.9.MONY </td>
@@ -1046,7 +1046,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▃▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.9.MONY </td>
@@ -1059,7 +1059,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.9.MONY </td>
@@ -1072,7 +1072,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.9.MONY </td>
@@ -1085,7 +1085,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.10.IDDS </td>
@@ -1098,7 +1098,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▇▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.10.IDDS </td>
@@ -1111,7 +1111,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▇▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.10.IDDS </td>
@@ -1124,7 +1124,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▇▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.10.IDDS </td>
@@ -1137,7 +1137,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▇▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.11.CRVS </td>
@@ -1150,7 +1150,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.11.CRVS </td>
@@ -1163,7 +1163,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.11.CRVS </td>
@@ -1176,7 +1176,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.11.CRVS </td>
@@ -1189,7 +1189,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▅ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.12.GSBP </td>
@@ -1202,7 +1202,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.12.GSBP </td>
@@ -1215,7 +1215,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.12.GSBP </td>
@@ -1228,7 +1228,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D1.12.GSBP </td>
@@ -1241,7 +1241,7 @@ kable(msc_sumstats, caption="Summary Statistics of Methodology, Standards and Cl
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
 </tbody>
 </table>
@@ -1260,7 +1260,6 @@ including data on homeless persons, are often used in the presentation and analy
 of the housing census.  It is recommended that population and housing censuses be conducted at least every 10 years. 
 
 1 Point. Population census done within last 10 years	
-0.5 Points. Population census done within last 20 years	
 0 Points. Otherwise
 
 ```r
@@ -1292,7 +1291,7 @@ for (i in 2016:2019) {
   summarise(last_census=max(census_date, na.rm=T)) %>%
   mutate(SPI.D2.1.POPU=case_when(
     (date-last_census<=10) & (date-last_census>0) ~ 1, 
-    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    #(date-last_census<=20) & (date-last_census>0) ~ 0.5, 
     TRUE ~ 0 )
   )  %>%
    ungroup() %>%
@@ -1328,7 +1327,6 @@ structural data using sampling methods.  It is recommended that agricultural
 censuses be conducted at least every 10 years.
 
 1 Point.  census done within last 10 years	
-0.5 Points.  census done within last 20 years	
 0 Points. Otherwise
 
 
@@ -1360,7 +1358,7 @@ for (i in 2016:2019) {
   summarise(last_census=max(census_date, na.rm=T)) %>%
   mutate(SPI.D2.2.AGRI=case_when(
     (date-last_census<=10) & (date-last_census>0) ~ 1, 
-    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    #(date-last_census<=20) & (date-last_census>0) ~ 0.5, 
     TRUE ~ 0 )
   )  %>%
    ungroup() %>%
@@ -1392,8 +1390,7 @@ Business Register information is establishment-based and includes business
 location, organization type (e.g. subsidiary or parent), industry
 classification, and operating data (e.g., receipts and employment).
 
-1 Point.  census done within last 10 years	
-0.5 Points.  census done within last 20 years	
+1 Point.  census done within last 10 years
 0 Points. Otherwise
 
 
@@ -1401,19 +1398,19 @@ classification, and operating data (e.g., receipts and employment).
 ```r
 #read in csv file.
 D2.3.CEN.BIZZ_df <- read_csv(file = paste(csv_dir, "D2.3.CEN.BIZZ.csv", sep="/" )) %>%
-  group_by(iso3c, country) %>% 
+  group_by(iso3c, country) %>%
   nest() %>% # The next chunk of code will split our string with the years of the census (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$BIZZ.CENSUS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$BIZZ.CENSUS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
-  ) %>% 
+  ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(census_date=as.numeric(value)) 
+  mutate(census_date=as.numeric(value))
 
 
 
@@ -1423,18 +1420,18 @@ for (i in 2016:2019) {
   mutate(date=i) %>%
   mutate(recency_indicator=((date>census_date)) ) %>% #restrict to censuses that do not occur after reference date
   mutate(census_date=if_else(recency_indicator==TRUE, census_date, as.numeric(NA))) %>%
-  group_by(iso3c, country, date, database_last_updated, BIZZ.CENSUS ) %>%   
+  group_by(iso3c, country, date, database_last_updated, BIZZ.CENSUS ) %>%
   summarise(last_census=max(census_date, na.rm=T)) %>%
   mutate(SPI.D2.3.BIZZ=case_when(
-    (date-last_census<=10) & (date-last_census>0) ~ 1, 
-    (date-last_census<=20) & (date-last_census>0) ~ 0.5, 
+    (date-last_census<=10) & (date-last_census>0) ~ 1,
+    #(date-last_census<=20) & (date-last_census>0) ~ 0.5,
     TRUE ~ 0 )
   )  %>%
    ungroup() %>%
   select(iso3c, country, date, BIZZ.CENSUS, SPI.D2.3.BIZZ  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.3.CEN.BIZZ",i,sep="_"), temp)
 }
 
@@ -1452,7 +1449,7 @@ write_excel_csv(D2.3.CEN.BIZZ_wide,
 ```
 
 
-### 2.4 Household Survey on income/consumption/expenditure/budget/Integrated Survey 
+### 2.4 Household Survey on income/consumption/expenditure/budget/Integrated Survey
 
 These surveys collect data on household income (including income in kind),
 consumption and expenditure.  They typically include income, expenditure, and
@@ -1460,9 +1457,8 @@ consumption surveys, household budget surveys, integrated surveys.  It is
 recommended that surveys on income and expenditure be conducted at least every
 3 to 5 years.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 
@@ -1470,18 +1466,18 @@ recommended that surveys on income and expenditure be conducted at least every
 #read in csv file.
 D2.4.SVY.HOUS_df <- read_csv(file = paste(csv_dir, "D2.4.SVY.HOUS.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$HOUS.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$HOUS.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 
 # Now calculate our SPI score for this indicator
@@ -1491,15 +1487,15 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, HOUS.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.4.HOUS=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+    # sum(recency_indicator)==2 ~ 0.6,
+    # sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, HOUS.SURVEYS, SPI.D2.4.HOUS  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.4.SVY.HOUS",i,sep="_"), temp)
 }
 
@@ -1527,9 +1523,8 @@ agricultural land, production, crops and livestock, aquaculture, labor and
 cost, and time use.  Some issues, such as gender and food security, are of
 interest to most agriculture surveys.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 
@@ -1538,18 +1533,18 @@ interest to most agriculture surveys.
 #read in csv file.
 D2.5.SVY.AGRI_df <- read_csv(file = paste(csv_dir, "D2.5.SVY.AGRI.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$AGRI.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$AGRI.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 
 # Now calculate our SPI score for this indicator
@@ -1559,15 +1554,15 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, AGRI.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.5.AGRI=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+   # sum(recency_indicator)==2 ~ 0.6,
+   # sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, AGRI.SURVEYS, SPI.D2.5.AGRI  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.5.SVY.AGRI",i,sep="_"), temp)
 }
 
@@ -1585,7 +1580,7 @@ write_excel_csv(D2.5.SVY.AGRI_wide,
 
 
 
-### 2.6 Labor Force Survey 
+### 2.6 Labor Force Survey
 
 Labor force survey is a standard household-based survey of work-related
 statistics at the national and sub-national employment or unemployment levels,
@@ -1595,9 +1590,8 @@ between employees and the self-employed, public versus private sector
 employment, multiple job-holding, hiring, job creation, and duration of
 unemployment.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 
@@ -1607,18 +1601,18 @@ unemployment.
 #read in csv file.
 D2.6.SVY.LABR_df <- read_csv(file = paste(csv_dir, "D2.6.SVY.LABR.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$LABR.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$LABR.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 # Now calculate our SPI score for this indicator
 for (i in 2016:2019) {
@@ -1627,15 +1621,15 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, LABR.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.6.LABR=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+   # sum(recency_indicator)==2 ~ 0.6,
+   # sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, LABR.SURVEYS, SPI.D2.6.LABR  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.6.SVY.LABR",i,sep="_"), temp)
 }
 
@@ -1661,9 +1655,8 @@ populations, such as health expenditure, access, utilization, and outcomes.
 They typically include Demographic and Health Surveys.  It is recommended that
 health surveys be conducted at least every 3 to 5 years.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 
@@ -1671,18 +1664,18 @@ health surveys be conducted at least every 3 to 5 years.
 #read in csv file.
 D2.7.SVY.HLTH_df <- read_csv(file = paste(csv_dir, "D2.7.SVY.HLTH.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$HLTH.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$HLTH.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 # Now calculate our SPI score for this indicator
 for (i in 2016:2019) {
@@ -1691,15 +1684,15 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, HLTH.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.7.HLTH=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+   # sum(recency_indicator)==2 ~ 0.6,
+   # sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, HLTH.SURVEYS, SPI.D2.7.HLTH  ) %>%
   arrange(date, country)
 
-  
+
   assign(paste("D2.7.SVY.HLTH",i,sep="_"), temp)
 }
 
@@ -1728,9 +1721,8 @@ surveys include surveys of businesses, farms, and institutions.  They may ask
 for information about the establishment itself and/or employee characteristics
 and demographics.
 
-1 Point. 3 or more surveys done within past 10 years	
-0.6 Points. 2 surveys done within past 10 years; 	
-0.3 Points. 1 survey done within past 10 years; 	
+1 Point. 3 or more surveys done within past 10 years
+
 0 Points. None within past 10 years
 
 
@@ -1740,18 +1732,18 @@ and demographics.
 #read in csv file.
 D2.8.SVY.BIZZ_df <- read_csv(file = paste(csv_dir, "D2.8.SVY.BIZZ.csv", sep="/" )) %>%
   group_by(iso3c, country) %>%  # The next chunk of code will split our string with the years of the survey (i.e. "2000, 2010") in to separate rows.  We will then aggregate up.
-  nest() %>% 
+  nest() %>%
   mutate(
     temp_col = map(
-      data, 
-      ~ str_extract_all(.x$BIZZ.SURVEYS, "\\d{4}") %>% 
-        flatten() %>% 
-        map_chr(~return(.x)) %>% 
+      data,
+      ~ str_extract_all(.x$BIZZ.SURVEYS, "\\d{4}") %>%
+        flatten() %>%
+        map_chr(~return(.x)) %>%
         as_tibble()
     )
   ) %>%
   unnest(keep_empty = TRUE) %>% # Now we have a database with the observations equal to Country*Census observations.  From here we can calculate latest census, etc.
-  mutate(survey_date=as.numeric(value)) 
+  mutate(survey_date=as.numeric(value))
 
 # Now calculate our SPI score for this indicator
 
@@ -1761,9 +1753,9 @@ for (i in 2016:2019) {
   mutate(recency_indicator=((date-survey_date<=10) & (date-survey_date>0)) ) %>% #restrict to surveys inside 10 year period
   group_by(iso3c, country, date, BIZZ.SURVEYS) %>% #group by country and create indicator for how many surveys over 10 year period
   summarise(SPI.D2.8.BIZZ=case_when(
-    sum(recency_indicator)>=3 ~ 1, 
-    sum(recency_indicator)==2 ~ 0.6, 
-    sum(recency_indicator)==1 ~ 0.3, 
+    sum(recency_indicator)>=3 ~ 1,
+    #sum(recency_indicator)==2 ~ 0.6,
+    #sum(recency_indicator)==1 ~ 0.3,
     TRUE ~ 0 )
   )  %>%
   select(iso3c, country, date, BIZZ.SURVEYS, SPI.D2.8.BIZZ  ) %>%
@@ -1803,11 +1795,11 @@ D2.CS <- D2.1.CEN.POPU %>%
   left_join(D2.6.SVY.LABR) %>%
   left_join(D2.7.SVY.HLTH) %>%
   left_join(D2.8.SVY.BIZZ) %>%
-  select(iso3c, country, date, starts_with("SPI.D2")) 
+  select(iso3c, country, date, starts_with("SPI.D2"))
 
 #Now calculate MSC score which is the average across the 12 indicators
 D2.CS <- D2.CS %>%
-  mutate(SPI.D2.CS=100*rowMeans(.[grep(x=colnames(D2.CS), 
+  mutate(SPI.D2.CS=100*rowMeans(.[grep(x=colnames(D2.CS),
                                               pattern="SPI.D2")], na.rm=TRUE)) %>%
   arrange(date, iso3c) %>%
   select(iso3c, country, date,SPI.D2.CS, starts_with("SPI.D2"))
@@ -1862,469 +1854,469 @@ kable(msc_sumstats, caption="Summary Statistics of Census and Surveys Indicator 
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 46.14 </td>
-   <td style="text-align:right;"> 18.60 </td>
+   <td style="text-align:right;"> 36.12 </td>
+   <td style="text-align:right;"> 19.66 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 30.00 </td>
-   <td style="text-align:right;"> 47.5 </td>
-   <td style="text-align:right;"> 60.00 </td>
-   <td style="text-align:right;"> 90 </td>
-   <td style="text-align:left;"> ▁▆▇▇▂ </td>
+   <td style="text-align:right;"> 25.0 </td>
+   <td style="text-align:right;"> 37.5 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 87.5 </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 45.35 </td>
-   <td style="text-align:right;"> 19.32 </td>
+   <td style="text-align:right;"> 34.74 </td>
+   <td style="text-align:right;"> 20.28 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 30.00 </td>
-   <td style="text-align:right;"> 47.5 </td>
-   <td style="text-align:right;"> 57.50 </td>
-   <td style="text-align:right;"> 90 </td>
-   <td style="text-align:left;"> ▂▆▇▆▂ </td>
+   <td style="text-align:right;"> 12.5 </td>
+   <td style="text-align:right;"> 37.5 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 87.5 </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.CS </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 45.15 </td>
+   <td style="text-align:right;"> 34.31 </td>
+   <td style="text-align:right;"> 20.72 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12.5 </td>
+   <td style="text-align:right;"> 37.5 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 100.0 </td>
+   <td style="text-align:left;"> &lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.CS </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 33.45 </td>
    <td style="text-align:right;"> 19.81 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 28.75 </td>
-   <td style="text-align:right;"> 47.5 </td>
-   <td style="text-align:right;"> 58.75 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▃▇▇▃▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.CS </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 44.77 </td>
-   <td style="text-align:right;"> 19.19 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 30.00 </td>
-   <td style="text-align:right;"> 45.0 </td>
-   <td style="text-align:right;"> 57.50 </td>
-   <td style="text-align:right;"> 90 </td>
-   <td style="text-align:left;"> ▂▇▇▇▂ </td>
+   <td style="text-align:right;"> 12.5 </td>
+   <td style="text-align:right;"> 37.5 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 75.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2585&gt;&lt;U+2585&gt;&lt;U+2585&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.1.POPU </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.90 </td>
-   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.1.POPU </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.89 </td>
-   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 0.83 </td>
+   <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.1.POPU </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.89 </td>
-   <td style="text-align:right;"> 0.27 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.1.POPU </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.88 </td>
-   <td style="text-align:right;"> 0.27 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.2.AGRI </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.63 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▂▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.2.AGRI </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.63 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▂▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.2.AGRI </td>
-   <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.5 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▃▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.2.AGRI </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 0.42 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.5 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▅▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.83 </td>
    <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
+   <td style="text-align:left;"> SPI.D2.1.POPU </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.81 </td>
+   <td style="text-align:right;"> 0.39 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.2.AGRI </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.56 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.2.AGRI </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.17 </td>
-   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0.55 </td>
+   <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
+   <td style="text-align:left;"> SPI.D2.2.AGRI </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.17 </td>
-   <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.2.AGRI </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.47 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
-   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.16 </td>
-   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.4.HOUS </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.71 </td>
-   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.60 </td>
    <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▁▂▃▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D2.4.HOUS </td>
+   <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.70 </td>
-   <td style="text-align:right;"> 0.35 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▂▃▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.4.HOUS </td>
-   <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.70 </td>
-   <td style="text-align:right;"> 0.36 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▂▃▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.4.HOUS </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.69 </td>
-   <td style="text-align:right;"> 0.35 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1.0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▂▃▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.5.AGRI </td>
-   <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.15 </td>
-   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D2.5.AGRI </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.16 </td>
-   <td style="text-align:right;"> 0.32 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.5.AGRI </td>
+   <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.16 </td>
-   <td style="text-align:right;"> 0.32 </td>
+   <td style="text-align:right;"> 0.37 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D2.5.AGRI </td>
+   <td style="text-align:left;"> SPI.D2.3.BIZZ </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.14 </td>
-   <td style="text-align:right;"> 0.31 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.6.LABR </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.52 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▆▃▂▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.6.LABR </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.52 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▆▃▂▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.6.LABR </td>
-   <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.53 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▆▂▃▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.6.LABR </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.51 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.6 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▃▂▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D2.7.HLTH </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.13 </td>
    <td style="text-align:right;"> 0.34 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▇▇▁▅ </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D2.7.HLTH </td>
+   <td style="text-align:left;"> SPI.D2.4.HOUS </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.54 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.4.HOUS </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.37 </td>
-   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0.51 </td>
+   <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▇▇▁▂ </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D2.7.HLTH </td>
+   <td style="text-align:left;"> SPI.D2.4.HOUS </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.38 </td>
-   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0.52 </td>
+   <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▇▇▁▂ </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D2.7.HLTH </td>
+   <td style="text-align:left;"> SPI.D2.4.HOUS </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.5.AGRI </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.08 </td>
+   <td style="text-align:right;"> 0.28 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.5.AGRI </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.5.AGRI </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.5.AGRI </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.09 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.6.LABR </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.6.LABR </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.41 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.6.LABR </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.41 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.6.LABR </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.40 </td>
-   <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 0.49 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.3 </td>
-   <td style="text-align:right;"> 0.60 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▇▇▁▃ </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.7.HLTH </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.17 </td>
+   <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.7.HLTH </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.7.HLTH </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D2.7.HLTH </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.8.BIZZ </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.18 </td>
-   <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 0.10 </td>
+   <td style="text-align:right;"> 0.31 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.8.BIZZ </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.19 </td>
-   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 0.12 </td>
+   <td style="text-align:right;"> 0.33 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▂▁▁▂ </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.8.BIZZ </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.20 </td>
-   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0.34 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D2.8.BIZZ </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.20 </td>
-   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0.34 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
 </tbody>
 </table>
@@ -2387,8 +2379,7 @@ Indicators coming from the WDI directly are:
 Scoring:
 
 1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
+
 0 Points. None within past 5 years
 
 
@@ -2449,8 +2440,8 @@ for (reference_year in 2016:2019) {
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
           mutate_at(.vars=aki_list, ~case_when(
             .>=3 ~ 1,
-            .==2 ~ 0.6,
-            .==1 ~ 0.3,
+            #.==2 ~ 0.6,
+            #.==1 ~ 0.3,
             .==0 ~ 0, 
             TRUE ~ 0
           )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
@@ -2469,15 +2460,13 @@ for (reference_year in 2016:2019) {
 
 The data will be pulled from the WDI and combined with metadata from the Povcalnet
 
-Scoring is as follows:
+Scoring is as follows.  Overall score is the average of quality and frequency:
 Quality (0.5 points total):
-0.5 Point. Comparable data lasting at least two years within past 5 years	
+1 Point. Comparable data lasting at least two years within past 5 years	
 0 Points. No comparable data within past 5 years
 
 Frequency (0.5 points total):
-0.5 Point. 3 or more values available within past 5 years	
-0.3 Points. 2 values available within past 5 years; 	
-0.15 Points. 1 values available within past 5 years; 	
+1 Point. 3 or more values available within past 5 years	
 0 Points. None within past 5 years
 
 
@@ -2522,7 +2511,7 @@ for (reference_year in 2016:2019) {
         ungroup() %>%
         group_by(countrycode) %>% #now get a total by country with the max number of comparable estimates
         summarise(SPI.QUAL.D3.POV=max(SPI.QUAL.D3.POV, na.rm=T)) %>%
-        mutate(SPI.QUAL.D3.POV=if_else(SPI.QUAL.D3.POV>=2,0.5,0)) #only give point if there is at least two observations that are comparable
+        mutate(SPI.QUAL.D3.POV=if_else(SPI.QUAL.D3.POV>=2,1,0)) #only give point if there is at least two observations that are comparable
   
   
   temp <-df %>%
@@ -2532,15 +2521,15 @@ for (reference_year in 2016:2019) {
           group_by(countryname,countrycode) %>%
           summarise(SPI.FREQ.D3.POV=sum(SPI.FREQ.D3.POV, na.rm=T)) %>% 
           mutate(SPI.FREQ.D3.POV=case_when(
-            SPI.FREQ.D3.POV>=3 ~ 0.5,
-            SPI.FREQ.D3.POV==2 ~ 0.3,
-            SPI.FREQ.D3.POV==1 ~ 0.15,
+            SPI.FREQ.D3.POV>=3 ~ 1,
+           # SPI.FREQ.D3.POV==2 ~ 0.3,
+           # SPI.FREQ.D3.POV==1 ~ 0.15,
             SPI.FREQ.D3.POV==0 ~ 0, 
             TRUE ~ 0
           )) %>%
           left_join(temp1) %>% #now bring in quality dimension
           mutate(SPI.QUAL.D3.POV=if_else(!is.na(SPI.QUAL.D3.POV),SPI.QUAL.D3.POV,0)) %>% #recode some missing values as zero, who had no observations in 5 year window
-          mutate(SPI.D3.POV=SPI.FREQ.D3.POV+SPI.QUAL.D3.POV) %>% 
+          mutate(SPI.D3.POV=(SPI.FREQ.D3.POV+SPI.QUAL.D3.POV)/2) %>% 
           mutate(date=reference_year,
                  country=countryname,
                  iso3c=countrycode) %>%
@@ -2559,8 +2548,6 @@ We examine the Food Insecurity Experience Scale from the FAO (http://www.fao.org
 
 Scoring
 1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years
 
 
@@ -2583,8 +2570,8 @@ for (reference_year in 2016:2019) {
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
           mutate(SPI.D3.FIES=case_when(
             SPI.D3.FIES>=3 ~ 1,
-            SPI.D3.FIES==2 ~ 0.6,
-            SPI.D3.FIES==1 ~ 0.3,
+           # SPI.D3.FIES==2 ~ 0.6,
+           # SPI.D3.FIES==1 ~ 0.3,
             SPI.D3.FIES==0 ~ 0, 
             TRUE ~ 0
           )) %>% # 1 point for at least 3 values, 0.6 for 2 values, 0.3 for 1 values, 0 otherwise
@@ -2609,17 +2596,14 @@ https://childmortality.org/data
 Data was pulled on April 13, 2020.
 
 Countries are ranked by source quality (admin data > survey > no data) and frequency.
-Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
+Score on this indicator has a max of 1 pointand is the average of the quality and frequency indicators.  Detailed scoring for source quality and frequency components are below.
 
 Quality (0.5 points total):
-0.5 Point. Vital Registration data available within past 5 years	
-0.25 Points. Survey Data availabe, but no Vital Registration data within past 5 years; 	
+1 Point. Vital Registration data available within past 5 years	
 0 Points. None within past 5 years
 
 Frequency (0.5 points total):
-0.5 Point. 3 or more values available within past 5 years	
-0.3 Points. 2 values available within past 5 years; 	
-0.15 Points. 1 values available within past 5 years; 	
+1 Point. 3 or more values available within past 5 years	
 0 Points. None within past 5 years
 
 
@@ -2641,21 +2625,21 @@ for (reference_year in 2016:2019) {
           mutate(SPI.FREQ.D3.CHLD.MORT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
           mutate(SPI.QUAL.D3.CHLD.MORT=case_when(
                    reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
-                   SERIES_METHOD=='Vital Registration' ~ 0.5,
-                   SERIES_METHOD!='Vital Registration' ~ 0.25,
-                   TRUE ~ as.numeric(NA)
+                   SERIES_METHOD=='Vital Registration' ~ 1,
+                  # SERIES_METHOD!='Vital Registration' ~ 0.25,
+                   TRUE ~ 0
                  )) %>%
           group_by(country) %>%
           summarise(SPI.FREQ.D3.CHLD.MORT=sum(SPI.FREQ.D3.CHLD.MORT, na.rm=T),
                     SPI.QUAL.D3.CHLD.MORT=max(SPI.QUAL.D3.CHLD.MORT, na.rm=T)) %>% 
           mutate(SPI.FREQ.D3.CHLD.MORT=case_when(
-            SPI.FREQ.D3.CHLD.MORT>=3 ~ 0.5,
-            SPI.FREQ.D3.CHLD.MORT==2 ~ 0.3,
-            SPI.FREQ.D3.CHLD.MORT==1 ~ 0.15,
+            SPI.FREQ.D3.CHLD.MORT>=3 ~ 1,
+           # SPI.FREQ.D3.CHLD.MORT==2 ~ 0.3,
+            #SPI.FREQ.D3.CHLD.MORT==1 ~ 0.15,
             SPI.FREQ.D3.CHLD.MORT==0 ~ 0, 
             TRUE ~ 0
           )) %>%
-          mutate(SPI.D3.CHLD.MORT=SPI.FREQ.D3.CHLD.MORT+SPI.QUAL.D3.CHLD.MORT) %>% 
+          mutate(SPI.D3.CHLD.MORT=(SPI.FREQ.D3.CHLD.MORT+SPI.QUAL.D3.CHLD.MORT)/2) %>% 
           mutate(date=reference_year) %>%
           select( country, date, starts_with('SPI.')) 
 
@@ -2682,17 +2666,14 @@ The data is sourced from the the Inter-Agency Group (200 countries) to improve t
 For our purposes, we will use the raw data from the country surveys as our data for the availability of key indicators, since the modelled estimates are produced out of sample, and thus not reflective of a country's national statistical system.
 
 Countries are ranked by source quality (admin data > survey > no data) and frequency.
-Score on this indicator has a max of 1 point with 0.5 points for source quality and 0.5 points for frequency.  Detailed scoring for source quality and frequency components are below.
+Score on this indicator has a max of 1 point and is the average of the frequency and quality indicators.  Detailed scoring for source quality and frequency components are below.
 
-Quality (0.5 points total):
-0.5 Point. Vital Registration data available within past 5 years	
-0.25 Points. Survey Data or Census Data availabe, but no Vital Registration data within past 5 years; 	
+Quality (1 points total):
+1 Point. Vital Registration data available within past 5 years	
 0 Points. None within past 5 years
 
-Frequency (0.5 points total):
-0.5 Point. 3 or more values available within past 5 years	
-0.3 Points. 2 values available within past 5 years; 	
-0.15 Points. 1 values available within past 5 years; 	
+Frequency (1 points total):
+1 Point. 3 or more values available within past 5 years	
 0 Points. None within past 5 years
 
 
@@ -2712,21 +2693,21 @@ for (reference_year in 2016:2019) {
           mutate(SPI.FREQ.D3.MMRT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
           mutate(SPI.QUAL.D3.MMRT=case_when(
                    reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
-                   type=='vr' ~ 0.5,
-                   type!='vr' ~ 0.25,
-                   TRUE ~ as.numeric(NA)
+                   type=='vr' ~ 1,
+                   #type!='vr' ~ 0.25,
+                   TRUE ~ 0
                  )) %>%
           group_by(iso3c) %>%
           summarise(SPI.FREQ.D3.MMRT=sum(SPI.FREQ.D3.MMRT, na.rm=T),
                     SPI.QUAL.D3.MMRT=max(SPI.QUAL.D3.MMRT, na.rm=T)) %>% 
           mutate(SPI.FREQ.D3.MMRT=case_when(
-            SPI.FREQ.D3.MMRT>=3 ~ 0.5,
-            SPI.FREQ.D3.MMRT==2 ~ 0.3,
-            SPI.FREQ.D3.MMRT==1 ~ 0.15,
+            SPI.FREQ.D3.MMRT>=3 ~ 1,
+  #          SPI.FREQ.D3.MMRT==2 ~ 0.3,
+  #          SPI.FREQ.D3.MMRT==1 ~ 0.15,
             SPI.FREQ.D3.MMRT==0 ~ 0, 
             TRUE ~ 0
           )) %>%
-          mutate(SPI.D3.MMRT=SPI.FREQ.D3.MMRT+SPI.QUAL.D3.MMRT) %>% 
+          mutate(SPI.D3.MMRT=(SPI.FREQ.D3.MMRT+SPI.QUAL.D3.MMRT)/2) %>% 
           mutate(date=reference_year) %>%
           select( iso3c, date, starts_with('SPI.')) 
 
@@ -2750,8 +2731,6 @@ Access to Electricity (% of population) has 99% coverage in the WDI database mak
 
 Scoring
 1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years
 
 
@@ -2771,8 +2750,8 @@ for (reference_year in 2016:2019) {
           summarise(SPI.D3.ELEC=sum(SPI.D3.ELEC, na.rm=T)) %>%
           mutate(SPI.D3.ELEC=case_when(
             SPI.D3.ELEC>=3 ~ 1,
-            SPI.D3.ELEC==2 ~ 0.6,
-            SPI.D3.ELEC==1 ~ 0.3,
+ #           SPI.D3.ELEC==2 ~ 0.6,
+ #           SPI.D3.ELEC==1 ~ 0.3,
             SPI.D3.ELEC==0 ~ 0, 
             TRUE ~ 0
           )) %>%
@@ -2796,8 +2775,6 @@ After GDP by expenditure, quarterly GDP is probably the most important developme
 
 Scoring
 1 Point. 3 or more values available within past 5 years	
-0.6 Points. 2 values available within past 5 years; 	
-0.3 Points. 1 values available within past 5 years; 	
 0 Points. None within past 5 years
 
 
@@ -2821,8 +2798,8 @@ temp <-D3.14.QUART.GDP %>%
   summarise(SPI.D3.QUART.GDP=sum(SPI.D3.QUART.GDP, na.rm=T)) %>% 
   mutate(SPI.D3.QUART.GDP=case_when(
     SPI.D3.QUART.GDP>=3 ~ 1,
-    SPI.D3.QUART.GDP==2 ~ 0.6,
-    SPI.D3.QUART.GDP==1 ~ 0.3,
+    #SPI.D3.QUART.GDP==2 ~ 0.6,
+    #SPI.D3.QUART.GDP==1 ~ 0.3,
     SPI.D3.QUART.GDP==0 ~ 0, 
     TRUE ~ 0
   )) %>%
@@ -2840,20 +2817,16 @@ D3.17.AKI <- bind_rows(D3.14.AKI_2016, D3.14.AKI_2017, D3.14.AKI_2018, D3.14.AKI
 
 For this indicator, Debt service (PPG and IMF only, % of exports of goods, services and primary income), we will pull data from the WDI but modify the scoring using the WDI metadata on whether the external debt data is actual, estimated, or preliminary.  The status “as reported (actual)” indicates that the country was fully current in its reporting under the DRS and that World Bank staff are satisfied that the reported data give an adequate and fair representation of the country’s total public debt. “Preliminary” data are based on reported or collected information, but because of incompleteness or other reasons, an element of staff estimation is included. “Estimated” data indicate that countries are not current in their reporting and that a significant element of staff estimation has been necessary for producing the data tables. 
 
-Scoring is as follows:
+Scoring is as follows with the overall score being the average of the frequency and quality dimensions:
 
 Frequency:
 
-0.5 Point. 3 or more values available within past 5 years	
-0.3 Points. 2 values available within past 5 years; 	
-0.15 Points. 1 values available within past 5 years; 	
+1 Point. 3 or more values available within past 5 years	
 0 Points. None within past 5 years
 
 Quality: 
 
-0.5 Points. Actual value
-0.3 Points. Preliminary value
-0.15 Points. Estimated value
+1 Points. Actual value
 0 Points. No value
 
 
@@ -2864,9 +2837,9 @@ metadata_3.15 <- WDI_metadata %>%
             date=date,
             External_debt_Reporting=External.debt.Reporting.status) %>%
   mutate(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS= case_when(
-            External_debt_Reporting=='Actual' ~ 0.5,
-            External_debt_Reporting=='Preliminary' ~ 0.3,
-            External_debt_Reporting=='Estimate' ~ 0.15,
+            External_debt_Reporting=='Actual' ~ 1,
+           # External_debt_Reporting=='Preliminary' ~ 0.3,
+            #External_debt_Reporting=='Estimate' ~ 0.15,
             TRUE ~ 0
           ))
 
@@ -2883,22 +2856,22 @@ for (reference_year in 2016:2019) {
           group_by(iso3c, country) %>%
           summarise_all((~(if(is.numeric(.)) sum(., na.rm = TRUE) else first(.)))) %>% #group by country to create one observation per country                 containing whether or not data point existed
           mutate(SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS = case_when(
-            DT.TDS.DPPF.XP.ZS>=3 ~ 0.5,
-            DT.TDS.DPPF.XP.ZS==2 ~ 0.3,
-            DT.TDS.DPPF.XP.ZS==1 ~ 0.15,
+            DT.TDS.DPPF.XP.ZS>=3 ~ 1,
+           # DT.TDS.DPPF.XP.ZS==2 ~ 0.3,
+           # DT.TDS.DPPF.XP.ZS==1 ~ 0.15,
             DT.TDS.DPPF.XP.ZS==0 ~ 0, 
             TRUE ~ 0
           )) %>% # 0.5 point for at least 3 values, 0.3 for 2 values, 0.15 for 1 values, 0 otherwise
           mutate(date=reference_year) %>%
           left_join(metadata_3.15) %>% #attach country metadata 
           mutate(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS= case_when(
-            External_debt_Reporting=='Actual' ~ 0.5,
-            External_debt_Reporting=='Preliminary' ~ 0.3,
-            External_debt_Reporting=='Estimate' ~ 0.15,
+            External_debt_Reporting=='Actual' ~ 1,
+           # External_debt_Reporting=='Preliminary' ~ 0.3,
+            #External_debt_Reporting=='Estimate' ~ 0.15,
             TRUE ~ 0
           )) %>% # 0.5 point for actual, 0.3 for preliminary, 0.15 for estimate
           mutate(
-                 SPI.D3.DT.TDS.DPPF.XP.ZS=(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS + SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS)) %>%
+                 SPI.D3.DT.TDS.DPPF.XP.ZS=(SPI.QUAL.D3.DT.TDS.DPPF.XP.ZS + SPI.FREQ.D3.DT.TDS.DPPF.XP.ZS)/2) %>%
           ungroup() %>%
           select(iso3c, country, date,  contains('D3.DT.TDS.DPPF.XP.ZS')) 
 
@@ -2983,53 +2956,53 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:left;"> SPI.D3.SE.LPV.PRIM.BMP </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.20 </td>
-   <td style="text-align:right;"> 0.24 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▇▁▃▁▃ </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SE.LPV.PRIM.BMP </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▇▁▆▁▁ </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SE.LPV.PRIM.BMP </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▇▁▆▁▁ </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SE.LPV.PRIM.BMP </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.10 </td>
-   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▇▁▃▁▁ </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SH.H2O.SMDW.ZS </td>
@@ -3042,7 +3015,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SH.H2O.SMDW.ZS </td>
@@ -3055,7 +3028,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SH.H2O.SMDW.ZS </td>
@@ -3068,7 +3041,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SH.H2O.SMDW.ZS </td>
@@ -3081,76 +3054,63 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SL.UEM.TOTL.NE.ZS </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.68 </td>
-   <td style="text-align:right;"> 0.41 </td>
+   <td style="text-align:right;"> 0.59 </td>
+   <td style="text-align:right;"> 0.49 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▂▃▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SL.UEM.TOTL.NE.ZS </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.68 </td>
-   <td style="text-align:right;"> 0.41 </td>
+   <td style="text-align:right;"> 0.59 </td>
+   <td style="text-align:right;"> 0.49 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▂▂▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SL.UEM.TOTL.NE.ZS </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.66 </td>
-   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.59 </td>
+   <td style="text-align:right;"> 0.49 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▃▂▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.SL.UEM.TOTL.NE.ZS </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.63 </td>
-   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.54 </td>
+   <td style="text-align:right;"> 0.50 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▃▂▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.NV.IND.MANF.ZS </td>
    <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.88 </td>
-   <td style="text-align:right;"> 0.32 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.NV.IND.MANF.ZS </td>
-   <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.88 </td>
    <td style="text-align:right;"> 0.33 </td>
@@ -3159,219 +3119,219 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.NV.IND.MANF.ZS </td>
-   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.87 </td>
-   <td style="text-align:right;"> 0.33 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.NV.IND.MANF.ZS </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.86 </td>
    <td style="text-align:right;"> 0.34 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D3.SI.SPR.PC40.ZG </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.04 </td>
-   <td style="text-align:right;"> 0.10 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:left;"> ▇▁▁▁▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.SI.SPR.PC40.ZG </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.09 </td>
-   <td style="text-align:right;"> 0.14 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:left;"> ▇▁▁▁▃ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.SI.SPR.PC40.ZG </td>
+   <td style="text-align:left;"> SPI.D3.NV.IND.MANF.ZS </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.12 </td>
-   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.35 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D3.SI.SPR.PC40.ZG </td>
+   <td style="text-align:left;"> SPI.D3.NV.IND.MANF.ZS </td>
    <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.12 </td>
-   <td style="text-align:right;"> 0.15 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.ER.H2O.FWST.ZS </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.26 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▂▁▇▁▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.ER.H2O.FWST.ZS </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.26 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▂▁▇▁▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.ER.H2O.FWST.ZS </td>
-   <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.26 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▂▁▇▁▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.ER.H2O.FWST.ZS </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.26 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.30 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▂▁▇▁▁ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.EG.FEC.RNEW.ZS </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.98 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.EG.FEC.RNEW.ZS </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.98 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.EG.FEC.RNEW.ZS </td>
-   <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.98 </td>
-   <td style="text-align:right;"> 0.13 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.EG.FEC.RNEW.ZS </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.59 </td>
-   <td style="text-align:right;"> 0.08 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:right;"> 0.60 </td>
-   <td style="text-align:left;"> ▁▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.NE.CON.PRVT.CN </td>
-   <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.84 </td>
-   <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0.36 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.SI.SPR.PC40.ZG </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.SI.SPR.PC40.ZG </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.SI.SPR.PC40.ZG </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.SI.SPR.PC40.ZG </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.ER.H2O.FWST.ZS </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.ER.H2O.FWST.ZS </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.ER.H2O.FWST.ZS </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.ER.H2O.FWST.ZS </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.EG.FEC.RNEW.ZS </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.EG.FEC.RNEW.ZS </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.EG.FEC.RNEW.ZS </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.98 </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.EG.FEC.RNEW.ZS </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:left;"> &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.NE.CON.PRVT.CN </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.83 </td>
+   <td style="text-align:right;"> 0.38 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.NE.CON.PRVT.CN </td>
    <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.83 </td>
-   <td style="text-align:right;"> 0.37 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.NE.CON.PRVT.CN </td>
-   <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.82 </td>
    <td style="text-align:right;"> 0.38 </td>
@@ -3380,11 +3340,11 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.NE.CON.PRVT.CN </td>
-   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.81 </td>
    <td style="text-align:right;"> 0.39 </td>
@@ -3393,7 +3353,20 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.NE.CON.PRVT.CN </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.80 </td>
+   <td style="text-align:right;"> 0.40 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.DT.TDS.DPPF.XP.ZS </td>
@@ -3406,7 +3379,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.DT.TDS.DPPF.XP.ZS </td>
@@ -3419,7 +3392,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.DT.TDS.DPPF.XP.ZS </td>
@@ -3432,7 +3405,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.DT.TDS.DPPF.XP.ZS </td>
@@ -3445,258 +3418,245 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.POV </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.39 </td>
-   <td style="text-align:right;"> 0.45 </td>
+   <td style="text-align:right;"> 0.34 </td>
+   <td style="text-align:right;"> 0.46 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.POV </td>
    <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.33 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.POV </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0.45 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.POV </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.30 </td>
+   <td style="text-align:right;"> 0.45 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.FIES </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.FIES </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.FIES </td>
+   <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.FIES </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.CHLD.MORT </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.45 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.CHLD.MORT </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.40 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.CHLD.MORT </td>
+   <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.38 </td>
    <td style="text-align:right;"> 0.45 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> SPI.D3.POV </td>
+   <td style="text-align:left;"> SPI.D3.CHLD.MORT </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.32 </td>
+   <td style="text-align:right;"> 0.44 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.MMRT </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.47 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.MMRT </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.MMRT </td>
    <td style="text-align:right;"> 2018 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.40 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.MMRT </td>
+   <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.36 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.15 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▃ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.POV </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.34 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.15 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▃ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.FIES </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.FIES </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.FIES </td>
-   <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.FIES </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.CHLD.MORT </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.55 </td>
-   <td style="text-align:right;"> 0.42 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.65 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▂▁▅▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.CHLD.MORT </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.55 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▂▁▂▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.CHLD.MORT </td>
-   <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.46 </td>
-   <td style="text-align:right;"> 0.44 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.40 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▂▁▂▆ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.CHLD.MORT </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.40 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.15 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▂▃ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.MMRT </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.55 </td>
-   <td style="text-align:right;"> 0.42 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.55 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▆▅▁▂▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.MMRT </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.53 </td>
-   <td style="text-align:right;"> 0.42 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.55 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▅▁▃▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.MMRT </td>
-   <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.50 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.40 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▃▁▂▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.MMRT </td>
-   <td style="text-align:right;"> 2019 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.46 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.40 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▂▁▂▆ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.ELEC </td>
-   <td style="text-align:right;"> 2016 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.47 </td>
-   <td style="text-align:right;"> 0.49 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.ELEC </td>
-   <td style="text-align:right;"> 2017 </td>
-   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.45 </td>
-   <td style="text-align:right;"> 0.49 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.ELEC </td>
+   <td style="text-align:right;"> 2016 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.ELEC </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.43 </td>
+   <td style="text-align:right;"> 0.50 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.ELEC </td>
    <td style="text-align:right;"> 2018 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.43 </td>
-   <td style="text-align:right;"> 0.49 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SPI.D3.ELEC </td>
-   <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 0.41 </td>
    <td style="text-align:right;"> 0.49 </td>
@@ -3705,7 +3665,20 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SPI.D3.ELEC </td>
+   <td style="text-align:right;"> 2019 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.40 </td>
+   <td style="text-align:right;"> 0.49 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.QUART.GDP </td>
@@ -3718,7 +3691,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.QUART.GDP </td>
@@ -3731,7 +3704,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.QUART.GDP </td>
@@ -3744,7 +3717,7 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.QUART.GDP </td>
@@ -3757,59 +3730,59 @@ kable(aki_sumstats, caption="Summary Statistics of Availability of Key Indicator
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2016 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 51.54 </td>
-   <td style="text-align:right;"> 20.72 </td>
+   <td style="text-align:right;"> 45.59 </td>
+   <td style="text-align:right;"> 19.60 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 38.00 </td>
-   <td style="text-align:right;"> 54.33 </td>
-   <td style="text-align:right;"> 69.00 </td>
-   <td style="text-align:right;"> 88.00 </td>
-   <td style="text-align:left;"> ▃▃▇▇▇ </td>
+   <td style="text-align:right;"> 33.33 </td>
+   <td style="text-align:right;"> 46.67 </td>
+   <td style="text-align:right;"> 63.33 </td>
+   <td style="text-align:right;"> 80.00 </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2017 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 50.74 </td>
-   <td style="text-align:right;"> 20.93 </td>
+   <td style="text-align:right;"> 45.04 </td>
+   <td style="text-align:right;"> 19.79 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 37.00 </td>
-   <td style="text-align:right;"> 53.67 </td>
-   <td style="text-align:right;"> 69.33 </td>
-   <td style="text-align:right;"> 86.00 </td>
-   <td style="text-align:left;"> ▃▅▇▇▇ </td>
+   <td style="text-align:right;"> 33.33 </td>
+   <td style="text-align:right;"> 46.67 </td>
+   <td style="text-align:right;"> 63.33 </td>
+   <td style="text-align:right;"> 80.00 </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2018 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 50.00 </td>
-   <td style="text-align:right;"> 21.21 </td>
+   <td style="text-align:right;"> 44.32 </td>
+   <td style="text-align:right;"> 19.86 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 34.33 </td>
-   <td style="text-align:right;"> 52.33 </td>
-   <td style="text-align:right;"> 69.33 </td>
-   <td style="text-align:right;"> 88.00 </td>
-   <td style="text-align:left;"> ▃▅▇▇▇ </td>
+   <td style="text-align:right;"> 30.00 </td>
+   <td style="text-align:right;"> 43.33 </td>
+   <td style="text-align:right;"> 60.00 </td>
+   <td style="text-align:right;"> 80.00 </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D3.AKI </td>
    <td style="text-align:right;"> 2019 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 45.94 </td>
-   <td style="text-align:right;"> 21.16 </td>
+   <td style="text-align:right;"> 36.44 </td>
+   <td style="text-align:right;"> 19.85 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 29.67 </td>
-   <td style="text-align:right;"> 47.33 </td>
-   <td style="text-align:right;"> 65.00 </td>
-   <td style="text-align:right;"> 85.33 </td>
-   <td style="text-align:left;"> ▃▅▇▇▅ </td>
+   <td style="text-align:right;"> 20.00 </td>
+   <td style="text-align:right;"> 33.33 </td>
+   <td style="text-align:right;"> 53.33 </td>
+   <td style="text-align:right;"> 73.33 </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2586&gt; </td>
   </tr>
 </tbody>
 </table>
@@ -4127,7 +4100,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 42.86 </td>
    <td style="text-align:right;"> 71.43 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▇▃▇▅▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.DPO </td>
@@ -4140,7 +4113,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 42.86 </td>
    <td style="text-align:right;"> 71.43 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▇▃▇▅▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.DPO </td>
@@ -4153,7 +4126,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 71.43 </td>
    <td style="text-align:right;"> 85.71 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▃▂▆▃▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2586&gt;&lt;U+2583&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.DPO </td>
@@ -4166,7 +4139,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 57.14 </td>
    <td style="text-align:right;"> 85.71 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:left;"> ▃▂▇▃▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.1.CALD </td>
@@ -4179,7 +4152,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.1.CALD </td>
@@ -4192,7 +4165,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.1.CALD </td>
@@ -4205,7 +4178,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.1.CALD </td>
@@ -4218,7 +4191,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.2.NADA </td>
@@ -4231,7 +4204,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.2.NADA </td>
@@ -4244,7 +4217,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.2.NADA </td>
@@ -4257,7 +4230,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.2.NADA </td>
@@ -4270,7 +4243,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.3.PORT </td>
@@ -4283,7 +4256,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.3.PORT </td>
@@ -4296,7 +4269,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.3.PORT </td>
@@ -4309,7 +4282,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.3.PORT </td>
@@ -4322,7 +4295,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▃▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.4.TIME </td>
@@ -4335,7 +4308,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▆▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.4.TIME </td>
@@ -4348,7 +4321,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▆▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.4.TIME </td>
@@ -4361,7 +4334,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.4.TIME </td>
@@ -4374,7 +4347,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.5.META </td>
@@ -4387,7 +4360,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.5.META </td>
@@ -4400,7 +4373,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▅▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.5.META </td>
@@ -4413,7 +4386,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▃▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.5.META </td>
@@ -4426,7 +4399,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▂▁▁▁▇ </td>
+   <td style="text-align:left;"> &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.6.USER </td>
@@ -4439,7 +4412,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.6.USER </td>
@@ -4452,7 +4425,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.6.USER </td>
@@ -4465,7 +4438,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▃ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.6.USER </td>
@@ -4478,7 +4451,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.7.GEOS </td>
@@ -4491,7 +4464,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.7.GEOS </td>
@@ -4504,7 +4477,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▂ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.7.GEOS </td>
@@ -4517,7 +4490,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▆ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt; </td>
   </tr>
   <tr>
    <td style="text-align:left;"> SPI.D4.7.GEOS </td>
@@ -4530,7 +4503,7 @@ kable(msc_sumstats, caption="Summary Statistics of Dissemination Practices and O
    <td style="text-align:right;"> 0.00 </td>
    <td style="text-align:right;"> 1.00 </td>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:left;"> ▇▁▁▁▅ </td>
+   <td style="text-align:left;"> &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2585&gt; </td>
   </tr>
 </tbody>
 </table>

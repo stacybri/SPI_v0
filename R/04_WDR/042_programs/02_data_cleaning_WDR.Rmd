@@ -1470,7 +1470,7 @@ for (reference_year in 2016:2019) {
                    reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
                    SERIES_METHOD=='Vital Registration' ~ 1,
                   # SERIES_METHOD!='Vital Registration' ~ 0.25,
-                   TRUE ~ as.numeric(NA)
+                   TRUE ~ 0
                  )) %>%
           group_by(country) %>%
           summarise(SPI.FREQ.D3.CHLD.MORT=sum(SPI.FREQ.D3.CHLD.MORT, na.rm=T),
@@ -1586,7 +1586,7 @@ for (reference_year in 2016:2019) {
                    reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
                    type=='vr' ~ 1,
                    #type!='vr' ~ 0.25,
-                   TRUE ~ as.numeric(NA)
+                   TRUE ~ 0
                  )) %>%
           group_by(iso3c) %>%
           summarise(SPI.FREQ.D3.MMRT=sum(SPI.FREQ.D3.MMRT, na.rm=T),
