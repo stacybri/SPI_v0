@@ -22,7 +22,7 @@ library(xlsx)
 
 # Directory for SPI csv files that were previously created
 csv_inputs <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
-csv_dir <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/04_WDR/013_outputs"
+csv_dir <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/01_data/013_outputs"
 out_dir <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/04_WDR/043_outputs"
 
 country_metadata <- wbstats::wbcountries() %>%
@@ -135,19 +135,334 @@ QGDP <- D3.14.QUART.GDP %>%
   mutate_at(vars(starts_with('SPI.D3.')), ~if_else(is.na(.),'No values of Quarterly GDP in Past 5 Years',.)) 
 
 
-QGDP %>%
-  ungroup() %>%
+#table by region
+
+tab <- QGDP %>%
+  group_by(region) %>%
   mutate(total=n()) %>%
   group_by(region, SPI.D3.QUART.GDP) %>%
-  summarise(pct=n()/total,
-            N=n()) %>%
-  kable(caption='% of Countries by Number of Quarterly GDP Values by Region') %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(region,SPI.D3.QUART.GDP, Percent) %>%
+  pivot_wider(names_from=SPI.D3.QUART.GDP,
+              values_from='Percent',
+              values_fill=0)
+
+tab_ovrl <- QGDP %>%
+  ungroup() %>%
+  mutate(total=n()) %>%
+  group_by( SPI.D3.QUART.GDP) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(region="Global") %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(region,SPI.D3.QUART.GDP, Percent) %>%
+  pivot_wider(names_from=SPI.D3.QUART.GDP,
+              values_from='Percent',
+              values_fill=0)
+
+
+  kable(bind_rows(tab, tab_ovrl), caption='% of Countries by Number of Quarterly GDP Values by Region') %>%
+  kable_styling()
+  
+
+#table by income
+
+tab_inc <- QGDP %>%
+  group_by(income) %>%
+  mutate(total=n()) %>%
+  group_by(income, SPI.D3.QUART.GDP) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(income,SPI.D3.QUART.GDP, Percent) %>%
+  pivot_wider(names_from=SPI.D3.QUART.GDP,
+              values_from='Percent',
+              values_fill=0)
+
+tab_ovrl_inc <- QGDP %>%
+  ungroup() %>%
+  mutate(total=n()) %>%
+  group_by( SPI.D3.QUART.GDP) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(income="Global") %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(income,SPI.D3.QUART.GDP, Percent) %>%
+  pivot_wider(names_from=SPI.D3.QUART.GDP,
+              values_from='Percent',
+              values_fill=0)
+
+
+  kable(bind_rows(tab_inc, tab_ovrl_inc), caption='% of Countries by Number of Quarterly GDP Values by Income Group') %>%
   kable_styling()
   
 
 
+```
+# % of countries with vital reg source, survey source, no source as well as by each of the frequency intervals, broken down by income level
+
+##  Mortality rate, under-5 (per 1,000 live births)  
+
+The data in WDI is modeled, based on HHS and Vital Registration.  We use the following as a source for raw data produced by national statistical offices that is used in this modeling.  
+
+https://childmortality.org/data 
+
+Data was pulled on April 13, 2020.
+
+
+
+
+```{r aki_3.3, echo=FALSE}
+
+#Read in data from UN Inter-agency Group for Child Mortality Estimation
+
+D3.3.AKI.MORT <- read_csv(file=paste(csv_inputs, 'D3.3_child_mort_RAW_v01.csv', sep="/")) %>%
+  filter(INDICATOR=='Under-five mortality rate' & SEX=='Total') %>% #keep just observations for under 5 child mortality and for both sexes 
+  filter(OBS_STATUS=='Included in IGME') %>% # Also keep only surveys that met IGME criteria for inclusion as a nationally representative statistic
+  mutate(date=as.numeric(str_extract(TIME_PERIOD, "^.{4}")),
+         country=REF_AREA,
+         D3.CHLD.MORT=OBS_VALUE)
+
+#Now loop from 2016 and 2019, keeping just data inside last 5 years.
+reference_year<-2019
+  MORT <-D3.3.AKI.MORT %>%
+          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% 
+          mutate(SPI.FREQ.D3.CHLD.MORT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          mutate(SPI.QUAL.D3.CHLD.MORT=case_when(
+                   reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
+                   SERIES_METHOD=='Vital Registration' ~ 1,
+                  SERIES_METHOD!='Vital Registration' ~ 0.5,
+                   TRUE ~ 0
+                 )) %>%
+          group_by(country) %>%
+          summarise(SPI.FREQ.D3.CHLD.MORT=sum(SPI.FREQ.D3.CHLD.MORT, na.rm=T),
+                    SPI.QUAL.D3.CHLD.MORT=max(SPI.QUAL.D3.CHLD.MORT, na.rm=T)) %>% 
+          mutate(SPI.QUAL.D3.CHLD.MORT=case_when(
+                   SPI.QUAL.D3.CHLD.MORT==1 ~ 'Based on Vital Statistics Record',
+                   SPI.QUAL.D3.CHLD.MORT==0.5 ~ 'Survey Source',
+                   TRUE ~ 'No Source'
+                 ))  %>%
+          mutate(date=reference_year) %>%
+          mutate(country=case_when(
+            country=="Bahamas" ~ "Bahamas, The",                  
+            country=="Bolivia (Plurinational State of)"   ~  "Bolivia"   ,                  
+            country=="Côte d'Ivoire"  ~  "Cote d'Ivoire"                ,
+            country=="Democratic Republic of the Congo"  ~ "Congo, Dem. Rep."  ,           
+            country=="Congo"  ~ "Congo, Rep."        ,           
+            country=="Curacao"  ~  "Curacao"       ,                
+            country=="Czechia"   ~  "Czech Republic"     ,        
+            country=="Egypt"  ~ "Egypt, Arab Rep."        ,      
+            country=="Micronesia (Federated States of)"  ~ "Micronesia, Fed. Sts."  ,       
+            country=="United Kingdom"   ~  "United Kingdom"    ,         
+            country=="Gambia"    ~  "Gambia, The"     ,           
+            country=="Iran (Islamic Republic of)"  ~ "Iran, Islamic Rep." ,           
+            country=="Kyrgyzstan"   ~  "Kyrgyz Republic"   ,          
+            country=="Republic of Korea"   ~ "Korea, Rep."   ,               
+            country=="Lao People's Democratic Republic"    ~  "Lao PDR" ,                    
+            country=="Saint Kitts and Nevis	"   ~ "St. Kitts and Nevis",
+            country=="Saint Lucia"   ~ "St. Lucia",
+            country=="Republic of Moldova"   ~  "Moldova"   ,                  
+            country=="Democratic People's Republic of Korea"  ~  "Korea, Dem. People’s Rep." ,  
+            country=="Slovakia"   ~  "Slovak Republic"             ,
+            country=="United Republic of Tanzania"   ~  "Tanzania" ,                    
+            country=="United States of America"  ~ "United States"  ,                
+            country=="Saint Vincent and the Grenadines" ~ "St. Vincent and the Grenadines" ,
+            country=="Venezuela (Bolivarian Republic of)"  ~  "Venezuela, RB"   ,              
+            country=="British Virgin Islands"  ~  "British Virgin Islands" ,       
+            country=="Viet Nam"  ~ "Vietnam"        ,              
+            country=="Yemen"  ~ "Yemen, Rep.",
+            country=="United Kingdom of Great Britain and Northern Ireland" ~ "United Kingdom",
+            TRUE ~ country
+          )) %>%
+
+          select( country, date, starts_with('SPI.QUAL.D3.CHLD.MORT')) %>%
+          right_join(country_metadata) %>%
+          mutate_at(vars(starts_with('SPI.QUAL.D3.CHLD.MORT')), ~if_else(is.na(.),'No Source',.)) 
+
+
+
+
+#table by region
+
+tab <- MORT %>%
+  group_by(region) %>%
+  mutate(total=n()) %>%
+  group_by(region, SPI.QUAL.D3.CHLD.MORT) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(region,SPI.QUAL.D3.CHLD.MORT, Percent) %>%
+  pivot_wider(names_from=SPI.QUAL.D3.CHLD.MORT,
+              values_from='Percent',
+              values_fill=0)
+
+tab_ovrl <- MORT %>%
+  ungroup() %>%
+  mutate(total=n()) %>%
+  group_by( SPI.QUAL.D3.CHLD.MORT) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(region="Global") %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(region,SPI.QUAL.D3.CHLD.MORT, Percent) %>%
+  pivot_wider(names_from=SPI.QUAL.D3.CHLD.MORT,
+              values_from='Percent',
+              values_fill=0)
+
+
+  kable(bind_rows(tab, tab_ovrl), caption='% of Countries by Child Mortality Source by Region from 2014-2019') %>%
+  kable_styling()
+  
+
+#table by income
+
+tab_inc <- MORT %>%
+  group_by(income) %>%
+  mutate(total=n()) %>%
+  group_by(income, SPI.QUAL.D3.CHLD.MORT) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(income,SPI.QUAL.D3.CHLD.MORT, Percent) %>%
+  pivot_wider(names_from=SPI.QUAL.D3.CHLD.MORT,
+              values_from='Percent',
+              values_fill=0)
+
+tab_ovrl_inc <- MORT %>%
+  ungroup() %>%
+  mutate(total=n()) %>%
+  group_by( SPI.QUAL.D3.CHLD.MORT) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(income="Global") %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(income,SPI.QUAL.D3.CHLD.MORT, Percent) %>%
+  pivot_wider(names_from=SPI.QUAL.D3.CHLD.MORT,
+              values_from='Percent',
+              values_fill=0)
+
+
+  kable(bind_rows(tab_inc, tab_ovrl_inc), caption='% of Countries by Child Mortality Source by Income Group from 2014-2019') %>%
+  kable_styling()
+
 
 ```
+
+
+## Maternal Mortality Ratio
+
+The data is sourced from the the Inter-Agency Group (200 countries) to improve time and country coverages. Tne national estimates with the source information are available at https://www.who.int/reproductivehealth/publications/maternal-mortality-2000-2017/en/.  The data was accessed on April 3, 2020.  This data was used for modelling maternal mortality, which are then fed into the modelled estimates on Maternal Mortality (SH.STA.MMRT) in the WDI.
+
+
+
+
+```{r AKI_3.5, echo=FALSE}
+
+
+#Read in data from UN Inter-agency Group 
+
+D3.5.AKI.MMR <- read_csv(file=paste(csv_inputs, 'D3.5.BMat2019_datainputs.csv', sep="/")) %>%
+  filter(modelinclude=='TRUE') %>% #keep just observations that the UN inter-agency group deemed credible for use in modelling 
+  mutate(date=end,
+         iso3c=iso,
+         D3.MMRT=pm_obs)
+
+#Now loop from 2016 and 2019, keeping just data inside last 5 years.
+reference_year<-2019
+  MMR <-D3.5.AKI.MMR %>%
+          mutate(frequency=((reference_year-as.numeric(date))<=5) & (reference_year>=as.numeric(date))) %>% 
+          mutate(SPI.FREQ.D3.MMRT=if_else(frequency==TRUE,1,0)) %>% #create 0,1 variable for whether data point exists for country
+          mutate(SPI.QUAL.D3.MMRT=case_when(
+                   reference_year-as.numeric(date)>=5 ~ 0, #outside 5 year window
+                   type=='vr' ~ 1,
+                   type!='vr' ~ 0.5,
+                   TRUE ~ 0
+                 )) %>%
+          group_by(iso3c) %>%
+          summarise(SPI.FREQ.D3.MMRT=sum(SPI.FREQ.D3.MMRT, na.rm=T),
+                    SPI.QUAL.D3.MMRT=max(SPI.QUAL.D3.MMRT, na.rm=T)) %>%     
+          mutate(SPI.QUAL.D3.MMRT=case_when(
+                   SPI.QUAL.D3.MMRT==1 ~ 'Based on Vital Statistics Record',
+                   SPI.QUAL.D3.MMRT==0.5 ~ 'Survey Source',
+                   TRUE ~ 'No Source'
+                 ))  %>%
+          mutate(date=reference_year) %>%
+          select( iso3c, date, starts_with('SPI.QUAL.D3.MMRT')) %>%
+          right_join(country_metadata) %>%
+          mutate_at(vars(starts_with('SPI.QUAL.D3.MMRT')), ~if_else(is.na(.),'No Source',.)) 
+
+          
+
+
+
+#table by region
+
+tab <- MMR %>%
+  group_by(region) %>%
+  mutate(total=n()) %>%
+  group_by(region, SPI.QUAL.D3.MMRT) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(region,SPI.QUAL.D3.MMRT, Percent) %>%
+  pivot_wider(names_from=SPI.QUAL.D3.MMRT,
+              values_from='Percent',
+              values_fill=0)
+
+tab_ovrl <- MMR %>%
+  ungroup() %>%
+  mutate(total=n()) %>%
+  group_by( SPI.QUAL.D3.MMRT) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(region="Global") %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(region,SPI.QUAL.D3.MMRT, Percent) %>%
+  pivot_wider(names_from=SPI.QUAL.D3.MMRT,
+              values_from='Percent',
+              values_fill=0)
+
+
+  kable(bind_rows(tab, tab_ovrl), caption='% of Countries by Maternal Mortality Source by Region from 2014-2019') %>%
+  kable_styling()
+  
+
+#table by income
+
+tab_inc <- MMR %>%
+  group_by(income) %>%
+  mutate(total=n()) %>%
+  group_by(income, SPI.QUAL.D3.MMRT) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(income,SPI.QUAL.D3.MMRT, Percent) %>%
+  pivot_wider(names_from=SPI.QUAL.D3.MMRT,
+              values_from='Percent',
+              values_fill=0)
+
+tab_ovrl_inc <- MMR %>%
+  ungroup() %>%
+  mutate(total=n()) %>%
+  group_by( SPI.QUAL.D3.MMRT) %>%
+  summarise(N=n(),
+            total=mean(total, na.rm=T)) %>%
+  mutate(income="Global") %>%
+  mutate(Percent = 100*round(N/total,3))   %>%
+  select(income,SPI.QUAL.D3.MMRT, Percent) %>%
+  pivot_wider(names_from=SPI.QUAL.D3.MMRT,
+              values_from='Percent',
+              values_fill=0)
+
+
+  kable(bind_rows(tab_inc, tab_ovrl_inc), caption='% of Countries by Maternal Mortality Source by Income Group from 2014-2019') %>%
+  kable_styling()
+```
+
+
+
 
 
 # Overall SPI scores by Region and Income Level
@@ -196,7 +511,7 @@ temp <- temp %>%
   yank('numeric') %>%
   rename(Series=skim_variable) %>%
   left_join(metadata) %>% #add labels to variables
-  select(Series, 'Indicator Name', mean, sd,p0,p100, hist, N)
+  select(Series, 'Indicator Name', mean, sd,p0,p100, N)
 
 assign(paste("spi_weighted_sumstats",reference_year,sep="_"), temp)
 
@@ -245,8 +560,9 @@ group <- spi_weighted_sumstats_2019 %>%
 
 kable(spi_weighted_sumstats_2019,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
-      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2019") %>%
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max', 'N'),
+      caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2019",
+      format = 'html') %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
       
@@ -356,7 +672,7 @@ write.xlsx(
 
 ```
 
-##Means by Income Group (Weighted by Population)
+## Means by Income Group (Weighted by Population)
 
 ```{r income_weighted, echo=FALSE}
 
@@ -476,7 +792,7 @@ temp <- SPI %>%
   yank('numeric') %>%
   rename(Series=skim_variable) %>%
   left_join(metadata) %>% #add labels to variables
-  select(Series, 'Indicator Name', mean, sd,p0,p100, hist, N)
+  select(Series, 'Indicator Name', mean, sd,p0,p100, N)
 
 assign(paste("spi_unweighted_sumstats",reference_year,sep="_"), temp)
 
@@ -522,7 +838,7 @@ group <- spi_unweighted_sumstats_2019 %>%
 
 kable(spi_unweighted_sumstats_2019,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max', 'N'),
       caption="Statistical Performance Indicator Unweighted Summary Statistics for 2019") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -744,7 +1060,7 @@ Below we show summary statistics for the year 2016.
 
 kable(spi_weighted_sumstats_2016,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max', 'N'),
       caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2016") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -767,7 +1083,7 @@ DT::datatable(spi_weighted_income_2016, caption=htmltools::tags$caption(
 
 kable(spi_unweighted_sumstats_2016,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max', 'N'),
       caption="Statistical Performance Indicator Unweighted Summary Statistics for 2016") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -801,7 +1117,7 @@ Below we show summary statistics for the year 2017.
 ```{r sumstats_2017, echo=FALSE}
 kable(spi_weighted_sumstats_2017,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max', 'N'),
       caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2017") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -824,7 +1140,7 @@ DT::datatable(spi_weighted_income_2017, caption=htmltools::tags$caption(
 
 kable(spi_unweighted_sumstats_2017,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max', 'N'),
       caption="Statistical Performance Indicator Unweighted Summary Statistics for 2017") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -855,7 +1171,7 @@ Below we show summary statistics for the year 2018.
 ```{r sumstats_2018, echo=FALSE}
 kable(spi_weighted_sumstats_2018,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max', 'N'),
       caption="Statistical Performance Indicator Population Weighted Summary Statistics for 2018") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))
@@ -878,7 +1194,7 @@ DT::datatable(spi_weighted_income_2018, caption=htmltools::tags$caption(
 
 kable(spi_unweighted_sumstats_2018,
       digits=2,
-      col.names=c('Series', 'Description', 'Mean','SD','Min','Max','Histogram', 'N'),
+      col.names=c('Series', 'Description', 'Mean','SD','Min','Max', 'N'),
       caption="Statistical Performance Indicator Unweighted Summary Statistics for 2018") %>%
   kable_styling(bootstrap_options = c('striped','hover')) %>%
   pack_rows(index=table(fct_inorder(group$group)))

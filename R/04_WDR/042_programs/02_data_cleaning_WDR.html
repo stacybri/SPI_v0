@@ -675,7 +675,8 @@ D1.1.MSC.SNAU_wide &lt;- D1.1.MSC.SNAU %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('SNAU', 'SPI.D1.1.SNAU')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.1.MSC.SNAU_wide,
                 path = paste(csv_output, &quot;D1.1.MSC.SNAU_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -698,7 +699,8 @@ D1.2.MSC.NABY_wide &lt;- D1.2.MSC.NABY %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('NABY', 'SPI.D1.2.NABY')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.2.MSC.NABY_wide,
                 path = paste(csv_output, &quot;D1.2.MSC.NABY_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -723,7 +725,9 @@ D1.3.MSC.CNIN_wide &lt;- D1.3.MSC.CNIN %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('CNIN', 'SPI.D1.3.CNIN')
-              )
+              ) %&gt;%
+  left_join(country_list)
+
 write_excel_csv(D1.3.MSC.CNIN_wide,
                 path = paste(csv_output, &quot;D1.3.MSC.CNIN_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
 </div>
@@ -745,7 +749,8 @@ D1.4.MSC.CPIBY_wide &lt;- D1.4.MSC.CPIBY %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('CPIBY', 'SPI.D1.4.CPIBY')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.4.MSC.CPIBY_wide,
                 path = paste(csv_output, &quot;D1.4.MSC.CPIBY_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -767,7 +772,8 @@ D1.5.MSC.HOUS_wide &lt;- D1.5.MSC.HOUS %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('HOUS', 'SPI.D1.5.HOUS')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.5.MSC.HOUS_wide,
                 path = paste(csv_output, &quot;D1.5.MSC.HOUS_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -789,7 +795,8 @@ D1.6.MSC.EMPL_wide &lt;- D1.6.MSC.EMPL %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('EMPL', 'SPI.D1.6.EMPL')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.6.MSC.EMPL_wide,
                 path = paste(csv_output, &quot;D1.6.MSC.EMPL_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -812,7 +819,8 @@ D1.7.MSC.CGOV_wide &lt;- D1.7.MSC.CGOV %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('CGOV', 'SPI.D1.7.CGOV')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.7.MSC.CGOV_wide,
                 path = paste(csv_output, &quot;D1.7.MSC.CGOV_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -835,7 +843,8 @@ D1.8.MSC.FINA_wide &lt;- D1.8.MSC.FINA %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('FINA', 'SPI.D1.8.FINA')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.8.MSC.FINA_wide,
                 path = paste(csv_output, &quot;D1.8.MSC.FINA_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -857,7 +866,8 @@ D1.9.MSC.MONY_wide &lt;- D1.9.MSC.MONY %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('MONY', 'SPI.D1.9.MONY')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.9.MSC.MONY_wide,
                 path = paste(csv_output, &quot;D1.9.MSC.MONY_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -880,7 +890,8 @@ D1.10.MSC.IDDS_wide &lt;- D1.10.MSC.IDDS %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('IDDS', 'SPI.D1.10.IDDS')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.10.MSC.IDDS_wide,
                 path = paste(csv_output, &quot;D1.10.MSC.IDDS_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -902,7 +913,8 @@ D1.11.MSC.CRVS_wide &lt;- D1.11.MSC.CRVS %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('CRVS', 'SPI.D1.11.CRVS')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.11.MSC.CRVS_wide,
                 path = paste(csv_output, &quot;D1.11.MSC.CRVS_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -924,7 +936,8 @@ D1.12.MSC.GSBP_wide &lt;- D1.12.MSC.GSBP %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('GSBP', 'SPI.D1.12.GSBP')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.12.MSC.GSBP_wide,
                 path = paste(csv_output, &quot;D1.12.MSC.GSBP_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -959,7 +972,8 @@ D1.MSC_wide &lt;- D1.MSC %&gt;%
   pivot_wider(names_from=date,
               names_prefix = &quot;SPI.D1.MSC_&quot;,
               values_from=c('SPI.D1.MSC')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D1.MSC_wide,
                 path = paste(csv_output, &quot;D1.MSC_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -2893,7 +2907,8 @@ D2.1.CEN.POPU_wide &lt;- D2.1.CEN.POPU %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('POPU.CENSUS', 'SPI.D2.1.POPU')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D2.1.CEN.POPU_wide,
                 path = paste(csv_output, &quot;D2.1.CEN.POPU_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -2948,7 +2963,8 @@ D2.2.CEN.AGRI_wide &lt;- D2.2.CEN.AGRI %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('AGRI.CENSUS', 'SPI.D2.2.AGRI')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D2.2.CEN.AGRI_wide,
                 path = paste(csv_output, &quot;D2.2.CEN.AGRI_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -3003,7 +3019,8 @@ D2.3.CEN.BIZZ_wide &lt;- D2.3.CEN.BIZZ %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('BIZZ.CENSUS', 'SPI.D2.3.BIZZ')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D2.3.CEN.BIZZ_wide,
                 path = paste(csv_output, &quot;D2.3.CEN.BIZZ_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -3056,7 +3073,8 @@ D2.4.SVY.HOUS_wide &lt;- D2.4.SVY.HOUS %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('HOUS.SURVEYS', 'SPI.D2.4.HOUS')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D2.4.SVY.HOUS_wide,
                 path = paste(csv_output, &quot;D2.4.SVY.HOUS_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -3108,7 +3126,8 @@ D2.5.SVY.AGRI_wide &lt;- D2.5.SVY.AGRI %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('AGRI.SURVEYS', 'SPI.D2.5.AGRI')
-              )
+              ) %&gt;%
+  left_join(country_list) 
 
 write_excel_csv(D2.5.SVY.AGRI_wide,
                 path = paste(csv_output, &quot;D2.5.SVY.AGRI_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -3159,7 +3178,8 @@ D2.6.SVY.LABR_wide &lt;- D2.6.SVY.LABR %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('LABR.SURVEYS', 'SPI.D2.6.LABR')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D2.6.SVY.LABR_wide,
                 path = paste(csv_output, &quot;D2.6.SVY.LABR_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -3211,7 +3231,8 @@ D2.7.SVY.HLTH_wide &lt;- D2.7.SVY.HLTH %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('HLTH.SURVEYS', 'SPI.D2.7.HLTH')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D2.7.SVY.HLTH_wide,
                 path = paste(csv_output, &quot;D2.7.SVY.HLTH_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -3264,7 +3285,8 @@ D2.8.SVY.BIZZ_wide &lt;- D2.8.SVY.BIZZ %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('BIZZ.SURVEYS', 'SPI.D2.8.BIZZ')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D2.8.SVY.BIZZ_wide,
                 path = paste(csv_output, &quot;D2.8.SVY.BIZZ_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -4720,7 +4742,6 @@ get_tag_aki_df&lt;-wdisJSON %&gt;%
 
 #get WDI metadata infor
 cache_list&lt;-wbstats::wbcache()
-country_list &lt;- wbstats::wbcountries()
 
 aki_list&lt;-get_tag_aki_df[,'id']
 
@@ -5114,7 +5135,8 @@ D3.AKI_wide &lt;- D3.AKI %&gt;%
   pivot_wider(names_from=date,
               names_prefix = &quot;SPI.D3.AKI_&quot;,
               values_from=c('SPI.D3.AKI')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D3.AKI_wide,
                 path = paste(csv_output, &quot;D3.AKI_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -7435,7 +7457,8 @@ D4.1.SC.DPO.CALD_wide &lt;- D4.1.SC.DPO.CALD %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('CALD', 'SPI.D4.1.CALD')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D4.1.SC.DPO.CALD_wide,
                 path = paste(csv_output, &quot;D4.1.SC.DPO.CALD_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -7458,7 +7481,8 @@ D4.2.SC.DPO.NADA_wide &lt;- D4.2.SC.DPO.NADA %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('NADA', 'SPI.D4.2.NADA')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D4.2.SC.DPO.NADA_wide,
                 path = paste(csv_output, &quot;D4.2.SC.DPO.NADA_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -7481,7 +7505,8 @@ D4.3.SC.DPO.PORT_wide &lt;- D4.3.SC.DPO.PORT %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('PORT', 'SPI.D4.3.PORT')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D4.3.SC.DPO.PORT_wide,
                 path = paste(csv_output, &quot;D4.3.SC.DPO.PORT_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -7504,7 +7529,8 @@ D4.4.SC.DPO.TIME_wide &lt;- D4.4.SC.DPO.TIME %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('TIME', 'SPI.D4.4.TIME')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D4.4.SC.DPO.TIME_wide,
                 path = paste(csv_output, &quot;D4.4.SC.DPO.TIME_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -7527,7 +7553,8 @@ D4.5.SC.DPO.META_wide &lt;- D4.5.SC.DPO.META %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('META', 'SPI.D4.5.META')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D4.5.SC.DPO.META_wide,
                 path = paste(csv_output, &quot;D4.5.SC.DPO.META_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -7550,7 +7577,8 @@ D4.6.SC.DPO.USER_wide &lt;- D4.6.SC.DPO.USER %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('USER', 'SPI.D4.6.USER')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D4.6.SC.DPO.USER_wide,
                 path = paste(csv_output, &quot;D4.6.SC.DPO.USER_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -7573,7 +7601,8 @@ D4.7.SC.DPO.GEOS_wide &lt;- D4.7.SC.DPO.GEOS %&gt;%
   pivot_wider(names_from=date,
               names_sep = &quot;_&quot;,
               values_from=c('GEOS', 'SPI.D4.7.GEOS')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D4.7.SC.DPO.GEOS_wide,
                 path = paste(csv_output, &quot;D4.7.SC.DPO.GEOS_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
@@ -7604,7 +7633,8 @@ D4.DPO_wide &lt;- D4.DPO %&gt;%
   pivot_wider(names_from=date,
               names_prefix = &quot;SPI.D4.DPO_&quot;,
               values_from=c('SPI.D4.DPO')
-              )
+              ) %&gt;%
+  left_join(country_list)
 
 write_excel_csv(D4.DPO_wide,
                 path = paste(csv_output, &quot;D4.DPO_indicator.csv&quot;, sep=&quot;/&quot; ))</code></pre>
