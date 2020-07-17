@@ -1,0 +1,89 @@
+---
+title: "SPI Mapping from V1 to V2"
+author: "Brian Stacy"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    fig_height: 6
+    fig_width: 8
+    keep_md: yes
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+# Load Packages
+library(tidyverse)
+library(skimr)
+library(kableExtra)
+library(readxl)
+library(Hmisc)
+library(haven)
+library(lubridate)
+library(httr)
+library(rsdmx)
+
+# Directory for SPI csv files that were previously created
+csv_dir <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/05_v2_indicators/051_rawdata"
+
+# Directory for SPI csv files that are saved
+csv_output <- "C:/Users/wb469649/OneDrive - WBG/Documents/Github/SPI_AKI/R/05_v2_indicators/053_outputs"
+
+#get country metadata
+country_list <- wbstats::wbcountries()
+
+
+```
+
+# Introduction
+
+
+```{r sankey, echo=FALSE, fig.height=24, fig.width=18}
+
+ 
+# Load package
+library(ggalluvial)
+
+# load spi mapping data
+
+spi_map_df <- read_csv(paste(csv_dir,'spi_dimensions_mapping.csv',sep="/")) %>%
+  mutate(
+         spi_name1=str_wrap(paste(spi_indicator_v1_id, spi_indicator_v1_name, sep=": "),35),
+         spi_name2=str_wrap(paste(SPI_indicator_v2_id, spi_indicator_v2_name, sep=": "),30),
+         spi_indicator_v1_name=str_wrap(spi_indicator_v1_name,30)
+         ) %>%
+  mutate(spi_name1=factor(spi_name1, levels=spi_name1),
+         spi_indicator_v1_id=factor(spi_indicator_v1_id, levels=spi_indicator_v1_id),
+         spi_indicator_v1_name=factor(spi_indicator_v1_name, levels=spi_indicator_v1_name))
+ 
+p1<-ggplot(spi_map_df,
+       aes(y = 1, axis1 = spi_indicator_v1_name, axis2 = spi_name2, fill=dimension_v1)) +
+  geom_alluvium( width = 1/12) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
+  theme_bw()+
+  ggtitle('SPI Indicator Mapping from Version 1 Indicators to Version 2 Indicators')
+
+
+p1
+
+
+p2<-ggplot(spi_map_df,
+       aes(y = 1, axis1 = spi_indicator_v1_id, axis2 = spi_name2, fill=dimension_v1)) +
+  geom_alluvium(width = 1/12) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", aes(label = after_stat(stratum))) +
+  ggtitle('SPI Indicator Mapping from V1 Indicators to V2 Indicators')
+
+
+#p2
+
+
+# +
+#   scale_x_discrete(limits = c("Gender", "Dept"), expand = c(.05, .05)) +
+#   scale_fill_brewer(type = "qual", palette = "Set1") +
+#   ggtitle("UC Berkeley admissions and rejections, by sex and department")
+
+```
+

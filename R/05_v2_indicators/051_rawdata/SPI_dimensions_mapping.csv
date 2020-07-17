@@ -1,0 +1,43 @@
+spi_indicator_v1_id,spi_indicator_v1_name,dimension_v1,SPI_indicator_v2_id,spi_indicator_v2_name
+SPI.D1.1.SNAU,System of national accounts in use,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.2.NABY,National Accounts base year,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.3.CNIN,Classification of national industry,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.4.CPIBY,CPI base year,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.5.HOUS,Classification of household consumption,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.6.EMPL,Classification of status of employment,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.7.CGOV,Central government accounting status,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.8.FINA,Compilation of government finance statistics,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.9.MONY,Compilation of monetary and financial statistics,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D1.10.IDDS,SDDS/e-GDDS subscription,"Methodology, Standards & Classifications (MSC)",Indicator 2.1,Data releases
+SPI.D1.11.CRVS,CRVS,"Methodology, Standards & Classifications (MSC)",Indicator 4.2,administrative data
+SPI.D1.12.GSBP,Business process,"Methodology, Standards & Classifications (MSC)",Indicator 5.2,standards
+SPI.D2.1.POPU,Population & Housing census,Censuses and Surveys (CS),Indicator 4.1,censuses and surveys
+SPI.D2.2.AGRI,Agriculture census,Censuses and Surveys (CS),None,None
+SPI.D2.3.BIZZ,Business/establishment census,Censuses and Surveys (CS),Indicator 4.1,censuses and surveys
+SPI.D2.4.HOUS,"Household Survey on income, etc",Censuses and Surveys (CS),Indicator 4.1,censuses and surveys
+SPI.D2.5.AGRI,Agriculture survey,Censuses and Surveys (CS),None,None
+SPI.D2.6.LABR,Labor Force Survey,Censuses and Surveys (CS),Indicator 4.1,censuses and surveys
+SPI.D2.7.HLTH,Health/Demographic survey,Censuses and Surveys (CS),Indicator 4.1,censuses and surveys
+SPI.D2.8.BIZZ,Business/establishment survey,Censuses and Surveys (CS),Indicator 4.1,censuses and surveys
+SPI.D3.POV,Poverty headcount ratio at $1.90 a day ,Availability of Key Indicators (AKI),Indicator 3.1,social statistics
+SPI.D3.FIES,Food Insecurity Experience Scale,Availability of Key Indicators (AKI),Indicator 3.1,social statistics
+SPI.D3.CHLD.MORT,"Mortality rate, under-5 (per 1,000 live births)",Availability of Key Indicators (AKI),Indicator 3.1,social statistics
+SPI.D3.SE.LPV.PRIM.BMP,Pupils below minimum reading proficiency at end of primary,Availability of Key Indicators (AKI),Indicator 3.1,social statistics
+SPI.D3.MMRT,Maternal Mortality,Availability of Key Indicators (AKI),Indicator 3.1,social statistics
+SPI.D3.SH.H2O.SMDW.ZS,People using safely managed drinking water services,Availability of Key Indicators (AKI),Indicator 3.1,social statistics
+SPI.D3.ELEC,Access to electricity (% of population),Availability of Key Indicators (AKI),Indicator 3.2,economic statistics
+SPI.D3.SL.UEM.TOTL.NE.ZS,"Unemployment, total (% of total labor force) ",Availability of Key Indicators (AKI),Indicator 3.2,economic statistics
+SPI.D3.NV.IND.MANF.ZS,"Manufacturing, value added (% of GDP)",Availability of Key Indicators (AKI),Indicator 3.2,economic statistics
+SPI.D3.SI.SPR.PC40.ZG,"Annualized average growth rate mean consumption or income, bottom 40%",Availability of Key Indicators (AKI),Indicator 3.2,economic statistics
+SPI.D3.ER.H2O.FWST.ZS,Level of water stress,Availability of Key Indicators (AKI),Indicator 3.3 ,environmental statistics
+SPI.D3.EG.FEC.RNEW.ZS,Renewable energy consumption,Availability of Key Indicators (AKI),Indicator 3.3 ,environmental statistics
+SPI.D3.NE.CON.PRVT.CN,Households and NPISHs Final consumption expenditure,Availability of Key Indicators (AKI),Indicator 3.2,economic statistics
+SPI.D3.QUART.GDP,Quarterly GDP,Availability of Key Indicators (AKI),Indicator 3.2,economic statistics
+SPI.D3.DT.TDS.DPPF.XP.ZS,Debt service,Availability of Key Indicators (AKI),Indicator 3.4,institutional statistics
+SPI.D4.1.CALD,NSO has an Advance Release Calendar,Dissemination Practices & Openness (DPO),None,None
+SPI.D4.2.NADA,NSO has a listing of surveys and microdata sets (or NADA),Dissemination Practices & Openness (DPO),Indicator 2.2,Online access
+SPI.D4.3.PORT,NSO has a data portal,Dissemination Practices & Openness (DPO),None,None
+SPI.D4.4.TIME,Timeseries indicators are available,Dissemination Practices & Openness (DPO),None,None
+SPI.D4.5.META,Metadata is available,Dissemination Practices & Openness (DPO),Indicator 2.2,Online access
+SPI.D4.6.USER,NSO has conducted a user satisfaction survey,Dissemination Practices & Openness (DPO),None,None
+SPI.D4.7.GEOS,Geospatial data available,Dissemination Practices & Openness (DPO),Indicator 4.3,geospatial data
