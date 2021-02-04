@@ -9,11 +9,12 @@ library(tidyverse)
 library(readxl)
 library(rsdmx)
 library(wbstats)
+library(here)
 # Directory for SPI excel files
-excel_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/Data"
+excel_dir <- paste0(here(),"/Data")
 
 # Directory for SPI csv files that are created
-csv_dir <- "C:/Users/wb469649/Documents/Github/SPI_AKI/R/01_data/011_rawdata"
+csv_dir <- paste0(here(),"/R/01_data/011_rawdata")
 
 ###########
 # Preliminary

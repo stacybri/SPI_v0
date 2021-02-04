@@ -7,7 +7,7 @@ ARM,AM,Armenia,Yerevan,44.509,40.1596,ECS,Z7,Europe & Central Asia,ECA,7E,Europe
 ATG,AG,Antigua and Barbuda,Saint John's,-61.8456,17.1175,LCN,ZJ,Latin America & Caribbean ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,NA
 AZE,AZ,Azerbaijan,Baku,49.8932,40.3834,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2010, 2011"
 BDI,BI,Burundi,Bujumbura,29.3639,-3.3784,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,2005
-BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2001, 2006, 2007, 2008, 2011"
+BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,"2001, 2006, 2007, 2008, 2011"
 BFA,BF,Burkina Faso,Ouagadougou,-1.53395,12.3605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2005, 2006"
 BGD,BD,Bangladesh,Dhaka,90.4113,23.7055,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IDX,XI,IDA,2019,"2001, 2002, 2004, 2006, 2009, 2010, 2013, 2015, 2016, 2017"
 BGR,BG,Bulgaria,Sofia,23.3238,42.7105,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013"
@@ -32,7 +32,7 @@ CRI,CR,Costa Rica,San Jose,-84.0089,9.63701,LCN,ZJ,Latin America & Caribbean ,LA
 DJI,DJ,Djibouti,Djibouti,43.1425,11.5806,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,NA
 DMA,DM,Dominica,Roseau,-61.39,15.2976,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IDB,XH,Blend,2019,NA
 DOM,DO,Dominican Republic,Santo Domingo,-69.8908,18.479,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2000, 2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016"
-DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,2012
+DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,2012
 ECU,EC,Ecuador,Quito,-78.5243,-0.229498,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"1999, 2002, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016"
 EGY,EG,"Egypt, Arab Rep.",Cairo,31.2461,30.0982,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"1998, 2004, 2006, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016"
 ERI,ER,Eritrea,Asmara,38.9183,15.3315,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA
@@ -52,7 +52,7 @@ GUY,GY,Guyana,Georgetown,-58.1548,6.80461,LCN,ZJ,Latin America & Caribbean ,LAC,
 HND,HN,Honduras,Tegucigalpa,-87.4667,15.1333,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,"2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015"
 HRV,HR,Croatia,Zagreb,15.9614,45.8069,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,"2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013"
 HTI,HT,Haiti,Port-au-Prince,-72.3288,18.5392,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA
-IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
+IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 IND,IN,India,New Delhi,77.225,28.6353,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"2000, 2003, 2004, 2005, 2006, 2008, 2010, 2012"
 IRN,IR,"Iran, Islamic Rep.",Tehran,51.4447,35.6878,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 IRQ,IQ,Iraq,Baghdad,44.394,33.3302,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
@@ -69,10 +69,10 @@ LBN,LB,Lebanon,Beirut,35.5134,33.8872,MEA,ZQ,Middle East & North Africa,MNA,XQ,M
 LBR,LR,Liberia,Monrovia,-10.7957,6.30039,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2009, 2010"
 LBY,LY,Libya,Tripoli,13.1072,32.8578,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
 LCA,LC,St. Lucia,Castries,-60.9832,14,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IDB,XH,Blend,2019,"2010, 2011, 2012"
-LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
+LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 LSO,LS,Lesotho,Maseru,27.7167,-29.5208,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,"2007, 2008"
 MAR,MA,Morocco,Rabat,-6.8704,33.9905,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"1999, 2001, 2002, 2003, 2004, 2005, 2006"
-MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2019,"2010, 2014, 2015, 2016"
+MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"2010, 2014, 2015, 2016"
 MDG,MG,Madagascar,Antananarivo,45.7167,-20.4667,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,2012
 MDV,MV,Maldives,Male,73.5109,4.1742,SAS,8S,South Asia,SAS,8S,South Asia,UMC,XT,Upper middle income,IDX,XI,IDA,2019,NA
 MEX,MX,Mexico,Mexico City,-99.1276,19.427,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015, 2016, 2017"
@@ -81,18 +81,18 @@ MKD,MK,North Macedonia,Skopje,21.4361,42.0024,ECS,Z7,Europe & Central Asia,ECA,7
 MLI,ML,Mali,Bamako,-7.50034,13.5667,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2004, 2005, 2017"
 MMR,MM,Myanmar,Naypyidaw,95.9562,21.914,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,"2015, 2017"
 MNE,ME,Montenegro,Podgorica,19.2595,42.4602,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
-MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2019,"2001, 2002, 2003, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
+MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"2001, 2002, 2003, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 MOZ,MZ,Mozambique,Maputo,32.5713,-25.9664,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2003, 2004"
 MRT,MR,Mauritania,Nouakchott,-15.9824,18.2367,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,"2012, 2017"
-MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
+MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,"1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 MWI,MW,Malawi,Lilongwe,33.7703,-13.9899,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2001, 2002, 2012"
 MYS,MY,Malaysia,Kuala Lumpur,101.684,3.12433,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 NAM,"NA",Namibia,Windhoek,17.0931,-22.5648,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2008, 2012, 2013, 2014, 2016"
 NER,NE,Niger,Niamey,2.1073,13.514,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,NA
 NGA,NG,Nigeria,Abuja,7.48906,9.05804,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2019,"1999, 2000"
 NIC,NI,Nicaragua,Managua,-86.2734,12.1475,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,"2009, 2017"
-NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LIC,XM,Low income,IDX,XI,IDA,2019,"1999, 2008, 2017"
-NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,NA
+NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IDX,XI,IDA,2019,"1999, 2008, 2017"
+NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,NA
 PAK,PK,Pakistan,Islamabad,72.8,30.5167,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IDB,XH,Blend,2019,"1998, 2000, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2017"
 PAN,PA,Panama,Panama City,-79.5188,8.99427,LCN,ZJ,Latin America & Caribbean ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,"1999, 2000, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 PER,PE,Peru,Lima,-77.0465,-12.0931,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
@@ -102,10 +102,10 @@ PNG,PG,Papua New Guinea,Port Moresby,147.194,-9.47357,EAS,Z4,East Asia & Pacific
 POL,PL,Poland,Warsaw,21.02,52.26,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,"1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2015, 2016"
 PRY,PY,Paraguay,Asuncion,-57.6362,-25.3005,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 PSE,PS,West Bank and Gaza,NA,NA,NA,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,LNX,XX,Not classified,2019,"1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
-ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016"
+ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,"1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016"
 RUS,RU,Russian Federation,Moscow,37.6176,55.7558,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 RWA,RW,Rwanda,Kigali,30.0587,-1.95325,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2016, 2017"
-SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,2011
+SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,2011
 SEN,SN,Senegal,Dakar,-17.4734,14.7247,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,"2004, 2005, 2015, 2017"
 SLB,SB,Solomon Islands,Honiara,159.949,-9.42676,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,NA
 SLE,SL,Sierra Leone,Freetown,-13.2134,8.4821,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,2014
@@ -129,7 +129,7 @@ TTO,TT,Trinidad and Tobago,Port-of-Spain,-61.4789,10.6596,LCN,ZJ,Latin America &
 TUN,TN,Tunisia,Tunis,10.21,36.7899,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"2002, 2003, 2006, 2007, 2008, 2009, 2011, 2012, 2013"
 TUR,TR,Turkey,Ankara,32.3606,39.7153,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,"2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"
 TUV,TV,Tuvalu,Funafuti,179.089567,-8.6314877,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IDX,XI,IDA,2019,NA
-TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"1999, 2001, 2005, 2006, 2013, 2014"
+TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,"1999, 2001, 2005, 2006, 2013, 2014"
 UGA,UG,Uganda,Kampala,32.5729,0.314269,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,"2002, 2003, 2008, 2009, 2011, 2012, 2016"
 UKR,UA,Ukraine,Kiev,30.5038,50.4536,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,"2012, 2013, 2014, 2015, 2016, 2017"
 URY,UY,Uruguay,Montevideo,-56.0675,-34.8941,LCN,ZJ,Latin America & Caribbean ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,"1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017"

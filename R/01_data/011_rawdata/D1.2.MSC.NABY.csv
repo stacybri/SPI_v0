@@ -43,10 +43,10 @@ BDI,BI,Burundi,Bujumbura,29.3639,-3.3784,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-S
 BEL,BE,Belgium,Brussels,4.36761,50.8371,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2016,Original chained constant price data are rescaled.
 BEL,BE,Belgium,Brussels,4.36761,50.8371,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2017,Original chained constant price data are rescaled.
 BEL,BE,Belgium,Brussels,4.36761,50.8371,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2018,Original chained constant price data are rescaled.
-BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2016,2007
-BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2017,2007
-BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2018,2007
-BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,2007
+BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2016,2007
+BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2017,2007
+BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2018,2007
+BEN,BJ,Benin,Porto-Novo,2.6323,6.4779,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,2007
 BFA,BF,Burkina Faso,Ouagadougou,-1.53395,12.3605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2016,1999
 BFA,BF,Burkina Faso,Ouagadougou,-1.53395,12.3605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2017,1999
 BFA,BF,Burkina Faso,Ouagadougou,-1.53395,12.3605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2018,1999
@@ -173,10 +173,10 @@ DOM,DO,Dominican Republic,Santo Domingo,-69.8908,18.479,LCN,ZJ,Latin America & C
 DOM,DO,Dominican Republic,Santo Domingo,-69.8908,18.479,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2007
 DOM,DO,Dominican Republic,Santo Domingo,-69.8908,18.479,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,2007
 DOM,DO,Dominican Republic,Santo Domingo,-69.8908,18.479,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,Original chained constant price data are rescaled.
-DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2016,1980
-DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,1999
-DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,1999
-DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,Original chained constant price data are rescaled.
+DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2016,1980
+DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2017,1999
+DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2018,1999
+DZA,DZ,Algeria,Algiers,3.05097,36.7397,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,Original chained constant price data are rescaled.
 ECU,EC,Ecuador,Quito,-78.5243,-0.229498,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2016,2007
 ECU,EC,Ecuador,Quito,-78.5243,-0.229498,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2007
 ECU,EC,Ecuador,Quito,-78.5243,-0.229498,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,2007
@@ -274,10 +274,10 @@ HTI,HT,Haiti,Port-au-Prince,-72.3288,18.5392,LCN,ZJ,Latin America & Caribbean ,L
 HUN,HU,Hungary,Budapest,19.0408,47.4984,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2016,Original chained constant price data are rescaled.
 HUN,HU,Hungary,Budapest,19.0408,47.4984,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2017,Original chained constant price data are rescaled.
 HUN,HU,Hungary,Budapest,19.0408,47.4984,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2018,Original chained constant price data are rescaled.
-IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2016,2010
-IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2017,2010
-IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2018,2010
-IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,2010
+IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2016,2010
+IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2010
+IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,2010
+IDN,ID,Indonesia,Jakarta,106.83,-6.19752,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,2010
 IND,IN,India,New Delhi,77.225,28.6353,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2016,2012
 IND,IN,India,New Delhi,77.225,28.6353,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2017,2012
 IND,IN,India,New Delhi,77.225,28.6353,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2018,2012
@@ -363,10 +363,10 @@ LCA,LC,St. Lucia,Castries,-60.9832,14,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,L
 LCA,LC,St. Lucia,Castries,-60.9832,14,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IDB,XH,Blend,2017,2006
 LCA,LC,St. Lucia,Castries,-60.9832,14,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IDB,XH,Blend,2018,2006
 LCA,LC,St. Lucia,Castries,-60.9832,14,LCN,ZJ,Latin America & Caribbean ,LAC,XJ,Latin America & Caribbean (excluding high income),UMC,XT,Upper middle income,IDB,XH,Blend,2019,2006
-LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,UMC,XT,Upper middle income,IBD,XF,IBRD,2016,2010
-LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2010
-LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,UMC,XT,Upper middle income,IBD,XF,IBRD,2018,2010
-LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,UMC,XT,Upper middle income,IBD,XF,IBRD,2019,2010
+LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2016,2010
+LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2017,2010
+LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2018,2010
+LKA,LK,Sri Lanka,Colombo,79.8528,6.92148,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IBD,XF,IBRD,2019,2010
 LSO,LS,Lesotho,Maseru,27.7167,-29.5208,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2016,2004
 LSO,LS,Lesotho,Maseru,27.7167,-29.5208,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2017,2012
 LSO,LS,Lesotho,Maseru,27.7167,-29.5208,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2018,2012
@@ -384,10 +384,10 @@ MAR,MA,Morocco,Rabat,-6.8704,33.9905,MEA,ZQ,Middle East & North Africa,MNA,XQ,Mi
 MAR,MA,Morocco,Rabat,-6.8704,33.9905,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2017,2007
 MAR,MA,Morocco,Rabat,-6.8704,33.9905,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2018,2007
 MAR,MA,Morocco,Rabat,-6.8704,33.9905,MEA,ZQ,Middle East & North Africa,MNA,XQ,Middle East & North Africa (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,2007
-MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2016,Original chained constant price data are rescaled.
-MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2017,Original chained constant price data are rescaled.
-MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2018,Original chained constant price data are rescaled.
-MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2019,Original chained constant price data are rescaled.
+MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2016,Original chained constant price data are rescaled.
+MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2017,Original chained constant price data are rescaled.
+MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2018,Original chained constant price data are rescaled.
+MDA,MD,Moldova,Chisinau,28.8497,47.0167,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,Original chained constant price data are rescaled.
 MDG,MG,Madagascar,Antananarivo,45.7167,-20.4667,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2016,1984
 MDG,MG,Madagascar,Antananarivo,45.7167,-20.4667,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2017,1984
 MDG,MG,Madagascar,Antananarivo,45.7167,-20.4667,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2018,1984
@@ -423,10 +423,10 @@ MNE,ME,Montenegro,Podgorica,19.2595,42.4602,ECS,Z7,Europe & Central Asia,ECA,7E,
 MNE,ME,Montenegro,Podgorica,19.2595,42.4602,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2000
 MNE,ME,Montenegro,Podgorica,19.2595,42.4602,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,Original chained constant price data are rescaled.
 MNE,ME,Montenegro,Podgorica,19.2595,42.4602,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,Original chained constant price data are rescaled.
-MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2016,2010
-MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2017,2010
-MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2018,2010
-MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IDB,XH,Blend,2019,2010
+MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2016,2010
+MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2017,2010
+MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2018,2010
+MNG,MN,Mongolia,Ulaanbaatar,106.937,47.9129,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),LMC,XN,Lower middle income,IBD,XF,IBRD,2019,2010
 MOZ,MZ,Mozambique,Maputo,32.5713,-25.9664,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2016,2009
 MOZ,MZ,Mozambique,Maputo,32.5713,-25.9664,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2017,2009
 MOZ,MZ,Mozambique,Maputo,32.5713,-25.9664,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2018,2009
@@ -435,10 +435,10 @@ MRT,MR,Mauritania,Nouakchott,-15.9824,18.2367,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,
 MRT,MR,Mauritania,Nouakchott,-15.9824,18.2367,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2017,2004
 MRT,MR,Mauritania,Nouakchott,-15.9824,18.2367,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2018,2004
 MRT,MR,Mauritania,Nouakchott,-15.9824,18.2367,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,2004
-MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2016,2006
-MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2006
-MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,2006
-MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,2006
+MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2016,2006
+MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2017,2006
+MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2018,2006
+MUS,MU,Mauritius,Port Louis,57.4977,-20.1605,SSF,ZG,Sub-Saharan Africa ,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,2006
 MWI,MW,Malawi,Lilongwe,33.7703,-13.9899,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2016,2010
 MWI,MW,Malawi,Lilongwe,33.7703,-13.9899,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2017,2010
 MWI,MW,Malawi,Lilongwe,33.7703,-13.9899,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2018,2010
@@ -469,14 +469,14 @@ NLD,NL,Netherlands,Amsterdam,4.89095,52.3738,ECS,Z7,Europe & Central Asia,NA,NA,
 NOR,NO,Norway,Oslo,10.7387,59.9138,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2016,Original chained constant price data are rescaled.
 NOR,NO,Norway,Oslo,10.7387,59.9138,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2017,Original chained constant price data are rescaled.
 NOR,NO,Norway,Oslo,10.7387,59.9138,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2018,Original chained constant price data are rescaled.
-NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LIC,XM,Low income,IDX,XI,IDA,2016,2001
-NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LIC,XM,Low income,IDX,XI,IDA,2017,2001
-NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LIC,XM,Low income,IDX,XI,IDA,2018,2001
-NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LIC,XM,Low income,IDX,XI,IDA,2019,2001
-NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2016,0
-NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2007
-NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,2007
-NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,2007
+NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IDX,XI,IDA,2016,2001
+NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IDX,XI,IDA,2017,2001
+NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IDX,XI,IDA,2018,2001
+NPL,NP,Nepal,Kathmandu,85.3157,27.6939,SAS,8S,South Asia,SAS,8S,South Asia,LMC,XN,Lower middle income,IDX,XI,IDA,2019,2001
+NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2016,0
+NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2017,2007
+NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2018,2007
+NRU,NR,Nauru,Yaren District,166.920867,-0.5477,EAS,Z4,East Asia & Pacific,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,2007
 NZL,NZ,New Zealand,Wellington,174.776,-41.2865,EAS,Z4,East Asia & Pacific,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2016,Original chained constant price data are rescaled.
 NZL,NZ,New Zealand,Wellington,174.776,-41.2865,EAS,Z4,East Asia & Pacific,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2017,Original chained constant price data are rescaled.
 NZL,NZ,New Zealand,Wellington,174.776,-41.2865,EAS,Z4,East Asia & Pacific,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2018,Original chained constant price data are rescaled.
@@ -525,10 +525,10 @@ PSE,PS,West Bank and Gaza,NA,NA,NA,MEA,ZQ,Middle East & North Africa,MNA,XQ,Midd
 QAT,QA,Qatar,Doha,51.5082,25.2948,MEA,ZQ,Middle East & North Africa,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2016,2013
 QAT,QA,Qatar,Doha,51.5082,25.2948,MEA,ZQ,Middle East & North Africa,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2017,2013
 QAT,QA,Qatar,Doha,51.5082,25.2948,MEA,ZQ,Middle East & North Africa,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2018,2013
-ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2016,2005
-ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2005
-ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,Original chained constant price data are rescaled.
-ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2019,Original chained constant price data are rescaled.
+ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2016,2005
+ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2017,2005
+ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2018,Original chained constant price data are rescaled.
+ROU,RO,Romania,Bucharest,26.0979,44.4479,ECS,Z7,Europe & Central Asia,NA,NA,NA,HIC,XD,High income,IBD,XF,IBRD,2019,Original chained constant price data are rescaled.
 RUS,RU,Russian Federation,Moscow,37.6176,55.7558,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2016,2011
 RUS,RU,Russian Federation,Moscow,37.6176,55.7558,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2017,2011
 RUS,RU,Russian Federation,Moscow,37.6176,55.7558,ECS,Z7,Europe & Central Asia,ECA,7E,Europe & Central Asia (excluding high income),UMC,XT,Upper middle income,IBD,XF,IBRD,2018,2016
@@ -540,10 +540,10 @@ RWA,RW,Rwanda,Kigali,30.0587,-1.95325,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saha
 SAU,SA,Saudi Arabia,Riyadh,46.6977,24.6748,MEA,ZQ,Middle East & North Africa,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2016,2010
 SAU,SA,Saudi Arabia,Riyadh,46.6977,24.6748,MEA,ZQ,Middle East & North Africa,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2017,2010
 SAU,SA,Saudi Arabia,Riyadh,46.6977,24.6748,MEA,ZQ,Middle East & North Africa,NA,NA,NA,HIC,XD,High income,LNX,XX,Not classified,2018,2010
-SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2016,1982
-SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2017,1982
-SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2018,1996
-SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,1996
+SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2016,1982
+SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2017,1982
+SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2018,1996
+SDN,SD,Sudan,Khartoum,32.5363,15.5932,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,1996
 SEN,SN,Senegal,Dakar,-17.4734,14.7247,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2016,1999
 SEN,SN,Senegal,Dakar,-17.4734,14.7247,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2017,1999
 SEN,SN,Senegal,Dakar,-17.4734,14.7247,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2018,1999
@@ -651,10 +651,10 @@ TUV,TV,Tuvalu,Funafuti,179.089567,-8.6314877,EAS,Z4,East Asia & Pacific,EAP,4E,E
 TUV,TV,Tuvalu,Funafuti,179.089567,-8.6314877,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IDX,XI,IDA,2017,2005
 TUV,TV,Tuvalu,Funafuti,179.089567,-8.6314877,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IDX,XI,IDA,2018,2005
 TUV,TV,Tuvalu,Funafuti,179.089567,-8.6314877,EAS,Z4,East Asia & Pacific,EAP,4E,East Asia & Pacific (excluding high income),UMC,XT,Upper middle income,IDX,XI,IDA,2019,2005
-TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2016,2007
-TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2017,2007
-TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2018,2007
-TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2019,2015
+TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2016,2007
+TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2017,2007
+TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2018,2007
+TZA,TZ,Tanzania,Dodoma,35.7382,-6.17486,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LMC,XN,Lower middle income,IDX,XI,IDA,2019,2015
 UGA,UG,Uganda,Kampala,32.5729,0.314269,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2016,2010
 UGA,UG,Uganda,Kampala,32.5729,0.314269,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2017,2010
 UGA,UG,Uganda,Kampala,32.5729,0.314269,SSF,ZG,Sub-Saharan Africa ,SSA,ZF,Sub-Saharan Africa (excluding high income),LIC,XM,Low income,IDX,XI,IDA,2018,2010
